@@ -1,4 +1,4 @@
-# ALA-frontend master branch
+# ALA-frontend main branch
 
 ## 기술 스택
 
@@ -17,7 +17,7 @@
 
 `branch rule` <br/>
 
-<strong>master</strong>
+<strong>main</strong>
 
 - 최종 완료된 코드를 머지하는 브랜치
 - 배포할 코드를 관리하는 브랜치
@@ -25,7 +25,7 @@
 
 <strong>develop</strong>
 
-- master에서 분기
+- main에서 분기
 - 기능 개발이 완료된 코드를 관리하는 브랜치
 - feature에서 기능 개발이 완료되는 코드를 merge
 - CI/CD가 이루어질 브랜치
