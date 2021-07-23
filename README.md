@@ -77,3 +77,29 @@
 - 그 외, 설정 파일 수정 등
 
 (ex) Feature: 제목 \n 본문 \n #이슈번호
+
+<hr />
+
+## Coding Convention
+
+- 변수명과 함수명은 CamelCase 로 작성한다.
+- 함수명은 해당 함수의 기능을 알 수 있게 직관적으로 작성한다.
+- module과 lib에 해당하는 파일들을 제외하고는 첫 글자를 대문자로 작성한다.
+- import는 라이브러리 -> module, api -> container -> component 순으로 작성한다.
+- container에서는 데이터 처리 로직과 관련된 코드를 작성한다.
+- component에서는 JSX와 관련된 코드를 작성한다.
+
+## 파일 디렉터리 구조
+
+```bash
+├── src
+    ├── assets
+    ├── components
+    ├── containers
+    ├── lib
+    │   ├── api
+    ├── modules
+    ├── pages
+    └── router
+
+```
