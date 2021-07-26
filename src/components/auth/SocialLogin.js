@@ -6,9 +6,10 @@ import * as dotenv from 'dotenv';
 
 dotenv.config();
 
-const SocialLogin = ({ state, onSubmitGoogle, onSubmitNaver }) => {
+const SocialLogin = ({ state, onSubmitGoogle, onSubmitNaver, onChangeField, onSubmitUpdateMyInfo }) => {
   const googleId = process.env.REACT_APP_GOOGLE_KEY;
   const naverId = process.env.REACT_APP_NAVER_KEY;
+  const { authMessage, memberNickname, getMemberLoading } = state;
 
   const onSuccessGoogle = (result) => {
     const userInfo = { profileObj: result.profileObj };
@@ -24,25 +25,46 @@ const SocialLogin = ({ state, onSubmitGoogle, onSubmitNaver }) => {
     };
     onSubmitNaver(userInfo);
   };
+  const onChange = (e) => {
+    const { name, value } = e.target;
+    onChangeField({ key: name, value });
+  };
+  const onSubmitNickname = (e) => {
+    e.preventDefault();
+    const userInfo = { name: memberNickname };
+    onSubmitUpdateMyInfo(userInfo);
+  };
+
   return (
     <>
-      <GoogleLogin
-        clientId={googleId}
-        buttonText="Google"
-        onSuccess={(result) => onSuccessGoogle(result)}
-        onFailure={(result) => console.log(result)}
-      />
-      <NaverLogin
-        clientId={naverId}
-        callbackUrl="http://localhost:3000"
-        render={(props) => (
-          <button type="button" onClick={props.onClick}>
-            Naver
+      {authMessage === 'join' && getMemberLoading ? (
+        <form onSubmit={onSubmitNickname}>
+          <input type="text" name="nickname" value={memberNickname} placeholder={memberNickname} onChange={onChange} />
+          <button type="submit" onClick={onSubmitNickname}>
+            닉네임 설정
           </button>
-        )}
-        onSuccess={(naverUser) => onSuccessNaver(naverUser)}
-        onFailure={(result) => console.error(result)}
-      />
+        </form>
+      ) : (
+        <>
+          <GoogleLogin
+            clientId={googleId}
+            buttonText="Google"
+            onSuccess={(result) => onSuccessGoogle(result)}
+            onFailure={(result) => console.log(result)}
+          />
+          <NaverLogin
+            clientId={naverId}
+            callbackUrl="http://localhost:3000"
+            render={(props) => (
+              <button type="button" onClick={props.onClick}>
+                Naver
+              </button>
+            )}
+            onSuccess={(naverUser) => onSuccessNaver(naverUser)}
+            onFailure={(result) => console.error(result)}
+          />
+        </>
+      )}
     </>
   );
 };

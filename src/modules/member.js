@@ -6,10 +6,10 @@ import * as authAPI from '../lib/api/auth';
 /**
  * 액션 타입
  */
-const CHANGE_FIELD = 'auth/CHANGE_FIELD';
-const [GET_MY_INFO, GET_MY_INFO_SUCCESS, GET_MY_INFO_FAILURE] = createRequestActionTypes('auth/GET_MY_INFO');
+const CHANGE_FIELD = 'member/CHANGE_FIELD';
+const [GET_MY_INFO, GET_MY_INFO_SUCCESS, GET_MY_INFO_FAILURE] = createRequestActionTypes('member/GET_MY_INFO');
 const [UPDATE_MY_INFO, UPDATE_MY_INFO_SUCCESS, UPDATE_MY_INFO_FAILURE] =
-  createRequestActionTypes('auth/UPDATE_MY_INFO');
+  createRequestActionTypes('member/UPDATE_MY_INFO');
 
 /**
  * 액션 생성 함수
