@@ -12,7 +12,6 @@ const SocialLogin = ({ state, onSubmitGoogle, onSubmitNaver }) => {
 
   const onSuccessGoogle = (result) => {
     const userInfo = { profileObj: result.profileObj };
-    console.log(userInfo);
     onSubmitGoogle(userInfo);
   };
   const onSuccessNaver = (result) => {
@@ -23,7 +22,6 @@ const SocialLogin = ({ state, onSubmitGoogle, onSubmitNaver }) => {
       email,
       name,
     };
-    console.log(userInfo);
     onSubmitNaver(userInfo);
   };
   return (
