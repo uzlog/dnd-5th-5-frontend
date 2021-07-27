@@ -58,6 +58,7 @@ const member = handleActions(
       status,
       message,
       data,
+      nickname: data.nickname,
       timestamp,
     }),
     [GET_MY_INFO_FAILURE]: (state, { payload: error }) => ({

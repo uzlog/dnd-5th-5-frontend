@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ModalWrapper, ModalOverlay, ModalContents } from './Style';
+import { ModalWrapper, ModalOverlay, ModalContents } from './style';
 import SocialLoginContainer from '@containers/auth/SocialLoginContainer';
 
 const MainComponent = () => {
@@ -21,7 +21,7 @@ const MainComponent = () => {
         <ModalWrapper>
           <ModalOverlay onClick={() => closeModal()} />
           <ModalContents>
-            <SocialLoginContainer />
+            <SocialLoginContainer closeModal={closeModal} />
           </ModalContents>
         </ModalWrapper>
       )}

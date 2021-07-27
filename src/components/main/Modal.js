@@ -33,10 +33,10 @@ const Contents = styled.div`
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
   background-color: white;
   width: 360px;
-  height: 687px;
+  height: 600px;
   overflow-y: auto;
   @media screen and (min-width: 768px) {
-    width: 970px;
+    width: 800px;
   }
 `;
 

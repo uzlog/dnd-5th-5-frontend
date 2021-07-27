@@ -24,17 +24,17 @@ export const ModalOverlay = styled.div`
 
 export const ModalContents = styled.div`
   position: relative;
-  padding-top: 10px;
   display: flex;
   flex-flow: column;
   border-radius: 15px;
   padding: 0 auto;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
   background-color: white;
-  width: 360px;
-  height: 687px;
+  width: 800px;
+  height: 600px;
   overflow-y: auto;
-  @media screen and (min-width: 768px) {
-    width: 970px;
+  @media screen and (max-width: 767px) {
+    width: 360px;
+    height: 613px;
   }
 `;

@@ -7,7 +7,7 @@ import { changeField, getMyInfo, updateMyInfo } from '@modules/member';
 import SocialLogin from '@components/auth/SocialLogin';
 import client from '@lib/api/client';
 
-const SocialLoginContainer = ({ history }) => {
+const SocialLoginContainer = ({ history, closeModal }) => {
   const dispatch = useDispatch();
   const cookies = new Cookies();
   const {
@@ -56,13 +56,21 @@ const SocialLoginContainer = ({ history }) => {
   // message == login
   useEffect(() => {
     if (memberData && authMessage === 'login') {
-      history.push(`/user/${memberData.nickname}`);
+      history.push(`/mypage`);
     }
   }, [memberData]);
+
+  // 닉네임 변경
+  useEffect(() => {
+    if (memberMessage === 'update') {
+      history.push('/mypage');
+    }
+  }, [memberMessage]);
 
   return (
     <SocialLogin
       state={state}
+      closeModal={closeModal}
       onSubmitGoogle={onSubmitGoogle}
       onSubmitNaver={onSubmitNaver}
       onChangeField={onChangeField}
