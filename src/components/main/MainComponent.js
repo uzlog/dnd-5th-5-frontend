@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ModalWrapper, ModalOverlay, ModalContents } from './style';
+import { ModalWrapper, ModalOverlay, ModalContents } from './Style';
 import SocialLoginContainer from '@containers/auth/SocialLoginContainer';
 
 const MainComponent = () => {
