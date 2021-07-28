@@ -11,3 +11,6 @@ export const getMyInfo = () => client.get('/api/v1/member/me');
 
 // 회원가입시 닉네임 변경 + 내 정보 변경에서도 사용
 export const updateMyInfo = (userInfo) => client.patch('/api/v1/member/me', userInfo);
+
+// 닉네임 중복 확인
+export const checkNicknameDuplicated = (userInfo) => client.get('/api/v1/memer/exists', { params: { userInfo } });
