@@ -16,11 +16,13 @@ import {
   StyledInput,
   SmallWrapper,
   StyledSpan,
+  StyledErrorSpan,
   ErrorMessage,
   SubmitButton,
 } from './style';
 import googleIcon from '@assets/img/googleIcon.svg';
 import naverIcon from '@assets/img/naverIcon.svg';
+import { useEffect } from 'react';
 
 dotenv.config();
 
@@ -37,7 +39,7 @@ const SocialLogin = ({
   const [regError, setRegError] = useState(false);
   const googleId = process.env.REACT_APP_GOOGLE_KEY;
   const naverId = process.env.REACT_APP_NAVER_KEY;
-  const { authMessage, memberNickname, getMemberLoading, duplicatedData } = state;
+  const { authMessage, memberNickname, getMemberLoading, duplicatedData, memberData } = state;
 
   const onSuccessGoogle = (result) => {
     const userInfo = { profileObj: result.profileObj };
@@ -60,22 +62,31 @@ const SocialLogin = ({
   const onSubmitNickname = (e) => {
     e.preventDefault();
     const userInfo = { nickname: memberNickname };
-    console.log(userInfo);
-    const regExp = /^[A-Za-z,_]{3,20}$/;
+    const regExp = /^[0-9a-zA-Z]([_]?[0-9a-zA-Z]){2,19}$/; // 영문, 숫자, 특수문자 '_' 를 포함한 3~20자 특수문자는 마지막에 못옴
     if (!regExp.test(memberNickname)) {
       // 닉네임 조건에 부합하지 않음
       setRegError(true);
-      console.log(memberNickname);
+      console.log('reg error');
     } else {
       // 닉네임 조건에 부합함
-      onSubmitCheckNicknameDuplicated(userInfo);
-      if (!duplicatedData) {
-        // onSubmitUpdateMyInfo(userInfo);
+      if (memberData.nickname === memberNickname) {
+        onSubmitUpdateMyInfo(userInfo);
       } else {
-        setError('앗, 누군가 이미 사용중인 별명이네요,\n 다른 별명을 사용해보세요.');
+        setRegError(false);
+        onSubmitCheckNicknameDuplicated(userInfo);
       }
     }
   };
+  useEffect(() => {
+    const userInfo = { nickname: memberNickname };
+    if (!duplicatedData) {
+      console.log('닉네임 중복 x');
+      onSubmitUpdateMyInfo(userInfo);
+    } else {
+      setError('앗, 누군가 이미 사용중인 별명이네요,\n 다른 별명을 사용해보세요.');
+    }
+  }, [duplicatedData]);
+
   return (
     <>
       {authMessage === 'join' && getMemberLoading ? (
@@ -101,7 +112,11 @@ const SocialLogin = ({
               onChange={onChange}
             />
             <SmallWrapper>
-              <StyledSpan className={regError ? 'error' : ''}>숫자/영문/_만 사용하여 3-20자 이내</StyledSpan>
+              {regError ? (
+                <StyledErrorSpan>숫자/영문/_만 사용하여 3-20자 이내</StyledErrorSpan>
+              ) : (
+                <StyledSpan>숫자/영문/_만 사용하여 3-20자 이내</StyledSpan>
+              )}
               <StyledSpan>{memberNickname.length}/20</StyledSpan>
             </SmallWrapper>
             {duplicatedData && (

@@ -13,4 +13,5 @@ export const getMyInfo = () => client.get('/api/v1/member/me');
 export const updateMyInfo = (userInfo) => client.patch('/api/v1/member/me', userInfo);
 
 // 닉네임 중복 확인
-export const checkNicknameDuplicated = (userInfo) => client.get('/api/v1/memer/exists', { params: { userInfo } });
+export const checkNicknameDuplicated = (userInfo) =>
+  client.get('/api/v1/member/exists', { params: { nickname: userInfo.nickname } });

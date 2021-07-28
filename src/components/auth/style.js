@@ -153,15 +153,22 @@ export const SmallWrapper = styled.div`
 `;
 
 export const StyledSpan = styled.span`
-  .error {
-    color: #fc3e57;
-  }
   @media screen and (max-width: 767px) {
     font-size: 10px;
     line-height: 1.6;
     letter-spacing: -0.5px;
     text-align: center;
     color: #2a2a2a;
+  }
+`;
+
+export const StyledErrorSpan = styled.span`
+  @media screen and (max-width: 767px) {
+    font-size: 10px;
+    line-height: 1.6;
+    letter-spacing: -0.5px;
+    text-align: center;
+    color: #fc3e57;
   }
 `;
 

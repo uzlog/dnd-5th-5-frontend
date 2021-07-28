@@ -40,7 +40,7 @@ const SocialLoginContainer = ({ history, closeModal }) => {
     getMemberLoading: loading['member/GET_MY_INFO'],
     duplicatedData: member.duplicatedData,
   }));
-  const state = { authMessage, memberNickname, getMemberLoading, duplicatedData };
+  const state = { authMessage, memberNickname, getMemberLoading, duplicatedData, memberData };
 
   const onSubmitGoogle = useCallback((payload) => dispatch(googleOauth(payload)), [dispatch]);
   const onSubmitNaver = useCallback((payload) => dispatch(naverOauth(payload)), [dispatch]);

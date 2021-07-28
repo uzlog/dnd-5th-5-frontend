@@ -54,7 +54,7 @@ const initialState = {
   // 닉네임 중복 체크 responser
   duplicatedStatus: 0,
   duplicatedMessage: '',
-  duplicatedData: false,
+  duplicatedData: null,
   duplicatedTimestamp: '',
   duplicatedError: '',
 };
