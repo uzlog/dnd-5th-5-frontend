@@ -6,7 +6,8 @@
 
 @media screen and (max-width: 767px) {
   body {
-    margin: 0 auto;
+    display: flex;
+    justify-content: center;
   }
 }
 

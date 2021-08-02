@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisH } from '@fortawesome/free-solid-svg-icons';
+import { ModalWrapper, ModalOverlay, ModalContents } from '@components/main/Style';
 
 const Contents = styled.div`
   width: 312px;
@@ -18,7 +19,7 @@ const Contents = styled.div`
   font-weight: 300;
 `;
 
-const MoreWrapper = styled.div`
+const MoreButtonWrapper = styled.div`
   width: 360px;
   height: 64px;
   /* margin: 0 0 65px;
@@ -75,36 +76,53 @@ const Header = styled.div`
 `;
 const MyPageComponent = ({ state }) => {
   const { alacardData } = state;
+  const [showModal, setShowModal] = useState(false);
+
+  const openModal = () => {
+    setShowModal(true);
+    console.log('open');
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
+    console.log('close');
+  };
   return (
     <>
       <Header>헤더</Header>
       {alacardData.map((card, idx) => {
         const { backgroundImgUrl, font, fontColor, isOpen } = card.alaCardSettingDto;
-        card.selectedWordList.forEach((word) => {
-          card.sentence = card.sentence.replaceAll(word.wordName, '<strong>' + word.wordName + '</strong>');
-        });
+        if (!card.sentence.includes('strong')) {
+          card.selectedWordList.forEach((word) => {
+            card.sentence = card.sentence.replaceAll(word.wordName, '<strong>' + word.wordName + '</strong>');
+            console.log(card.sentence);
+          });
+        }
+
         card.sentence = card.sentence.replaceAll(', ', ',<br />');
         card.sentence += '!';
         return (
-          <div
-            key={idx}
-            style={{
-              backgroundImage: 'url(' + backgroundImgUrl + ')',
-              backgroundSize: '360px 580px',
-              width: '360px',
-              height: '580px',
-              color: fontColor,
-            }}>
-            <MoreWrapper>
-              <MoreButton>
-                {/* <MoreButtonInner />
+          <>
+            <div
+              key={idx}
+              onClick={() => openModal()}
+              style={{
+                backgroundImage: 'url(' + backgroundImgUrl + ')',
+                backgroundSize: '360px 580px',
+                width: '360px',
+                height: '580px',
+                color: fontColor,
+              }}>
+              <MoreButtonWrapper>
+                <MoreButton>
+                  {/* <MoreButtonInner />
                 <MoreButtonInner />
                 <MoreButtonInner /> */}
-                <FontAwesomeIcon icon={faEllipsisH} size="1x" />
-              </MoreButton>
-            </MoreWrapper>
-            <Contents dangerouslySetInnerHTML={{ __html: card.sentence }} />
-            {/* <Contents>
+                  <FontAwesomeIcon icon={faEllipsisH} size="1x" />
+                </MoreButton>
+              </MoreButtonWrapper>
+              <Contents dangerouslySetInnerHTML={{ __html: card.sentence }} />
+              {/* <Contents>
               {card.sentence.split(', ').map((s, idx) =>
                 card.selectedWordList.length - 1 > idx ? (
                   <>
@@ -117,37 +135,17 @@ const MyPageComponent = ({ state }) => {
                 ),
               )}
             </Contents> */}
-            <ButtonWrapper>
-              <StyledButton>키워드 PICK 요청하기</StyledButton>
-            </ButtonWrapper>
-          </div>
-          // <div
-          //   key={idx}
-          //   style={{
-          //     backgroundImage: 'url(' + backgroundImgUrl + ')',
-          //     backgroundSize: '360px 580px',
-          //     width: '360px',
-          //     height: '580px',
-          //     color: fontColor,
-          //   }}>
-          //   <MoreWrapper>
-          //     <MoreButton>
-          //       {/* <MoreButtonInner />
-          //       <MoreButtonInner />
-          //       <MoreButtonInner /> */}
-          //       <FontAwesomeIcon icon={faEllipsisH} size="1x" />
-          //     </MoreButton>
-          //   </MoreWrapper>
-          //   <Contents>
-          //     <strong>내향성</strong>인 편이고, <br />
-          //     <strong>직관적</strong>이면서,
-          //     <br /> <strong>감정</strong>에 따라 판단을 내리고 <strong>계획적</strong>인 것 같아!
-          //     <br />
-          //   </Contents>
-          //   <ButtonWrapper>
-          //     <StyledButton>키워드 PICK 요청하기</StyledButton>
-          //   </ButtonWrapper>
-          // </div>
+              <ButtonWrapper>
+                <StyledButton>키워드 PICK 요청하기</StyledButton>
+              </ButtonWrapper>
+            </div>
+            {showModal && (
+              <ModalWrapper>
+                <ModalOverlay onClick={() => closeModal()} />
+                <ModalContents>{card.sentence}</ModalContents>
+              </ModalWrapper>
+            )}
+          </>
         );
       })}
     </>
