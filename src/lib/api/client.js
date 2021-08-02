@@ -11,6 +11,6 @@ const client = axios.create({
   baseURL: process.env.REACT_APP_API_SERVER,
 });
 
-client.defaults.headers.common['X-AUTH-TOKEN'] = token;
+client.defaults.headers.common['X-AUTH_TOKEN'] = token;
 
 export default client;
