@@ -38,6 +38,10 @@ const initialState = {
   alacardData: {},
   alacardTimestamp: '',
   alacardError: '',
+
+  selectLinkStatus: 0,
+  selectLinkData: '',
+  selectLinkError: '',
 };
 
 const mypage = handleActions(
@@ -52,6 +56,15 @@ const mypage = handleActions(
     [GET_ALA_CARD_LIST_FAILURE]: (state, { payload: error }) => ({
       ...state,
       alacardError: error,
+    }),
+    [GET_SELECT_VIEW_LINK_SUCCESS]: (state, { payload: { status, data } }) => ({
+      ...state,
+      selectLinkStatus: status,
+      selectLinkData: data,
+    }),
+    [GET_SELECT_VIEW_LINK_FAILURE]: (state, { payload: error }) => ({
+      ...state,
+      selectLinkError: error,
     }),
   },
   initialState,

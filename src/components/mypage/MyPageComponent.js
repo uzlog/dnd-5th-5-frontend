@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisH } from '@fortawesome/free-solid-svg-icons';
 import { ModalWrapper, ModalOverlay, ModalContents } from '@components/main/Style';
@@ -88,10 +88,31 @@ const CustomModalContents = styled(ModalContents)`
   vertical-align: middle;
   text-align: left; */
 `;
+
+const ToastWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
+const ToastMessage = styled.div`
+  position: absolute;
+  padding: 11px;
+  min-width: 200px;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.5s, visibility 0.5s, transform 2s;
+  z-index: 3;
+  background: rgba(0, 0, 0, 1);
+  color: #fff;
+  border-radius: 4px;
+  border: 1px solid #000;
+`;
+
 const MyPageComponent = ({ state }) => {
-  const { alacardData } = state;
+  const { alacardData, selectLinkData } = state;
   const [showModal, setShowModal] = useState(false);
   const [sentence, setSentence] = useState('');
+  const [showToast, setShowToast] = useState(false);
+  const [toastStyle, setToastStyle] = useState('');
 
   const openModal = (card) => {
     setShowModal(true);
@@ -101,6 +122,29 @@ const MyPageComponent = ({ state }) => {
   const closeModal = () => {
     setShowModal(false);
   };
+
+  const onClickShare = (e) => {
+    setShowToast(true);
+    const text = document.createElement('textarea');
+    document.body.appendChild(text);
+    if (selectLinkData.length > 0) {
+      text.value = selectLinkData;
+    } else {
+      const nickname = localStorage.getItem('nickname');
+      text.value = `https://www.ala.monster/select/${nickname}`;
+    }
+    text.select();
+    document.execCommand('copy');
+    document.body.removeChild(text);
+    console.log(window.pageYOffset);
+    console.log(e.target.value);
+
+    // 토스트 메세지
+    setTimeout(() => {
+      setShowToast(false);
+    }, 1000);
+  };
+
   return (
     <>
       <Header>헤더</Header>
@@ -109,7 +153,6 @@ const MyPageComponent = ({ state }) => {
         if (!card.sentence.includes('strong')) {
           card.selectedWordList.forEach((word) => {
             card.sentence = card.sentence.replaceAll(word.wordName, '<strong>' + word.wordName + '</strong>');
-            console.log(card.sentence);
           });
         }
 
@@ -117,12 +160,10 @@ const MyPageComponent = ({ state }) => {
         if (!card.sentence.includes('!')) {
           card.sentence += '!';
         }
-        console.log(card.sentence);
         return (
           <>
             <div
               key={idx}
-              onClick={(card) => openModal(card)}
               style={{
                 backgroundImage: 'url(' + backgroundImgUrl + ')',
                 backgroundSize: '360px 580px',
@@ -135,11 +176,18 @@ const MyPageComponent = ({ state }) => {
                   <FontAwesomeIcon icon={faEllipsisH} size="1x" />
                 </MoreButton>
               </MoreButtonWrapper>
-              <ContentsWrapper>
+              <ContentsWrapper onClick={(card) => openModal(card)}>
                 <InnerContents dangerouslySetInnerHTML={{ __html: card.sentence }} />
               </ContentsWrapper>
               <ButtonWrapper>
-                <StyledButton>키워드 PICK 요청하기</StyledButton>
+                <StyledButton onClick={onClickShare} value={idx}>
+                  키워드 PICK 요청하기
+                </StyledButton>
+                {showToast && (
+                  <ToastWrapper>
+                    <ToastMessage>링크가 클립보드에 복사되었습니다.</ToastMessage>
+                  </ToastWrapper>
+                )}
               </ButtonWrapper>
             </div>
             {showModal && (
