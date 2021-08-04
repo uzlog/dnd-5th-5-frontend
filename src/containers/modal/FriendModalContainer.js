@@ -10,12 +10,12 @@ const FriendModalContainer = () => {
     getFriendListError: friend.getFriendListError,
     getFriendListLoading: loading['friend/GET_FRIEND_LIST'],
   }));
-
+  const state = { getFriendListData };
   useEffect(() => {
     dispatch(getFriendList());
   }, []);
 
-  return <>{getFriendListLoading ? <FriendModal /> : <div>loading...</div>}</>;
+  return <>{getFriendListLoading ? <FriendModal state={state} /> : <div>loading...</div>}</>;
 };
 
 export default FriendModalContainer;
