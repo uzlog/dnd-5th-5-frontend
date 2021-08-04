@@ -29,7 +29,6 @@ const Title = styled.div`
     line-height: 1.4;
     margin-bottom: 45px;
   }
-
   span {
     color: #b9ff46;
   }
@@ -76,6 +75,7 @@ const MainComponent = () => {
   const closeModal = () => {
     setShowModal(false);
   };
+
   return (
     <>
       <Wrapper>
@@ -104,5 +104,4 @@ const MainComponent = () => {
     </>
   );
 };
-
 export default MainComponent;
