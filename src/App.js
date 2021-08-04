@@ -1,8 +1,14 @@
 import React from 'react';
+import Header from '@components/common/Header';
 import Router from '@router/Router';
 
 const App = () => {
-  return <Router />;
+  return (
+    <>
+      <Header />
+      <Router />
+    </>
+  );
 };
 
 export default App;
