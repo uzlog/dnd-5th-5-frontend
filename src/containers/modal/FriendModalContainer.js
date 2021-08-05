@@ -11,6 +11,7 @@ const FriendModalContainer = () => {
     getFriendListLoading: loading['friend/GET_FRIEND_LIST'],
   }));
   const state = { getFriendListData };
+
   useEffect(() => {
     dispatch(getFriendList());
   }, []);
