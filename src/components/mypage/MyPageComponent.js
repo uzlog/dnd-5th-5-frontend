@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import styled, { keyframes } from 'styled-components';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEllipsisH } from '@fortawesome/free-solid-svg-icons';
+import styled from 'styled-components';
 import { ModalWrapper, ModalOverlay, ModalContents } from '@components/main/Style';
+import secretWord from '@assets/img/alacard/secretWord.svg';
+import bigCardCloseBtn from '@assets/img/alacard/bigCardCloseBtn.svg';
+import linkBtn from '@assets/img/alacard/linkBtn.svg';
+import moreBtn from '@assets/img/alacard/moreBtn.svg';
 
 const ContentsWrapper = styled.div`
   display: table;
@@ -14,12 +16,13 @@ const ContentsWrapper = styled.div`
   letter-spacing: -0.5px;
   font-size: 36px;
   font-weight: 300;
-  color: black;
+  /* color: ${(props) => props.color || '#b9ff46'}; */
 `;
 
 const InnerContents = styled.div`
   display: table-cell;
   vertical-align: middle;
+  height: ${(props) => props.height || ''};
   text-align: left;
 `;
 
@@ -43,16 +46,9 @@ const MoreButton = styled.div`
   justify-content: space-between;
 `;
 
-const MoreButtonInner = styled.div`
-  width: 10px;
-  height: 10px;
-  border-radius: 10px;
-  border: solid 5px var(--primary-color-white);
-  background-color: white;
-`;
-
 const ButtonWrapper = styled.div`
   display: flex;
+  flex-direction: row;
   align-items: center;
   justify-content: flex-end;
   margin-right: 24px;
@@ -60,12 +56,23 @@ const ButtonWrapper = styled.div`
 `;
 
 const StyledButton = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 230px;
   height: 48px;
-  padding: 11px 28px;
+  padding-left: 26px;
+  padding-right: 26px;
   border-radius: 62px;
   cursor: pointer;
-  border: solid 1px var(--primary-color-white);
+  border: solid 1px white;
+  background: transparent;
+  color: white;
+  line-height: 1.6;
+  font-size: 15px;
+  img {
+    margin-left: 8px;
+  }
 `;
 
 const Header = styled.div`
@@ -75,18 +82,12 @@ const Header = styled.div`
   color: white;
 `;
 
-const CustomModalWrapper = styled(ModalWrapper)`
-  display: table;
-  line-height: 1.6;
-  letter-spacing: -0.5px;
-  font-size: 36px;
-  font-weight: 300;
-  color: black;
-`;
-const CustomModalContents = styled(ModalContents)`
-  /* display: table-cell;
-  vertical-align: middle;
-  text-align: left; */
+const CustomModalContents = styled(ModalContents)``;
+
+const CloseBtnWrapper = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  margin: 24px 24px 0px 0px;
 `;
 
 const ToastWrapper = styled.div`
@@ -112,7 +113,6 @@ const MyPageComponent = ({ state }) => {
   const [showModal, setShowModal] = useState(false);
   const [sentence, setSentence] = useState('');
   const [showToast, setShowToast] = useState(false);
-  const [toastStyle, setToastStyle] = useState('');
 
   const openModal = (card) => {
     setShowModal(true);
@@ -136,8 +136,6 @@ const MyPageComponent = ({ state }) => {
     text.select();
     document.execCommand('copy');
     document.body.removeChild(text);
-    console.log(window.pageYOffset);
-    console.log(e.target.value);
 
     // 토스트 메세지
     setTimeout(() => {
@@ -149,11 +147,54 @@ const MyPageComponent = ({ state }) => {
     <>
       <Header>헤더</Header>
       {alacardData.map((card, idx) => {
-        const { backgroundImgUrl, font, fontColor, isOpen } = card.alaCardSettingDto;
-        if (!card.sentence.includes('strong')) {
-          card.selectedWordList.forEach((word) => {
-            card.sentence = card.sentence.replaceAll(word.wordName, '<strong>' + word.wordName + '</strong>');
-          });
+        const { backgroundImgUrl, fontColor } = card.alaCardSettingDto;
+        let cardStyle;
+        let bigCardStyle;
+        let fontStyle;
+        // 카드가 완성된 경우
+        if (card.isCompleted) {
+          if (!card.sentence.includes('strong')) {
+            card.selectedWordList.forEach((word) => {
+              card.sentence = card.sentence.replaceAll(word.wordName, '<strong>' + word.wordName + '</strong>');
+            });
+          }
+          cardStyle = {
+            backgroundImage: 'url(' + backgroundImgUrl + ')',
+            backgroundSize: '360px 580px',
+          };
+          bigCardStyle = {
+            backgroundImage: 'url(' + backgroundImgUrl + ')',
+            backgroundSize: '360px 640px',
+            width: '360px',
+            height: '640px',
+            color: 'black',
+            display: 'table',
+            lineHeight: '1.6',
+            letterSpacing: '-0.5px',
+            fontSize: '36px',
+            fontWeight: '300',
+          };
+          fontStyle = {
+            color: fontColor,
+          };
+        } else {
+          card.sentence = card.sentence.replaceAll('???', '<img src="' + secretWord + '" alt="비밀 단어" />');
+          cardStyle = {
+            backgroundColor: '#121212',
+          };
+          fontStyle = {
+            color: '#b9ff46',
+          };
+          bigCardStyle = {
+            width: '360px',
+            height: '640px',
+            backgroundColor: '#121212',
+            color: '#b9ff46',
+            lineHeight: '1.6',
+            letterSpacing: '-0.5px',
+            fontSize: '36px',
+            fontWeight: '300',
+          };
         }
 
         card.sentence = card.sentence.replaceAll(', ', ',<br />');
@@ -162,26 +203,19 @@ const MyPageComponent = ({ state }) => {
         }
         return (
           <>
-            <div
-              key={idx}
-              style={{
-                backgroundImage: 'url(' + backgroundImgUrl + ')',
-                backgroundSize: '360px 580px',
-                width: '360px',
-                height: '580px',
-                color: fontColor,
-              }}>
+            <div key={idx} style={cardStyle}>
               <MoreButtonWrapper>
                 <MoreButton>
-                  <FontAwesomeIcon icon={faEllipsisH} size="1x" />
+                  <img src={moreBtn} width="24px" height="24px" alt="더보기 버튼" />;
                 </MoreButton>
               </MoreButtonWrapper>
               <ContentsWrapper onClick={(card) => openModal(card)}>
-                <InnerContents dangerouslySetInnerHTML={{ __html: card.sentence }} />
+                <InnerContents style={fontStyle} dangerouslySetInnerHTML={{ __html: card.sentence }} />
               </ContentsWrapper>
               <ButtonWrapper>
                 <StyledButton onClick={onClickShare} value={idx}>
                   키워드 PICK 요청하기
+                  <img src={linkBtn} width="18px" height="18px" alt="링크 버튼" />
                 </StyledButton>
                 {showToast && (
                   <ToastWrapper>
@@ -193,20 +227,13 @@ const MyPageComponent = ({ state }) => {
             {showModal && (
               <ModalWrapper>
                 <ModalOverlay onClick={() => closeModal()} />
-                <CustomModalContents
-                  style={{
-                    backgroundImage: 'url(' + backgroundImgUrl + ')',
-                    backgroundSize: '360px 640px',
-                    width: '360px',
-                    height: '640px',
-                    color: 'black',
-                    display: 'table',
-                    lineHeight: '1.6',
-                    letterSpacing: '-0.5px',
-                    fontSize: '36px',
-                    fontWeight: '300',
-                  }}>
-                  <InnerContents dangerouslySetInnerHTML={{ __html: sentence }} />
+                <CustomModalContents style={bigCardStyle}>
+                  <CloseBtnWrapper>
+                    <img src={bigCardCloseBtn} width="24px" height="24px" alt="닫기 버튼" onClick={closeModal} />
+                  </CloseBtnWrapper>
+                  <ContentsWrapper fontColor={fontColor}>
+                    <InnerContents height="592px" dangerouslySetInnerHTML={{ __html: sentence }} />
+                  </ContentsWrapper>
                 </CustomModalContents>
               </ModalWrapper>
             )}
