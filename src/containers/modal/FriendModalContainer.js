@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getFriendList } from '@modules/friend';
+import { updateModalStatus } from '@modules/modal';
 import FriendModal from '@components/modal/FriendModal';
 
 const FriendModalContainer = () => {
@@ -12,11 +13,21 @@ const FriendModalContainer = () => {
   }));
   const state = { getFriendListData };
 
+  const onClickModalStatus = useCallback((payload) => dispatch(updateModalStatus(payload)), [dispatch]);
+
   useEffect(() => {
     dispatch(getFriendList());
   }, []);
 
-  return <>{getFriendListLoading ? <FriendModal state={state} /> : <div>loading...</div>}</>;
+  return (
+    <>
+      {getFriendListLoading ? (
+        <FriendModal state={state} onClickModalStatus={onClickModalStatus} />
+      ) : (
+        <div>loading...</div>
+      )}
+    </>
+  );
 };
 
 export default FriendModalContainer;

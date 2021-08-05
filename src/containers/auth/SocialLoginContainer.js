@@ -65,6 +65,7 @@ const SocialLoginContainer = ({ history, closeModal }) => {
     if (memberData && authMessage === 'login') {
       history.push(`/mypage`);
       localStorage.setItem('nickname', memberData.nickname);
+      sessionStorage.setItem('imgUrl', memberData.imgUrl);
     }
   }, [memberData]);
 
