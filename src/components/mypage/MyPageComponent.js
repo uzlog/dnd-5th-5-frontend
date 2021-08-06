@@ -1,10 +1,21 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 import { ModalWrapper, ModalOverlay, ModalContents } from '@components/main/Style';
+import useResponsive from '@hooks/useResponsive';
 import secretWord from '@assets/img/alacard/secretWord.svg';
 import bigCardCloseBtn from '@assets/img/alacard/bigCardCloseBtn.svg';
 import linkBtn from '@assets/img/alacard/linkBtn.svg';
-import moreBtn from '@assets/img/alacard/moreBtn.svg';
+import maximizeBtn from '@assets/img/alacard/maximize.svg';
+
+const StyledSlider = styled(Slider)`
+  .slick-slide div {
+    /* width: 400px;
+    height: 580px; */
+  }
+`;
 
 const ContentsWrapper = styled.div`
   display: table;
@@ -16,7 +27,6 @@ const ContentsWrapper = styled.div`
   letter-spacing: -0.5px;
   font-size: 36px;
   font-weight: 300;
-  /* color: ${(props) => props.color || '#b9ff46'}; */
 `;
 
 const InnerContents = styled.div`
@@ -27,7 +37,7 @@ const InnerContents = styled.div`
 `;
 
 const MoreButtonWrapper = styled.div`
-  width: 360px;
+  width: 100%;
   height: 64px;
   display: flex;
   align-items: center;
@@ -82,8 +92,6 @@ const Header = styled.div`
   color: white;
 `;
 
-const CustomModalContents = styled(ModalContents)``;
-
 const CloseBtnWrapper = styled.div`
   display: flex;
   justify-content: flex-end;
@@ -109,30 +117,37 @@ const ToastMessage = styled.div`
 `;
 
 const MyPageComponent = ({ state }) => {
-  const { alacardData, selectLinkData } = state;
+  const { alacardData, nickname } = state;
   const [showModal, setShowModal] = useState(false);
   const [sentence, setSentence] = useState('');
   const [showToast, setShowToast] = useState(false);
+  // const viewSize = useResponsive();
+  const settings = {
+    dots: false,
+    infinite: true,
+    arrows: false,
+    autoplay: true,
+    autoplaySpeed: 3000,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+  };
 
-  const openModal = (card) => {
+  const openModal = (e) => {
     setShowModal(true);
-    setSentence(card.target.innerHTML);
+    setSentence(e.target.getAttribute('sentence'));
   };
 
   const closeModal = () => {
     setShowModal(false);
   };
 
-  const onClickShare = (e) => {
+  const onClickShare = () => {
     setShowToast(true);
     const text = document.createElement('textarea');
     document.body.appendChild(text);
-    if (selectLinkData.length > 0) {
-      text.value = selectLinkData;
-    } else {
-      const nickname = localStorage.getItem('nickname');
-      text.value = `https://www.ala.monster/select/${nickname}`;
-    }
+    text.value = `https://www.ala.monster/select/${nickname}`;
+
     text.select();
     document.execCommand('copy');
     document.body.removeChild(text);
@@ -146,100 +161,103 @@ const MyPageComponent = ({ state }) => {
   return (
     <>
       <Header>헤더</Header>
-      {alacardData.map((card, idx) => {
-        const { backgroundImgUrl, fontColor } = card.alaCardSettingDto;
-        let cardStyle;
-        let bigCardStyle;
-        let fontStyle;
-        // 카드가 완성된 경우
-        if (card.isCompleted) {
-          if (!card.sentence.includes('strong')) {
-            card.selectedWordList.forEach((word) => {
-              card.sentence = card.sentence.replaceAll(word.wordName, '<strong>' + word.wordName + '</strong>');
-            });
+      <Slider {...settings}>
+        {alacardData.map((card, idx) => {
+          const { backgroundImgUrl, fontColor } = card.alaCardSettingDto;
+          let cardStyle;
+          let bigCardStyle;
+          let fontStyle;
+          // 카드가 완성된 경우
+          if (card.isCompleted) {
+            if (!card.sentence.includes('strong')) {
+              card.selectedWordList.forEach((word) => {
+                card.sentence = card.sentence.replaceAll(word.wordName, '<strong>' + word.wordName + '</strong>');
+              });
+            }
+            cardStyle = {
+              backgroundImage: 'url(' + backgroundImgUrl + ')',
+              backgroundSize: '360px 580px',
+            };
+            bigCardStyle = {
+              backgroundImage: 'url(' + backgroundImgUrl + ')',
+              backgroundSize: '360px 640px',
+              width: '360px',
+              height: '640px',
+              color: fontColor,
+              display: 'table',
+              lineHeight: '1.6',
+              letterSpacing: '-0.5px',
+              fontSize: '36px',
+              fontWeight: '300',
+            };
+            fontStyle = {
+              color: fontColor,
+            };
+          } else {
+            card.sentence = card.sentence.replaceAll('???', '<img src="' + secretWord + '" alt="비밀 단어" />');
+            cardStyle = {
+              backgroundColor: '#121212',
+              width: '360px',
+            };
+            fontStyle = {
+              color: '#b9ff46',
+            };
+            bigCardStyle = {
+              width: '360px',
+              height: '640px',
+              backgroundColor: '#121212',
+              color: '#b9ff46',
+              lineHeight: '1.6',
+              letterSpacing: '-0.5px',
+              fontSize: '36px',
+              fontWeight: '300',
+            };
           }
-          cardStyle = {
-            backgroundImage: 'url(' + backgroundImgUrl + ')',
-            backgroundSize: '360px 580px',
-          };
-          bigCardStyle = {
-            backgroundImage: 'url(' + backgroundImgUrl + ')',
-            backgroundSize: '360px 640px',
-            width: '360px',
-            height: '640px',
-            color: 'black',
-            display: 'table',
-            lineHeight: '1.6',
-            letterSpacing: '-0.5px',
-            fontSize: '36px',
-            fontWeight: '300',
-          };
-          fontStyle = {
-            color: fontColor,
-          };
-        } else {
-          card.sentence = card.sentence.replaceAll('???', '<img src="' + secretWord + '" alt="비밀 단어" />');
-          cardStyle = {
-            backgroundColor: '#121212',
-          };
-          fontStyle = {
-            color: '#b9ff46',
-          };
-          bigCardStyle = {
-            width: '360px',
-            height: '640px',
-            backgroundColor: '#121212',
-            color: '#b9ff46',
-            lineHeight: '1.6',
-            letterSpacing: '-0.5px',
-            fontSize: '36px',
-            fontWeight: '300',
-          };
-        }
 
-        card.sentence = card.sentence.replaceAll(', ', ',<br />');
-        if (!card.sentence.includes('!')) {
-          card.sentence += '!';
-        }
-        return (
-          <>
-            <div key={idx} style={cardStyle}>
-              <MoreButtonWrapper>
-                <MoreButton>
-                  <img src={moreBtn} width="24px" height="24px" alt="더보기 버튼" />;
-                </MoreButton>
-              </MoreButtonWrapper>
-              <ContentsWrapper onClick={(card) => openModal(card)}>
-                <InnerContents style={fontStyle} dangerouslySetInnerHTML={{ __html: card.sentence }} />
-              </ContentsWrapper>
-              <ButtonWrapper>
-                <StyledButton onClick={onClickShare} value={idx}>
-                  키워드 PICK 요청하기
-                  <img src={linkBtn} width="18px" height="18px" alt="링크 버튼" />
-                </StyledButton>
-                {showToast && (
-                  <ToastWrapper>
-                    <ToastMessage>링크가 클립보드에 복사되었습니다.</ToastMessage>
-                  </ToastWrapper>
-                )}
-              </ButtonWrapper>
-            </div>
-            {showModal && (
-              <ModalWrapper>
-                <ModalOverlay onClick={() => closeModal()} />
-                <CustomModalContents style={bigCardStyle}>
-                  <CloseBtnWrapper>
-                    <img src={bigCardCloseBtn} width="24px" height="24px" alt="닫기 버튼" onClick={closeModal} />
-                  </CloseBtnWrapper>
-                  <ContentsWrapper fontColor={fontColor}>
-                    <InnerContents height="592px" dangerouslySetInnerHTML={{ __html: sentence }} />
-                  </ContentsWrapper>
-                </CustomModalContents>
-              </ModalWrapper>
-            )}
-          </>
-        );
-      })}
+          card.sentence = card.sentence.replaceAll(', ', ',<br />');
+          if (!card.sentence.includes('!')) {
+            card.sentence += '!';
+          }
+          return (
+            <>
+              <div key={idx} style={cardStyle}>
+                <MoreButtonWrapper>
+                  <MoreButton onClick={openModal}>
+                    <img src={maximizeBtn} sentence={card.sentence} width="24px" height="24px" alt="확대 버튼" />
+                  </MoreButton>
+                </MoreButtonWrapper>
+                <ContentsWrapper>
+                  <InnerContents style={fontStyle} dangerouslySetInnerHTML={{ __html: card.sentence }} />
+                </ContentsWrapper>
+                <ButtonWrapper>
+                  <StyledButton onClick={onClickShare} value={idx}>
+                    키워드 PICK 요청하기
+                    <img src={linkBtn} width="18px" height="18px" alt="링크 버튼" />
+                  </StyledButton>
+                  {showToast && (
+                    <ToastWrapper>
+                      <ToastMessage>링크가 클립보드에 복사되었습니다.</ToastMessage>
+                    </ToastWrapper>
+                  )}
+                </ButtonWrapper>
+              </div>
+              {showModal && (
+                <ModalWrapper>
+                  <ModalOverlay onClick={() => closeModal()} />
+                  <ModalContents style={bigCardStyle}>
+                    <CloseBtnWrapper>
+                      <img src={bigCardCloseBtn} width="24px" height="24px" alt="닫기 버튼" onClick={closeModal} />
+                    </CloseBtnWrapper>
+                    <ContentsWrapper fontColor={fontColor}>
+                      <InnerContents height="592px" dangerouslySetInnerHTML={{ __html: sentence }} />
+                    </ContentsWrapper>
+                  </ModalContents>
+                </ModalWrapper>
+              )}
+            </>
+          );
+        })}
+      </Slider>
     </>
   );
 };

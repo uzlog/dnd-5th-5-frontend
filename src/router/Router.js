@@ -9,7 +9,7 @@ const Router = () => {
   return (
     <>
       <Route path="/" component={MainPage} exact />
-      <Route path="/mypage/:nickname" component={MyPage} exact />
+      <Route path="/:nickname" component={MyPage} exact />
     </>
   );
 };

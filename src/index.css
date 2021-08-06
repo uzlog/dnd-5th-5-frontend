@@ -4,12 +4,12 @@
   padding: 0;
 }
 
-@media screen and (max-width: 767px) {
+/* @media screen and (max-width: 767px) {
   body {
     display: flex;
-    justify-content: center;
+    flex
   }
-}
+} */
 
 body {
   margin: 0;
