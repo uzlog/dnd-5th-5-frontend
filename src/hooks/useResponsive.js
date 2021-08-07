@@ -8,7 +8,6 @@ const useResponsive = () => {
     updateSize();
     window.addEventListener('resize', updateSize);
   }, []);
-  console.log(size);
   return size;
 };
 
