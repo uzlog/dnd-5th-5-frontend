@@ -1,18 +1,25 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Cookies from 'universal-cookie';
 import { Link } from 'react-router-dom';
 import FriendModalContainer from '@containers/modal/FriendModalContainer';
+import { ModalWrapper, ModalOverlay, ModalContents } from '@components/main/Style';
 import logo from '@assets/img/nav/logo.svg';
 import friend from '@assets/img/nav/friend.svg';
 import activatedNotice from '@assets/img/nav/activatedNotice.svg';
 import inactivatedNotice from '@assets/img/nav/inactivatedNotice.svg';
 import avatar from '@assets/img/nav/avatar.svg';
-import { Cookie } from 'tough-cookie';
+import arrowBtn from '@assets/img/my-profile/arrowBtn.svg';
+import avatarM from '@assets/img/my-profile/avatarM.svg';
+import closeBtnWhite from '@assets/img/my-profile/closeBtnWhite.svg';
+import settingBtn from '@assets/img/my-profile/settingBtn.svg';
 
 const Wrapper = styled.div`
   background-color: #121212;
-  @media screen and (max-width: 767px) {
+  width: 576px;
+  height: 96px;
+  padding: 29px 0px 29px 38px;
+  @media screen and (max-width: 1023px) {
     width: 360px;
     height: 60px;
     padding: 17px 24px 17.6px;
@@ -23,55 +30,184 @@ const LogoWrapper = styled(Link)`
   float: left;
   display: flex;
   align-items: center;
-  @media screen and (max-width: 767px) {
-    height: 24px;
+  width: 74px;
+  height: 39px;
+  img {
+    width: 74px;
+    height: 39px;
+  }
+  @media screen and (max-width: 1023px) {
     width: 46px;
+    height: 24px;
+    img {
+      width: 46px;
+      height: 24px;
+    }
   }
 `;
 
 const IconWrapper = styled.div`
-  width: 112px;
   float: right;
   display: flex;
   align-items: center;
+  width: 220px;
   div:not(:last-child) {
-    margin-right: 20px;
+    margin-right: 39px;
+  }
+  @media screen and (max-width: 1023px) {
+    width: 112px;
+    div:not(:last-child) {
+      margin-right: 20px;
+    }
   }
 `;
 
 const ImgWrapper = styled.div`
-  width: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 39px;
+  height: 39px;
+  img {
+    width: 39px;
+    height: 39px;
+  }
+  @media screen and (max-width: 1023px) {
+    width: 24px;
+    height: 24px;
+    img {
+      width: ${(props) => (props.close ? '14px' : '24px')};
+      height: ${(props) => (props.close ? '14px' : '24px')};
+    }
+  }
 `;
 
+const ProfileWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  @media screen and (max-width: 1023px) {
+    padding-left: 24px;
+    height: 62px;
+  }
+  span {
+    color: white;
+  }
+`;
+
+const ProfileInfoWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+  @media screen and (max-width: 1023px) {
+    margin-left: 12px;
+    font-size: 16px;
+    line-height: 1.6;
+    letter-spacing: -0.5px;
+    img {
+      margin-left: 9px;
+    }
+    span:last-child {
+      margin-top: 5px;
+      font-size: 12px;
+    }
+  }
+  div {
+    display: flex;
+    align-items: center;
+  }
+`;
+
+const StyledButton = styled.button`
+  background-color: #2a2a2a;
+  border-radius: 30px;
+  outline: none;
+  border: none;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  @media screen and (max-width: 1023px) {
+    width: 109px;
+    height: 35px;
+    line-height: 1.6;
+    letter-spacing: -0.5px;
+    font-size: 12px;
+    padding: 6px 6px 6px 12px;
+    margin-left: 84px;
+    margin-top: 14px;
+    img {
+      width: 18px;
+      height: 18px;
+    }
+  }
+`;
 const Header = ({ state, onClickModalStatus }) => {
   const cookies = new Cookies();
   const [imgUrl] = useState(JSON.parse(sessionStorage.getItem('imgUrl')));
   const [token] = useState(cookies.get('token'));
+  const [showProfile, setShowProfile] = useState(false);
   const { showFriendModal, showAlarmModal } = state;
 
   const openFriendModal = () => {
-    onClickModalStatus(true);
+    onClickModalStatus({ key: 'showFriendModal', value: true });
+  };
+
+  const openProfileModal = () => {
+    setShowProfile(true);
+  };
+
+  const closeProfileModal = () => {
+    setShowProfile(false);
   };
 
   return (
     <>
       <Wrapper>
         <LogoWrapper to={token ? `/${localStorage.getItem('nickname')}` : `/`}>
-          <img src={logo} width="37px" height="19px" alt="로고" />
+          <img src={logo} alt="로고" />
         </LogoWrapper>
         <IconWrapper>
-          <ImgWrapper onClick={openFriendModal}>
-            <img src={friend} width="24px" height="24px" alt="친구창" />
-          </ImgWrapper>
-          <ImgWrapper>
-            <img src={inactivatedNotice} width="24px" height="24px" alt="알림창" />
-          </ImgWrapper>
-          <ImgWrapper>
-            <img src={imgUrl ? imgUrl : avatar} width="24px" height="24px" alt="프로필 사진" />
+          <ImgWrapper onClick={openFriendModal}>{!token && <img src={friend} alt="친구창" />}</ImgWrapper>
+          <ImgWrapper>{!token && <img src={inactivatedNotice} alt="알림창" />}</ImgWrapper>
+          <ImgWrapper onClick={openProfileModal}>
+            <img src={imgUrl ? imgUrl : avatar} alt="프로필 사진" />
           </ImgWrapper>
         </IconWrapper>
       </Wrapper>
       {showFriendModal && <FriendModalContainer />}
+      {showProfile && (
+        <ModalWrapper profile="profile">
+          <ModalOverlay onClick={() => closeProfileModal()} />
+          <ModalContents profile="profile">
+            <Wrapper>
+              <LogoWrapper to={token ? `/${localStorage.getItem('nickname')}` : `/`}>
+                <img src={logo} alt="로고" />
+              </LogoWrapper>
+              <IconWrapper>
+                <ImgWrapper />
+                <ImgWrapper />
+                <ImgWrapper style={{ color: 'white' }} close="close" onClick={closeProfileModal}>
+                  <img src={closeBtnWhite} alt="닫기" />
+                </ImgWrapper>
+              </IconWrapper>
+            </Wrapper>
+            <ProfileWrapper>
+              <img src={avatarM} alt="프로필 사진" />
+              <ProfileInfoWrapper>
+                <div>
+                  <span>닉네임zzzzz</span>
+                  <img src={settingBtn} alt="프로필 수정" />
+                </div>
+                <span>프로필 상태</span>
+              </ProfileInfoWrapper>
+            </ProfileWrapper>
+            <StyledButton>
+              알라카드 관리
+              <img src={arrowBtn} alt="카드 관리" />
+            </StyledButton>
+          </ModalContents>
+        </ModalWrapper>
+      )}
     </>
   );
 };

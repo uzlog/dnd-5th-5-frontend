@@ -213,7 +213,7 @@ const FriendModal = ({ state, onClickModalStatus }) => {
   const { getFriendListData } = state;
 
   const closeFriendModal = () => {
-    onClickModalStatus(false);
+    onClickModalStatus({ key: 'showFriendModal', value: false });
   };
 
   const onClickShare = (e) => {

@@ -11,7 +11,7 @@ export const ModalWrapper = styled.div`
   bottom: 0;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: ${(props) => (props.profile ? '' : 'center')};
 `;
 
 export const ModalOverlay = styled.div`
@@ -26,15 +26,17 @@ export const ModalContents = styled.div`
   position: relative;
   display: flex;
   flex-flow: column;
-  border-radius: 15px;
+  top: ${(props) => (props.profile ? '0' : '')};
+  border-radius: ${(props) => (props.profile ? '' : '15px')};
   padding: 0 auto;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
-  background-color: white;
+  background-color: ${(props) => (props.profile ? '#121212' : 'white')};
   width: 800px;
   height: 600px;
   overflow-y: auto;
-  @media screen and (max-width: 767px) {
+  @media screen and (max-width: 1023px) {
     width: 360px;
-    height: 613px;
+    height: ${(props) => (props.profile ? '192px' : '613px')};
+    transition: ${(props) => (props.profile ? '5s ease' : '')};
   }
 `;
