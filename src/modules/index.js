@@ -12,10 +12,12 @@ const rootReducer = combineReducers({
   auth,
   member,
   mypage,
+  friend,
+  modal,
 });
 
 export function* rootSaga() {
   yield all([authSaga(), memberSaga(), mypageSaga(), friendSaga()]);
-};
+}
 
 export default rootReducer;
