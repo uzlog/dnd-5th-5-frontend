@@ -5,13 +5,13 @@ export const ModalWrapper = styled.div`
   width: 100%;
   height: 100%;
   z-index: 21;
-  top: 0;
+  top: 30px;
   left: 0;
   right: 0;
   bottom: 0;
   display: flex;
   justify-content: center;
-  align-items: ${(props) => (props.profile ? '' : 'center')};
+  align-items: center;
 `;
 
 export const ModalOverlay = styled.div`
@@ -20,23 +20,23 @@ export const ModalOverlay = styled.div`
   height: 100%;
   background-color: #efefef;
   opacity: 0.4;
+  top: -100px;
 `;
 
 export const ModalContents = styled.div`
   position: relative;
   display: flex;
   flex-flow: column;
-  top: ${(props) => (props.profile ? '0' : '')};
-  border-radius: ${(props) => (props.profile ? '' : '15px')};
+  align-items: center;
+  border-radius: 15px;
   padding: 0 auto;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
-  background-color: ${(props) => (props.profile ? '#121212' : 'white')};
-  width: ${(props) => (props.profile ? '576px' : '800px')};
-  height: ${(props) => (props.profile ? '308px' : '600px')};
+  background-color: white;
+  width: 800px;
+  height: 600px;
   overflow-y: auto;
-  @media screen and (max-width: 1023px) {
-    width: 360px;
-    height: ${(props) => (props.profile ? '192px' : '613px')};
-    transition: ${(props) => (props.profile ? '5s ease' : '')};
+  @media screen and (max-width: 767px) {
+    width: 328px;
+    height: 540px;
   }
 `;
