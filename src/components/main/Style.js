@@ -31,8 +31,8 @@ export const ModalContents = styled.div`
   padding: 0 auto;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
   background-color: ${(props) => (props.profile ? '#121212' : 'white')};
-  width: 800px;
-  height: 600px;
+  width: ${(props) => (props.profile ? '576px' : '800px')};
+  height: ${(props) => (props.profile ? '308px' : '600px')};
   overflow-y: auto;
   @media screen and (max-width: 1023px) {
     width: 360px;

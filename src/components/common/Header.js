@@ -17,11 +17,11 @@ const Wrapper = styled.div`
   background-color: #121212;
   width: 576px;
   height: 96px;
-  padding: 29px 0px 29px 38px;
+  padding: 29px 0px 29px 27px;
   @media screen and (max-width: 1023px) {
     width: 360px;
     height: 60px;
-    padding: 17px 24px 17.6px;
+    padding: 18px 20px 18px 15px;
   }
 `;
 
@@ -65,11 +65,11 @@ const ImgWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 39px;
-  height: 39px;
+  width: ${(props) => (props.close ? '23px' : '39px')};
+  height: ${(props) => (props.close ? '23px' : '39px')};
   img {
-    width: 39px;
-    height: 39px;
+    width: ${(props) => (props.close ? '23px' : '39px')};
+    height: ${(props) => (props.close ? '23px' : '39px')};
   }
   @media screen and (max-width: 1023px) {
     width: 24px;
@@ -84,6 +84,8 @@ const ImgWrapper = styled.div`
 const ProfileWrapper = styled.div`
   display: flex;
   align-items: center;
+  height: 125px;
+  padding-left: 39px;
   @media screen and (max-width: 1023px) {
     padding-left: 24px;
     height: 62px;
@@ -93,10 +95,23 @@ const ProfileWrapper = styled.div`
   }
 `;
 
+const ProfileImg = styled.img`
+  width: ${(props) => (props.avatar ? '77px' : '24px')};
+  height: ${(props) => (props.avatar ? '77px' : '24px')};
+  @media screen and (max-width: 1023px) {
+    width: ${(props) => (props.avatar ? '48px' : '18px')};
+    height: ${(props) => (props.avatar ? '48px' : '18px')};
+  }
+`;
+
 const ProfileInfoWrapper = styled.div`
   display: flex;
   flex-direction: column;
   /* align-items: center; */
+  margin-left: 19px;
+  img {
+    margin-left: 12px;
+  }
   @media screen and (max-width: 1023px) {
     margin-left: 12px;
     font-size: 16px;
@@ -118,7 +133,13 @@ const ProfileInfoWrapper = styled.div`
 
 const StyledButton = styled.button`
   background-color: #2a2a2a;
-  border-radius: 30px;
+  border-radius: 48px;
+  width: 175px;
+  height: 57px;
+  margin-left: 135px;
+  font-size: 19px;
+  letter-spacing: -0.8px;
+  padding: 12px 12px 12px 25px;
   outline: none;
   border: none;
   color: white;
@@ -128,6 +149,7 @@ const StyledButton = styled.button`
   @media screen and (max-width: 1023px) {
     width: 109px;
     height: 35px;
+    border-radius: 30px;
     line-height: 1.6;
     letter-spacing: -0.5px;
     font-size: 12px;
@@ -141,7 +163,6 @@ const StyledButton = styled.button`
   }
 `;
 const Header = ({ state, onClickModalStatus }) => {
-  // const [imgUrl] = useState(JSON.parse(sessionStorage.getItem('imgUrl')));
   const [showProfile, setShowProfile] = useState(false);
   const { showFriendModal, showAlarmModal, user } = state;
   const {
@@ -194,18 +215,18 @@ const Header = ({ state, onClickModalStatus }) => {
             {user ? (
               <>
                 <ProfileWrapper>
-                  <img src={avatarM} alt="프로필 사진" />
+                  <ProfileImg src={avatarM} avatar="avatar" alt="프로필 사진" />
                   <ProfileInfoWrapper>
                     <div>
                       <span>{nickname}</span>
-                      <img src={settingBtn} alt="프로필 수정" />
+                      <ProfileImg src={settingBtn} alt="프로필 수정" />
                     </div>
                     <span>{statusMessage}</span>
                   </ProfileInfoWrapper>
                 </ProfileWrapper>
                 <StyledButton>
                   알라카드 관리
-                  <img src={arrowBtn} alt="카드 관리" />
+                  <ProfileImg src={arrowBtn} alt="카드 관리" />
                 </StyledButton>
               </>
             ) : (
