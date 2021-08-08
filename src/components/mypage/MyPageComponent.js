@@ -4,6 +4,7 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { ModalWrapper, ModalOverlay, ModalContents } from '@components/main/Style';
+import HeaderContainer from '@containers/common/HeaderContainer';
 import useResponsive from '../../hooks/useResponsive';
 import secretWord from '@assets/img/alacard/secretWord.svg';
 import bigCardCloseBtn from '@assets/img/alacard/bigCardCloseBtn.svg';
@@ -171,14 +172,6 @@ const CloseBtnWrapper = styled.div`
   }
 `;
 
-const Header = styled.div`
-  width: 100%;
-  height: 60px;
-  background-color: blue;
-  color: white;
-  margin: 0 auto;
-`;
-
 const MyPageComponent = ({ state }) => {
   const { alacardData, nickname } = state;
   const [showModal, setShowModal] = useState(false);
@@ -201,7 +194,7 @@ const MyPageComponent = ({ state }) => {
     setShowModal(true);
     setSentence(e.target.getAttribute('sentence'));
     const index = e.target.getAttribute('idx');
-    console.log(alacardData[index]);
+
     if (alacardData[index].isCompleted) {
       const { backgroundImgUrl, fontColor } = alacardData.alaCardSettingDto;
       setBigAlaCardStyle({
@@ -253,7 +246,7 @@ const MyPageComponent = ({ state }) => {
   return (
     <>
       <div style={{ width: viewSize > '1023' ? '578px' : '360px' }}>
-        <Header>헤더</Header>
+        <HeaderContainer />
         <StyledSlider {...settings}>
           {alacardData.map((card, idx) => {
             const { backgroundImgUrl, fontColor } = card.alaCardSettingDto;
