@@ -208,9 +208,13 @@ const InfoStatusMessage = styled.span`
 //   },
 // ];
 
-const FriendModal = ({ state }) => {
+const FriendModal = ({ state, onClickModalStatus }) => {
   const [showToast, setShowToast] = useState(false);
   const { getFriendListData } = state;
+
+  const closeFriendModal = () => {
+    onClickModalStatus({ key: 'showFriendModal', value: false });
+  };
 
   const onClickShare = (e) => {
     setShowToast(true);
@@ -231,12 +235,12 @@ const FriendModal = ({ state }) => {
 
   return (
     <ModalWrapper>
-      <ModalOverlay />
+      <ModalOverlay onClick={closeFriendModal} />
       <ModalContents>
         <Layout>
           <Header>
             <span>친구</span>
-            <img src={closeBtn} alt="닫기 버튼" />
+            <img src={closeBtn} alt="닫기 버튼" onClick={closeFriendModal} />
           </Header>
           {getFriendListData === undefined ? (
             <>
