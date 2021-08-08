@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import Cookies from 'universal-cookie';
 import { Link } from 'react-router-dom';
 import FriendModalContainer from '@containers/modal/FriendModalContainer';
 import { ModalWrapper, ModalOverlay, ModalContents } from '@components/main/Style';
@@ -142,11 +141,12 @@ const StyledButton = styled.button`
   }
 `;
 const Header = ({ state, onClickModalStatus }) => {
-  const cookies = new Cookies();
-  const [imgUrl] = useState(JSON.parse(sessionStorage.getItem('imgUrl')));
-  const [token] = useState(cookies.get('token'));
+  // const [imgUrl] = useState(JSON.parse(sessionStorage.getItem('imgUrl')));
   const [showProfile, setShowProfile] = useState(false);
-  const { showFriendModal, showAlarmModal } = state;
+  const { showFriendModal, showAlarmModal, user } = state;
+  const {
+    memberData: { nickname, statusMessage, imgUrl },
+  } = state;
 
   const openFriendModal = () => {
     onClickModalStatus({ key: 'showFriendModal', value: true });
@@ -163,12 +163,12 @@ const Header = ({ state, onClickModalStatus }) => {
   return (
     <>
       <Wrapper>
-        <LogoWrapper to={token ? `/${localStorage.getItem('nickname')}` : `/`}>
+        <LogoWrapper to={user ? `/${localStorage.getItem('nickname')}` : `/`}>
           <img src={logo} alt="로고" />
         </LogoWrapper>
         <IconWrapper>
-          <ImgWrapper onClick={openFriendModal}>{!token && <img src={friend} alt="친구창" />}</ImgWrapper>
-          <ImgWrapper>{!token && <img src={inactivatedNotice} alt="알림창" />}</ImgWrapper>
+          <ImgWrapper onClick={openFriendModal}>{user && <img src={friend} alt="친구창" />}</ImgWrapper>
+          <ImgWrapper>{user && <img src={inactivatedNotice} alt="알림창" />}</ImgWrapper>
           <ImgWrapper onClick={openProfileModal}>
             <img src={imgUrl ? imgUrl : avatar} alt="프로필 사진" />
           </ImgWrapper>
@@ -180,7 +180,7 @@ const Header = ({ state, onClickModalStatus }) => {
           <ModalOverlay onClick={() => closeProfileModal()} />
           <ModalContents profile="profile">
             <Wrapper>
-              <LogoWrapper to={token ? `/${localStorage.getItem('nickname')}` : `/`}>
+              <LogoWrapper to={user ? `/${nickname}` : `/`}>
                 <img src={logo} alt="로고" />
               </LogoWrapper>
               <IconWrapper>
@@ -191,20 +191,26 @@ const Header = ({ state, onClickModalStatus }) => {
                 </ImgWrapper>
               </IconWrapper>
             </Wrapper>
-            <ProfileWrapper>
-              <img src={avatarM} alt="프로필 사진" />
-              <ProfileInfoWrapper>
-                <div>
-                  <span>닉네임zzzzz</span>
-                  <img src={settingBtn} alt="프로필 수정" />
-                </div>
-                <span>프로필 상태</span>
-              </ProfileInfoWrapper>
-            </ProfileWrapper>
-            <StyledButton>
-              알라카드 관리
-              <img src={arrowBtn} alt="카드 관리" />
-            </StyledButton>
+            {user ? (
+              <>
+                <ProfileWrapper>
+                  <img src={avatarM} alt="프로필 사진" />
+                  <ProfileInfoWrapper>
+                    <div>
+                      <span>{nickname}</span>
+                      <img src={settingBtn} alt="프로필 수정" />
+                    </div>
+                    <span>{statusMessage}</span>
+                  </ProfileInfoWrapper>
+                </ProfileWrapper>
+                <StyledButton>
+                  알라카드 관리
+                  <img src={arrowBtn} alt="카드 관리" />
+                </StyledButton>
+              </>
+            ) : (
+              <div>로그인하3</div>
+            )}
           </ModalContents>
         </ModalWrapper>
       )}
