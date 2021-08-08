@@ -3,11 +3,13 @@ import { Route } from 'react-router-dom';
 import loadable from '@loadable/component';
 
 const MainPage = loadable(() => import('@pages/MainPage'));
+const MyPage = loadable(() => import('@pages/MyPage'));
 
 const Router = () => {
   return (
     <>
       <Route path="/" component={MainPage} exact />
+      <Route path="/:nickname" component={MyPage} exact />
     </>
   );
 };
