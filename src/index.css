@@ -4,12 +4,16 @@
   padding: 0;
 }
 
-@media screen and (max-width: 767px) {
+html {
+  font-size: 62.5%; /* font-size: 10px */
+}
+
+/* @media screen and (max-width: 767px) {
   body {
     display: flex;
     justify-content: center;
   }
-}
+} */
 
 body {
   margin: 0;
