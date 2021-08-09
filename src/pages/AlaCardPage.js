@@ -1,23 +1,26 @@
 import React from 'react';
 import styled from 'styled-components';
-import { withRouter } from 'react-router';
 import useResponsive from '../hooks/useResponsive';
-import MyPageContainer from '@containers/mypage/MyPageContainer';
+import AlaCardListContainer from '@containers/alacard/AlaCardListContainer';
 import LeftSide from '@components/common/LeftSide';
 
 const Wrapper = styled.div`
   display: flex;
   justify-content: center;
+  @media screen and (max-width: 1023px) {
+    display: block;
+  }
 `;
-const MyPage = ({ history }) => {
-  const nickname = history.location.pathname.split('/')[1];
+
+const AlaCardPage = () => {
   const viewSize = useResponsive();
+
   return (
     <Wrapper>
       {viewSize > 1023 ? <LeftSide /> : <></>}
-      <MyPageContainer nickname={nickname} />
+      <AlaCardListContainer />
     </Wrapper>
   );
 };
 
-export default withRouter(MyPage);
+export default AlaCardPage;
