@@ -1,6 +1,6 @@
-import React, { useEffect, useCallback } from 'react';
+import React, { useEffect, useCallback, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getAlaWord } from '@modules/alaWord';
+import { getAlaWordList } from '@modules/alaWord';
 import SelectComponent from '@components/select/SelectComponent';
 
 const SelectContainers = () => {
@@ -12,14 +12,13 @@ const SelectContainers = () => {
     alaWordLoading: loading['alaWord/ALAWORD'],
   }));
 
-  const state = { alaWordData };
-  // const nickname = Storage.getItem(nickname);
-  const nickname = 'babo';
+  const onAlaWordIncrease = useCallback((payload) => dispatch(getAlaWordList(payload)), [dispatch]);
 
+  const state = { alaWordData };
   useEffect(() => {
-    dispatch(getAlaWord({ nickname }));
+    dispatch(getAlaWordList({ nickname: '11t518s', offset: 0 }));
   }, []);
-  return <>{alaWordLoading ? <SelectComponent state={state} /> : <div>loading...</div>}</>;
+  return <>{alaWordLoading ? <SelectComponent /> : <div>loading...</div>}</>;
 };
 
 export default SelectContainers;

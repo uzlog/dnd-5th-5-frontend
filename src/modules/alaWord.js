@@ -8,18 +8,21 @@ const [ALA_WORD, ALA_WORD_SUCCESS, ALA_WORD_FAILURE] = createRequestActionTypes(
 
 // 액션 생성 함수
 
-export const getAlaWord = createAction(ALA_WORD, ({ nickname, offset }) => ({ nickname, offset }));
+export const getAlaWordList = createAction(ALA_WORD, ({ nickname, offset }) => ({ nickname, offset }));
 
-const alaWordSaga = createRequestSaga(ALA_WORD, alaWordAPI);
+// saga
 
-export function* RootalaWordSaga() {
-  yield takeLatest(ALA_WORD, alaWordSaga);
+const alaWordListSaga = createRequestSaga(ALA_WORD, alaWordAPI.getAlaWordList);
+
+export function* alaWordSaga() {
+  yield takeLatest(ALA_WORD, alaWordListSaga);
 }
 
 const initialState = {
   alaWordStatus: 0,
   alaWordData: [],
   alaWordError: '',
+  alaWordOffset: 0,
 };
 
 const alaWord = handleActions(
@@ -28,6 +31,7 @@ const alaWord = handleActions(
       ...state,
       alaWordStatus: status,
       alaWordData: data,
+      alaWordOffset: 0,
     }),
     [ALA_WORD_FAILURE]: (state, { payload: error }) => ({
       ...state,

@@ -63,7 +63,7 @@ const SocialLoginContainer = ({ history, closeModal }) => {
   // message == login
   useEffect(() => {
     if (memberData && authMessage === 'login') {
-      history.push(`/bbnog`);
+      history.push(`/${memberData.nickname}`);
       localStorage.setItem('nickname', memberData.nickname);
     }
   }, [memberData]);
@@ -71,7 +71,7 @@ const SocialLoginContainer = ({ history, closeModal }) => {
   // 닉네임 변경
   useEffect(() => {
     if (memberMessage === 'update') {
-      history.push('/bbong');
+      history.push(`/${memberData.nickname}`);
     }
   }, [memberMessage]);
 
