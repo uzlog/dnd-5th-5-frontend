@@ -8,6 +8,9 @@ import LeftSide from '@components/common/LeftSide';
 const Wrapper = styled.div`
   display: flex;
   justify-content: center;
+  @media screen and (max-width: 1023px) {
+    display: block;
+  }
 `;
 const MyPage = ({ history }) => {
   const nickname = history.location.pathname.split('/')[1];

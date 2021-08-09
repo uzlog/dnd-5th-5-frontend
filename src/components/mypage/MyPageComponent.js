@@ -13,10 +13,52 @@ import maximizeBtn from '@assets/img/alacard/maximize.svg';
 
 const StyledSlider = styled(Slider)`
   .slick-slide > div {
+    overflow-y: scroll;
+  }
+`;
+
+const Wrapper = styled.div`
+  width: 57.6rem;
+  height: 102.4rem;
+  @media screen and (max-width: 1023px) {
     margin: 0 auto;
-    @media screen and (max-width: 767px) {
-      width: 360px;
+    width: 36rem;
+    height: 64rem;
+  }
+`;
+
+const MoreButtonWrapper = styled.div`
+  height: 10.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 3.83rem;
+  img {
+    width: 3.8rem;
+    height: 3.8rem;
+  }
+  @media screen and (max-width: 1023px) {
+    height: 6.4rem;
+    padding-right: 2.4rem;
+    img {
+      width: 2.4rem;
+      height: 2.4rem;
     }
+  }
+`;
+
+const MoreButton = styled.div`
+  cursor: pointer;
+  width: 3.8rem;
+  height: 3.8rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-between;
+  @media screen and (max-width: 1023px) {
+    width: 2.4rem;
+    height: 2.4rem;
   }
 `;
 
@@ -27,31 +69,30 @@ const ContentFlexWrapper = styled.div`
 
 const ContentsWrapper = styled.div`
   display: table;
-  width: 578px;
-  height: 578px;
-  margin-left: 10px;
-  margin-right: 24px;
+  width: 57.6rem;
+  height: 70rem;
   line-height: 1.6;
   letter-spacing: -0.8px;
-  font-size: 58px;
+  font-size: 5.8rem;
   font-weight: 300;
-  @media screen and (min-width: 400px) {
-    margin-left: ${(props) => props.margin || '24px'};
-  }
+  padding-left: 3.84rem;
+  padding-right: 3.84rem;
   @media screen and (max-width: 1023px) {
-    width: 312px;
-    height: 420px;
-    margin-left: 24px;
-    margin-right: 24px;
+    width: 36rem;
+    height: 42rem;
     line-height: 1.6;
     letter-spacing: -0.5px;
-    font-size: 36px;
+    font-size: 3.6rem;
+    padding-left: 2.4rem;
+    padding-right: 2.4rem;
   }
-  @media screen and (max-height: 990px) and (min-width: 1023px) {
-    font-size: 40px;
-    height: 500px;
-    width: 500px;
-  }
+`;
+
+const InnerContents = styled.div`
+  display: table-cell;
+  vertical-align: middle;
+  height: ${(props) => props.height || ''};
+  text-align: left;
 `;
 
 const ModalContentsWrapper = styled.div`
@@ -64,65 +105,21 @@ const ModalContentsWrapper = styled.div`
   font-size: 36px;
 `;
 
-const InnerContents = styled.div`
-  display: table-cell;
-  vertical-align: middle;
-  height: ${(props) => props.height || ''};
-  text-align: left;
-`;
-
-const MoreButtonWrapper = styled.div`
-  height: 102px;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  img {
-    width: 38px;
-    height: 38px;
-  }
-  @media screen and (max-width: 1023px) {
-    height: 64px;
-    img {
-      width: 24px;
-      height: 24px;
-    }
-  }
-  @media screen and (max-height: 990px) and (min-width: 1023px) {
-    height: 80px;
-    img {
-      width: 30px;
-      height: 30px;
-    }
-  }
-`;
-
-const MoreButton = styled.div`
-  cursor: pointer;
-  width: 38px;
-  height: 38px;
-  margin-right: 32px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-  justify-content: space-between;
-  @media screen and (max-width: 1023px) {
-    margin-right: 24px;
-    width: 24px;
-    height: 24px;
-  }
-`;
-
 const ButtonWrapper = styled.div`
+  width: 57.6rem;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: flex-end;
-  margin-right: 38px;
-  margin-top: 30px;
-  height: 96px;
+  margin-top: 3.84rem;
+  margin-bottom: 3.84rem;
+  padding-right: 3.84rem;
+  height: 9.6rem;
   @media screen and (max-width: 1023px) {
-    margin-top: 0px;
+    margin-top: 2.4rem;
+    margin-bottom: 2.4rem;
+    width: 36rem;
+    padding-right: 2.4rem;
   }
 `;
 
@@ -130,26 +127,20 @@ const StyledButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 368px;
-  height: 77px;
+  width: 36.8rem;
+  height: 7.7rem;
   border-radius: 99px;
   cursor: pointer;
   border: solid 1px white;
   background: transparent;
   color: white;
   line-height: 1.6;
-  font-size: 26px;
+  font-size: 2.56rem;
   @media screen and (max-width: 1023px) {
     width: 230px;
     height: 48px;
     border-radius: 62px;
     font-size: 15px;
-  }
-  @media screen and (max-height: 990px) and (min-width: 1023px) {
-    width: 300px;
-    height: 60px;
-    border-radius: 80px;
-    font-size: 20px;
   }
   img {
     @media screen and (max-width: 1023px) {
@@ -183,7 +174,7 @@ const MyPageComponent = ({ state }) => {
     dots: false,
     infinite: true,
     arrows: false,
-    autoplay: true,
+    autoplay: false,
     autoplaySpeed: 3000,
     speed: 500,
     slidesToShow: 1,
@@ -192,6 +183,7 @@ const MyPageComponent = ({ state }) => {
 
   const openModal = (e) => {
     setShowModal(true);
+    document.body.style = `overflow: hidden`;
     setSentence(e.target.getAttribute('sentence'));
     const index = e.target.getAttribute('idx');
 
@@ -230,6 +222,7 @@ const MyPageComponent = ({ state }) => {
   };
 
   const closeModal = () => {
+    document.body.style = `overflow: visible`;
     setShowModal(false);
   };
 
@@ -245,7 +238,7 @@ const MyPageComponent = ({ state }) => {
 
   return (
     <>
-      <div style={{ width: viewSize > '1023' ? '578px' : '360px' }}>
+      <Wrapper>
         <HeaderContainer />
         <StyledSlider {...settings}>
           {alacardData.map((card, idx) => {
@@ -262,9 +255,8 @@ const MyPageComponent = ({ state }) => {
               cardStyle = {
                 backgroundImage: 'url(' + backgroundImgUrl + ')',
                 backgroundSize: 'cover',
-                width: viewSize > '768' ? '578px' : '360px',
-                height: '100vh',
-                margin: '0 auto',
+                width: viewSize > '1023' ? '57.6rem' : '36rem',
+                // height: '100vh',
               };
               fontStyle = {
                 color: fontColor,
@@ -273,9 +265,8 @@ const MyPageComponent = ({ state }) => {
               card.sentence = card.sentence.replaceAll('???', '<img src="' + secretWord + '" alt="비밀 단어" />');
               cardStyle = {
                 backgroundColor: '#121212',
-                width: viewSize > '1023' ? '578px' : '360px',
-                height: '100vh',
-                margin: '0 auto',
+                width: viewSize > '1023' ? '57.6rem' : '36rem',
+                // height: '100vh',
               };
               fontStyle = {
                 color: '#b9ff46',
@@ -290,7 +281,7 @@ const MyPageComponent = ({ state }) => {
               <>
                 <div key={idx} style={cardStyle}>
                   <MoreButtonWrapper>
-                    <MoreButton fontcolor={fontStyle} onClick={openModal}>
+                    <MoreButton onClick={openModal}>
                       <img src={maximizeBtn} idx={idx} sentence={card.sentence} alt="확대 버튼" />
                     </MoreButton>
                   </MoreButtonWrapper>
@@ -323,7 +314,7 @@ const MyPageComponent = ({ state }) => {
             </ModalContents>
           </ModalWrapper>
         )}
-      </div>
+      </Wrapper>
     </>
   );
 };

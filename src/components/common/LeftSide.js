@@ -5,10 +5,11 @@ import sendAla from '@assets/img/desktop/sendAla.svg';
 import sendBtn from '@assets/img/desktop/sendBtn.svg';
 
 const Wrapper = styled.div`
-  width: 386px;
-  height: 100vh;
+  width: 38.6rem;
+  /* height: 100vh; */
+  height: 102.4rem;
   background-color: black;
-  margin-right: 68px;
+  margin-right: 6.8rem;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -46,7 +47,7 @@ const StyledButton = styled.div`
 
 const AlaImage = styled.img`
   position: absolute;
-  top: calc(100vh - 212px);
+  top: calc(1024px - 212px);
   margin-left: 19.3px;
 `;
 

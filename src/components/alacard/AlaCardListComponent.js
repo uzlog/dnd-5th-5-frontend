@@ -1,13 +1,23 @@
 import React from 'react';
 import styled from 'styled-components';
+import useResponsive from '../../hooks/useResponsive';
 import HeaderContainer from '@containers/common/HeaderContainer';
 import secretWord from '@assets/img/alacard/secretWord.svg';
 import lockBtn from '@assets/img/alacard-list/lockBtn.svg';
 
 const Wrapper = styled.div`
   width: 57.6rem;
-  padding-left: 3.84rem;
-  padding-right: 3.84rem;
+  background-color: #121212;
+  & > div {
+    padding-right: 3.84rem;
+  }
+  @media screen and (max-width: 1023px) {
+    margin: 0 auto;
+    width: 36rem;
+    & > div {
+      padding-right: 2.4rem;
+    }
+  }
 `;
 
 const Title = styled.div`
@@ -15,7 +25,13 @@ const Title = styled.div`
   font-weight: bold;
   line-height: 1.6;
   color: white;
+  margin-left: 3.84rem;
   margin-bottom: 3.52rem;
+  @media screen and (max-width: 1023px) {
+    font-size: 2.4rem;
+    margin-left: 2.4rem;
+    margin-bottom: 2.3rem;
+  }
 `;
 
 const ContentFlexWrapper = styled.div`
@@ -29,12 +45,17 @@ const ContentsWrapper = styled.div`
   width: 50rem;
   padding: 3.84rem;
   gap: 1.28rem;
-  border-radius: 24px;
   line-height: 1.6;
   letter-spacing: -0.08rem;
   font-size: 3.84rem;
   font-weight: 300;
   margin-bottom: 1.6rem;
+  @media screen and (max-width: 1023px) {
+    width: 31.2rem;
+    gap: 0.08rem;
+    font-size: 2.4rem;
+    padding: 2.4rem 2.4rem 3.84rem 2.4rem;
+  }
 `;
 
 const InnerContents = styled.div`
@@ -47,15 +68,24 @@ const ButtonWrapper = styled.div`
   margin-top: 1.6rem;
   display: flex;
   flex-direction: row-reverse;
+  @media screen and (max-width: 1023px) {
+    margin-top: 1rem;
+  }
 `;
 
 const LockButton = styled.img`
   width: 3.8rem;
   height: 3.8rem;
+  @media screen and (max-width: 1023px) {
+    width: 2.4rem;
+    height: 2.4rem;
+  }
 `;
 
 const AlaCardListComponent = ({ state }) => {
   const { alacardData } = state;
+  const viewSize = useResponsive();
+
   return (
     <>
       <Wrapper>
@@ -75,7 +105,9 @@ const AlaCardListComponent = ({ state }) => {
             cardStyle = {
               backgroundImage: 'url(' + backgroundImgUrl + ')',
               backgroundSize: 'cover',
-              width: '50rem',
+              width: viewSize > '1023' ? '50rem' : '31.2rem',
+              marginLeft: viewSize > '1023' ? '3.84rem' : '2.4rem',
+              borderRadius: viewSize > '1023' ? '2.4rem' : '1.5rem',
             };
             fontStyle = {
               color: fontColor,
@@ -83,8 +115,10 @@ const AlaCardListComponent = ({ state }) => {
           } else {
             card.sentence = card.sentence.replaceAll('???', '<img src="' + secretWord + '" alt="비밀 단어" />');
             cardStyle = {
-              backgroundColor: '#121212',
-              width: '50rem',
+              backgroundColor: 'rgba(255, 255, 255, 0.02)',
+              width: viewSize > '1023' ? '50rem' : '31.2rem',
+              marginLeft: viewSize > '1023' ? '3.84rem' : '2.4rem',
+              borderRadius: viewSize > '1023' ? '2.4rem' : '1.5rem',
             };
             fontStyle = {
               color: '#b9ff46',
