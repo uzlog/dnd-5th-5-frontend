@@ -6,14 +6,25 @@ import secretWord from '@assets/img/alacard/secretWord.svg';
 import lockBtn from '@assets/img/alacard-list/lockBtn.svg';
 
 const Wrapper = styled.div`
-  width: 57.6rem;
+  max-width: 57.6rem;
+  width: 40vw;
+  height: 100vh;
+  overflow-y: auto;
   background-color: #121212;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   & > div {
     padding-right: 3.84rem;
   }
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  &::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
+  }
   @media screen and (max-width: 1023px) {
     margin: 0 auto;
-    width: 36rem;
+    min-width: 36rem;
     & > div {
       padding-right: 2.4rem;
     }
@@ -21,38 +32,32 @@ const Wrapper = styled.div`
 `;
 
 const Title = styled.div`
-  font-size: 3.8rem;
+  font-size: min(2.6vw, 3.7vh, 3.8rem);
   font-weight: bold;
   line-height: 1.6;
   color: white;
-  margin-left: 3.84rem;
-  margin-bottom: 3.52rem;
   @media screen and (max-width: 1023px) {
     font-size: 2.4rem;
-    margin-left: 2.4rem;
-    margin-bottom: 2.3rem;
   }
 `;
 
 const ContentFlexWrapper = styled.div`
   display: flex;
-  justify-content: center;
   flex-direction: column;
+  justify-content: center;
 `;
 
 const ContentsWrapper = styled.div`
   display: table;
-  width: 50rem;
-  padding: 3.84rem;
-  gap: 1.28rem;
+  max-width: 50rem;
+  width: 34.7vw;
+  padding: min(3.75vh, 3.84rem) min(2.6vw, 3.84rem);
   line-height: 1.6;
   letter-spacing: -0.08rem;
   font-size: 3.84rem;
   font-weight: 300;
-  margin-bottom: 1.6rem;
   @media screen and (max-width: 1023px) {
-    width: 31.2rem;
-    gap: 0.08rem;
+    min-width: 31.2rem;
     font-size: 2.4rem;
     padding: 2.4rem 2.4rem 3.84rem 2.4rem;
   }
@@ -65,7 +70,7 @@ const InnerContents = styled.div`
 `;
 
 const ButtonWrapper = styled.div`
-  margin-top: 1.6rem;
+  margin-top: 1.5vh;
   display: flex;
   flex-direction: row-reverse;
   @media screen and (max-width: 1023px) {
@@ -82,6 +87,19 @@ const LockButton = styled.img`
   }
 `;
 
+const HI = styled.div`
+  max-width: 57.6rem;
+  width: 40vw;
+  height: 300px;
+  display: flex;
+  padding: 3.4vh 2.6vw;
+  @media screen and (max-width: 1023px) {
+    width: 360px;
+    font-size: 2.4rem;
+    padding: 2.3rem 2.4rem;
+  }
+`;
+
 const AlaCardListComponent = ({ state }) => {
   const { alacardData } = state;
   const viewSize = useResponsive();
@@ -90,7 +108,9 @@ const AlaCardListComponent = ({ state }) => {
     <>
       <Wrapper>
         <HeaderContainer />
-        <Title>알라 카드</Title>
+        <HI>
+          <Title>알라 카드</Title>
+        </HI>
         {alacardData.map((card, idx) => {
           const { backgroundImgUrl, fontColor, isOpen } = card.alaCardSettingDto;
           let cardStyle;
@@ -105,8 +125,9 @@ const AlaCardListComponent = ({ state }) => {
             cardStyle = {
               backgroundImage: 'url(' + backgroundImgUrl + ')',
               backgroundSize: 'cover',
-              width: viewSize > '1023' ? '50rem' : '31.2rem',
-              marginLeft: viewSize > '1023' ? '3.84rem' : '2.4rem',
+              maxWidth: viewSize > '1023' ? '50rem' : '31.2rem',
+              width: viewSize > '1023' ? '34.7vw' : '31.2rem',
+              marginLeft: viewSize > '1023' ? '0px' : '2.4rem',
               borderRadius: viewSize > '1023' ? '2.4rem' : '1.5rem',
             };
             fontStyle = {
@@ -116,8 +137,10 @@ const AlaCardListComponent = ({ state }) => {
             card.sentence = card.sentence.replaceAll('???', '<img src="' + secretWord + '" alt="비밀 단어" />');
             cardStyle = {
               backgroundColor: 'rgba(255, 255, 255, 0.02)',
-              width: viewSize > '1023' ? '50rem' : '31.2rem',
-              marginLeft: viewSize > '1023' ? '3.84rem' : '2.4rem',
+              maxWidth: viewSize > '1023' ? '50rem' : '31.2rem',
+              width: viewSize > '1023' ? '34.7vw' : '31.2rem',
+              marginLeft: viewSize > '1023' ? '0px' : '2.4rem',
+              marginBottom: viewSize > '1023' ? '1.9vh' : '20rem',
               borderRadius: viewSize > '1023' ? '2.4rem' : '1.5rem',
             };
             fontStyle = {

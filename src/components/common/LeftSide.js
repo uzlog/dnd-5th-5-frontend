@@ -6,8 +6,7 @@ import sendBtn from '@assets/img/desktop/sendBtn.svg';
 
 const Wrapper = styled.div`
   width: 38.6rem;
-  /* height: 100vh; */
-  height: 102.4rem;
+  height: 100vh;
   background-color: black;
   margin-right: 6.8rem;
   display: flex;
@@ -47,7 +46,7 @@ const StyledButton = styled.div`
 
 const AlaImage = styled.img`
   position: absolute;
-  top: calc(1024px - 212px);
+  top: calc(100vh - 212px);
   margin-left: 19.3px;
 `;
 
@@ -60,18 +59,20 @@ const StyledSpan = styled.span`
 
 const LeftSide = () => {
   return (
-    <Wrapper>
-      <img src={deco} alt="소개" />
-      <ButtonWrapper>
-        <div style={{ display: 'flex' }}>
-          <AlaImage src={sendAla} alt="알라" />
-        </div>
-        <StyledButton>
-          <img src={sendBtn} alt="전송 버튼" />
-        </StyledButton>
-        <StyledSpan>요기로 문의 ㄱㄱ</StyledSpan>
-      </ButtonWrapper>
-    </Wrapper>
+    <div>
+      <Wrapper>
+        <img src={deco} alt="소개" />
+        <ButtonWrapper>
+          <div style={{ display: 'flex' }}>
+            <AlaImage src={sendAla} alt="알라" />
+          </div>
+          <StyledButton>
+            <img src={sendBtn} alt="전송 버튼" />
+          </StyledButton>
+          <StyledSpan>요기로 문의 ㄱㄱ</StyledSpan>
+        </ButtonWrapper>
+      </Wrapper>
+    </div>
   );
 };
 

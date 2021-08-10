@@ -13,11 +13,12 @@ import maximizeBtn from '@assets/img/alacard/maximize.svg';
 
 const Wrapper = styled.div`
   max-width: 576px;
-  height: 90.6vh;
+  width: 40vw;
+  height: 100vh;
   @media screen and (max-width: 1023px) {
     margin: 0 auto;
     width: 36rem;
-    height: 64rem;
+    min-height: 64rem;
   }
 `;
 
@@ -26,13 +27,13 @@ const MoreButtonWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  padding-right: 32px;
+  padding-right: 1.9vw;
   img {
     width: 38.4px;
     height: 38.4px;
   }
   @media screen and (max-width: 1023px) {
-    height: 6.4rem;
+    min-height: 6.4rem;
     padding-right: 2.4rem;
     img {
       width: 2.4rem;
@@ -63,17 +64,18 @@ const ContentFlexWrapper = styled.div`
 
 const ContentsWrapper = styled.div`
   display: table;
-  width: 57.6rem;
+  width: 40vw;
+  max-width: 576px;
   height: 70vh;
   line-height: 1.6;
   letter-spacing: -0.8px;
-  font-size: min(5.6vh, 57.6px);
+  font-size: min(5.6vh, 57.6px, 4vw);
   font-weight: 300;
   padding-left: 38.4px;
   padding-right: 38.4px;
   @media screen and (max-width: 1023px) {
     width: 36rem;
-    height: 42rem;
+    min-height: 42rem;
     line-height: 1.6;
     letter-spacing: -0.5px;
     font-size: 3.6rem;
@@ -103,16 +105,14 @@ const ModalContentsWrapper = styled.div`
 `;
 
 const ButtonWrapper = styled.div`
-  width: 576px;
+  width: 40vw;
+  max-width: 576px;
   display: flex;
-  flex-direction: row;
-  align-items: center;
   justify-content: flex-end;
-  padding-right: 32px;
+  padding-right: 1.9vw;
   height: 10.6vh;
   @media screen and (max-width: 1023px) {
-    margin-top: 2.4rem;
-    margin-bottom: 2.4rem;
+    min-height: 96px;
     width: 36rem;
     padding-right: 2.4rem;
   }
@@ -122,7 +122,8 @@ const StyledButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 368px;
+  max-width: 368px;
+  width: 25.5vw;
   height: 7.5vh;
   border-radius: 99px;
   cursor: pointer;
@@ -130,10 +131,10 @@ const StyledButton = styled.button`
   background: transparent;
   color: white;
   line-height: 1.6;
-  font-size: min(2.5vh, 25.6px);
+  font-size: min(2.5vh, 25.6px, 1.7vw);
   @media screen and (max-width: 1023px) {
     width: 230px;
-    height: 48px;
+    min-height: 48px;
     border-radius: 62px;
     font-size: 15px;
   }
@@ -175,8 +176,6 @@ const MyPageComponent = ({ state }) => {
     slidesToShow: 1,
     slidesToScroll: 1,
   };
-
-  console.log(window.innerWidth, window.innerHeight);
 
   const openModal = (e) => {
     setShowModal(true);
@@ -251,7 +250,8 @@ const MyPageComponent = ({ state }) => {
               cardStyle = {
                 backgroundImage: 'url(' + backgroundImgUrl + ')',
                 backgroundSize: 'cover',
-                width: viewSize > '1023' ? '576px' : '36rem',
+                width: viewSize > '1023' ? '40vw' : '36rem',
+                maxWidth: viewSize > '1023' ? '576px' : '360px',
               };
               fontStyle = {
                 color: fontColor,
@@ -260,7 +260,8 @@ const MyPageComponent = ({ state }) => {
               card.sentence = card.sentence.replaceAll('???', '<img src="' + secretWord + '" alt="비밀 단어" />');
               cardStyle = {
                 backgroundColor: '#121212',
-                width: viewSize > '1023' ? '576px' : '36rem',
+                width: viewSize > '1023' ? '40vw' : '36rem',
+                maxWidth: viewSize > '1023' ? '576px' : '360px',
               };
               fontStyle = {
                 color: '#b9ff46',
