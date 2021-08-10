@@ -31,6 +31,19 @@ const Wrapper = styled.div`
   }
 `;
 
+const TitleWrapper = styled.div`
+  max-width: 57.6rem;
+  width: 40vw;
+  height: 300px;
+  display: flex;
+  padding: 3.4vh 2.6vw;
+  @media screen and (max-width: 1023px) {
+    width: 360px;
+    font-size: 2.4rem;
+    padding: 2.3rem 2.4rem;
+  }
+`;
+
 const Title = styled.div`
   font-size: min(2.6vw, 3.7vh, 3.8rem);
   font-weight: bold;
@@ -59,7 +72,7 @@ const ContentsWrapper = styled.div`
   @media screen and (max-width: 1023px) {
     min-width: 31.2rem;
     font-size: 2.4rem;
-    padding: 2.4rem 2.4rem 3.84rem 2.4rem;
+    padding: 2.4rem 2.4rem 2.4rem 2.4rem;
   }
 `;
 
@@ -87,19 +100,6 @@ const LockButton = styled.img`
   }
 `;
 
-const HI = styled.div`
-  max-width: 57.6rem;
-  width: 40vw;
-  height: 300px;
-  display: flex;
-  padding: 3.4vh 2.6vw;
-  @media screen and (max-width: 1023px) {
-    width: 360px;
-    font-size: 2.4rem;
-    padding: 2.3rem 2.4rem;
-  }
-`;
-
 const AlaCardListComponent = ({ state }) => {
   const { alacardData } = state;
   const viewSize = useResponsive();
@@ -108,9 +108,9 @@ const AlaCardListComponent = ({ state }) => {
     <>
       <Wrapper>
         <HeaderContainer />
-        <HI>
+        <TitleWrapper>
           <Title>알라 카드</Title>
-        </HI>
+        </TitleWrapper>
         {alacardData.map((card, idx) => {
           const { backgroundImgUrl, fontColor, isOpen } = card.alaCardSettingDto;
           let cardStyle;
@@ -127,7 +127,7 @@ const AlaCardListComponent = ({ state }) => {
               backgroundSize: 'cover',
               maxWidth: viewSize > '1023' ? '50rem' : '31.2rem',
               width: viewSize > '1023' ? '34.7vw' : '31.2rem',
-              marginLeft: viewSize > '1023' ? '0px' : '2.4rem',
+              marginBottom: viewSize > '1023' ? '1.9vh' : '2rem',
               borderRadius: viewSize > '1023' ? '2.4rem' : '1.5rem',
             };
             fontStyle = {
@@ -139,8 +139,7 @@ const AlaCardListComponent = ({ state }) => {
               backgroundColor: 'rgba(255, 255, 255, 0.02)',
               maxWidth: viewSize > '1023' ? '50rem' : '31.2rem',
               width: viewSize > '1023' ? '34.7vw' : '31.2rem',
-              marginLeft: viewSize > '1023' ? '0px' : '2.4rem',
-              marginBottom: viewSize > '1023' ? '1.9vh' : '20rem',
+              marginBottom: viewSize > '1023' ? '1.9vh' : '2rem',
               borderRadius: viewSize > '1023' ? '2.4rem' : '1.5rem',
             };
             fontStyle = {

@@ -78,6 +78,7 @@ const IconWrapper = styled.div`
 `;
 
 const ImgWrapper = styled.div`
+  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -118,7 +119,7 @@ const ProfileImg = styled.img`
   height: ${(props) => (props.avatar ? '7.6vh' : '2.3vh')};
   @media screen and (max-width: 1023px) {
     width: ${(props) => (props.avatar ? '48px' : '18px')};
-    min-height: ${(props) => (props.avatar ? '48px' : '18px')};
+    height: ${(props) => (props.avatar ? '48px' : '18px')};
   }
 `;
 
@@ -144,7 +145,7 @@ const ProfileInfoWrapper = styled.div`
   }
   @media screen and (max-width: 1023px) {
     margin-left: 12px;
-    font-size: min(2.5vh, 16px);
+    font-size: 16px;
 
     img {
       margin-left: 9px;
@@ -159,13 +160,13 @@ const StyledButton = styled.button`
   background-color: #2a2a2a;
   border-radius: 48px;
   max-width: 175px;
-  width: 12vw;
+  width: 12.2vw;
   height: 5.5vh;
   margin-left: min(8.7vw, 135px);
   margin-top: 2.4vh;
-  font-size: min(1.3vw, 1.8vh, 1.9em);
+  font-size: min(1.3vw, 1.8vh, 1.9rem);
   letter-spacing: -0.8px;
-  padding: 1vh 12px 1vh 25px;
+  padding: 1vh 0.8vw 1vh 1.7w;
   outline: none;
   border: none;
   color: white;
@@ -173,14 +174,16 @@ const StyledButton = styled.button`
   align-items: center;
   justify-content: center;
   @media screen and (max-width: 1023px) {
-    width: 109px;
+    width: 10.9rem;
+    height: 3.5rem;
     min-height: 35px;
     border-radius: 30px;
     line-height: 1.6;
     letter-spacing: -0.5px;
-    font-size: min(1.8vh, 12px);
-    padding: 1vh 6px 1vh 12px;
-    margin-left: 84px;
+    font-size: min(1.8vh, 1.3vw, 1.2rem);
+    padding: 8px 8px 8px 16px;
+    margin-left: 8.4rem;
+    margin-top: 16px;
     img {
       width: 18px;
       min-height: 18px;
