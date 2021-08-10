@@ -27,15 +27,18 @@ export const ModalContents = styled.div`
   display: flex;
   flex-flow: column;
   top: ${(props) => (props.profile ? '0' : '')};
+  left: ${(props) => (props.profile ? '227px' : '')};
   border-radius: ${(props) => (props.profile ? '' : '15px')};
   padding: 0 auto;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
   background-color: ${(props) => (props.profile ? '#121212' : 'white')};
   width: ${(props) => (props.profile ? '576px' : '800px')};
-  height: ${(props) => (props.profile ? '308px' : '600px')};
+  height: ${(props) => (props.profile ? '28vh' : '600px')};
+  max-height: ${(props) => (props.profile ? '307px' : '')};
   overflow-y: auto;
   @media screen and (max-width: 1023px) {
     width: 360px;
+    left: 0;
     height: ${(props) => (props.profile ? '192px' : '613px')};
     transition: ${(props) => (props.profile ? '5s ease' : '')};
   }

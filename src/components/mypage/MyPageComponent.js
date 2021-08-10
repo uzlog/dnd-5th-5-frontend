@@ -11,15 +11,9 @@ import bigCardCloseBtn from '@assets/img/alacard/bigCardCloseBtn.svg';
 import linkBtn from '@assets/img/alacard/linkBtn.svg';
 import maximizeBtn from '@assets/img/alacard/maximize.svg';
 
-const StyledSlider = styled(Slider)`
-  .slick-slide > div {
-    overflow-y: scroll;
-  }
-`;
-
 const Wrapper = styled.div`
-  width: 57.6rem;
-  height: 102.4rem;
+  max-width: 576px;
+  height: 90.6vh;
   @media screen and (max-width: 1023px) {
     margin: 0 auto;
     width: 36rem;
@@ -28,14 +22,14 @@ const Wrapper = styled.div`
 `;
 
 const MoreButtonWrapper = styled.div`
-  height: 10.2rem;
+  height: 10vh;
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  padding-right: 3.83rem;
+  padding-right: 32px;
   img {
-    width: 3.8rem;
-    height: 3.8rem;
+    width: 38.4px;
+    height: 38.4px;
   }
   @media screen and (max-width: 1023px) {
     height: 6.4rem;
@@ -49,8 +43,8 @@ const MoreButtonWrapper = styled.div`
 
 const MoreButton = styled.div`
   cursor: pointer;
-  width: 3.8rem;
-  height: 3.8rem;
+  width: 38.4px;
+  height: 3.8vh;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -70,13 +64,13 @@ const ContentFlexWrapper = styled.div`
 const ContentsWrapper = styled.div`
   display: table;
   width: 57.6rem;
-  height: 70rem;
+  height: 70vh;
   line-height: 1.6;
   letter-spacing: -0.8px;
-  font-size: 5.8rem;
+  font-size: min(5.6vh, 57.6px);
   font-weight: 300;
-  padding-left: 3.84rem;
-  padding-right: 3.84rem;
+  padding-left: 38.4px;
+  padding-right: 38.4px;
   @media screen and (max-width: 1023px) {
     width: 36rem;
     height: 42rem;
@@ -93,6 +87,9 @@ const InnerContents = styled.div`
   vertical-align: middle;
   height: ${(props) => props.height || ''};
   text-align: left;
+  img {
+    display: inline;
+  }
 `;
 
 const ModalContentsWrapper = styled.div`
@@ -106,15 +103,13 @@ const ModalContentsWrapper = styled.div`
 `;
 
 const ButtonWrapper = styled.div`
-  width: 57.6rem;
+  width: 576px;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: flex-end;
-  margin-top: 3.84rem;
-  margin-bottom: 3.84rem;
-  padding-right: 3.84rem;
-  height: 9.6rem;
+  padding-right: 32px;
+  height: 10.6vh;
   @media screen and (max-width: 1023px) {
     margin-top: 2.4rem;
     margin-bottom: 2.4rem;
@@ -127,15 +122,15 @@ const StyledButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 36.8rem;
-  height: 7.7rem;
+  width: 368px;
+  height: 7.5vh;
   border-radius: 99px;
   cursor: pointer;
   border: solid 1px white;
   background: transparent;
   color: white;
   line-height: 1.6;
-  font-size: 2.56rem;
+  font-size: min(2.5vh, 25.6px);
   @media screen and (max-width: 1023px) {
     width: 230px;
     height: 48px;
@@ -143,14 +138,14 @@ const StyledButton = styled.button`
     font-size: 15px;
   }
   img {
+    width: 26px;
+    height: 26px;
+    margin-left: 14px;
     @media screen and (max-width: 1023px) {
       width: 18px;
       height: 18px;
       margin-left: 8px;
     }
-    width: 26px;
-    height: 26px;
-    margin-left: 14px;
   }
 `;
 
@@ -181,14 +176,15 @@ const MyPageComponent = ({ state }) => {
     slidesToScroll: 1,
   };
 
+  console.log(window.innerWidth, window.innerHeight);
+
   const openModal = (e) => {
     setShowModal(true);
     document.body.style = `overflow: hidden`;
     setSentence(e.target.getAttribute('sentence'));
     const index = e.target.getAttribute('idx');
-
     if (alacardData[index].isCompleted) {
-      const { backgroundImgUrl, fontColor } = alacardData.alaCardSettingDto;
+      const { backgroundImgUrl, fontColor } = alacardData[index].alaCardSettingDto;
       setBigAlaCardStyle({
         backgroundImage: 'url(' + backgroundImgUrl + ')',
         backgroundSize: '360px 640px',
@@ -240,7 +236,7 @@ const MyPageComponent = ({ state }) => {
     <>
       <Wrapper>
         <HeaderContainer />
-        <StyledSlider {...settings}>
+        <Slider {...settings}>
           {alacardData.map((card, idx) => {
             const { backgroundImgUrl, fontColor } = card.alaCardSettingDto;
             let cardStyle;
@@ -255,8 +251,7 @@ const MyPageComponent = ({ state }) => {
               cardStyle = {
                 backgroundImage: 'url(' + backgroundImgUrl + ')',
                 backgroundSize: 'cover',
-                width: viewSize > '1023' ? '57.6rem' : '36rem',
-                // height: '100vh',
+                width: viewSize > '1023' ? '576px' : '36rem',
               };
               fontStyle = {
                 color: fontColor,
@@ -265,8 +260,7 @@ const MyPageComponent = ({ state }) => {
               card.sentence = card.sentence.replaceAll('???', '<img src="' + secretWord + '" alt="비밀 단어" />');
               cardStyle = {
                 backgroundColor: '#121212',
-                width: viewSize > '1023' ? '57.6rem' : '36rem',
-                // height: '100vh',
+                width: viewSize > '1023' ? '576px' : '36rem',
               };
               fontStyle = {
                 color: '#b9ff46',
@@ -300,7 +294,7 @@ const MyPageComponent = ({ state }) => {
               </>
             );
           })}
-        </StyledSlider>
+        </Slider>
         {showModal && (
           <ModalWrapper>
             <ModalOverlay onClick={() => closeModal()} />

@@ -16,8 +16,8 @@ import settingBtn from '@assets/img/my-profile/settingBtn.svg';
 const Wrapper = styled.div`
   background-color: #121212;
   width: 576px;
-  height: 96px;
-  padding: 29px 0px 29px 27px;
+  height: 9.4vh;
+  padding: 3.1vh 32px 3.1vh 26px;
   @media screen and (max-width: 1023px) {
     width: 360px;
     height: 60px;
@@ -30,10 +30,12 @@ const LogoWrapper = styled(Link)`
   display: flex;
   align-items: center;
   width: 74px;
-  height: 39px;
+  height: 2.7vh;
+  min-height: 30px;
   img {
     width: 74px;
-    height: 39px;
+    height: 2.7vh;
+    min-height: 30px;
   }
   @media screen and (max-width: 1023px) {
     width: 46px;
@@ -49,9 +51,10 @@ const IconWrapper = styled.div`
   float: right;
   display: flex;
   align-items: center;
+  justify-content: flex-end;
   width: 220px;
   div:not(:last-child) {
-    margin-right: 39px;
+    margin-right: 20px;
   }
   @media screen and (max-width: 1023px) {
     width: 112px;
@@ -66,10 +69,12 @@ const ImgWrapper = styled.div`
   align-items: center;
   justify-content: center;
   width: ${(props) => (props.close ? '23px' : '39px')};
-  height: ${(props) => (props.close ? '23px' : '39px')};
+  height: ${(props) => (props.close ? '2.2vh' : '3.8vh')};
+  min-height: 38.4px;
   img {
     width: ${(props) => (props.close ? '23px' : '39px')};
-    height: ${(props) => (props.close ? '23px' : '39px')};
+    height: ${(props) => (props.close ? '2.2vh' : '3.8vh')};
+    min-height: 38.4px;
   }
   @media screen and (max-width: 1023px) {
     width: 24px;
@@ -83,8 +88,7 @@ const ImgWrapper = styled.div`
 
 const ProfileWrapper = styled.div`
   display: flex;
-  align-items: center;
-  height: 125px;
+  height: 7.6vh;
   padding-left: 39px;
   @media screen and (max-width: 1023px) {
     padding-left: 24px;
@@ -97,7 +101,7 @@ const ProfileWrapper = styled.div`
 
 const ProfileImg = styled.img`
   width: ${(props) => (props.avatar ? '77px' : '24px')};
-  height: ${(props) => (props.avatar ? '77px' : '24px')};
+  height: ${(props) => (props.avatar ? '7.6vh' : '2.3vh')};
   @media screen and (max-width: 1023px) {
     width: ${(props) => (props.avatar ? '48px' : '18px')};
     height: ${(props) => (props.avatar ? '48px' : '18px')};
@@ -107,16 +111,26 @@ const ProfileImg = styled.img`
 const ProfileInfoWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
   margin-left: 19px;
   img {
     margin-left: 12px;
   }
+  div {
+    display: flex;
+    align-items: center;
+    font-size: 2.56rem;
+    font-weight: bold;
+    line-height: 1.6;
+    letter-spacing: -0.5px;
+  }
+  span:last-child {
+    margin-top: 0.8vh;
+    font-size: 1.92rem;
+  }
   @media screen and (max-width: 1023px) {
     margin-left: 12px;
     font-size: 16px;
-    line-height: 1.6;
-    letter-spacing: -0.5px;
+
     img {
       margin-left: 9px;
     }
@@ -125,21 +139,18 @@ const ProfileInfoWrapper = styled.div`
       font-size: 12px;
     }
   }
-  div {
-    display: flex;
-    align-items: center;
-  }
 `;
 
 const StyledButton = styled.button`
   background-color: #2a2a2a;
   border-radius: 48px;
   width: 175px;
-  height: 57px;
+  height: 5.5vh;
   margin-left: 135px;
-  font-size: 19px;
+  margin-top: 2.4vh;
+  font-size: 1.9em;
   letter-spacing: -0.8px;
-  padding: 12px 12px 12px 25px;
+  padding: 1vh 12px 1vh 25px;
   outline: none;
   border: none;
   color: white;
@@ -162,6 +173,7 @@ const StyledButton = styled.button`
     }
   }
 `;
+
 const Header = ({ state, onClickModalStatus }) => {
   const [showProfile, setShowProfile] = useState(false);
   const { showFriendModal, showAlarmModal, user } = state;
@@ -188,8 +200,12 @@ const Header = ({ state, onClickModalStatus }) => {
           <img src={logo} alt="로고" />
         </LogoWrapper>
         <IconWrapper>
-          <ImgWrapper onClick={openFriendModal}>{user && <img src={friend} alt="친구창" />}</ImgWrapper>
-          <ImgWrapper>{user && <img src={inactivatedNotice} alt="알림창" />}</ImgWrapper>
+          <ImgWrapper onClick={openFriendModal}>
+            <img src={friend} alt="친구창" />
+          </ImgWrapper>
+          <ImgWrapper>
+            <img src={inactivatedNotice} alt="알림창" />
+          </ImgWrapper>
           <ImgWrapper onClick={openProfileModal}>
             <img src={imgUrl ? imgUrl : avatar} alt="프로필 사진" />
           </ImgWrapper>
@@ -212,16 +228,17 @@ const Header = ({ state, onClickModalStatus }) => {
                 </ImgWrapper>
               </IconWrapper>
             </Wrapper>
-            {user ? (
+            {!user ? (
               <>
                 <ProfileWrapper>
                   <ProfileImg src={avatarM} avatar="avatar" alt="프로필 사진" />
                   <ProfileInfoWrapper>
                     <div>
-                      <span>{nickname}</span>
+                      {/* <span>{nickname}</span> */}
+                      <span>닉네임</span>
                       <ProfileImg src={settingBtn} alt="프로필 수정" />
                     </div>
-                    <span>{statusMessage}</span>
+                    <span>statusMessage</span>
                   </ProfileInfoWrapper>
                 </ProfileWrapper>
                 <StyledButton>
