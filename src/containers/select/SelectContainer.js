@@ -18,7 +18,13 @@ const SelectContainers = () => {
   useEffect(() => {
     dispatch(getAlaWordList({ nickname: '11t518s', offset: 0 }));
   }, []);
-  return <>{alaWordLoading ? <SelectComponent /> : <div>loading...</div>}</>;
+  // return <>{alaWordLoading ? <SelectComponent /> : <div>loading...</div>}</>;
+  return (
+    <>
+      {' '}
+      <SelectComponent />{' '}
+    </>
+  );
 };
 
 export default SelectContainers;
