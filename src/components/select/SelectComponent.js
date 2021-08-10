@@ -13,7 +13,7 @@ const SelectComponent = () => {
   const nickname = '11t518s';
   const [offset, setOffset] = useState(0);
   const [wordList, setWordList] = useState([[], [], [], []]);
-  const [selectedList, setSelectedList] = useState([]);
+  const [idList, setIdList] = useState([]);
 
   const backgroundGradientList = [
     'linear-gradient(to top, #bf5ae0, #a811da)',
@@ -73,7 +73,7 @@ const SelectComponent = () => {
     setWordList([
       ...wordList.map((word) =>
         word.map((item) =>
-          item === clickedItem
+          item.id === clickedItem.id
             ? clickedItem.clicked
               ? { ...item, clicked: false }
               : { ...item, clicked: backgroundGradientList[randomNumber] }
@@ -83,38 +83,17 @@ const SelectComponent = () => {
     ]);
 
     // selectedList에 추가
-    setSelectedList(
-      clickedItem.clicked !== false
-        ? selectedList.filter((item) => item !== [{ ...clickedItem, clicked: false }])
-        : [...selectedList, clickedItem],
-      // ...wordList[0].filter((item) => item.clicked !== false),
-      // ...wordList[1].filter((item) => item.clicked !== false),
-      // ...wordList[2].filter((item) => item.clicked !== false),
-      // ...wordList[3].filter((item) => item.clicked !== false),
-    );
-    console.log([{ ...clickedItem, clicked: false }]);
-    console.log(
-      selectedList.filter(
-        (item) =>
-          item !==
-          {
-            bigCategory: '게임',
-            clicked: false,
-            hint: '배그 플레이',
-            middleCategory: '배틀그라운드',
-            wordName: '치킨매니아',
-          },
-      ),
+    setIdList(
+      clickedItem.clicked !== false ? idList.filter((item) => item !== clickedItem.id) : [...idList, clickedItem.id],
     );
   };
-
-  const onSubmitHandler = () => {
-    setSelectedList([
-      ...wordList[0].filter((item) => item.clicked !== false),
-      ...wordList[1].filter((item) => item.clicked !== false),
-      ...wordList[2].filter((item) => item.clicked !== false),
-      ...wordList[3].filter((item) => item.clicked !== false),
-    ]);
+  const onSubmitHandler = async () => {
+    console.log(idList);
+    const response = await axios.patch('http://3.37.42.147/api/v1/alacard/wordlist', {
+      params: { nickname },
+      data: { idList },
+    });
+    console.log(response);
   };
   return (
     <MainWrapper>
@@ -123,7 +102,7 @@ const SelectComponent = () => {
         <img src="" alt="x" />
       </header>
       <div>nickname과 관련된 키워드를 모두 골라봥</div>
-      <div style={{ color: 'white' }}>{selectedList.length}개의 키워드를 골랐어!</div>
+      <div style={{ color: 'white' }}>{idList.length}개의 키워드를 골랐어!</div>
       <SelectViewWrapper>
         {wordList.map((word, index) => (
           <div key={index}>

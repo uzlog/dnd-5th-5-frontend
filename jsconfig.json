@@ -9,7 +9,7 @@
       "@lib/*": ["src/lib/*"],
       "@router/*": ["src/router/*"],
       "@assets": ["src/assets/*"],
-      "@hook": ["src/hook/*"],
+      "@hooks": ["src/hooks/*"],
       "@layout": ["src/layout/*"]
     }
   },

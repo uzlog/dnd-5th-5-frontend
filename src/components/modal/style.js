@@ -20,6 +20,7 @@ export const ModalOverlay = styled.div`
   height: 100%;
   background-color: #efefef;
   opacity: 0.4;
+  top: -100px;
 `;
 
 export const ModalContents = styled.div`
