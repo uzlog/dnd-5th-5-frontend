@@ -291,7 +291,7 @@ const FriendModal = ({ state, onClickModalStatus }) => {
     setShowToast(true);
     const text = document.createElement('textarea');
     document.body.appendChild(text);
-    const nickname = localStorage.getItem('nickname');
+    const nickname = sessionStorage.getItem('nickname');
     text.value = `https://www.ala.monster/${nickname}`;
 
     text.select();
@@ -321,7 +321,7 @@ const FriendModal = ({ state, onClickModalStatus }) => {
               </Description>
               <LinkArea>
                 <LinkWrapper>
-                  <span>{`ala.monster/${localStorage.getItem('nickname')}`}</span>
+                  <span>{`ala.monster/${sessionStorage.getItem('nickname')}`}</span>
                 </LinkWrapper>
                 <img src={friendLink} alt="공유 버튼" onClick={onClickShare} />
               </LinkArea>
@@ -330,7 +330,7 @@ const FriendModal = ({ state, onClickModalStatus }) => {
             <>
               <LinkArea hasFriend="36px">
                 <LinkWrapper>
-                  <span>{`ala.monster/${localStorage.getItem('nickname')}`}</span>
+                  <span>{`ala.monster/${sessionStorage.getItem('nickname')}`}</span>
                 </LinkWrapper>
                 <img src={friendLink} alt="공유 버튼" onClick={onClickShare} />
               </LinkArea>

@@ -66,7 +66,6 @@ const SocialLogin = ({
     if (!regExp.test(memberNickname)) {
       // 닉네임 조건에 부합하지 않음
       setRegError(true);
-      console.log('reg error');
     } else {
       // 닉네임 조건에 부합함
       if (memberData.nickname === memberNickname) {
@@ -79,10 +78,9 @@ const SocialLogin = ({
   };
   useEffect(() => {
     const userInfo = { nickname: memberNickname };
-    if (!duplicatedData) {
-      console.log('닉네임 중복 x');
+    if (duplicatedData === false) {
       onSubmitUpdateMyInfo(userInfo);
-    } else {
+    } else if (duplicatedData === true) {
       setError('앗, 누군가 이미 사용중인 별명이네요,\n 다른 별명을 사용해보세요.');
     }
   }, [duplicatedData]);
