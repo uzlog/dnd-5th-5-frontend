@@ -33,7 +33,7 @@ export const ModalContents = styled.div`
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
   background-color: ${(props) => (props.profile ? '#121212' : 'white')};
   max-width: ${(props) => (props.profile ? '576px' : '800px')};
-  width: ${(props) => (props.profile ? '40vw' : '600px')};
+  width: ${(props) => (props.profile ? '40vw' : '800px')};
   max-height: ${(props) => (props.profile ? '307px' : '')};
   height: ${(props) => (props.profile ? '30vh' : '600px')};
   overflow-y: auto;

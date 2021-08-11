@@ -30,7 +30,7 @@ export const Header = styled.div`
   letter-spacing: -0.5px;
   color: #000000;
   margin-top: 119px;
-  @media screen and (max-width: 767px) {
+  @media screen and (max-width: 1023px) {
     margin-top: 78px;
     font-size: 24px;
     line-height: 1.6;
@@ -41,7 +41,7 @@ export const Header = styled.div`
 export const StyledParagraph = styled.span`
   text-align: center;
   margin-top: 52px;
-  @media screen and (max-width: 767px) {
+  @media screen and (max-width: 1023px) {
     margin-top: 27px;
     font-size: 13px;
     line-height: 1.6;
@@ -52,7 +52,7 @@ export const ButtonWrapper = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 52px;
-  @media screen and (max-width: 767px) {
+  @media screen and (max-width: 1023px) {
     flex-direction: column;
     margin-top: 41px;
   }
@@ -77,7 +77,7 @@ export const GoogleButton = styled.button`
   font-size: 16px;
   font-weight: bold;
   margin-right: 36px;
-  @media screen and (max-width: 767px) {
+  @media screen and (max-width: 1023px) {
     margin: 0 auto;
     margin-bottom: 28px;
   }
@@ -112,7 +112,7 @@ export const StyledInfoParagraph = styled.p`
   text-align: center;
   color: var(--gray-color-gray-2-a-2-a-2-a);
   margin-top: 52px;
-  @media screen and (max-width: 767px) {
+  @media screen and (max-width: 1023px) {
     font-size: 10px;
   }
 `;
@@ -128,7 +128,7 @@ export const StyledInput = styled.input`
   text-align: center;
   border: solid 0.5px #2a2a2a;
   outline: none;
-  @media screen and (max-width: 767px) {
+  @media screen and (max-width: 1023px) {
     width: 220px;
     height: 49px;
     gap: 10px;
@@ -145,7 +145,7 @@ export const SmallWrapper = styled.div`
   flex-direction: row;
   justify-content: flex-start;
   align-items: flex-start;
-  @media screen and (max-width: 767px) {
+  @media screen and (max-width: 1023px) {
     width: 220px;
     height: 16px;
     gap: 51px;
@@ -153,7 +153,7 @@ export const SmallWrapper = styled.div`
 `;
 
 export const StyledSpan = styled.span`
-  @media screen and (max-width: 767px) {
+  @media screen and (max-width: 1023px) {
     font-size: 10px;
     line-height: 1.6;
     letter-spacing: -0.5px;
@@ -163,7 +163,7 @@ export const StyledSpan = styled.span`
 `;
 
 export const StyledErrorSpan = styled.span`
-  @media screen and (max-width: 767px) {
+  @media screen and (max-width: 1023px) {
     font-size: 10px;
     line-height: 1.6;
     letter-spacing: -0.5px;
@@ -175,7 +175,7 @@ export const StyledErrorSpan = styled.span`
 export const ErrorMessage = styled.div`
   color: #fc3e57;
   text-align: center;
-  @media screen and (max-width: 767px) {
+  @media screen and (max-width: 1023px) {
     margin-top: 14px;
     font-size: 12px;
     line-height: 1.6;
@@ -191,7 +191,7 @@ export const SubmitButton = styled.button`
   color: white;
   border: none;
   outline: none;
-  @media screen and (max-width: 767px) {
+  @media screen and (max-width: 1023px) {
     width: 220px;
     height: 54px;
     font-size: 16px;
