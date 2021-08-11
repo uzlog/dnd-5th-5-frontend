@@ -1,7 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import useResponsive from '../../hooks/useResponsive';
-
 import {
   HintOfItem,
   WordNameOfItem,
@@ -16,7 +15,6 @@ import {
   SubmitButton,
   ButtonWrapper,
 } from './style';
-
 import emoji1 from '@assets/img/emoji/emoji1.svg';
 import emoji2 from '@assets/img/emoji/emoji2.svg';
 import emoji3 from '@assets/img/emoji/emoji3.svg';
@@ -29,10 +27,11 @@ import emoji9 from '@assets/img/emoji/emoji9.svg';
 import emoji10 from '@assets/img/emoji/emoji10.svg';
 import emoji11 from '@assets/img/emoji/emoji11.svg';
 import HeaderContainer from '@containers/common/HeaderContainer';
+import { useParams } from 'react-router-dom';
 
-const SelectComponent = ({ match }) => {
+const SelectComponent = () => {
   // 주소창에서 가져오기
-  const nickname = '11t518s';
+  const owner = useParams().nickname;
   const [offset, setOffset] = useState(0);
   const [getWordListError, setGetWordListError] = useState(false);
   const [wordList, setWordList] = useState([[], [], [], []]);
@@ -59,7 +58,9 @@ const SelectComponent = ({ match }) => {
   //axios사용해서 데이터 받아오기
   const getWord = async () => {
     //여기 리덕스로 바꾸기
-    const response = await axios.get('http://3.37.42.147/api/v1/alacard/wordlist', { params: { nickname, offset } });
+    const response = await axios.get('http://3.37.42.147/api/v1/alacard/wordlist', {
+      params: { nickname: owner, offset },
+    });
     const setData = await response.data.data;
     if (setData.length > 15) {
       const newWordList = setData.map((i) => ({ ...i, clicked: false }));
@@ -77,8 +78,9 @@ const SelectComponent = ({ match }) => {
         indexOfEmoji.push(num3, num4);
       }
       const emojiIndexOfWordList = slicedNumberOfWordList.sort((a, b) => a - b);
-      //
+      // 여기까지 리팩토링 해보고싶음
 
+      //
       if (wordList.length > 2) {
         setWordList([
           [
@@ -151,6 +153,7 @@ const SelectComponent = ({ match }) => {
     } else {
       // 여기 토스트 써서 만들기
       setGetWordListError(true);
+      alert('더 단어가 없어요 ㅠㅠ');
     }
   };
 
@@ -180,7 +183,7 @@ const SelectComponent = ({ match }) => {
   };
   const onSubmitHandler = async () => {
     console.log(idList);
-    const response = await axios.patch(`http://3.37.42.147/api/v1/alacard/wordlist?nickname=${nickname}`, {
+    const response = await axios.patch(`http://3.37.42.147/api/v1/alacard/wordlist?owner=${owner}`, {
       idList,
     });
     console.log(response);
@@ -193,7 +196,7 @@ const SelectComponent = ({ match }) => {
       <MainWrapper>
         <HeaderContainer />
         <KeywordIntro>
-          {nickname}과<br />
+          {owner}과<br />
           관련된 키워드를 모두 골라봥😼
         </KeywordIntro>
         {idList.length ? (
@@ -207,7 +210,7 @@ const SelectComponent = ({ match }) => {
               {word.map((item, index) =>
                 item.id ? (
                   <EachSelectViewItem
-                    key={index}
+                    key={item.id}
                     onClick={(event) => onWordClickedHandler({ event, item })}
                     style={{
                       background: item.clicked ? item.clicked : 'rgba(255, 255, 255, 0.1)',
@@ -228,7 +231,10 @@ const SelectComponent = ({ match }) => {
           <GetMoreWorldButton onClick={getWord} disabled={getWordListError ? true : false}>
             더 보여줘😗
           </GetMoreWorldButton>
-          <SubmitButton onClick={onSubmitHandler} disabled={idList.length ? false : true}>
+          <SubmitButton
+            onClick={onSubmitHandler}
+            style={idList.length ? null : { background: '#2a2a2a' }}
+            disabled={idList.length ? false : true}>
             다 골랐음😋
           </SubmitButton>
         </ButtonWrapper>

@@ -40,6 +40,7 @@ export const SelectViewWrapper = styled.div`
   }
   @media screen and (min-width: 1023px) {
     margin-top: 83px;
+    margin-bottom: 100px;
   }
 `;
 export const EachSelectViewLine = styled.span`
@@ -102,13 +103,16 @@ export const GetMoreWorldButton = styled.button`
   background-color: black;
   width: 148px;
   height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-size: 16px;
   margin: 0 auto;
   padding: 11px 14px 11px 14px;
   border-radius: 62px;
-  border: solid 1px var(--primary-color-white);
+  border: solid 1px white;
   @media screen and (min-width: 1023px) {
-    border: solid 1.6px var(--primary-color-white);
+    border: solid 1.6px;
     font-size: 26px;
     width: 237px;
     height: 77px;
@@ -118,6 +122,9 @@ export const GetMoreWorldButton = styled.button`
 export const SubmitButton = styled.button`
   color: black;
   background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 148px;
   height: 48px;
   font-size: 16px;
@@ -125,9 +132,9 @@ export const SubmitButton = styled.button`
   margin: 0 auto;
   padding: 11px 14px 11px 14px;
   border-radius: 62px;
-  border: solid 1px var(--primary-color-white);
+  border: solid 1px;
   @media screen and (min-width: 1023px) {
-    border: solid 1.6px var(--primary-color-white);
+    border: solid 1.6px;
     font-size: 26px;
 
     width: 237px;
