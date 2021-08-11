@@ -1,5 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import useResponsive from '../../hooks/useResponsive';
+
 import {
   HintOfItem,
   WordNameOfItem,
@@ -7,7 +9,14 @@ import {
   SelectViewWrapper,
   MainWrapper,
   EachSelectViewItem,
+  WhiteBox,
+  GetMoreWorldButton,
+  KeywordIntro,
+  SelectedCount,
+  SubmitButton,
+  ButtonWrapper,
 } from './style';
+
 import emoji1 from '@assets/img/emoji/emoji1.svg';
 import emoji2 from '@assets/img/emoji/emoji2.svg';
 import emoji3 from '@assets/img/emoji/emoji3.svg';
@@ -19,15 +28,16 @@ import emoji8 from '@assets/img/emoji/emoji8.svg';
 import emoji9 from '@assets/img/emoji/emoji9.svg';
 import emoji10 from '@assets/img/emoji/emoji10.svg';
 import emoji11 from '@assets/img/emoji/emoji11.svg';
+import HeaderContainer from '@containers/common/HeaderContainer';
 
-const SelectComponent = () => {
+const SelectComponent = ({ match }) => {
   // 주소창에서 가져오기
   const nickname = '11t518s';
   const [offset, setOffset] = useState(0);
+  const [getWordListError, setGetWordListError] = useState(false);
   const [wordList, setWordList] = useState([[], [], [], []]);
   const [idList, setIdList] = useState([]);
   const COLUMN = 4;
-  const ROW = 4;
   const backgroundGradientList = [
     'linear-gradient(to top, #bf5ae0, #a811da)',
     'linear-gradient(to top, #ff0016, #ff7a00)',
@@ -48,94 +58,100 @@ const SelectComponent = () => {
 
   //axios사용해서 데이터 받아오기
   const getWord = async () => {
+    //여기 리덕스로 바꾸기
     const response = await axios.get('http://3.37.42.147/api/v1/alacard/wordlist', { params: { nickname, offset } });
     const setData = await response.data.data;
-    const newWordList = setData.map((i) => ({ ...i, clicked: false }));
+    if (setData.length > 15) {
+      const newWordList = setData.map((i) => ({ ...i, clicked: false }));
 
-    // 여기부터 리펙토링 필요
-    const numberArray = [];
-    const emojiListNumber = [];
-    for (let i = 0; i < 4; i++) {
-      let [num1, num2] = [Math.floor(Math.random() * 4 + i * 4), Math.floor(Math.random() * 4 + i * 4)];
-      let [num3, num4] = [Math.floor(Math.random() * 11), Math.floor(Math.random() * 11)];
-      while (num1 === num2) {
-        num2 = Math.floor(Math.random() * 4 + i * 4);
+      // 여기부터 리펙토링 필요
+      const slicedNumberOfWordList = [];
+      const indexOfEmoji = [];
+      for (let i = 0; i < 4; i++) {
+        let [num1, num2] = [Math.floor(Math.random() * 4 + i * 4), Math.floor(Math.random() * 4 + i * 4)];
+        let [num3, num4] = [Math.floor(Math.random() * 11), Math.floor(Math.random() * 11)];
+        while (num1 === num2) {
+          num2 = Math.floor(Math.random() * 4 + i * 4);
+        }
+        slicedNumberOfWordList.push(num1, num2);
+        indexOfEmoji.push(num3, num4);
       }
-      numberArray.push(num1, num2);
-      emojiListNumber.push(num3, num4);
-    }
-    const emojiIndexList = numberArray.sort((a, b) => a - b);
-    //
+      const emojiIndexOfWordList = slicedNumberOfWordList.sort((a, b) => a - b);
+      //
 
-    if (wordList.length > 2) {
-      setWordList([
-        [
-          ...wordList[0],
-          ...newWordList.slice(0, emojiIndexList[0]),
-          { url: emojiList[0] },
-          ...newWordList.slice(emojiIndexList[0], emojiIndexList[1]),
-          { url: emojiList[1] },
-          ...newWordList.slice(emojiIndexList[1], COLUMN),
-        ],
-        [
-          ...wordList[1],
-          ...newWordList.slice(COLUMN, emojiIndexList[2]),
-          { url: emojiList[2] },
-          ...newWordList.slice(emojiIndexList[2], emojiIndexList[3]),
-          { url: emojiList[3] },
-          ...newWordList.slice(emojiIndexList[3], COLUMN * 2),
-        ],
-        [
-          ...wordList[2],
-          ...newWordList.slice(COLUMN * 2, emojiIndexList[4]),
-          { url: emojiList[4] },
-          ...newWordList.slice(emojiIndexList[4], emojiIndexList[5]),
-          { url: emojiList[5] },
-          ...newWordList.slice(emojiIndexList[5], COLUMN * 3),
-        ],
-        [
-          ...wordList[3],
-          ...newWordList.slice(COLUMN * 3, emojiIndexList[6]),
-          { url: emojiList[6] },
-          ...newWordList.slice(emojiIndexList[6], emojiIndexList[7]),
-          { url: emojiList[7] },
-          ...newWordList.slice(emojiIndexList[7]),
-        ],
-      ]);
+      if (wordList.length > 2) {
+        setWordList([
+          [
+            ...wordList[0],
+            ...newWordList.slice(0, emojiIndexOfWordList[0]),
+            { url: emojiList[0] },
+            ...newWordList.slice(emojiIndexOfWordList[0], emojiIndexOfWordList[1]),
+            { url: emojiList[1] },
+            ...newWordList.slice(emojiIndexOfWordList[1], COLUMN),
+          ],
+          [
+            ...wordList[1],
+            ...newWordList.slice(COLUMN, emojiIndexOfWordList[2]),
+            { url: emojiList[2] },
+            ...newWordList.slice(emojiIndexOfWordList[2], emojiIndexOfWordList[3]),
+            { url: emojiList[3] },
+            ...newWordList.slice(emojiIndexOfWordList[3], COLUMN * 2),
+          ],
+          [
+            ...wordList[2],
+            ...newWordList.slice(COLUMN * 2, emojiIndexOfWordList[4]),
+            { url: emojiList[4] },
+            ...newWordList.slice(emojiIndexOfWordList[4], emojiIndexOfWordList[5]),
+            { url: emojiList[5] },
+            ...newWordList.slice(emojiIndexOfWordList[5], COLUMN * 3),
+          ],
+          [
+            ...wordList[3],
+            ...newWordList.slice(COLUMN * 3, emojiIndexOfWordList[6]),
+            { url: emojiList[6] },
+            ...newWordList.slice(emojiIndexOfWordList[6], emojiIndexOfWordList[7]),
+            { url: emojiList[7] },
+            ...newWordList.slice(emojiIndexOfWordList[7]),
+          ],
+        ]);
+      } else {
+        setWordList([
+          [
+            ...newWordList.slice(0, emojiIndexOfWordList[0]),
+            { url: emojiList[0] },
+            ...newWordList.slice(emojiIndexOfWordList[0], emojiIndexOfWordList[1]),
+            { url: emojiList[1] },
+            ...newWordList.slice(emojiIndexOfWordList[1], COLUMN),
+          ],
+          [
+            ...newWordList.slice(COLUMN, emojiIndexOfWordList[2]),
+            { url: emojiList[2] },
+            ...newWordList.slice(emojiIndexOfWordList[2], emojiIndexOfWordList[3]),
+            { url: emojiList[3] },
+            ...newWordList.slice(emojiIndexOfWordList[3], COLUMN * 2),
+          ],
+          [
+            ...newWordList.slice(COLUMN * 2, emojiIndexOfWordList[4]),
+            { url: emojiList[4] },
+            ...newWordList.slice(emojiIndexOfWordList[4], emojiIndexOfWordList[5]),
+            { url: emojiList[5] },
+            ...newWordList.slice(emojiIndexOfWordList[5], COLUMN * 3),
+          ],
+          [
+            ...newWordList.slice(COLUMN * 3, emojiIndexOfWordList[6]),
+            { url: emojiList[6] },
+            ...newWordList.slice(emojiIndexOfWordList[6], emojiIndexOfWordList[7]),
+            { url: emojiList[7] },
+            ...newWordList.slice(emojiIndexOfWordList[7]),
+          ],
+        ]);
+      }
+
+      setOffset(offset + newWordList.length);
     } else {
-      setWordList([
-        [
-          ...newWordList.slice(0, emojiIndexList[0]),
-          { url: emojiList[0] },
-          ...newWordList.slice(emojiIndexList[0], emojiIndexList[1]),
-          { url: emojiList[1] },
-          ...newWordList.slice(emojiIndexList[1], COLUMN),
-        ],
-        [
-          ...newWordList.slice(COLUMN, emojiIndexList[2]),
-          { url: emojiList[2] },
-          ...newWordList.slice(emojiIndexList[2], emojiIndexList[3]),
-          { url: emojiList[3] },
-          ...newWordList.slice(emojiIndexList[3], COLUMN * 2),
-        ],
-        [
-          ...newWordList.slice(COLUMN * 2, emojiIndexList[4]),
-          { url: emojiList[4] },
-          ...newWordList.slice(emojiIndexList[4], emojiIndexList[5]),
-          { url: emojiList[5] },
-          ...newWordList.slice(emojiIndexList[5], COLUMN * 3),
-        ],
-        [
-          ...newWordList.slice(COLUMN * 3, emojiIndexList[6]),
-          { url: emojiList[6] },
-          ...newWordList.slice(emojiIndexList[6], emojiIndexList[7]),
-          { url: emojiList[7] },
-          ...newWordList.slice(emojiIndexList[7]),
-        ],
-      ]);
+      // 여기 토스트 써서 만들기
+      setGetWordListError(true);
     }
-
-    setOffset(offset + newWordList.length);
   };
 
   // click했을 때 일어나는 상황 1. clicked엘리먼트에 속성 변경 시키기 2. selectedList에 추가
@@ -162,52 +178,62 @@ const SelectComponent = () => {
       clickedItem.clicked !== false ? idList.filter((item) => item !== clickedItem.id) : [...idList, clickedItem.id],
     );
   };
-  console.log(wordList);
   const onSubmitHandler = async () => {
     console.log(idList);
-    const response = await axios.patch(
-      'http://3.37.42.147/api/v1/alacard/wordlist',
-      {
-        params: { nickname },
-      },
-      { data: { idList } },
-    );
+    const response = await axios.patch(`http://3.37.42.147/api/v1/alacard/wordlist?nickname=${nickname}`, {
+      idList,
+    });
     console.log(response);
   };
-  return (
-    <MainWrapper>
-      <header>
-        <img src="" alt="lala" />
-        <img src="" alt="x" />
-      </header>
-      <div>nickname과 관련된 키워드를 모두 골라봥</div>
-      <div style={{ color: 'white' }}>{idList.length}개의 키워드를 골랐어!</div>
 
-      <SelectViewWrapper>
-        {wordList.map((word, index) => (
-          <div key={index}>
-            {word.map((item, index) =>
-              item.id ? (
-                <EachSelectViewItem
-                  key={index}
-                  onClick={(event) => onWordClickedHandler({ event, item })}
-                  style={{
-                    background: item.clicked ? item.clicked : 'rgba(255, 255, 255, 0.1)',
-                  }}>
-                  <HintOfItem>{item.hint}</HintOfItem>
-                  <WordNameOfItem>{item.wordName}</WordNameOfItem>
-                </EachSelectViewItem>
-              ) : (
-                <img src={item.url} />
-              ),
-            )}
-          </div>
-        ))}
-      </SelectViewWrapper>
-      <img src="emoji10.svg" />
-      <button onClick={getWord}>누르면 더 나와라 얍</button>
-      <button onClick={onSubmitHandler}>누르면 보내져라 얍</button>
-    </MainWrapper>
+  const viewSize = useResponsive();
+
+  return (
+    <>
+      <MainWrapper>
+        <HeaderContainer />
+        <KeywordIntro>
+          {nickname}과<br />
+          관련된 키워드를 모두 골라봥😼
+        </KeywordIntro>
+        {idList.length ? (
+          <SelectedCount>{idList.length}개의 키워드를 골랐어!</SelectedCount>
+        ) : (
+          <SelectedCount>아직 고른 키워드가 없어!</SelectedCount>
+        )}
+        <SelectViewWrapper>
+          {wordList.map((word, index) => (
+            <EachSelectViewLine key={index}>
+              {word.map((item, index) =>
+                item.id ? (
+                  <EachSelectViewItem
+                    key={index}
+                    onClick={(event) => onWordClickedHandler({ event, item })}
+                    style={{
+                      background: item.clicked ? item.clicked : 'rgba(255, 255, 255, 0.1)',
+                    }}>
+                    <HintOfItem>{item.hint}</HintOfItem>
+                    <WordNameOfItem>{item.wordName}</WordNameOfItem>
+                  </EachSelectViewItem>
+                ) : (
+                  <WhiteBox>
+                    <img src={item.url} style={viewSize > 1023 ? { width: '38px' } : { width: '24px' }} />
+                  </WhiteBox>
+                ),
+              )}
+            </EachSelectViewLine>
+          ))}
+        </SelectViewWrapper>
+        <ButtonWrapper>
+          <GetMoreWorldButton onClick={getWord} disabled={getWordListError ? true : false}>
+            더 보여줘😗
+          </GetMoreWorldButton>
+          <SubmitButton onClick={onSubmitHandler} disabled={idList.length ? false : true}>
+            다 골랐음😋
+          </SubmitButton>
+        </ButtonWrapper>
+      </MainWrapper>
+    </>
   );
 };
 
