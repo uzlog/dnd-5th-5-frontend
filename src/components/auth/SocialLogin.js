@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import GoogleLogin from 'react-google-login';
 import NaverLogin from 'react-login-by-naver';
 import * as dotenv from 'dotenv';
@@ -20,9 +20,9 @@ import {
   ErrorMessage,
   SubmitButton,
 } from './style';
-import googleIcon from '@assets/img/googleIcon.svg';
-import naverIcon from '@assets/img/naverIcon.svg';
-import { useEffect } from 'react';
+import googleIcon from '@assets/img/auth/googleIcon.svg';
+import naverIcon from '@assets/img/auth/naverIcon.svg';
+import closeBtn from '@assets/img/auth/closeBtn.svg';
 
 dotenv.config();
 
@@ -93,7 +93,7 @@ const SocialLogin = ({
         <>
           <ExitButtonWrapper>
             <ExitButton type="button" onClick={() => closeModal()}>
-              X
+              <img src={closeBtn} alt="닫기" />
             </ExitButton>
           </ExitButtonWrapper>
           <FormWrapper onSubmit={onSubmitNickname}>
@@ -138,14 +138,14 @@ const SocialLogin = ({
         <>
           <ExitButtonWrapper>
             <ExitButton type="button" onClick={() => closeModal()}>
-              X
+              <img src={closeBtn} alt="닫기" />
             </ExitButton>
           </ExitButtonWrapper>
           <Wrapper>
             <Header>시작하기</Header>
             <StyledParagraph>
-              지금 로그인하고 맞춤 커리어 콘텐츠로 하루를 시작하세요. <br />
-              매일 1,000개 채널의 콘텐츠가 새 탭에서 펼쳐집니다.
+              나도 몰랐던 내 모습,
+              <br /> <strong>알라</strong>와 함께 <strong>알아</strong>가 보세요.
             </StyledParagraph>
             <ButtonWrapper>
               <GoogleLogin
