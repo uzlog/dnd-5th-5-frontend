@@ -95,8 +95,8 @@ const SocialLogin = ({
             </ExitButton>
           </ExitButtonWrapper>
           <FormWrapper onSubmit={onSubmitNickname}>
-            <Header>뭐라고 불러드릴까요?</Header>
-            <StyledParagraph>
+            <Header nickname="nickname">뭐라고 불러드릴까요?</Header>
+            <StyledParagraph nickname="nickname">
               다른 사용자들에게 보여질 별명을 입력해주세요. <br />
               이후에도 언제든지 변경할 수 있습니다.
             </StyledParagraph>
