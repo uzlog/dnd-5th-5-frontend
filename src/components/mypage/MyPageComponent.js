@@ -11,12 +11,49 @@ import bigCardCloseBtn from '@assets/img/alacard/bigCardCloseBtn.svg';
 import linkBtn from '@assets/img/alacard/linkBtn.svg';
 import maximizeBtn from '@assets/img/alacard/maximize.svg';
 
-const StyledSlider = styled(Slider)`
-  .slick-slide > div {
+const Wrapper = styled.div`
+  max-width: 576px;
+  width: 40vw;
+  height: 100vh;
+  @media screen and (max-width: 1023px) {
     margin: 0 auto;
-    @media screen and (max-width: 767px) {
-      width: 360px;
+    width: 36rem;
+    min-height: 64rem;
+  }
+`;
+
+const MoreButtonWrapper = styled.div`
+  height: 10vh;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 1.9vw;
+  img {
+    width: 38.4px;
+    height: 38.4px;
+  }
+  @media screen and (max-width: 1023px) {
+    min-height: 6.4rem;
+    padding-right: 2.4rem;
+    img {
+      width: 2.4rem;
+      height: 2.4rem;
     }
+  }
+`;
+
+const MoreButton = styled.div`
+  cursor: pointer;
+  width: 38.4px;
+  height: 3.8vh;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-between;
+  @media screen and (max-width: 1023px) {
+    width: 2.4rem;
+    height: 2.4rem;
   }
 `;
 
@@ -27,30 +64,33 @@ const ContentFlexWrapper = styled.div`
 
 const ContentsWrapper = styled.div`
   display: table;
-  width: 578px;
-  height: 578px;
-  margin-left: 10px;
-  margin-right: 24px;
+  width: 40vw;
+  max-width: 576px;
+  height: 70vh;
   line-height: 1.6;
   letter-spacing: -0.8px;
-  font-size: 58px;
+  font-size: min(5.6vh, 57.6px, 4vw);
   font-weight: 300;
-  @media screen and (min-width: 400px) {
-    margin-left: ${(props) => props.margin || '24px'};
-  }
+  padding-left: 38.4px;
+  padding-right: 38.4px;
   @media screen and (max-width: 1023px) {
-    width: 312px;
-    height: 420px;
-    margin-left: 24px;
-    margin-right: 24px;
+    width: 36rem;
+    min-height: 42rem;
     line-height: 1.6;
     letter-spacing: -0.5px;
-    font-size: 36px;
+    font-size: 3.6rem;
+    padding-left: 2.4rem;
+    padding-right: 2.4rem;
   }
-  @media screen and (max-height: 990px) and (min-width: 1023px) {
-    font-size: 40px;
-    height: 500px;
-    width: 500px;
+`;
+
+const InnerContents = styled.div`
+  display: table-cell;
+  vertical-align: middle;
+  height: ${(props) => props.height || ''};
+  text-align: left;
+  img {
+    display: inline;
   }
 `;
 
@@ -64,65 +104,17 @@ const ModalContentsWrapper = styled.div`
   font-size: 36px;
 `;
 
-const InnerContents = styled.div`
-  display: table-cell;
-  vertical-align: middle;
-  height: ${(props) => props.height || ''};
-  text-align: left;
-`;
-
-const MoreButtonWrapper = styled.div`
-  height: 102px;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  img {
-    width: 38px;
-    height: 38px;
-  }
-  @media screen and (max-width: 1023px) {
-    height: 64px;
-    img {
-      width: 24px;
-      height: 24px;
-    }
-  }
-  @media screen and (max-height: 990px) and (min-width: 1023px) {
-    height: 80px;
-    img {
-      width: 30px;
-      height: 30px;
-    }
-  }
-`;
-
-const MoreButton = styled.div`
-  cursor: pointer;
-  width: 38px;
-  height: 38px;
-  margin-right: 32px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-  justify-content: space-between;
-  @media screen and (max-width: 1023px) {
-    margin-right: 24px;
-    width: 24px;
-    height: 24px;
-  }
-`;
-
 const ButtonWrapper = styled.div`
+  width: 40vw;
+  max-width: 576px;
   display: flex;
-  flex-direction: row;
-  align-items: center;
   justify-content: flex-end;
-  margin-right: 38px;
-  margin-top: 30px;
-  height: 96px;
+  padding-right: 1.9vw;
+  height: 10.6vh;
   @media screen and (max-width: 1023px) {
-    margin-top: 0px;
+    min-height: 96px;
+    width: 36rem;
+    padding-right: 2.4rem;
   }
 `;
 
@@ -130,36 +122,31 @@ const StyledButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 368px;
-  height: 77px;
+  max-width: 368px;
+  width: 25.5vw;
+  height: 7.5vh;
   border-radius: 99px;
   cursor: pointer;
   border: solid 1px white;
   background: transparent;
   color: white;
   line-height: 1.6;
-  font-size: 26px;
+  font-size: min(2.5vh, 25.6px, 1.7vw);
   @media screen and (max-width: 1023px) {
     width: 230px;
-    height: 48px;
+    min-height: 48px;
     border-radius: 62px;
     font-size: 15px;
   }
-  @media screen and (max-height: 990px) and (min-width: 1023px) {
-    width: 300px;
-    height: 60px;
-    border-radius: 80px;
-    font-size: 20px;
-  }
   img {
+    width: 26px;
+    height: 26px;
+    margin-left: 14px;
     @media screen and (max-width: 1023px) {
       width: 18px;
       height: 18px;
       margin-left: 8px;
     }
-    width: 26px;
-    height: 26px;
-    margin-left: 14px;
   }
 `;
 
@@ -183,7 +170,7 @@ const MyPageComponent = ({ state }) => {
     dots: false,
     infinite: true,
     arrows: false,
-    autoplay: true,
+    autoplay: false,
     autoplaySpeed: 3000,
     speed: 500,
     slidesToShow: 1,
@@ -192,11 +179,11 @@ const MyPageComponent = ({ state }) => {
 
   const openModal = (e) => {
     setShowModal(true);
+    document.body.style = `overflow: hidden`;
     setSentence(e.target.getAttribute('sentence'));
     const index = e.target.getAttribute('idx');
-
     if (alacardData[index].isCompleted) {
-      const { backgroundImgUrl, fontColor } = alacardData.alaCardSettingDto;
+      const { backgroundImgUrl, fontColor } = alacardData[index].alaCardSettingDto;
       setBigAlaCardStyle({
         backgroundImage: 'url(' + backgroundImgUrl + ')',
         backgroundSize: '360px 640px',
@@ -230,6 +217,7 @@ const MyPageComponent = ({ state }) => {
   };
 
   const closeModal = () => {
+    document.body.style = `overflow: visible`;
     setShowModal(false);
   };
 
@@ -245,9 +233,9 @@ const MyPageComponent = ({ state }) => {
 
   return (
     <>
-      <div style={{ width: viewSize > '1023' ? '578px' : '360px' }}>
+      <Wrapper>
         <HeaderContainer />
-        <StyledSlider {...settings}>
+        <Slider {...settings}>
           {alacardData.map((card, idx) => {
             const { backgroundImgUrl, fontColor } = card.alaCardSettingDto;
             let cardStyle;
@@ -262,9 +250,8 @@ const MyPageComponent = ({ state }) => {
               cardStyle = {
                 backgroundImage: 'url(' + backgroundImgUrl + ')',
                 backgroundSize: 'cover',
-                width: viewSize > '768' ? '578px' : '360px',
-                height: '100vh',
-                margin: '0 auto',
+                width: viewSize > '1023' ? '40vw' : '36rem',
+                maxWidth: viewSize > '1023' ? '576px' : '360px',
               };
               fontStyle = {
                 color: fontColor,
@@ -273,9 +260,8 @@ const MyPageComponent = ({ state }) => {
               card.sentence = card.sentence.replaceAll('???', '<img src="' + secretWord + '" alt="비밀 단어" />');
               cardStyle = {
                 backgroundColor: '#121212',
-                width: viewSize > '1023' ? '578px' : '360px',
-                height: '100vh',
-                margin: '0 auto',
+                width: viewSize > '1023' ? '40vw' : '36rem',
+                maxWidth: viewSize > '1023' ? '576px' : '360px',
               };
               fontStyle = {
                 color: '#b9ff46',
@@ -290,7 +276,7 @@ const MyPageComponent = ({ state }) => {
               <>
                 <div key={idx} style={cardStyle}>
                   <MoreButtonWrapper>
-                    <MoreButton fontcolor={fontStyle} onClick={openModal}>
+                    <MoreButton onClick={openModal}>
                       <img src={maximizeBtn} idx={idx} sentence={card.sentence} alt="확대 버튼" />
                     </MoreButton>
                   </MoreButtonWrapper>
@@ -309,7 +295,7 @@ const MyPageComponent = ({ state }) => {
               </>
             );
           })}
-        </StyledSlider>
+        </Slider>
         {showModal && (
           <ModalWrapper>
             <ModalOverlay onClick={() => closeModal()} />
@@ -323,7 +309,7 @@ const MyPageComponent = ({ state }) => {
             </ModalContents>
           </ModalWrapper>
         )}
-      </div>
+      </Wrapper>
     </>
   );
 };

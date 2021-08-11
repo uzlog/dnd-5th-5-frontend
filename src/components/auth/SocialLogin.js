@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import GoogleLogin from 'react-google-login';
 import NaverLogin from 'react-login-by-naver';
 import * as dotenv from 'dotenv';
@@ -20,9 +20,9 @@ import {
   ErrorMessage,
   SubmitButton,
 } from './style';
-import googleIcon from '@assets/img/googleIcon.svg';
-import naverIcon from '@assets/img/naverIcon.svg';
-import { useEffect } from 'react';
+import googleIcon from '@assets/img/auth/googleIcon.svg';
+import naverIcon from '@assets/img/auth/naverIcon.svg';
+import closeBtn from '@assets/img/auth/closeBtn.svg';
 
 dotenv.config();
 
@@ -66,7 +66,6 @@ const SocialLogin = ({
     if (!regExp.test(memberNickname)) {
       // 닉네임 조건에 부합하지 않음
       setRegError(true);
-      console.log('reg error');
     } else {
       // 닉네임 조건에 부합함
       if (memberData.nickname === memberNickname) {
@@ -79,10 +78,9 @@ const SocialLogin = ({
   };
   useEffect(() => {
     const userInfo = { nickname: memberNickname };
-    if (!duplicatedData) {
-      console.log('닉네임 중복 x');
+    if (duplicatedData === false) {
       onSubmitUpdateMyInfo(userInfo);
-    } else {
+    } else if (duplicatedData === true) {
       setError('앗, 누군가 이미 사용중인 별명이네요,\n 다른 별명을 사용해보세요.');
     }
   }, [duplicatedData]);
@@ -93,12 +91,12 @@ const SocialLogin = ({
         <>
           <ExitButtonWrapper>
             <ExitButton type="button" onClick={() => closeModal()}>
-              X
+              <img src={closeBtn} alt="닫기" />
             </ExitButton>
           </ExitButtonWrapper>
           <FormWrapper onSubmit={onSubmitNickname}>
-            <Header>뭐라고 불러드릴까요?</Header>
-            <StyledParagraph>
+            <Header nickname="nickname">뭐라고 불러드릴까요?</Header>
+            <StyledParagraph nickname="nickname">
               다른 사용자들에게 보여질 별명을 입력해주세요. <br />
               이후에도 언제든지 변경할 수 있습니다.
             </StyledParagraph>
@@ -138,14 +136,14 @@ const SocialLogin = ({
         <>
           <ExitButtonWrapper>
             <ExitButton type="button" onClick={() => closeModal()}>
-              X
+              <img src={closeBtn} alt="닫기" />
             </ExitButton>
           </ExitButtonWrapper>
           <Wrapper>
             <Header>시작하기</Header>
             <StyledParagraph>
-              지금 로그인하고 맞춤 커리어 콘텐츠로 하루를 시작하세요. <br />
-              매일 1,000개 채널의 콘텐츠가 새 탭에서 펼쳐집니다.
+              나도 몰랐던 내 모습,
+              <br /> <strong>알라</strong>와 함께 <strong>알아</strong>가 보세요.
             </StyledParagraph>
             <ButtonWrapper>
               <GoogleLogin

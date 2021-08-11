@@ -15,32 +15,51 @@ import settingBtn from '@assets/img/my-profile/settingBtn.svg';
 
 const Wrapper = styled.div`
   background-color: #121212;
-  width: 576px;
-  height: 96px;
-  padding: 29px 0px 29px 27px;
+  max-width: 576px;
+  width: 40vw;
+  height: 9.4vh;
+  padding: 3.1vh 2.2vw 3.1vh 1.8vw;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  &::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
+  }
   @media screen and (max-width: 1023px) {
     width: 360px;
-    height: 60px;
-    padding: 18px 20px 18px 15px;
+    min-height: 60px;
+    height: 9.3vh;
+    padding: 2.8vh 20px 3vh 20px;
   }
+`;
+
+const InnerWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 `;
 
 const LogoWrapper = styled(Link)`
   float: left;
   display: flex;
   align-items: center;
-  width: 74px;
-  height: 39px;
+  max-width: 74px;
+  width: 5.1vw;
+  height: 2.7vh;
+  min-height: 30px;
   img {
-    width: 74px;
-    height: 39px;
+    max-width: 74px;
+    width: 5.1vw;
+    height: 2.7vh;
+    min-height: 30px;
   }
   @media screen and (max-width: 1023px) {
-    width: 46px;
-    height: 24px;
+    width: 37px;
+    min-height: 24px;
+    height: 2.3vh;
     img {
-      width: 46px;
-      height: 24px;
+      width: 37px;
+      min-height: 24px;
+      height: 2.3vh;
     }
   }
 `;
@@ -49,9 +68,11 @@ const IconWrapper = styled.div`
   float: right;
   display: flex;
   align-items: center;
-  width: 220px;
+  justify-content: flex-end;
+  max-width: 220px;
+  width: 15.2vw;
   div:not(:last-child) {
-    margin-right: 39px;
+    margin-right: min(32px, 2.2vw);
   }
   @media screen and (max-width: 1023px) {
     width: 112px;
@@ -62,33 +83,35 @@ const IconWrapper = styled.div`
 `;
 
 const ImgWrapper = styled.div`
+  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: ${(props) => (props.close ? '23px' : '39px')};
-  height: ${(props) => (props.close ? '23px' : '39px')};
+  max-width: ${(props) => (props.close ? '23px' : '39px')};
+  min-height: 38.4px;
+  width: ${(props) => (props.close ? '1.6vw' : '2.7vw')};
+  height: ${(props) => (props.close ? '2.2vh' : '3.8vh')};
   img {
-    width: ${(props) => (props.close ? '23px' : '39px')};
-    height: ${(props) => (props.close ? '23px' : '39px')};
+    width: ${(props) => (props.close ? '1.6vw' : '2.7vw')};
+    height: ${(props) => (props.close ? '2.2vh' : '3.8vh')};
+    min-height: 38.4px;
   }
   @media screen and (max-width: 1023px) {
     width: 24px;
-    height: 24px;
+    min-height: 24px;
     img {
       width: ${(props) => (props.close ? '14px' : '24px')};
-      height: ${(props) => (props.close ? '14px' : '24px')};
     }
   }
 `;
 
 const ProfileWrapper = styled.div`
   display: flex;
-  align-items: center;
-  height: 125px;
-  padding-left: 39px;
+  height: 7.6vh;
+  padding-left: 2.3vw;
   @media screen and (max-width: 1023px) {
     padding-left: 24px;
-    height: 62px;
+    min-height: 62px;
   }
   span {
     color: white;
@@ -96,8 +119,9 @@ const ProfileWrapper = styled.div`
 `;
 
 const ProfileImg = styled.img`
-  width: ${(props) => (props.avatar ? '77px' : '24px')};
-  height: ${(props) => (props.avatar ? '77px' : '24px')};
+  max-width: ${(props) => (props.avatar ? '77px' : '24px')};
+  width: ${(props) => (props.avatar ? '5.3vw' : '1.6vw')};
+  height: ${(props) => (props.avatar ? '7.6vh' : '2.3vh')};
   @media screen and (max-width: 1023px) {
     width: ${(props) => (props.avatar ? '48px' : '18px')};
     height: ${(props) => (props.avatar ? '48px' : '18px')};
@@ -107,39 +131,47 @@ const ProfileImg = styled.img`
 const ProfileInfoWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
-  margin-left: 19px;
+  justify-content: space-around;
+  margin-left: min(1vw, 19px);
   img {
     margin-left: 12px;
-  }
-  @media screen and (max-width: 1023px) {
-    margin-left: 12px;
-    font-size: 16px;
-    line-height: 1.6;
-    letter-spacing: -0.5px;
-    img {
-      margin-left: 9px;
-    }
-    span:last-child {
-      margin-top: 5px;
-      font-size: 12px;
-    }
   }
   div {
     display: flex;
     align-items: center;
+    font-size: min(1.7vw, 2.5vh, 2.56rem);
+    font-weight: bold;
+    line-height: 1.6;
+    letter-spacing: -0.5px;
+  }
+  span:last-child {
+    margin-top: 0.8vh;
+    font-size: min(1.3vw, 1.8vh, 1.92rem);
+  }
+  @media screen and (max-width: 1023px) {
+    margin-left: 12px;
+    font-size: 16px;
+
+    img {
+      margin-left: 9px;
+    }
+    span:last-child {
+      font-size: 12px;
+    }
   }
 `;
 
 const StyledButton = styled.button`
   background-color: #2a2a2a;
   border-radius: 48px;
-  width: 175px;
-  height: 57px;
-  margin-left: 135px;
-  font-size: 19px;
+  max-width: 175px;
+  width: 12.2vw;
+  height: 5.5vh;
+  margin-left: min(8.7vw, 135px);
+  margin-top: 2.4vh;
+  font-size: min(1.3vw, 1.8vh, 1.9rem);
   letter-spacing: -0.8px;
-  padding: 12px 12px 12px 25px;
+  padding: 1vh 0.8vw 1vh 1.7w;
   outline: none;
   border: none;
   color: white;
@@ -147,21 +179,23 @@ const StyledButton = styled.button`
   align-items: center;
   justify-content: center;
   @media screen and (max-width: 1023px) {
-    width: 109px;
-    height: 35px;
+    width: 10.9rem;
+    height: 3.5rem;
+    min-height: 35px;
     border-radius: 30px;
     line-height: 1.6;
     letter-spacing: -0.5px;
-    font-size: 12px;
-    padding: 6px 6px 6px 12px;
-    margin-left: 84px;
-    margin-top: 14px;
+    font-size: min(1.8vh, 1.3vw, 1.2rem);
+    padding: 8px 8px 8px 16px;
+    margin-left: 8.4rem;
+    margin-top: 16px;
     img {
       width: 18px;
-      height: 18px;
+      min-height: 18px;
     }
   }
 `;
+
 const Header = ({ state, onClickModalStatus }) => {
   const [showProfile, setShowProfile] = useState(false);
   const { showFriendModal, showAlarmModal, user } = state;
@@ -170,30 +204,39 @@ const Header = ({ state, onClickModalStatus }) => {
   } = state;
 
   const openFriendModal = () => {
+    document.body.style = `overflow: hidden`;
     onClickModalStatus({ key: 'showFriendModal', value: true });
   };
 
   const openProfileModal = () => {
+    document.body.style = `overflow: hidden`;
     setShowProfile(true);
   };
 
   const closeProfileModal = () => {
+    document.body.style = `overflow: visible`;
     setShowProfile(false);
   };
 
   return (
     <>
       <Wrapper>
-        <LogoWrapper to={user ? `/${localStorage.getItem('nickname')}` : `/`}>
-          <img src={logo} alt="로고" />
-        </LogoWrapper>
-        <IconWrapper>
-          <ImgWrapper onClick={openFriendModal}>{user && <img src={friend} alt="친구창" />}</ImgWrapper>
-          <ImgWrapper>{user && <img src={inactivatedNotice} alt="알림창" />}</ImgWrapper>
-          <ImgWrapper onClick={openProfileModal}>
-            <img src={imgUrl ? imgUrl : avatar} alt="프로필 사진" />
-          </ImgWrapper>
-        </IconWrapper>
+        <InnerWrapper>
+          <LogoWrapper to={user ? `/${localStorage.getItem('nickname')}` : `/`}>
+            <img src={logo} alt="로고" />
+          </LogoWrapper>
+          <IconWrapper>
+            <ImgWrapper onClick={openFriendModal}>
+              <img src={friend} alt="친구창" />
+            </ImgWrapper>
+            <ImgWrapper>
+              <img src={inactivatedNotice} alt="알림창" />
+            </ImgWrapper>
+            <ImgWrapper onClick={openProfileModal}>
+              <img src={imgUrl ? imgUrl : avatar} alt="프로필 사진" />
+            </ImgWrapper>
+          </IconWrapper>
+        </InnerWrapper>
       </Wrapper>
       {showFriendModal && <FriendModalContainer />}
       {showProfile && (
@@ -205,8 +248,8 @@ const Header = ({ state, onClickModalStatus }) => {
                 <img src={logo} alt="로고" />
               </LogoWrapper>
               <IconWrapper>
-                <ImgWrapper />
-                <ImgWrapper />
+                <div />
+                <div />
                 <ImgWrapper style={{ color: 'white' }} close="close" onClick={closeProfileModal}>
                   <img src={closeBtnWhite} alt="닫기" />
                 </ImgWrapper>

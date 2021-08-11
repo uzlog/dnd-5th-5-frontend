@@ -72,6 +72,7 @@ const SocialLoginContainer = ({ history, closeModal }) => {
   // 닉네임 변경
   useEffect(() => {
     if (memberMessage === 'update') {
+      sessionStorage.setItem('nickname', memberData.nickname);
       history.push(`/${memberData.nickname}`);
     }
   }, [memberMessage]);
