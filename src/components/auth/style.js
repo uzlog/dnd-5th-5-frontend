@@ -22,6 +22,10 @@ export const ExitButton = styled.button`
   outline: none;
   cursor: pointer;
   font-weight: bold;
+  img {
+    width: 24px;
+    height: 24px;
+  }
 `;
 export const Header = styled.div`
   height: 56px;
@@ -41,9 +45,10 @@ export const Header = styled.div`
 export const StyledParagraph = styled.span`
   text-align: center;
   margin-top: 52px;
+  font-size: 18px;
   @media screen and (max-width: 1023px) {
     margin-top: 27px;
-    font-size: 13px;
+    font-size: 16px;
     line-height: 1.6;
   }
 `;
