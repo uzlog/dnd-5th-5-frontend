@@ -19,6 +19,11 @@ const Wrapper = styled.div`
   width: 40vw;
   height: 9.4vh;
   padding: 3.1vh 2.2vw 3.1vh 1.8vw;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  &::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
+  }
   @media screen and (max-width: 1023px) {
     width: 360px;
     min-height: 60px;
@@ -199,14 +204,17 @@ const Header = ({ state, onClickModalStatus }) => {
   } = state;
 
   const openFriendModal = () => {
+    document.body.style = `overflow: hidden`;
     onClickModalStatus({ key: 'showFriendModal', value: true });
   };
 
   const openProfileModal = () => {
+    document.body.style = `overflow: hidden`;
     setShowProfile(true);
   };
 
   const closeProfileModal = () => {
+    document.body.style = `overflow: visible`;
     setShowProfile(false);
   };
 

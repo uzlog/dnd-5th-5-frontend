@@ -27,7 +27,7 @@ export const ModalContents = styled.div`
   display: flex;
   flex-flow: column;
   top: ${(props) => (props.profile ? '0' : '')};
-  left: ${(props) => (props.profile ? '246px' : '')};
+  left: ${(props) => (props.profile ? '228px' : '')};
   border-radius: ${(props) => (props.profile ? '' : '15px')};
   padding: 0 auto;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
@@ -39,7 +39,7 @@ export const ModalContents = styled.div`
   overflow-y: auto;
   @media screen and (max-width: 1023px) {
     width: 360px;
-    left: ${(props) => (props.profile ? '11px' : '')};
+    left: 0px;
     max-height: ${(props) => (props.profile ? '192px' : '')};
     height: ${(props) => (props.profile ? '30vh' : '613px')};
     transition: ${(props) => (props.profile ? '5s ease' : '')};
