@@ -1,27 +1,55 @@
 import React, { useEffect, useState } from 'react';
 import useResponsive from '../../hooks/useResponsive';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import HeaderContainer from '@containers/common/HeaderContainer';
 import lockBtn from '@assets/img/alacard-setting/lockBtn.svg';
 import unlockBtn from '@assets/img/alacard-setting/unlockBtn.svg';
 import helpBtn from '@assets/img/alacard-setting/helpBtn.svg';
 
+const skeletonGradient = keyframes`
+    0% {
+      background-color: rgba(225, 225, 225, 0.3);
+    }
+
+    50% {
+      background-color: rgba(225, 225, 225, 5)
+    }
+
+    100% {
+      background-color: rgba(225, 225, 225, 0.3)
+  }
+`;
+
+const fadeIn = keyframes`
+        from {
+            opacity: 0;
+        }
+ 
+        to {
+            opacity: 1;
+        }
+`;
+
 const Wrapper = styled.div`
   max-width: 576px;
   width: 40vw;
   height: 100vh;
-  background-color: green;
+  background-color: #121212;
   overflow-y: auto;
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
   &::-webkit-scrollbar {
     display: none; /* Chrome, Safari, Opera*/
   }
+  @media screen and (max-width: 1023px) {
+    margin: 0 auto;
+    width: 360px;
+    height: 100vh;
+  }
 `;
 
 const TitleWrapper = styled.div`
   max-width: 57.6rem;
-  background-color: pink;
   width: 40vw;
   max-height: 135px;
   height: 13.1vh;
@@ -30,7 +58,7 @@ const TitleWrapper = styled.div`
   @media screen and (max-width: 1023px) {
     width: 360px;
     font-size: 2.4rem;
-    padding: 2.3rem 2.4rem;
+    padding: 2.4rem 2.4rem;
   }
 `;
 
@@ -48,7 +76,6 @@ const ContentsWrapper = styled.div`
   display: table;
   max-width: 57.6rem;
   width: 40vw;
-  /* padding: 5.4vh 2.6vw; */
   @media screen and (max-width: 1023px) {
     min-width: 36rem;
   }
@@ -79,22 +106,34 @@ const InnerContents = styled.div`
 const SettingWrapper = styled.div`
   max-width: 57.6rem;
   width: 40vw;
-  max-height: 600px;
-  height: 58vh;
-  background-color: blue;
   margin-top: min(4.3vh, 44.8px);
   display: flex;
   flex-direction: column;
   align-items: center;
+  & > div:last-child {
+    margin-top: min(9.3vh, 96px);
+    margin-bottom: min(3.75vh, 38.4px);
+  }
+  @media screen and (max-width: 1023px) {
+    width: 360px;
+    margin-top: 28px;
+    & > div:last-child {
+      margin-top: 59px;
+      margin-bottom: 24px;
+    }
+  }
 `;
 
 const CardLockWrapper = styled.div`
   max-width: 50rem;
   width: 34.7vw;
-  background: pink;
   display: flex;
   justify-content: space-between;
   margin-bottom: min(64px, 6.2vh);
+  @media screen and (max-width: 1023px) {
+    width: 312px;
+    margin-bottom: 40px;
+  }
 `;
 
 const LockWrapper = styled.div`
@@ -103,16 +142,27 @@ const LockWrapper = styled.div`
     width: min(2vw, 2.8vh, 28.8px);
     max-height: 28.8px;
     height: min(2vw, 2.8vh, 28.8px);
+    margin-left: 4px;
+    @media screen and (max-width: 1023px) {
+      width: 18px;
+      height: 18px;
+      margin-left: 4px;
+    }
   }
 `;
 
 const StyledSpan = styled.span`
+  cursor: ${(props) => props.cursor};
   font-size: min(2vw, 2.8vh, 28.8px);
   font-weight: ${(props) => (props.notClicked ? '500' : 'bold')};
   color: white;
+  @media screen and (max-width: 1023px) {
+    font-size: 18px;
+  }
 `;
 
 const ToggleButton = styled.div`
+  cursor: pointer;
   max-width: 76.8px;
   width: 5.3vw;
   max-height: 41.6px;
@@ -123,6 +173,10 @@ const ToggleButton = styled.div`
   align-items: center;
   &.left {
     background-color: white;
+  }
+  @media screen and (max-width: 1023px) {
+    width: 48px;
+    height: 26px;
   }
 `;
 
@@ -140,18 +194,36 @@ const ToggleInner = styled.div`
     margin-left: calc(100% - min(2.6vw, 3.75vh, 38.4px));
     transition: all 0.7s;
   }
+  @media screen and (max-width: 1023px) {
+    width: 24px;
+    height: 24px;
+    border-radius: 100px;
+    &.left {
+      margin-left: 23px;
+    }
+  }
 `;
 
 const BgHeader = styled.div`
   max-width: 50rem;
   width: 34.7vw;
-  background: pink;
+  display: flex;
+  justify-content: space-between;
   margin-bottom: min(2.2vw, 3.1vh, 32.4px);
   img {
+    cursor: pointer;
     max-width: 38.4px;
     width: min(2.6vw, 3.75vh, 38.4px);
     max-height: 38.4px;
     height: min(2.6vw, 3.75vh, 38.4px);
+  }
+  @media screen and (max-width: 1023px) {
+    width: 312px;
+    margin-bottom: 20px;
+    img {
+      width: 24px;
+      height: 24px;
+    }
   }
 `;
 
@@ -159,6 +231,9 @@ const BgTitle = styled.div`
   max-width: 50rem;
   width: 34.7vw;
   margin-bottom: min(3.1vh, 32px);
+  @media screen and (max-width: 1023px) {
+    width: 312px;
+  }
 `;
 
 const BgInnerWrapper = styled.div`
@@ -166,26 +241,127 @@ const BgInnerWrapper = styled.div`
   width: 22vw;
   display: flex;
   justify-content: space-between;
+  @media screen and (max-width: 1023px) {
+    width: 201px;
+  }
 `;
 
 const BgWrapper = styled.div`
+  display: grid;
   max-width: 50rem;
   width: 34.7vw;
   max-height: 275px;
   height: 26.8vh;
-  background: red;
-  display: grid;
-  gap: min(2.5vw, 3.6vh, 36.8px);
-  grid-template-rows: repeat(3, min(4.9vw, 6.9vh, 70.4px));
+  justify-content: space-between;
+  row-gap: min(3.1vh, 32px);
+  grid-template-rows: ${(props) =>
+    props.bgSolid ? 'repeat(3, min(4.9vw, 6.9vh, 70.4px))' : 'repeat(2, min(4.9vw, 6.9vh, 70.4px))'};
   grid-template-columns: repeat(5, min(4.9vw, 6.9vh, 70.4px));
+  @media screen and (max-width: 1023px) {
+    width: 312px;
+    height: 172px;
+    row-gap: 20px;
+    grid-template-rows: ${(props) => (props.bgSolid ? 'repeat(3, 44px)' : 'repeat(2, 44px)')};
+    grid-template-columns: repeat(5, 44px);
+  }
 `;
 
-const HI = styled.div`
+const ImgWrapper = styled.div`
+  cursor: pointer;
   max-width: 70.4px;
-  width: min(4.9vw, 6.9vh, 70.4px);
+  width: 100%;
   max-height: 70.4px;
-  height: min(4.9vw, 6.9vh, 70.4px);
-  background: yellow;
+  height: 100%;
+  animation: ${skeletonGradient} 1s infinite ease-in-out;
+  img {
+    max-width: 70.4px;
+    width: 100%;
+    max-height: 70.4px;
+    height: 100%;
+  }
+`;
+
+const ButtonWrapper = styled.div`
+  max-width: 50rem;
+  width: 34.7vw;
+  display: flex;
+  justify-content: space-between;
+  @media screen and (max-width: 1023px) {
+    width: 312px;
+  }
+`;
+
+const StyledButton = styled.button`
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 236.8px;
+  width: 16.4vw;
+  max-height: 76.8px;
+  height: 7.5vh;
+  background-color: ${(props) => (props.close ? '#121212' : 'white')};
+  color: ${(props) => (props.close ? 'white' : '#121212')};
+  border-radius: 99px;
+  font-size: min(1.7vw, 2.5vh, 25.6px);
+  border: 1.6px solid white;
+  line-height: 1.6;
+  @media screen and (max-width: 1023px) {
+    width: 148px;
+    height: 48px;
+    border-radius: 68px;
+    font-size: 16px;
+  }
+`;
+
+const HelpMessageWrapper = styled.div`
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: #efefef;
+  opacity: 0.3;
+  z-index: 21;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const HelpMessageOverlay = styled.div`
+  position: absolute;
+  max-width: 1030px;
+  width: 80%;
+  height: 80%;
+  background-color: transparent;
+  background-color: red;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+`;
+
+const HelpMessage = styled.div`
+  position: fixed;
+  /* top: 3vh; */
+  /* right: 20vw; */
+  /* top: ${(props) => (props.y ? props.y : '0px')}; */
+  /* left: ${(props) => (props.x ? props.x : '0px')}; */
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+  max-width: 288px;
+  width: 20vw;
+  max-height: 99px;
+  height: 9.6vh;
+  background-color: #1e1e1e;
+  font-size: min(1.3vw, 1.8vh, 19.2px);
+  font-weight: 500;
+  line-height: 1.6;
+  color: white;
+  animation: ${fadeIn} 1s;
 `;
 
 const AlaCardSettingComponent = ({ state }) => {
@@ -194,6 +370,8 @@ const AlaCardSettingComponent = ({ state }) => {
     sessionStorage.getItem('originCardInfo'),
   );
   const [toggle, setToggle] = useState(isOpen);
+  const [showHelp, setShowHelp] = useState(false);
+  const [helpOffset, setHelpOffset] = useState('');
   const [bgSolid, setBgSolid] = useState(true);
   const [bgGrad, setBgGrad] = useState(false);
   const [bgPhoto, setBgPhoto] = useState(false);
@@ -201,35 +379,46 @@ const AlaCardSettingComponent = ({ state }) => {
   const cardStyle = {
     backgroundImage: originCardBg ? 'url(' + originCardBg + ')' : '',
     backgroundSize: originCardBg ? 'cover' : '',
-    backgroundColor: originCardBg ? '' : 'red',
-    maxWidth: viewSize > '1023' ? '57.6rem' : '31.2rem',
-    width: viewSize > '1023' ? '40vw' : '31.2rem',
+    backgroundColor: originCardBg ? '' : '#171717',
+    maxWidth: viewSize > '1023' ? '57.6rem' : '36rem',
+    width: viewSize > '1023' ? '40vw' : '36rem',
   };
 
   const onClickToggle = () => {
     setToggle((prevState) => !prevState);
   };
 
+  const openHelp = (e) => {
+    setShowHelp(true);
+    // const x = window.event.clientX - window.innerWidth * 0.2;
+    const x = window.innerWidth * 1 - window.innerWidth * 0.4;
+    const y = window.event.clientY;
+    setHelpOffset({ x: `${x}px`, y: `${y}px` });
+  };
+  console.log(helpOffset);
+
+  const closeHelp = () => {
+    setShowHelp(false);
+    console.log('close');
+  };
+
   const onClickSolid = () => {
-    setBgSolid((prevState) => !prevState);
+    setBgSolid(true);
     setBgGrad(false);
     setBgPhoto(false);
   };
 
   const onClickGrad = () => {
-    setBgGrad((prevState) => !prevState);
+    setBgGrad(true);
     setBgSolid(false);
     setBgPhoto(false);
   };
 
   const onClickPhoto = () => {
-    setBgPhoto((prevState) => !prevState);
+    setBgPhoto(true);
     setBgGrad(false);
     setBgSolid(false);
   };
-  console.log('solid: ', bgSolid);
-  console.log('grad: ', bgGrad);
-  console.log('photo:', bgPhoto);
   return (
     <>
       <Wrapper>
@@ -256,28 +445,62 @@ const AlaCardSettingComponent = ({ state }) => {
           </CardLockWrapper>
           <BgHeader>
             <StyledSpan>배경 선택</StyledSpan>
-            <img src={helpBtn} alt="도움말" />
+            <img src={helpBtn} onClick={openHelp} alt="도움말" />
           </BgHeader>
           <BgTitle>
             <BgInnerWrapper>
-              <StyledSpan onClick={onClickSolid} notClicked={bgSolid ? false : true}>
+              <StyledSpan onClick={onClickSolid} notClicked={bgSolid ? false : true} cursor="pointer">
                 단색
               </StyledSpan>
-              <StyledSpan onClick={onClickGrad} notClicked={bgGrad ? false : true}>
+              <StyledSpan onClick={onClickGrad} notClicked={bgGrad ? false : true} cursor="pointer">
                 그라데이션
               </StyledSpan>
-              <StyledSpan onClick={onClickPhoto} notClicked={bgPhoto ? false : true}>
+              <StyledSpan onClick={onClickPhoto} notClicked={bgPhoto ? false : true} cursor="pointer">
                 이미지
               </StyledSpan>
             </BgInnerWrapper>
           </BgTitle>
-          <BgWrapper>
-            {alaCardBgSolid.map((card, idx) => {
-              return <HI>{idx}</HI>;
-            })}
+          <BgWrapper bgSolid={bgSolid ? true : false}>
+            {bgSolid &&
+              alaCardBgSolid.map((card, idx) => {
+                return (
+                  <ImgWrapper>
+                    <img src={card} alt="배경" />
+                  </ImgWrapper>
+                );
+              })}
+            {bgGrad &&
+              alaCardBgGrad.map((card, idx) => {
+                return (
+                  <ImgWrapper>
+                    <img src={card} alt="배경" />
+                  </ImgWrapper>
+                );
+              })}
+            {bgPhoto &&
+              alaCardBgPhoto.map((card, idx) => {
+                return (
+                  <ImgWrapper>
+                    <img src={card} alt="배경" />
+                  </ImgWrapper>
+                );
+              })}
           </BgWrapper>
+          <ButtonWrapper>
+            <StyledButton close="close">취소</StyledButton>
+            <StyledButton>저장할래😋</StyledButton>
+          </ButtonWrapper>
         </SettingWrapper>
       </Wrapper>
+      {showHelp && (
+        <HelpMessageWrapper>
+          <HelpMessageOverlay onClick={() => closeHelp()} />
+
+          <HelpMessage x={helpOffset.x} y={helpOffset.y}>
+            알라카드가 완성된 후 자유롭게 꾸밀 수 있어요.
+          </HelpMessage>
+        </HelpMessageWrapper>
+      )}
     </>
   );
 };
