@@ -141,7 +141,7 @@ const AlaCardListComponent = ({ state, onClickUploadCardInfo }) => {
           } else {
             card.sentence = card.sentence.replaceAll('???', '<img src="' + secretWord + '" alt="비밀 단어" />');
             cardStyle = {
-              backgroundColor: 'rgba(255, 255, 255, 0.02)',
+              backgroundColor: 'red',
               maxWidth: viewSize > '1023' ? '50rem' : '31.2rem',
               width: viewSize > '1023' ? '34.7vw' : '31.2rem',
               marginBottom: viewSize > '1023' ? '1.9vh' : '2rem',
@@ -163,8 +163,8 @@ const AlaCardListComponent = ({ state, onClickUploadCardInfo }) => {
                 onClick={() => {
                   const originCardInfo = {
                     originCardFont: fontStyle,
-                    originCardImg: cardStyle.backgroundImage || null,
                     originCardSentence: card.sentence,
+                    originCardBg: card.isCompleted ? backgroundImgUrl : null,
                   };
                   onClickUploadCardInfo(originCardInfo);
                   sessionStorage.setItem('originCardInfo', JSON.stringify(originCardInfo));
