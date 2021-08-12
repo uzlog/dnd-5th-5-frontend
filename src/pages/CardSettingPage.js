@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import useResponsive from '../hooks/useResponsive';
-import AlaCardSettingComponent from '@components/alacard/AlaCardSettingComponent';
+import AlaCardSettingContainer from '@containers/alacard/AlaCardSettingContainer';
 import LeftSide from '@components/common/LeftSide';
 
 const Wrapper = styled.div`
@@ -18,7 +18,7 @@ const CardSettingPage = () => {
   return (
     <Wrapper>
       {viewSize > 1023 ? <LeftSide /> : <></>}
-      <AlaCardSettingComponent />
+      <AlaCardSettingContainer />
     </Wrapper>
   );
 };

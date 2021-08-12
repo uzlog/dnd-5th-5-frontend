@@ -165,6 +165,7 @@ const AlaCardListComponent = ({ state, onClickUploadCardInfo }) => {
                     originCardFont: fontStyle,
                     originCardSentence: card.sentence,
                     originCardBg: card.isCompleted ? backgroundImgUrl : null,
+                    isOpen: isOpen,
                   };
                   onClickUploadCardInfo(originCardInfo);
                   sessionStorage.setItem('originCardInfo', JSON.stringify(originCardInfo));

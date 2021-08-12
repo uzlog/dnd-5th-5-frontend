@@ -6,7 +6,7 @@ import member, { memberSaga } from './member';
 import mypage, { mypageSaga } from './mypage';
 import friend, { friendSaga } from './friend';
 import modal from './modal';
-import cardSetting from './cardSetting';
+import cardSetting, { cardSettingSaga } from './cardSetting';
 
 const rootReducer = combineReducers({
   loading,
@@ -19,7 +19,7 @@ const rootReducer = combineReducers({
 });
 
 export function* rootSaga() {
-  yield all([authSaga(), memberSaga(), mypageSaga(), friendSaga()]);
+  yield all([authSaga(), memberSaga(), mypageSaga(), friendSaga(), cardSettingSaga()]);
 }
 
 export default rootReducer;
