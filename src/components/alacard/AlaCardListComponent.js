@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import useResponsive from '../../hooks/useResponsive';
 import HeaderContainer from '@containers/common/HeaderContainer';
 import secretWord from '@assets/img/alacard/secretWord.svg';
@@ -76,6 +77,10 @@ const ContentsWrapper = styled.div`
   }
 `;
 
+const StyledLink = styled(Link)`
+  text-decoration: none;
+`;
+
 const InnerContents = styled.div`
   display: table-cell;
   vertical-align: middle;
@@ -100,7 +105,7 @@ const LockButton = styled.img`
   }
 `;
 
-const AlaCardListComponent = ({ state }) => {
+const AlaCardListComponent = ({ state, onClickUploadCardInfo }) => {
   const { alacardData } = state;
   const viewSize = useResponsive();
 
@@ -153,18 +158,30 @@ const AlaCardListComponent = ({ state }) => {
           }
           return (
             <>
-              <div key={idx} style={cardStyle}>
-                <ContentsWrapper>
-                  <ContentFlexWrapper>
-                    <InnerContents style={fontStyle} dangerouslySetInnerHTML={{ __html: card.sentence }} />
-                    {card.isCompleted && !isOpen && (
-                      <ButtonWrapper>
-                        <LockButton src={lockBtn} alt="잠금버튼" />
-                      </ButtonWrapper>
-                    )}
-                  </ContentFlexWrapper>
-                </ContentsWrapper>
-              </div>
+              <StyledLink
+                to={'/alacard/setting'}
+                onClick={() => {
+                  const originCardInfo = {
+                    originCardFont: fontStyle,
+                    originCardImg: cardStyle.backgroundImage || null,
+                    originCardSentence: card.sentence,
+                  };
+                  onClickUploadCardInfo(originCardInfo);
+                  sessionStorage.setItem('originCardInfo', JSON.stringify(originCardInfo));
+                }}>
+                <div key={idx} style={cardStyle}>
+                  <ContentsWrapper>
+                    <ContentFlexWrapper>
+                      <InnerContents style={fontStyle} dangerouslySetInnerHTML={{ __html: card.sentence }} />
+                      {card.isCompleted && !isOpen && (
+                        <ButtonWrapper>
+                          <LockButton src={lockBtn} alt="잠금버튼" />
+                        </ButtonWrapper>
+                      )}
+                    </ContentFlexWrapper>
+                  </ContentsWrapper>
+                </div>
+              </StyledLink>
             </>
           );
         })}

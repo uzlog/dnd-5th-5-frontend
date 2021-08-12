@@ -6,6 +6,7 @@ import member, { memberSaga } from './member';
 import mypage, { mypageSaga } from './mypage';
 import friend, { friendSaga } from './friend';
 import modal from './modal';
+import cardSetting from './cardSetting';
 
 const rootReducer = combineReducers({
   loading,
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
   mypage,
   friend,
   modal,
+  cardSetting,
 });
 
 export function* rootSaga() {

@@ -5,6 +5,7 @@ import loadable from '@loadable/component';
 const MainPage = loadable(() => import('@pages/MainPage'));
 const MyPage = loadable(() => import('@pages/MyPage'));
 const AlaCardPage = loadable(() => import('@pages/AlaCardPage'));
+const CardSettingPage = loadable(() => import('@pages/CardSettingPage'));
 
 const Router = () => {
   return (
@@ -12,6 +13,7 @@ const Router = () => {
       <Route path="/" component={MainPage} exact />
       <Switch>
         <Route path="/alacard" component={AlaCardPage} exact />
+        <Route path="/alacard/setting" component={CardSettingPage} exact />
         <Route path="/:nickname" component={MyPage} exact />
       </Switch>
     </>
