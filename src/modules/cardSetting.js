@@ -11,20 +11,25 @@ import * as alacardAPI from '@lib/api/alacard';
 const UPLOAD_CARD_INFO = 'cardSetting/UPLOAD_CARD_INFO';
 const [GET_ALA_CARD_BG, GET_ALA_CARD_BG_SUCCESS, GET_ALA_CARD_BG_FAILURE] =
   createRequestActionTypes('cardSetting/GET_ALA_CARD_BG');
+const [UPDATE_CARD_INFO, UPDATE_CARD_INFO_SUCCESS, UPDATE_CARD_INFO_FAILURE] =
+  createRequestSaga('cardSetting/UPDATE_CARD_INFO');
 
 /**
  * 액션 생성 함수
  */
 export const uploadCardInfo = createAction(UPLOAD_CARD_INFO, (originCardInfo) => originCardInfo);
 export const getAlaCardBg = createAction(GET_ALA_CARD_BG);
+export const updateCardInfo = createAction(UPDATE_CARD_INFO, (cardInfo) => cardInfo);
 
 /**
  * 사가 생성
  */
 const getAlaCardBgSaga = createRequestSaga(GET_ALA_CARD_BG, alacardAPI.getAlaCardBg);
+const updateCardInfoSaga = createRequestSaga(UPDATE_CARD_INFO, alacardAPI.updateCardInfo);
 
 export function* cardSettingSaga() {
   yield takeLatest(GET_ALA_CARD_BG, getAlaCardBgSaga);
+  yield takeLatest(UPDATE_CARD_INFO, updateCardInfoSaga);
 }
 
 /**
@@ -42,6 +47,10 @@ const initialState = {
   alaCardBgGrad: [],
   alaCardBgPhoto: [],
   alaCardBgError: '',
+
+  // 카드 정보 업데이트
+  updateCardInfoMessage: '',
+  updateCardInfoError: '',
 };
 
 const cardSetting = handleActions(
@@ -62,6 +71,14 @@ const cardSetting = handleActions(
     [GET_ALA_CARD_BG_FAILURE]: (state, { payload: error }) => ({
       ...state,
       alaCardBgError: error,
+    }),
+    [UPDATE_CARD_INFO_SUCCESS]: (state, { payload: message }) => ({
+      ...state,
+      updateCardInfoMessage: message,
+    }),
+    [UPDATE_CARD_INFO_FAILURE]: (state, { payload: error }) => ({
+      ...state,
+      updateCardInfoError: error,
     }),
   },
   initialState,
