@@ -58,7 +58,9 @@ const SelectComponent = () => {
   //axios사용해서 데이터 받아오기
   const getWord = async () => {
     //여기 리덕스로 바꾸기
-    const response = await axios.get('http://3.37.42.147/api/v1/alacard/wordlist', {
+    const url = process.env.REACT_APP_API_SERVER;
+    console.log(url);
+    const response = await axios.get(`https://${url}/api/v1/alacard/wordlist`, {
       params: { nickname: owner, offset },
     });
     const setData = await response.data.data;
@@ -183,7 +185,7 @@ const SelectComponent = () => {
   };
   const onSubmitHandler = async () => {
     console.log(idList);
-    const response = await axios.patch(`http://3.37.42.147/api/v1/alacard/wordlist?owner=${owner}`, {
+    const response = await axios.patch(`www.alaback.net/api/v1/alacard/wordlist?owner=${owner}`, {
       idList,
     });
     console.log(response);
