@@ -5,6 +5,7 @@ import HeaderContainer from '@containers/common/HeaderContainer';
 import lockBtn from '@assets/img/alacard-setting/lockBtn.svg';
 import unlockBtn from '@assets/img/alacard-setting/unlockBtn.svg';
 import helpBtn from '@assets/img/alacard-setting/helpBtn.svg';
+import bgSelected from '@assets/img/alacard-setting/bgSelected.svg';
 
 const skeletonGradient = keyframes`
     0% {
@@ -272,7 +273,7 @@ const ImgWrapper = styled.div`
   width: 100%;
   max-height: 70.4px;
   height: 100%;
-  animation: ${skeletonGradient} 1s infinite ease-in-out;
+  animation: ${skeletonGradient} 3s ease-in-out;
   img {
     max-width: 70.4px;
     width: 100%;
@@ -364,18 +365,20 @@ const HelpMessage = styled.div`
   animation: ${fadeIn} 1s;
 `;
 
-const AlaCardSettingComponent = ({ state }) => {
+const AlaCardSettingComponent = ({ state, onClickUpdateCardInfo }) => {
   const viewSize = useResponsive();
-  const { originCardFont, originCardSentence, originCardBg, isOpen } = JSON.parse(
+  const { originCardId, originCardFont, originCardSentence, originCardBg, isOpen, isCompleted } = JSON.parse(
     sessionStorage.getItem('originCardInfo'),
   );
+  const { alaCardBgSolid, alaCardBgGrad, alaCardBgPhoto, updateCardInfoMessage } = state;
+
   const [toggle, setToggle] = useState(isOpen);
   const [showHelp, setShowHelp] = useState(false);
   const [helpOffset, setHelpOffset] = useState('');
   const [bgSolid, setBgSolid] = useState(true);
   const [bgGrad, setBgGrad] = useState(false);
   const [bgPhoto, setBgPhoto] = useState(false);
-  const { alaCardBgSolid, alaCardBgGrad, alaCardBgPhoto } = state;
+  const [background, setBackground] = useState(originCardBg);
   const cardStyle = {
     backgroundImage: originCardBg ? 'url(' + originCardBg + ')' : '',
     backgroundSize: originCardBg ? 'cover' : '',
@@ -395,7 +398,6 @@ const AlaCardSettingComponent = ({ state }) => {
     const y = window.event.clientY;
     setHelpOffset({ x: `${x}px`, y: `${y}px` });
   };
-  console.log(helpOffset);
 
   const closeHelp = () => {
     setShowHelp(false);
@@ -419,6 +421,38 @@ const AlaCardSettingComponent = ({ state }) => {
     setBgGrad(false);
     setBgSolid(false);
   };
+
+  const onClickBackground = (e) => {
+    setBackground(e.target.src);
+  };
+
+  const submitCardInfo = (e) => {
+    e.preventDefault();
+    let cardInfo = {
+      alaCardId: originCardId,
+      isOpen: toggle,
+    };
+    if (background) {
+      cardInfo = {
+        ...cardInfo,
+        backgroundImgUrl: background,
+      };
+    }
+    console.log(cardInfo);
+    onClickUpdateCardInfo(cardInfo);
+    if (updateCardInfoMessage === 'success') {
+      console.log('update');
+      const newCardInfo = {
+        originCardId,
+        originCardFont,
+        originCardSentence,
+        originCardBg: background ? background : '',
+        isOpen: toggle,
+      };
+      sessionStorage.setItem('originCardInfo', JSON.stringify(newCardInfo));
+    }
+  };
+  console.log(isOpen);
   return (
     <>
       <Wrapper>
@@ -464,15 +498,19 @@ const AlaCardSettingComponent = ({ state }) => {
             {bgSolid &&
               alaCardBgSolid.map((card, idx) => {
                 return (
-                  <ImgWrapper>
-                    <img src={card} alt="배경" />
+                  <ImgWrapper onClick={onClickBackground}>
+                    {idx === 0 && isCompleted === false ? (
+                      <img src={bgSelected} alt="기본 배경" />
+                    ) : (
+                      <img src={card} alt="배경" />
+                    )}
                   </ImgWrapper>
                 );
               })}
             {bgGrad &&
               alaCardBgGrad.map((card, idx) => {
                 return (
-                  <ImgWrapper>
+                  <ImgWrapper onClick={onClickBackground}>
                     <img src={card} alt="배경" />
                   </ImgWrapper>
                 );
@@ -480,7 +518,7 @@ const AlaCardSettingComponent = ({ state }) => {
             {bgPhoto &&
               alaCardBgPhoto.map((card, idx) => {
                 return (
-                  <ImgWrapper>
+                  <ImgWrapper onClick={onClickBackground}>
                     <img src={card} alt="배경" />
                   </ImgWrapper>
                 );
@@ -488,7 +526,7 @@ const AlaCardSettingComponent = ({ state }) => {
           </BgWrapper>
           <ButtonWrapper>
             <StyledButton close="close">취소</StyledButton>
-            <StyledButton>저장할래😋</StyledButton>
+            <StyledButton onClick={submitCardInfo}>저장할래😋</StyledButton>
           </ButtonWrapper>
         </SettingWrapper>
       </Wrapper>

@@ -117,7 +117,7 @@ const AlaCardListComponent = ({ state, onClickUploadCardInfo }) => {
           <Title>알라 카드</Title>
         </TitleWrapper>
         {alacardData.map((card, idx) => {
-          const { backgroundImgUrl, fontColor, isOpen } = card.alaCardSettingDto;
+          const { alaCardId, backgroundImgUrl, fontColor, isOpen } = card.alaCardSettingDto;
           let cardStyle;
           let fontStyle;
           // 카드가 완성된 경우
@@ -162,10 +162,12 @@ const AlaCardListComponent = ({ state, onClickUploadCardInfo }) => {
                 to={'/alacard/setting'}
                 onClick={() => {
                   const originCardInfo = {
+                    originCardId: alaCardId,
                     originCardFont: fontStyle,
                     originCardSentence: card.sentence,
                     originCardBg: card.isCompleted ? backgroundImgUrl : null,
                     isOpen: isOpen,
+                    isCompleted: card.isCompleted,
                   };
                   onClickUploadCardInfo(originCardInfo);
                   sessionStorage.setItem('originCardInfo', JSON.stringify(originCardInfo));

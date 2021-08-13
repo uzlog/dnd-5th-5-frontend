@@ -12,7 +12,7 @@ const UPLOAD_CARD_INFO = 'cardSetting/UPLOAD_CARD_INFO';
 const [GET_ALA_CARD_BG, GET_ALA_CARD_BG_SUCCESS, GET_ALA_CARD_BG_FAILURE] =
   createRequestActionTypes('cardSetting/GET_ALA_CARD_BG');
 const [UPDATE_CARD_INFO, UPDATE_CARD_INFO_SUCCESS, UPDATE_CARD_INFO_FAILURE] =
-  createRequestSaga('cardSetting/UPDATE_CARD_INFO');
+  createRequestActionTypes('cardSetting/UPDATE_CARD_INFO');
 
 /**
  * 액션 생성 함수
@@ -61,20 +61,28 @@ const cardSetting = handleActions(
       originCardImg,
       originCardSentence,
     }),
-    [GET_ALA_CARD_BG_SUCCESS]: (state, { payload: { status, data } }) => ({
+    [GET_ALA_CARD_BG_SUCCESS]: (
+      state,
+      {
+        payload: {
+          status,
+          data: { Gradient, Photo, Solid },
+        },
+      },
+    ) => ({
       ...state,
       alaCardBgStatus: status,
-      alaCardBgGrad: data.splice(0, 10),
-      alaCardBgPhoto: data.splice(0, 10),
-      alaCardBgSolid: data.splice(0, 15),
+      alaCardBgGrad: Gradient,
+      alaCardBgPhoto: Photo,
+      alaCardBgSolid: Solid,
     }),
     [GET_ALA_CARD_BG_FAILURE]: (state, { payload: error }) => ({
       ...state,
       alaCardBgError: error,
     }),
-    [UPDATE_CARD_INFO_SUCCESS]: (state, { payload: message }) => ({
+    [UPDATE_CARD_INFO_SUCCESS]: (state) => ({
       ...state,
-      updateCardInfoMessage: message,
+      updateCardInfoMessage: 'success',
     }),
     [UPDATE_CARD_INFO_FAILURE]: (state, { payload: error }) => ({
       ...state,
