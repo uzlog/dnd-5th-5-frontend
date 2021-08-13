@@ -268,12 +268,13 @@ const BgWrapper = styled.div`
 `;
 
 const ImgWrapper = styled.div`
-  cursor: pointer;
+  cursor: ${(props) => (props.isCompleted ? 'pointer' : '')};
   max-width: 70.4px;
   width: 100%;
   max-height: 70.4px;
   height: 100%;
   animation: ${skeletonGradient} 3s ease-in-out;
+  opacity: ${(props) => (props.isCompleted ? '1' : '0.2')};
   img {
     max-width: 70.4px;
     width: 100%;
@@ -423,7 +424,9 @@ const AlaCardSettingComponent = ({ state, onClickUpdateCardInfo }) => {
   };
 
   const onClickBackground = (e) => {
-    setBackground(e.target.src);
+    if (isCompleted) {
+      setBackground(e.target.src);
+    }
   };
 
   const submitCardInfo = (e) => {
@@ -432,13 +435,12 @@ const AlaCardSettingComponent = ({ state, onClickUpdateCardInfo }) => {
       alaCardId: originCardId,
       isOpen: toggle,
     };
-    if (background) {
+    if (isCompleted && background) {
       cardInfo = {
         ...cardInfo,
         backgroundImgUrl: background,
       };
     }
-    console.log(cardInfo);
     onClickUpdateCardInfo(cardInfo);
     if (updateCardInfoMessage === 'success') {
       console.log('update');
@@ -451,8 +453,9 @@ const AlaCardSettingComponent = ({ state, onClickUpdateCardInfo }) => {
       };
       sessionStorage.setItem('originCardInfo', JSON.stringify(newCardInfo));
     }
+    console.log(cardInfo);
   };
-  console.log(isOpen);
+
   return (
     <>
       <Wrapper>
@@ -510,7 +513,7 @@ const AlaCardSettingComponent = ({ state, onClickUpdateCardInfo }) => {
             {bgGrad &&
               alaCardBgGrad.map((card, idx) => {
                 return (
-                  <ImgWrapper onClick={onClickBackground}>
+                  <ImgWrapper isCompleted={isCompleted ? true : ''} onClick={onClickBackground}>
                     <img src={card} alt="배경" />
                   </ImgWrapper>
                 );
