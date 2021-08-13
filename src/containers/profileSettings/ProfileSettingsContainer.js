@@ -3,11 +3,13 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getMyInfo } from '@modules/member';
 import ProfileSettingsComponent from '@components/profileSettings/ProfileSettingsComponent';
 import client from '@lib/api/client';
+import { withRouter } from 'react-router-dom';
 
-const PorifileSettingsContainer = ({}) => {
+const PorifileSettingsContainer = ({ history }) => {
   const dispatch = useDispatch();
   const {
     memberNickname,
+
     memberStatus,
     memberMessage,
     memberData,
@@ -44,4 +46,4 @@ const PorifileSettingsContainer = ({}) => {
   );
 };
 
-export default PorifileSettingsContainer;
+export default withRouter(PorifileSettingsContainer);

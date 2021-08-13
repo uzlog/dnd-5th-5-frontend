@@ -15,18 +15,21 @@ import {
   SubmitButton,
   ButtonWrapper,
   DeleteButton,
-  ProfileImgInput,
+  StatusMessageCount,
   AlertMessage,
+  IsOpen,
 } from './style';
+import useResponsive from '@hooks/useResponsive';
+
 import HeaderContainer from '@containers/common/HeaderContainer';
 import google from '@assets/img/profileSettings/google.svg';
 import naver from '@assets/img/profileSettings/naver.svg';
 import lock from '@assets/img/profileSettings/lock.svg';
 import unlock from '@assets/img/profileSettings/unlock.svg';
-import { URL } from 'url';
 import Modal from './Modal';
+import { withRouter } from 'react-router-dom';
 
-const ProfileSettingsComponent = () => {
+const ProfileSettingsComponent = ({ history }) => {
   const [myInfo, setMyInfo] = useState({ imgUrl: '', email: '', nickname: '', statusMessage: '', isOpen: false });
   const [nicknameLength, setNicknameLength] = useState(5);
   const [nicknameExists, setNicknameExists] = useState(false);
@@ -34,6 +37,8 @@ const ProfileSettingsComponent = () => {
     const response = await client.get('/api/v1/member/me');
     setMyInfo(response.data.data);
   };
+  const nickname = sessionStorage.getItem('nickname');
+  const [deleteModal, setDeleteModal] = useState(false);
   useEffect(requestData, []);
   const onNicknameChange = (e) => {
     setMyInfo({
@@ -89,6 +94,26 @@ const ProfileSettingsComponent = () => {
       console.log(error);
     }
   };
+  const onDeleteHandler = async () => {
+    const response = await client.get('/api/v1/member/delete', { params: { nickname } });
+    console.log(response.data.message);
+    if (response.data.message === 'success') {
+      sessionStorage.removeItem('nickname');
+      localStorage.removeItem('nickname');
+      history.push('/');
+    }
+  };
+  const onlogoutHandler = () => {
+    console.log(document.cookie);
+    //logout한번 다시 손봐야할듯,,, 잘못한듯
+    document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC;';
+    history.push('/');
+
+    localStorage.removeItem('nickname');
+  };
+
+  const viewSize = useResponsive();
+
   return (
     <>
       <MainWrapper>
@@ -124,7 +149,10 @@ const ProfileSettingsComponent = () => {
             )}
           </InputBoxWrapper>
           <InputBoxWrapper>
-            <EachTitle>자기소개</EachTitle>
+            <EachTitle>
+              자기소개
+              <StatusMessageCount>{myInfo.statusMessage.length}/30 byte</StatusMessageCount>
+            </EachTitle>
             <InputBox
               placeholder={myInfo.statusMessage}
               value={myInfo.statusMessage}
@@ -132,14 +160,25 @@ const ProfileSettingsComponent = () => {
             />
           </InputBoxWrapper>
           <EachTitle>
-            <span>
-              계정 공개 여부 <img src={myInfo.isOpen ? unlock : lock} />
-            </span>
+            <IsOpen>
+              계정 공개 여부{' '}
+              <img
+                style={viewSize < 1023 ? { width: '19px', height: '19px' } : { width: '29px', height: '29px' }}
+                src={myInfo.isOpen ? unlock : lock}
+              />
+            </IsOpen>
             <img onClick={isOpenClick} src={myInfo.isOpen ? unlock : lock} />
           </EachTitle>
-          <DeleteButton>회원탈퇴</DeleteButton>
+          <DeleteButton
+            style={{ cursor: 'not-allowed' }}
+            onClick={() => {
+              setDeleteModal(!deleteModal);
+            }}>
+            회원탈퇴
+          </DeleteButton>
+          {deleteModal ? <Modal setDeleteModal={setDeleteModal} onDeleteHandler={onDeleteHandler} /> : <></>}
           <ButtonWrapper>
-            <LogoutButton>로그아웃</LogoutButton>
+            <LogoutButton onClick={onlogoutHandler}>로그아웃</LogoutButton>
             <SubmitButton onClick={onUpdataSubmit}>다 썼음😋</SubmitButton>
           </ButtonWrapper>
         </ContentWrapper>
@@ -148,4 +187,4 @@ const ProfileSettingsComponent = () => {
   );
 };
 
-export default ProfileSettingsComponent;
+export default withRouter(ProfileSettingsComponent);
