@@ -141,7 +141,7 @@ const AlaCardListComponent = ({ state, onClickUploadCardInfo }) => {
           } else {
             card.sentence = card.sentence.replaceAll('???', '<img src="' + secretWord + '" alt="비밀 단어" />');
             cardStyle = {
-              backgroundColor: 'red',
+              backgroundColor: '#171717',
               maxWidth: viewSize > '1023' ? '50rem' : '31.2rem',
               width: viewSize > '1023' ? '34.7vw' : '31.2rem',
               marginBottom: viewSize > '1023' ? '1.9vh' : '2rem',

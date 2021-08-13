@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import useResponsive from '../../hooks/useResponsive';
 import styled, { keyframes } from 'styled-components';
 import HeaderContainer from '@containers/common/HeaderContainer';
@@ -6,20 +6,6 @@ import lockBtn from '@assets/img/alacard-setting/lockBtn.svg';
 import unlockBtn from '@assets/img/alacard-setting/unlockBtn.svg';
 import helpBtn from '@assets/img/alacard-setting/helpBtn.svg';
 import bgSelected from '@assets/img/alacard-setting/bgSelected.svg';
-
-const skeletonGradient = keyframes`
-    0% {
-      background-color: rgba(225, 225, 225, 0.3);
-    }
-
-    50% {
-      background-color: rgba(225, 225, 225, 5)
-    }
-
-    100% {
-      background-color: rgba(225, 225, 225, 0.3)
-  }
-`;
 
 const fadeIn = keyframes`
         from {
@@ -273,7 +259,6 @@ const ImgWrapper = styled.div`
   width: 100%;
   max-height: 70.4px;
   height: 100%;
-  animation: ${skeletonGradient} 3s ease-in-out;
   opacity: ${(props) => (props.isCompleted ? '1' : '0.2')};
   img {
     max-width: 70.4px;
@@ -402,7 +387,6 @@ const AlaCardSettingComponent = ({ state, onClickUpdateCardInfo }) => {
 
   const closeHelp = () => {
     setShowHelp(false);
-    console.log('close');
   };
 
   const onClickSolid = () => {
@@ -443,7 +427,6 @@ const AlaCardSettingComponent = ({ state, onClickUpdateCardInfo }) => {
     }
     onClickUpdateCardInfo(cardInfo);
     if (updateCardInfoMessage === 'success') {
-      console.log('update');
       const newCardInfo = {
         originCardId,
         originCardFont,
@@ -453,7 +436,6 @@ const AlaCardSettingComponent = ({ state, onClickUpdateCardInfo }) => {
       };
       sessionStorage.setItem('originCardInfo', JSON.stringify(newCardInfo));
     }
-    console.log(cardInfo);
   };
 
   return (
