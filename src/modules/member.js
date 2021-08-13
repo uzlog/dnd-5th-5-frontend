@@ -111,14 +111,14 @@ const member = handleActions(
       ...state,
       duplicatedError: error,
     }),
-    [DELETE_MYINFO_SUCCESS]: (state, { payload: { status, message, data, timestamp } }) => ({
+    [DELETE_MY_INFO_SUCCESS]: (state, { payload: { status, message, data, timestamp } }) => ({
       ...state,
       deletedStatus: status,
       deletedMessage: message,
       deletedData: data,
       deletedTimestamp: timestamp,
     }),
-    [DELETE_MYINFO_FAILURE]: (state, { payload: error }) => ({
+    [DELETE_MY_INFO_FAILURE]: (state, { payload: error }) => ({
       ...state,
       deletedError: error,
     }),

@@ -1,7 +1,8 @@
 import React, { useEffect, useCallback, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getAlaWordList } from '@modules/alaWord';
+import { getMyInfo } from '@modules/member';
 import ProfileSettingsComponent from '@components/profileSettings/ProfileSettingsComponent';
+import client from '@lib/api/client';
 
 const PorifileSettingsContainer = ({}) => {
   const dispatch = useDispatch();
@@ -33,8 +34,9 @@ const PorifileSettingsContainer = ({}) => {
     getMemberLoading: loading['member/GET_MY_INFO'],
     duplicatedData: member.duplicatedData,
   }));
+  const state = { memberData, deletedData, duplicatedData };
+  const [userData, setUserData] = useState({});
 
-  const state = { memberNickname };
   return (
     <>
       <ProfileSettingsComponent />
