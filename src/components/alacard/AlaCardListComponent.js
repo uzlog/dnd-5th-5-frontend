@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import useResponsive from '../../hooks/useResponsive';
 import HeaderContainer from '@containers/common/HeaderContainer';
 import secretWord from '@assets/img/alacard/secretWord.svg';
@@ -76,6 +77,10 @@ const ContentsWrapper = styled.div`
   }
 `;
 
+const StyledLink = styled(Link)`
+  text-decoration: none;
+`;
+
 const InnerContents = styled.div`
   display: table-cell;
   vertical-align: middle;
@@ -100,7 +105,7 @@ const LockButton = styled.img`
   }
 `;
 
-const AlaCardListComponent = ({ state }) => {
+const AlaCardListComponent = ({ state, onClickUploadCardInfo }) => {
   const { alacardData } = state;
   const viewSize = useResponsive();
 
@@ -112,7 +117,7 @@ const AlaCardListComponent = ({ state }) => {
           <Title>알라 카드</Title>
         </TitleWrapper>
         {alacardData.map((card, idx) => {
-          const { backgroundImgUrl, fontColor, isOpen } = card.alaCardSettingDto;
+          const { alaCardId, backgroundImgUrl, fontColor, isOpen } = card.alaCardSettingDto;
           let cardStyle;
           let fontStyle;
           // 카드가 완성된 경우
@@ -136,7 +141,7 @@ const AlaCardListComponent = ({ state }) => {
           } else {
             card.sentence = card.sentence.replaceAll('???', '<img src="' + secretWord + '" alt="비밀 단어" />');
             cardStyle = {
-              backgroundColor: 'rgba(255, 255, 255, 0.02)',
+              backgroundColor: '#171717',
               maxWidth: viewSize > '1023' ? '50rem' : '31.2rem',
               width: viewSize > '1023' ? '34.7vw' : '31.2rem',
               marginBottom: viewSize > '1023' ? '1.9vh' : '2rem',
@@ -153,18 +158,33 @@ const AlaCardListComponent = ({ state }) => {
           }
           return (
             <>
-              <div key={idx} style={cardStyle}>
-                <ContentsWrapper>
-                  <ContentFlexWrapper>
-                    <InnerContents style={fontStyle} dangerouslySetInnerHTML={{ __html: card.sentence }} />
-                    {card.isCompleted && !isOpen && (
-                      <ButtonWrapper>
-                        <LockButton src={lockBtn} alt="잠금버튼" />
-                      </ButtonWrapper>
-                    )}
-                  </ContentFlexWrapper>
-                </ContentsWrapper>
-              </div>
+              <StyledLink
+                to={'/alacard/setting'}
+                onClick={() => {
+                  const originCardInfo = {
+                    originCardId: alaCardId,
+                    originCardFont: fontStyle,
+                    originCardSentence: card.sentence,
+                    originCardBg: card.isCompleted ? backgroundImgUrl : null,
+                    isOpen: isOpen,
+                    isCompleted: card.isCompleted,
+                  };
+                  onClickUploadCardInfo(originCardInfo);
+                  sessionStorage.setItem('originCardInfo', JSON.stringify(originCardInfo));
+                }}>
+                <div key={idx} style={cardStyle}>
+                  <ContentsWrapper>
+                    <ContentFlexWrapper>
+                      <InnerContents style={fontStyle} dangerouslySetInnerHTML={{ __html: card.sentence }} />
+                      {card.isCompleted && !isOpen && (
+                        <ButtonWrapper>
+                          <LockButton src={lockBtn} alt="잠금버튼" />
+                        </ButtonWrapper>
+                      )}
+                    </ContentFlexWrapper>
+                  </ContentsWrapper>
+                </div>
+              </StyledLink>
             </>
           );
         })}

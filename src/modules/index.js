@@ -7,6 +7,7 @@ import alaWord, { alaWordSaga } from './alaWord';
 import mypage, { mypageSaga } from './mypage';
 import friend, { friendSaga } from './friend';
 import modal from './modal';
+import cardSetting, { cardSettingSaga } from './cardSetting';
 
 const rootReducer = combineReducers({
   loading,
@@ -16,10 +17,11 @@ const rootReducer = combineReducers({
   mypage,
   friend,
   modal,
+  cardSetting,
 });
 
 export function* rootSaga() {
-  yield all([authSaga(), memberSaga(), mypageSaga(), friendSaga()]);
+  yield all([authSaga(), memberSaga(), mypageSaga(), friendSaga(), cardSettingSaga()]);
 }
 
 export default rootReducer;

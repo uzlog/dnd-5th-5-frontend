@@ -162,6 +162,7 @@ const ProfileInfoWrapper = styled.div`
 `;
 
 const StyledButton = styled.button`
+  cursor: pointer;
   background-color: #2a2a2a;
   border-radius: 48px;
   max-width: 175px;
@@ -194,6 +195,10 @@ const StyledButton = styled.button`
       min-height: 18px;
     }
   }
+`;
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
 `;
 
 const Header = ({ state, onClickModalStatus }) => {
@@ -267,10 +272,12 @@ const Header = ({ state, onClickModalStatus }) => {
                     <span>{statusMessage}</span>
                   </ProfileInfoWrapper>
                 </ProfileWrapper>
-                <StyledButton>
-                  알라카드 관리
-                  <ProfileImg src={arrowBtn} alt="카드 관리" />
-                </StyledButton>
+                <StyledLink to={'/alacard'}>
+                  <StyledButton>
+                    알라카드 관리
+                    <ProfileImg src={arrowBtn} alt="카드 관리" />
+                  </StyledButton>
+                </StyledLink>
               </>
             ) : (
               <div>로그인하3</div>

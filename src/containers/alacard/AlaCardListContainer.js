@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getAlaCardList } from '@modules/mypage';
+import { uploadCardInfo } from '@modules/cardSetting';
 import AlaCardListComponent from '@components/alacard/AlaCardListComponent';
 
 const AlaCardListContainer = () => {
@@ -11,11 +12,21 @@ const AlaCardListContainer = () => {
   }));
   const state = { alacardData };
 
+  const onClickUploadCardInfo = useCallback((payload) => dispatch(uploadCardInfo(payload)), [dispatch]);
+
   useEffect(() => {
     dispatch(getAlaCardList(sessionStorage.getItem('nickname')));
   }, []);
 
-  return <>{alacardLoading ? <AlaCardListComponent state={state} /> : <div>loading...</div>}</>;
+  return (
+    <>
+      {alacardLoading ? (
+        <AlaCardListComponent state={state} onClickUploadCardInfo={onClickUploadCardInfo} />
+      ) : (
+        <div>loading...</div>
+      )}
+    </>
+  );
 };
 
 export default AlaCardListContainer;
