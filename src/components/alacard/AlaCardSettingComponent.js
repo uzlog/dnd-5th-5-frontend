@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import useResponsive from '../../hooks/useResponsive';
+import { withRouter } from 'react-router';
 import styled, { keyframes } from 'styled-components';
 import HeaderContainer from '@containers/common/HeaderContainer';
 import lockBtn from '@assets/img/alacard-setting/lockBtn.svg';
@@ -331,11 +332,9 @@ const HelpMessageOverlay = styled.div`
 `;
 
 const HelpMessage = styled.div`
-  position: fixed;
-  /* top: 3vh; */
-  /* right: 20vw; */
-  /* top: ${(props) => (props.y ? props.y : '0px')}; */
-  /* left: ${(props) => (props.x ? props.x : '0px')}; */
+  position: relative;
+  left: 5vw;
+  top: -10.3vh;
   display: flex;
   align-items: center;
   padding-left: 10px;
@@ -344,14 +343,22 @@ const HelpMessage = styled.div`
   max-height: 99px;
   height: 9.6vh;
   background-color: #1e1e1e;
+  border-radius: 5px;
   font-size: min(1.3vw, 1.8vh, 19.2px);
   font-weight: 500;
   line-height: 1.6;
   color: white;
   animation: ${fadeIn} 1s;
+  @media screen and (max-width: 1023px) {
+    top: -100px;
+    left: 40px;
+    width: 180px;
+    height: 62px;
+    font-size: 12px;
+  }
 `;
 
-const AlaCardSettingComponent = ({ state, onClickUpdateCardInfo }) => {
+const AlaCardSettingComponent = ({ history, state, onClickUpdateCardInfo }) => {
   const viewSize = useResponsive();
   const { originCardId, originCardFont, originCardSentence, originCardBg, isOpen, isCompleted } = JSON.parse(
     sessionStorage.getItem('originCardInfo'),
@@ -386,7 +393,9 @@ const AlaCardSettingComponent = ({ state, onClickUpdateCardInfo }) => {
   };
 
   const closeHelp = () => {
-    setShowHelp(false);
+    if (showHelp) {
+      setShowHelp(false);
+    }
   };
 
   const onClickSolid = () => {
@@ -440,7 +449,7 @@ const AlaCardSettingComponent = ({ state, onClickUpdateCardInfo }) => {
 
   return (
     <>
-      <Wrapper>
+      <Wrapper onClick={closeHelp}>
         <HeaderContainer />
         <TitleWrapper>
           <Title>배경/설정 변경</Title>
@@ -464,6 +473,7 @@ const AlaCardSettingComponent = ({ state, onClickUpdateCardInfo }) => {
           </CardLockWrapper>
           <BgHeader>
             <StyledSpan>배경 선택</StyledSpan>
+            {showHelp && <HelpMessage>알라카드가 완성된 후 자유롭게 꾸밀 수 있어요.</HelpMessage>}
             <img src={helpBtn} onClick={openHelp} alt="도움말" />
           </BgHeader>
           <BgTitle>
@@ -510,22 +520,15 @@ const AlaCardSettingComponent = ({ state, onClickUpdateCardInfo }) => {
               })}
           </BgWrapper>
           <ButtonWrapper>
-            <StyledButton close="close">취소</StyledButton>
+            <StyledButton close="close" onClick={() => history.goBack()}>
+              취소
+            </StyledButton>
             <StyledButton onClick={submitCardInfo}>저장할래😋</StyledButton>
           </ButtonWrapper>
         </SettingWrapper>
       </Wrapper>
-      {showHelp && (
-        <HelpMessageWrapper>
-          <HelpMessageOverlay onClick={() => closeHelp()} />
-
-          <HelpMessage x={helpOffset.x} y={helpOffset.y}>
-            알라카드가 완성된 후 자유롭게 꾸밀 수 있어요.
-          </HelpMessage>
-        </HelpMessageWrapper>
-      )}
     </>
   );
 };
 
-export default AlaCardSettingComponent;
+export default withRouter(AlaCardSettingComponent);
