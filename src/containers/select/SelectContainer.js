@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getAlaWordList } from '@modules/alaWord';
 import SelectComponent from '@components/select/SelectComponent';
 
-const SelectContainers = () => {
+const SelectContainers = ({}) => {
   const dispatch = useDispatch();
   const { alaWordStatus, alaWordData, alaWordError, alaWordLoading } = useSelector(({ alaWord, loading }) => ({
     alaWordStatus: alaWord.alaWordStatus,

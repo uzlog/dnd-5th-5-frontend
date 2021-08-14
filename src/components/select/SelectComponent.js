@@ -28,6 +28,7 @@ import emoji10 from '@assets/img/emoji/emoji10.svg';
 import emoji11 from '@assets/img/emoji/emoji11.svg';
 import HeaderContainer from '@containers/common/HeaderContainer';
 import { useParams } from 'react-router-dom';
+import client from '@lib/api/client';
 
 const SelectComponent = () => {
   // 주소창에서 가져오기
@@ -58,7 +59,7 @@ const SelectComponent = () => {
   //axios사용해서 데이터 받아오기
   const getWord = async () => {
     //여기 리덕스로 바꾸기
-    const response = await axios.get('http://3.37.42.147/api/v1/alacard/wordlist', {
+    const response = await client.get(`/api/v1/alacard/wordlist`, {
       params: { nickname: owner, offset },
     });
     const setData = await response.data.data;
@@ -183,7 +184,7 @@ const SelectComponent = () => {
   };
   const onSubmitHandler = async () => {
     console.log(idList);
-    const response = await axios.patch(`http://3.37.42.147/api/v1/alacard/wordlist?owner=${owner}`, {
+    const response = await client.patch(`/api/v1/alacard/wordlist?owner=${owner}`, {
       idList,
     });
     console.log(response);
