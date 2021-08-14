@@ -5,15 +5,23 @@ import SocialLoginContainer from '@containers/auth/SocialLoginContainer';
 import logo from '@assets/img/logo/alaLogo.svg';
 
 const Wrapper = styled.div`
+  width: 100vw;
+  height: 100vh;
   background-color: #121212;
   display: flex;
   flex-direction: column;
   align-items: center;
-  @media screen and (max-width: 767px) {
-    width: 360px;
-    height: 640px;
+  img {
+    max-width: 100px;
+    width: 6.9vw;
+    max-height: 90px;
+    height: 8.7vh;
+    margin-top: min(19vh, 200px);
+    margin-bottom: min(4.2vh, 44px);
   }
-  @media screen and (max-width: 767px) {
+  @media screen and (max-width: 1023px) {
+    margin: 0 auto;
+    width: 360px;
     img {
       margin-top: 110px;
       margin-bottom: 30px;
@@ -24,7 +32,9 @@ const Wrapper = styled.div`
 const Title = styled.div`
   font-weight: bold;
   color: white;
-  @media screen and (max-width: 767px) {
+  font-size: 60px;
+  margin-bottom: min(5.9vh, 61.3px);
+  @media screen and (max-width: 1023px) {
     font-size: 30px;
     line-height: 1.4;
     margin-bottom: 45px;
@@ -38,7 +48,8 @@ const Description = styled.p`
   line-height: 1.6;
   text-align: center;
   color: white;
-  @media screen and (max-width: 767px) {
+  font-size: 18px;
+  @media screen and (max-width: 1023px) {
     width: 204px;
     height: 46px;
     font-size: ${(props) => props.size || '14px'};
@@ -49,13 +60,19 @@ const Description = styled.p`
 `;
 
 const StyledButton = styled.button`
+  cursor: pointer;
   background-color: white;
   outline: none;
   border: none;
   font-weight: bold;
   text-align: center;
   border-radius: 50px;
-  @media screen and (max-width: 767px) {
+  width: 223px;
+  height: 64px;
+  font-size: 20px;
+  margin-top: min(7.9vh, 81px);
+  margin-bottom: min(17.5vh, 180px);
+  @media screen and (max-width: 1023px) {
     padding: 14px 40px;
     width: 220px;
     height: 54px;
