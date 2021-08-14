@@ -302,35 +302,6 @@ const StyledButton = styled.button`
   }
 `;
 
-const HelpMessageWrapper = styled.div`
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  background-color: #efefef;
-  opacity: 0.3;
-  z-index: 21;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const HelpMessageOverlay = styled.div`
-  position: absolute;
-  max-width: 1030px;
-  width: 80%;
-  height: 80%;
-  background-color: transparent;
-  background-color: red;
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-  align-items: center;
-`;
-
 const HelpMessage = styled.div`
   position: relative;
   left: 5vw;
@@ -367,7 +338,6 @@ const AlaCardSettingComponent = ({ history, state, onClickUpdateCardInfo }) => {
 
   const [toggle, setToggle] = useState(isOpen);
   const [showHelp, setShowHelp] = useState(false);
-  const [helpOffset, setHelpOffset] = useState('');
   const [bgSolid, setBgSolid] = useState(true);
   const [bgGrad, setBgGrad] = useState(false);
   const [bgPhoto, setBgPhoto] = useState(false);
@@ -386,10 +356,6 @@ const AlaCardSettingComponent = ({ history, state, onClickUpdateCardInfo }) => {
 
   const openHelp = (e) => {
     setShowHelp(true);
-    // const x = window.event.clientX - window.innerWidth * 0.2;
-    const x = window.innerWidth * 1 - window.innerWidth * 0.4;
-    const y = window.event.clientY;
-    setHelpOffset({ x: `${x}px`, y: `${y}px` });
   };
 
   const closeHelp = () => {
