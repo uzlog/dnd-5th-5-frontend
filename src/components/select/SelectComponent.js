@@ -11,6 +11,7 @@ import {
   GetMoreWorldButton,
   KeywordIntro,
   SelectedCount,
+  SelectedCountFoucs,
   SubmitButton,
   ButtonWrapper,
 } from './style';
@@ -28,6 +29,7 @@ import emoji11 from '@assets/img/emoji/emoji11.svg';
 import HeaderContainer from '@containers/common/HeaderContainer';
 import { useParams, withRouter } from 'react-router-dom';
 import client from '@lib/api/client';
+import ScrollContainer from 'react-indiana-drag-scroll';
 
 const SelectComponent = ({ history }) => {
   // 주소창에서 가져오기
@@ -39,16 +41,16 @@ const SelectComponent = ({ history }) => {
   const [idList, setIdList] = useState([]);
   const COLUMN = 4;
   const backgroundGradientList = [
-    'linear-gradient(to top, #bf5ae0, #a811da)',
-    'linear-gradient(to top, #ff0016, #ff7a00)',
-    'linear-gradient(to top, #2ce375, #0098ac)',
-    'linear-gradient(to top, #ed4264, #fedc7f)',
-    'linear-gradient(to top, #00b562, #b7e306)',
-    'linear-gradient(to top, #0533da, #05c1da)',
-    'linear-gradient(to top, #8e2de2, #4a00e0)',
-    'linear-gradient(to top, #8e2de2, #ff004d)',
-    'linear-gradient(to top, #ff512f, #dd2476)',
-    'linear-gradient(to top, #ef5600, #ffc837)',
+    'linear-gradient(to right, #bf5ae0, #a811da)',
+    'linear-gradient(to right, #ff0016, #ff7a00)',
+    'linear-gradient(to right, #2ce375, #0098ac)',
+    'linear-gradient(to right, #ed4264, #fedc7f)',
+    'linear-gradient(to right, #00b562, #b7e306)',
+    'linear-gradient(to right, #0533da, #05c1da)',
+    'linear-gradient(to right, #8e2de2, #4a00e0)',
+    'linear-gradient(to right, #8e2de2, #ff004d)',
+    'linear-gradient(to right, #ff512f, #dd2476)',
+    'linear-gradient(to right, #ef5600, #ffc837)',
   ];
   const emojiList = [emoji1, emoji2, emoji3, emoji4, emoji5, emoji6, emoji7, emoji8, emoji9, emoji10, emoji11];
 
@@ -62,6 +64,8 @@ const SelectComponent = ({ history }) => {
     const response = await client.get(`/api/v1/alacard/wordlist`, {
       params: { nickname: owner, offset },
     });
+    console.log(response);
+
     const setData = await response.data.data;
     if (setData.length > 15) {
       const newWordList = setData.map((i) => ({ ...i, clicked: false }));
@@ -188,7 +192,7 @@ const SelectComponent = ({ history }) => {
     });
     history.push(`/${owner}`);
   };
-
+  //반응형
   const viewSize = useResponsive();
 
   return (
@@ -197,45 +201,53 @@ const SelectComponent = ({ history }) => {
         <HeaderContainer />
         <KeywordIntro>
           {owner}과<br />
-          관련된 키워드를 모두 골라봥😼
+          관련된 키워드를 모두 골라봥!😼
         </KeywordIntro>
         {idList.length ? (
-          <SelectedCount>{idList.length}개의 키워드를 골랐어!</SelectedCount>
+          <SelectedCount>
+            <SelectedCountFoucs>{idList.length}개</SelectedCountFoucs>의 키워드를 골랐어!
+          </SelectedCount>
         ) : (
           <SelectedCount>아직 고른 키워드가 없어!</SelectedCount>
         )}
         <SelectViewWrapper>
-          {wordList.map((word, index) => (
-            <EachSelectViewLine key={index}>
-              {word.map((item, index) =>
-                item.id ? (
-                  <EachSelectViewItem
-                    key={item.id}
-                    onClick={(event) => onWordClickedHandler({ event, item })}
-                    style={{
-                      background: item.clicked ? item.clicked : 'rgba(255, 255, 255, 0.1)',
-                    }}>
-                    <HintOfItem>{item.hint}</HintOfItem>
-                    <WordNameOfItem>{item.wordName}</WordNameOfItem>
-                  </EachSelectViewItem>
-                ) : (
-                  <WhiteBox key={index + 5}>
-                    <img src={item.url} style={viewSize > 1023 ? { width: '38px' } : { width: '24px' }} />
-                  </WhiteBox>
-                ),
-              )}
-            </EachSelectViewLine>
-          ))}
+          <ScrollContainer>
+            {wordList.map((word, index) => (
+              <EachSelectViewLine key={index}>
+                {word.map((item, index) =>
+                  item.id ? (
+                    <EachSelectViewItem
+                      key={item.id}
+                      onClick={(event) => onWordClickedHandler({ event, item })}
+                      style={{
+                        background: item.clicked ? item.clicked : 'rgba(255, 255, 255, 0.1)',
+                      }}>
+                      <HintOfItem>{item.hint}</HintOfItem>
+                      <WordNameOfItem>{item.wordName}</WordNameOfItem>
+                    </EachSelectViewItem>
+                  ) : (
+                    <WhiteBox key={index + 5}>
+                      <img src={item.url} style={viewSize > 1023 ? { width: '38px' } : { width: '24px' }} />
+                    </WhiteBox>
+                  ),
+                )}
+              </EachSelectViewLine>
+            ))}
+          </ScrollContainer>
         </SelectViewWrapper>
         <ButtonWrapper>
-          <GetMoreWorldButton onClick={getWord} disabled={getWordListError ? true : false}>
-            더 보여줘😗
+          <GetMoreWorldButton
+            onClick={getWord}
+            disabled={getWordListError ? true : false}
+            style={getWordListError ? null : { cursor: 'pointer' }}>
+            더 보여줘 <img src={emoji1} />
           </GetMoreWorldButton>
           <SubmitButton
             onClick={onSubmitHandler}
-            style={idList.length ? null : { background: '#2a2a2a' }}
+            style={idList.length ? { cursor: 'pointer' } : { background: '#2a2a2a' }}
             disabled={idList.length ? false : true}>
-            다 골랐음😋
+            다 골랐음
+            <img src={emoji11} />
           </SubmitButton>
         </ButtonWrapper>
       </MainWrapper>

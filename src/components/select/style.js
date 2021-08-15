@@ -9,6 +9,9 @@ export const MainWrapper = styled.div`
   }
   @media screen and (min-width: 1023px) {
     max-width: 576px;
+    background-color: #121212;
+
+    width: 40vw;
   }
 `;
 export const KeywordIntro = styled.div`
@@ -17,8 +20,8 @@ export const KeywordIntro = styled.div`
   margin-top: 3.1vh;
   font-size: 18px;
   @media screen and (min-width: 1023px) {
-    font-size: 29px;
-    margin-left: 38px;
+    font-size: min(2.9rem, 4.5vh);
+    margin-left: 1.8vw;
   }
 `;
 export const SelectedCount = styled.div`
@@ -28,10 +31,14 @@ export const SelectedCount = styled.div`
   font-size: 16px;
   @media screen and (min-width: 1023px) {
     font-size: 26px;
-    margin-left: 38px;
+    margin-left: 1.8vw;
     margin-top: 3.1vh;
   }
 `;
+export const SelectedCountFoucs = styled.b`
+  color: #b9ff46;
+`;
+
 export const SelectViewWrapper = styled.div`
   overflow: scroll;
   white-space: nowrap;
@@ -51,19 +58,21 @@ export const EachSelectViewLine = styled.span`
   display: flex;
   align-items: center;
 `;
-export const EachSelectViewItem = styled.button`
+export const EachSelectViewItem = styled.div`
   display: flex;
   flex-direction: column;
+  cursor: pointer;
   align-items: center;
   justify-content: space-evenly;
-  margin: 1.7vh 12px;
+  margin: 1.7vh 6px;
   padding: 0.7vh 28px;
   border-radius: 50px;
   height: 50px;
   border: 0 solid;
   background-color: rgba(255, 255, 255, 0.1);
   @media screen and (min-width: 1023px) {
-    height: 80px;
+    height: 7.8vh;
+    margin: 1.7vh 8px;
     padding: 0.8vh 45px;
   }
 `;
@@ -71,14 +80,14 @@ export const HintOfItem = styled.div`
   font-size: 10px;
   color: #ffffff;
   @media screen and (min-width: 1023px) {
-    font-size: 16px;
+    font-size: min(1.5vh, 2.6rem);
   }
 `;
 export const WordNameOfItem = styled.div`
   font-size: 16px;
   color: #ffffff;
   @media screen and (min-width: 1023px) {
-    font-size: 26px;
+    font-size: min(4vh, 2.6rem);
   }
 `;
 export const WhiteBox = styled.span`
@@ -91,35 +100,36 @@ export const WhiteBox = styled.span`
   margin: 0.7vh 12px;
   padding: 0.7vh 22px;
   @media screen and (min-width: 1023px) {
-    min-width: 80px;
-    height: 80px;
+    height: 7.8vh;
+    min-width: 7.8vh;
   }
 `;
 export const ButtonWrapper = styled.span`
   background-color: #121212;
   border: 0;
   display: flex;
-  padding-bottom: 50px;
+  padding-bottom: 4.8vh;
 `;
 
 export const GetMoreWorldButton = styled.button`
   color: white;
-  background-color: black;
+  background-color: #121212;
   width: 148px;
   height: 48px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 16px;
+
   margin: 0 auto;
   padding: 11px 14px 11px 14px;
   border-radius: 62px;
   border: solid 1px white;
   @media screen and (min-width: 1023px) {
     border: solid 1.6px;
-    font-size: 26px;
-    width: 237px;
-    height: 77px;
+    font-size: min(33vw, 4vh, 2.6rem);
+    width: 41.7%;
+    height: 7.5vh;
     padding: 17.6px 22.4px 18.2px 22.4px;
   }
 `;
@@ -139,10 +149,10 @@ export const SubmitButton = styled.button`
   border: solid 1px;
   @media screen and (min-width: 1023px) {
     border: solid 1.6px;
-    font-size: 26px;
+    font-size: min(33vw, 4vh, 2.6rem);
 
-    width: 237px;
-    height: 77px;
+    width: 41.7%;
+    height: 7.5vh;
     padding: 17.6px 22.4px 18.2px 22.4px;
   }
 `;
