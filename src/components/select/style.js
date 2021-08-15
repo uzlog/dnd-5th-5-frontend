@@ -1,16 +1,20 @@
 import styled from 'styled-components';
 
 export const MainWrapper = styled.div`
-  width: 360px;
-  background-color: #121212;
+  @media screen and (max-width: 1023px) {
+    margin: 0 auto;
+    width: 360px;
+    background-color: #121212;
+    height: 100%;
+  }
   @media screen and (min-width: 1023px) {
-    width: 576px;
+    max-width: 576px;
   }
 `;
 export const KeywordIntro = styled.div`
   color: white;
   margin-left: 24px;
-  margin-top: 20px;
+  margin-top: 3.1vh;
   font-size: 18px;
   @media screen and (min-width: 1023px) {
     font-size: 29px;
@@ -20,27 +24,27 @@ export const KeywordIntro = styled.div`
 export const SelectedCount = styled.div`
   color: white;
   margin-left: 24px;
-  margin-top: 20px;
+  margin-top: 3.1vh;
   font-size: 16px;
   @media screen and (min-width: 1023px) {
     font-size: 26px;
     margin-left: 38px;
-    margin-top: 32px;
+    margin-top: 3.1vh;
   }
 `;
 export const SelectViewWrapper = styled.div`
   overflow: scroll;
   white-space: nowrap;
-  margin-top: 45px;
-  margin-bottom: 75px;
+  margin-top: 7vh;
+  margin-bottom: 11.7vh;
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
   &::-webkit-scrollbar {
     display: none; /* Chrome, Safari, Opera*/
   }
   @media screen and (min-width: 1023px) {
-    margin-top: 83px;
-    margin-bottom: 100px;
+    margin-top: 8vh;
+    margin-bottom: 9.7vh;
   }
 `;
 export const EachSelectViewLine = styled.span`
@@ -52,15 +56,15 @@ export const EachSelectViewItem = styled.button`
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
-  margin: 11.5px 12px;
-  padding: 5px 28px;
+  margin: 1.7vh 12px;
+  padding: 0.7vh 28px;
   border-radius: 50px;
   height: 50px;
   border: 0 solid;
   background-color: rgba(255, 255, 255, 0.1);
   @media screen and (min-width: 1023px) {
-    height: 83px;
-    padding: 8px 45px;
+    height: 80px;
+    padding: 0.8vh 45px;
   }
 `;
 export const HintOfItem = styled.div`
@@ -84,8 +88,8 @@ export const WhiteBox = styled.span`
   height: 50px;
   border-radius: 100px;
   background-color: white;
-  margin: 5px 12px;
-  padding: 5px 22px;
+  margin: 0.7vh 12px;
+  padding: 0.7vh 22px;
   @media screen and (min-width: 1023px) {
     min-width: 80px;
     height: 80px;

@@ -1,4 +1,3 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import useResponsive from '../../hooks/useResponsive';
 import {
@@ -32,7 +31,8 @@ import client from '@lib/api/client';
 
 const SelectComponent = () => {
   // 주소창에서 가져오기
-  const owner = useParams().nickname;
+  // const owner = useParams().nickname;
+  const owner = 'QueenMK';
   const [offset, setOffset] = useState(0);
   const [getWordListError, setGetWordListError] = useState(false);
   const [wordList, setWordList] = useState([[], [], [], []]);
@@ -220,7 +220,7 @@ const SelectComponent = () => {
                     <WordNameOfItem>{item.wordName}</WordNameOfItem>
                   </EachSelectViewItem>
                 ) : (
-                  <WhiteBox>
+                  <WhiteBox key={index + 5}>
                     <img src={item.url} style={viewSize > 1023 ? { width: '38px' } : { width: '24px' }} />
                   </WhiteBox>
                 ),
