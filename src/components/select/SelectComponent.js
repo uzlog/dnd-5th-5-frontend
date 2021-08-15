@@ -26,13 +26,13 @@ import emoji9 from '@assets/img/emoji/emoji9.svg';
 import emoji10 from '@assets/img/emoji/emoji10.svg';
 import emoji11 from '@assets/img/emoji/emoji11.svg';
 import HeaderContainer from '@containers/common/HeaderContainer';
-import { useParams } from 'react-router-dom';
+import { useParams, withRouter } from 'react-router-dom';
 import client from '@lib/api/client';
 
-const SelectComponent = () => {
+const SelectComponent = ({ history }) => {
   // 주소창에서 가져오기
-  // const owner = useParams().nickname;
-  const owner = 'QueenMK';
+  const owner = useParams().nickname;
+  // const owner = 'QueenMK';
   const [offset, setOffset] = useState(0);
   const [getWordListError, setGetWordListError] = useState(false);
   const [wordList, setWordList] = useState([[], [], [], []]);
@@ -183,11 +183,10 @@ const SelectComponent = () => {
     );
   };
   const onSubmitHandler = async () => {
-    console.log(idList);
-    const response = await client.patch(`/api/v1/alacard/wordlist?owner=${owner}`, {
+    const response = await client.patch(`/api/v1/alacard/wordlist?nickname=${owner}`, {
       idList,
     });
-    console.log(response);
+    history.push(`/${owner}`);
   };
 
   const viewSize = useResponsive();
@@ -244,4 +243,4 @@ const SelectComponent = () => {
   );
 };
 
-export default SelectComponent;
+export default withRouter(SelectComponent);
