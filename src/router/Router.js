@@ -1,6 +1,8 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import loadable from '@loadable/component';
+import PrivateRoute from './PrivateRoute';
+import SettingRoute from './SettingRoute';
 
 const profileSettingsPage = loadable(() => import('@pages/ProfileSettingsPage'));
 const MainPage = loadable(() => import('@pages/MainPage'));
@@ -12,12 +14,12 @@ const CardSettingPage = loadable(() => import('@pages/CardSettingPage'));
 const Router = () => {
   return (
     <>
-      <Route path="/" component={MainPage} exact />
+      <PrivateRoute path="/" component={MainPage} exact />
       <Route path="/:nickname/select" component={SelectPage} exact />
-      <Route path="/:nickname/settings" component={profileSettingsPage} exact />
+      <SettingRoute path="/:nickname/settings" component={profileSettingsPage} exact />
       <Switch>
-        <Route path="/alacard" component={AlaCardPage} exact />
-        <Route path="/alacard/setting" component={CardSettingPage} exact />
+        <Route path="/:nickname/alacard" component={AlaCardPage} exact />
+        <SettingRoute path="/:nickname/alacard/settings" component={CardSettingPage} exact />
         <Route path="/:nickname" component={MyPage} exact />
       </Switch>
     </>

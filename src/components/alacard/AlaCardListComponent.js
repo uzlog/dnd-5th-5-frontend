@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import useResponsive from '../../hooks/useResponsive';
 import HeaderContainer from '@containers/common/HeaderContainer';
 import secretWord from '@assets/img/alacard/secretWord.svg';
@@ -159,7 +159,7 @@ const AlaCardListComponent = ({ state, onClickUploadCardInfo }) => {
           return (
             <>
               <StyledLink
-                to={'/alacard/setting'}
+                to={`/${sessionStorage.getItem('nickname')}/alacard/settings`}
                 onClick={() => {
                   const originCardInfo = {
                     originCardId: alaCardId,
