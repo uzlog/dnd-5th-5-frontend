@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
+import useOwner from '@hooks/useOwner';
 import FriendModalContainer from '@containers/modal/FriendModalContainer';
 import { ModalWrapper, ModalOverlay, ModalContents } from '@components/main/Style';
 import logo from '@assets/img/nav/logo.svg';
@@ -12,6 +13,7 @@ import arrowBtn from '@assets/img/my-profile/arrowBtn.svg';
 import avatarM from '@assets/img/my-profile/avatarM.svg';
 import closeBtnWhite from '@assets/img/my-profile/closeBtnWhite.svg';
 import settingBtn from '@assets/img/my-profile/settingBtn.svg';
+import { useEffect } from 'react';
 
 const Wrapper = styled.div`
   background-color: #121212;
@@ -201,12 +203,17 @@ const StyledLink = styled(Link)`
   text-decoration: none;
 `;
 
-const Header = ({ state, onClickModalStatus }) => {
+const Header = ({ history, state, onClickModalStatus }) => {
   const [showProfile, setShowProfile] = useState(false);
-  const { showFriendModal, showAlarmModal, user } = state;
   const {
+    showFriendModal,
+    showAlarmModal,
+    user,
     memberData: { nickname, statusMessage, imgUrl },
   } = state;
+  const urlNickname = history.location.pathname.split('/')[1];
+  const userInfo = { nickname, urlNickname };
+  const isOwned = useOwner(userInfo);
 
   const openFriendModal = () => {
     document.body.style = `overflow: hidden`;
@@ -227,7 +234,7 @@ const Header = ({ state, onClickModalStatus }) => {
     <>
       <Wrapper>
         <InnerWrapper>
-          <LogoWrapper to={user ? `/${localStorage.getItem('nickname')}` : `/`}>
+          <LogoWrapper to={user ? `/${nickname || sessionStorage.getItem('nickname')}` : `/`}>
             <img src={logo} alt="로고" />
           </LogoWrapper>
           <IconWrapper>
@@ -267,12 +274,14 @@ const Header = ({ state, onClickModalStatus }) => {
                   <ProfileInfoWrapper>
                     <div>
                       <span>{nickname}</span>
-                      <ProfileImg src={settingBtn} alt="프로필 수정" />
+                      <StyledLink to={isOwned ? `/${nickname}/settings` : ''}>
+                        <ProfileImg src={settingBtn} alt="프로필 수정" />
+                      </StyledLink>
                     </div>
                     <span>{statusMessage}</span>
                   </ProfileInfoWrapper>
                 </ProfileWrapper>
-                <StyledLink to={'/alacard'}>
+                <StyledLink to={isOwned ? `/${nickname}/alacard` : ''}>
                   <StyledButton>
                     알라카드 관리
                     <ProfileImg src={arrowBtn} alt="카드 관리" />
@@ -289,4 +298,4 @@ const Header = ({ state, onClickModalStatus }) => {
   );
 };
 
-export default Header;
+export default withRouter(Header);
