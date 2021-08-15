@@ -2,6 +2,7 @@ import React, { useEffect, useCallback, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getAlaWordList } from '@modules/alaWord';
 import SelectComponent from '@components/select/SelectComponent';
+import { withRouter } from 'react-router-dom';
 
 const SelectContainers = ({}) => {
   const dispatch = useDispatch();
@@ -20,4 +21,4 @@ const SelectContainers = ({}) => {
   );
 };
 
-export default SelectContainers;
+export default withRouter(SelectContainers);

@@ -26,6 +26,8 @@ import google from '@assets/img/profileSettings/google.svg';
 import naver from '@assets/img/profileSettings/naver.svg';
 import lock from '@assets/img/profileSettings/lock.svg';
 import unlock from '@assets/img/profileSettings/unlock.svg';
+import unlockBtn from '@assets/img/alacard-setting/unlockBtn.svg';
+import lockBtn from '@assets/img/alacard-setting/lockBtn.svg';
 import Modal from './Modal';
 import { withRouter } from 'react-router-dom';
 
@@ -62,8 +64,10 @@ const ProfileSettingsComponent = ({ history }) => {
   const onUpdataSubmit = async () => {
     if (nicknameLength > 2) {
       const existsResponse = await client.get('/api/v1/member/exists', { params: { nickname: myInfo.nickname } });
-      (await existsResponse.data.data) === true ? setNicknameExists(true) : setNicknameExists(false);
-      if (existsResponse.data.data === false) {
+      existsResponse.data.data === true || existsResponse.data.data === nickname
+        ? setNicknameExists(true)
+        : setNicknameExists(false);
+      if (existsResponse.data.data === true || existsResponse.data.data === nickname) {
         const upDataResponse = await client.patch('/api/v1/member/me', myInfo);
         console.log(upDataResponse.data.message);
         if (upDataResponse.data.message === 'update') {
@@ -164,7 +168,7 @@ const ProfileSettingsComponent = ({ history }) => {
               계정 공개 여부{' '}
               <img
                 style={viewSize < 1023 ? { width: '19px', height: '19px' } : { width: '29px', height: '29px' }}
-                src={myInfo.isOpen ? unlock : lock}
+                src={myInfo.isOpen ? unlockBtn : lockBtn}
               />
             </IsOpen>
             <img onClick={isOpenClick} src={myInfo.isOpen ? unlock : lock} />

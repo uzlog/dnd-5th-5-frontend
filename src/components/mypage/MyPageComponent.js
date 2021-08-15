@@ -224,7 +224,7 @@ const MyPageComponent = ({ state }) => {
   const onClickShare = () => {
     const text = document.createElement('textarea');
     document.body.appendChild(text);
-    text.value = `https://www.ala.monster/select/${nickname}`;
+    text.value = `https://www.ala.monster/${nickname}/select`;
 
     text.select();
     document.execCommand('copy');
