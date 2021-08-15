@@ -84,9 +84,7 @@ const SocialLogin = ({
       setError('앗, 누군가 이미 사용중인 별명이네요,\n 다른 별명을 사용해보세요.');
     }
   }, [duplicatedData]);
-  console.log(process.env.REACT_APP_URL);
-  console.log(naverId);
-  console.log(googleId);
+
   return (
     <>
       {authMessage === 'join' && getMemberLoading ? (

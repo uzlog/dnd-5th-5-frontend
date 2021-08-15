@@ -19,7 +19,7 @@ const SettingRoute = ({ history, component: Component, ...rest }) => {
     <Route
       {...rest}
       render={(props) =>
-        (token && isOwned === false) || token === undefined ? (
+        (token && !isOwned) || token === undefined ? (
           <Redirect
             to={{
               pathname: `/`,
