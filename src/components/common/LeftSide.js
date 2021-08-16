@@ -38,8 +38,8 @@ const StyledButton = styled.div`
   margin-right: 24px;
   &:hover {
     background-color: #b9ff46;
-    img:hover {
-      color: black;
+    img {
+      filter: invert(100%) sepia(16%) saturate(3091%) hue-rotate(300deg) brightness(97%) contrast(117%);
     }
   }
 `;
