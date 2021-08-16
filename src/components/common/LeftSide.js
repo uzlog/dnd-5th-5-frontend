@@ -69,7 +69,7 @@ const LeftSide = () => {
           <StyledButton>
             <img src={sendBtn} alt="전송 버튼" />
           </StyledButton>
-          <StyledSpan>요기로 문의 ㄱㄱ</StyledSpan>
+          <StyledSpan>요기로 문의 고고!</StyledSpan>
         </ButtonWrapper>
       </Wrapper>
     </div>
