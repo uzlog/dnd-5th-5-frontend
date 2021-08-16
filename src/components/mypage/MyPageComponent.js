@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import styled, { keyframes } from 'styled-components';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
@@ -10,6 +10,7 @@ import secretWord from '@assets/img/alacard/secretWord.svg';
 import bigCardCloseBtn from '@assets/img/alacard/bigCardCloseBtn.svg';
 import linkBtn from '@assets/img/alacard/linkBtn.svg';
 import maximizeBtn from '@assets/img/alacard/maximize.svg';
+import { useEffect } from 'react';
 
 const fadeIn = keyframes`
   from {
@@ -203,23 +204,32 @@ const Toast = styled.div`
 `;
 
 const MyPageComponent = ({ state }) => {
-  const { alacardData, nickname, alacardError } = state;
+  const { alacardData, nickname, alacardError, showProfileModal } = state;
   const [showModal, setShowModal] = useState(false);
   const [showToast, setShowToast] = useState(false);
   const [sentence, setSentence] = useState('');
   const [bigAlaCardStyle, setBigAlaCardStyle] = useState('');
   const [fontColorStyle, setFontColorStyle] = useState('');
-  const viewSize = useResponsive();
-  const settings = {
+  const [settings, setSettings] = useState({
     dots: false,
     infinite: true,
     arrows: false,
     autoplay: true,
-    autoplaySpeed: 3000,
+    autoplaySpeed: 1000,
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
-  };
+  });
+  const viewSize = useResponsive();
+  const slider = useRef(null);
+
+  useEffect(() => {
+    if (!showProfileModal) {
+      slider.current.slickPlay();
+    } else {
+      slider.current.slickPause();
+    }
+  }, [showProfileModal]);
 
   const openModal = (e) => {
     setShowModal(true);
@@ -280,12 +290,11 @@ const MyPageComponent = ({ state }) => {
       setShowToast(false);
     }, 1000);
   };
-
   return (
     <>
       <Wrapper>
         <HeaderContainer />
-        <Slider {...settings}>
+        <Slider ref={slider} {...settings}>
           {alacardData.map((card, idx) => {
             const { backgroundImgUrl, fontColor } = card.alaCardSettingDto;
             let cardStyle;

@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Cookies from 'universal-cookie';
-import { updateModalStatus } from '@modules/modal';
+import { updateModalStatus, openProfileModal } from '@modules/modal';
 import { getMyInfo } from '@modules/member';
 import Header from '@components/common/Header';
 
@@ -22,6 +22,7 @@ const HeaderContainer = () => {
   const state = { showFriendModal, showAlarmModal, memberData, user };
 
   const onClickModalStatus = useCallback((payload) => dispatch(updateModalStatus(payload)), [dispatch]);
+  const onClickOpenProfile = useCallback((payload) => dispatch(openProfileModal(payload)), [dispatch]);
 
   /**
    * 1. 토큰 유무
@@ -40,9 +41,9 @@ const HeaderContainer = () => {
   return (
     <>
       {memberDataLoading === undefined ? ( // 데이터 불러오기 안하는 경우
-        <Header state={state} onClickModalStatus={onClickModalStatus} />
+        <Header state={state} onClickModalStatus={onClickModalStatus} onClickOpenProfile={onClickOpenProfile} />
       ) : memberDataLoading ? (
-        <Header state={state} onClickModalStatus={onClickModalStatus} />
+        <Header state={state} onClickModalStatus={onClickModalStatus} onClickOpenProfile={onClickOpenProfile} />
       ) : (
         <div>loading...</div>
       )}

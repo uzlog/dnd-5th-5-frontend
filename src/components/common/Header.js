@@ -13,7 +13,6 @@ import arrowBtn from '@assets/img/my-profile/arrowBtn.svg';
 import avatarM from '@assets/img/my-profile/avatarM.svg';
 import closeBtnWhite from '@assets/img/my-profile/closeBtnWhite.svg';
 import settingBtn from '@assets/img/my-profile/settingBtn.svg';
-import { useEffect } from 'react';
 
 const Wrapper = styled.div`
   background-color: #121212;
@@ -109,6 +108,7 @@ const ImgWrapper = styled.div`
 
 const ProfileWrapper = styled.div`
   display: flex;
+  align-items: center;
   height: 7.6vh;
   padding-left: 2.3vw;
   @media screen and (max-width: 1023px) {
@@ -201,9 +201,11 @@ const StyledButton = styled.button`
 
 const StyledLink = styled(Link)`
   text-decoration: none;
+  display: flex;
+  align-items: center;
 `;
 
-const Header = ({ history, state, onClickModalStatus }) => {
+const Header = ({ history, state, onClickModalStatus, onClickOpenProfile }) => {
   const [showProfile, setShowProfile] = useState(false);
   const {
     showFriendModal,
@@ -221,11 +223,13 @@ const Header = ({ history, state, onClickModalStatus }) => {
   };
 
   const openProfileModal = () => {
+    onClickOpenProfile(true);
     document.body.style = `overflow: hidden`;
     setShowProfile(true);
   };
 
   const closeProfileModal = () => {
+    onClickOpenProfile(false);
     document.body.style = `overflow: visible`;
     setShowProfile(false);
   };
@@ -273,7 +277,7 @@ const Header = ({ history, state, onClickModalStatus }) => {
                   <ProfileImg src={avatarM} avatar="avatar" alt="프로필 사진" />
                   <ProfileInfoWrapper>
                     <div>
-                      <span>{nickname}</span>
+                      <span>{nickname || localStorage.getItem('nickname')}</span>
                       <StyledLink to={isOwned ? `/${nickname}/settings` : ''}>
                         <ProfileImg src={settingBtn} alt="프로필 수정" />
                       </StyledLink>

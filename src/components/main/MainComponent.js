@@ -23,6 +23,8 @@ const Wrapper = styled.div`
     margin: 0 auto;
     width: 360px;
     img {
+      width: 78px;
+      height: 70px;
       margin-top: 110px;
       margin-bottom: 30px;
     }

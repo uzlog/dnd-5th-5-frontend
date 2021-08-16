@@ -8,17 +8,19 @@ import MyPageComponent from '@components/mypage/MyPageComponent';
 const MyPageContainer = ({ history, nickname }) => {
   const dispatch = useDispatch();
   const cookies = new Cookies();
-  const { alacardStatus, alacardMessage, alacardData, alacardError, alacardLoading } = useSelector(
-    ({ mypage, loading }) => ({
+  const { alacardStatus, alacardMessage, alacardData, alacardError, alacardLoading, showProfileModal } = useSelector(
+    ({ mypage, modal, loading }) => ({
       alacardStatus: mypage.alacardStatus,
       alacardMessage: mypage.alacardMessage,
       alacardData: mypage.alacardData,
       alacardError: mypage.alacardError.data,
       alacardLoading: loading['mypage/GET_ALA_CARD_LIST'],
+
+      showProfileModal: modal.showProfileModal,
     }),
   );
   const token = cookies.get('token');
-  const state = { alacardData, nickname, alacardError };
+  const state = { alacardData, nickname, alacardError, showProfileModal };
 
   // 화면 첫 진입 시, 알라카드 목록 받아오기 / 셀렉 뷰 링크 받아오기
   useEffect(() => {
