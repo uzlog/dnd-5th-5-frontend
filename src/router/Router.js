@@ -16,7 +16,7 @@ const Router = () => {
     <>
       <PrivateRoute path="/" component={MainPage} exact />
       <Route path="/:nickname/select" component={SelectPage} exact />
-      <SettingRoute path="/:nickname/settings" component={profileSettingsPage} exact />
+      <Route path="/:nickname/settings" component={profileSettingsPage} exact />
       <Switch>
         <Route path="/:nickname/alacard" component={AlaCardPage} exact />
         <SettingRoute path="/:nickname/alacard/settings" component={CardSettingPage} exact />
