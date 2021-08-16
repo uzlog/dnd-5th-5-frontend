@@ -224,7 +224,7 @@ const MyPageComponent = ({ state }) => {
   const onClickShare = () => {
     const text = document.createElement('textarea');
     document.body.appendChild(text);
-    text.value = `https://www.ala.monster/select/${nickname}`;
+    text.value = `https://www.ala.monster/${nickname}/select`;
 
     text.select();
     document.execCommand('copy');
@@ -309,87 +309,6 @@ const MyPageComponent = ({ state }) => {
             </ModalContents>
           </ModalWrapper>
         )}
-        {/* {alacardError ? (
-          <div>zzzz</div>
-        ) : (
-          <>
-            <HeaderContainer />
-            <Slider {...settings}>
-              {alacardData.map((card, idx) => {
-                const { backgroundImgUrl, fontColor } = card.alaCardSettingDto;
-                let cardStyle;
-                let fontStyle;
-                // 카드가 완성된 경우
-                if (card.isCompleted) {
-                  if (!card.sentence.includes('strong')) {
-                    card.selectedWordList.forEach((word) => {
-                      card.sentence = card.sentence.replaceAll(word.wordName, '<strong>' + word.wordName + '</strong>');
-                    });
-                  }
-                  cardStyle = {
-                    backgroundImage: 'url(' + backgroundImgUrl + ')',
-                    backgroundSize: 'cover',
-                    width: viewSize > '1023' ? '40vw' : '36rem',
-                    maxWidth: viewSize > '1023' ? '576px' : '360px',
-                  };
-                  fontStyle = {
-                    color: fontColor,
-                  };
-                } else {
-                  card.sentence = card.sentence.replaceAll('???', '<img src="' + secretWord + '" alt="비밀 단어" />');
-                  cardStyle = {
-                    backgroundColor: '#121212',
-                    width: viewSize > '1023' ? '40vw' : '36rem',
-                    maxWidth: viewSize > '1023' ? '576px' : '360px',
-                  };
-                  fontStyle = {
-                    color: '#b9ff46',
-                  };
-                }
-
-                card.sentence = card.sentence.replaceAll(', ', ',<br />');
-                if (!card.sentence.includes('!')) {
-                  card.sentence += '!';
-                }
-                return (
-                  <>
-                    <div key={idx} style={cardStyle}>
-                      <MoreButtonWrapper>
-                        <MoreButton onClick={openModal}>
-                          <img src={maximizeBtn} idx={idx} sentence={card.sentence} alt="확대 버튼" />
-                        </MoreButton>
-                      </MoreButtonWrapper>
-                      <ContentFlexWrapper>
-                        <ContentsWrapper>
-                          <InnerContents style={fontStyle} dangerouslySetInnerHTML={{ __html: card.sentence }} />
-                        </ContentsWrapper>
-                      </ContentFlexWrapper>
-                      <ButtonWrapper>
-                        <StyledButton onClick={onClickShare} value={idx}>
-                          키워드 PICK 요청하기
-                          <img src={linkBtn} alt="링크 버튼" />
-                        </StyledButton>
-                      </ButtonWrapper>
-                    </div>
-                  </>
-                );
-              })}
-            </Slider>
-            {showModal && (
-              <ModalWrapper>
-                <ModalOverlay onClick={() => closeModal()} />
-                <ModalContents style={bigAlaCardStyle}>
-                  <CloseBtnWrapper>
-                    <img src={bigCardCloseBtn} width="24px" height="24px" alt="닫기 버튼" onClick={closeModal} />
-                  </CloseBtnWrapper>
-                  <ModalContentsWrapper style={fontColorStyle}>
-                    <InnerContents height="592px" dangerouslySetInnerHTML={{ __html: sentence }} />
-                  </ModalContentsWrapper>
-                </ModalContents>
-              </ModalWrapper>
-            )}
-          </>
-        )} */}
       </Wrapper>
     </>
   );
