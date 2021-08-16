@@ -1,14 +1,33 @@
 import styled from 'styled-components';
 
+export const Header = styled.div`
+  background-color: #121212;
+  max-width: 576px;
+  width: 40vw;
+  height: 9.4vh;
+  padding: 3.1vh 2.2vw 3.1vh 1.8vw;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  &::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
+  }
+  @media screen and (max-width: 1023px) {
+    width: 360px;
+    min-height: 60px;
+    height: 9.3vh;
+    padding: 2.8vh 20px 3vh 20px;
+  }
+`;
 export const MainWrapper = styled.div`
   @media screen and (max-width: 1023px) {
     margin: 0 auto;
     width: 360px;
     background-color: #121212;
-    height: 100%;
+    height: 100vh;
   }
   @media screen and (min-width: 1023px) {
     max-width: 576px;
+    height: 100vh;
     background-color: #121212;
 
     width: 40vw;

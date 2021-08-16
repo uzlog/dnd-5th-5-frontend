@@ -13,6 +13,7 @@ import {
   SelectedCount,
   SelectedCountFoucs,
   SubmitButton,
+  Header,
   ButtonWrapper,
 } from './style';
 import emoji1 from '@assets/img/emoji/emoji1.svg';
@@ -26,10 +27,11 @@ import emoji8 from '@assets/img/emoji/emoji8.svg';
 import emoji9 from '@assets/img/emoji/emoji9.svg';
 import emoji10 from '@assets/img/emoji/emoji10.svg';
 import emoji11 from '@assets/img/emoji/emoji11.svg';
-import HeaderContainer from '@containers/common/HeaderContainer';
 import { useParams, withRouter } from 'react-router-dom';
 import client from '@lib/api/client';
 import ScrollContainer from 'react-indiana-drag-scroll';
+import setCookie from 'set-cookie-parser';
+import http from 'http';
 
 const SelectComponent = ({ history }) => {
   // 주소창에서 가져오기
@@ -64,7 +66,15 @@ const SelectComponent = ({ history }) => {
     const response = await client.get(`/api/v1/alacard/wordlist`, {
       params: { nickname: owner, offset },
     });
-    console.log(response);
+
+    http.get(`http://localhost:3000/${owner}/select`, function (res) {
+      var cookies = setCookie.parse(res, {
+        decodeValues: true, // default: true
+      });
+
+      cookies.forEach(console.log);
+      console.log(cookies);
+    });
 
     const setData = await response.data.data;
     if (setData.length > 15) {
@@ -198,7 +208,8 @@ const SelectComponent = ({ history }) => {
   return (
     <>
       <MainWrapper>
-        <HeaderContainer />
+        <Header></Header>
+
         <KeywordIntro>
           {owner}과<br />
           관련된 키워드를 모두 골라봥!😼
