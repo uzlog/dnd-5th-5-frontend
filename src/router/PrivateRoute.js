@@ -12,6 +12,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
   }));
   const { nickname } = memberData;
   const localNickname = localStorage.getItem('nickname');
+  const sessionNickname = sessionStorage.getItem('nickname');
 
   return (
     <>
@@ -21,10 +22,10 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
         <Route
           {...rest}
           render={(props) =>
-            token && localNickname ? (
+            token && (localNickname || sessionNickname) ? (
               <Redirect
                 to={{
-                  pathname: `/${nickname || localStorage.getItem('nickname')}`,
+                  pathname: `/${nickname || localNickname || sessionNickname}`,
                   state: { from: props.location },
                 }}
               />
