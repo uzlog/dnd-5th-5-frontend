@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -10,6 +10,15 @@ import secretWord from '@assets/img/alacard/secretWord.svg';
 import bigCardCloseBtn from '@assets/img/alacard/bigCardCloseBtn.svg';
 import linkBtn from '@assets/img/alacard/linkBtn.svg';
 import maximizeBtn from '@assets/img/alacard/maximize.svg';
+
+const fadeIn = keyframes`
+  from {
+    opacity: 0.5;
+  }
+  to {
+    opacity: 0;
+  }
+`;
 
 const Wrapper = styled.div`
   max-width: 576px;
@@ -159,9 +168,44 @@ const CloseBtnWrapper = styled.div`
   }
 `;
 
+const ToastWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
+const Toast = styled.div`
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  top: 90%;
+  opacity: 0.5;
+  border-radius: 5px;
+  background-color: #000000;
+  line-height: 1.6;
+  color: white;
+  max-width: 460px;
+  width: 31.9vw;
+  max-height: 57.6px;
+  height: 5.6vh;
+  font-size: min(1.3vw, 1.8vh, 19.2px);
+  animation: ${fadeIn} 3s;
+  -moz-animation: ${fadeIn} 3s; /* Firefox */
+  -webkit-animation: ${fadeIn} 3s; /* Safari and Chrome */
+  -o-animation: ${fadeIn} 3s; /* Opera */
+  @media screen and (max-width: 1023px) {
+    width: 302px;
+    height: 36px;
+    font-size: 12px;
+    text-align: center;
+  }
+`;
+
 const MyPageComponent = ({ state }) => {
   const { alacardData, nickname, alacardError } = state;
   const [showModal, setShowModal] = useState(false);
+  const [showToast, setShowToast] = useState(false);
   const [sentence, setSentence] = useState('');
   const [bigAlaCardStyle, setBigAlaCardStyle] = useState('');
   const [fontColorStyle, setFontColorStyle] = useState('');
@@ -222,6 +266,7 @@ const MyPageComponent = ({ state }) => {
   };
 
   const onClickShare = () => {
+    setShowToast(true);
     const text = document.createElement('textarea');
     document.body.appendChild(text);
     text.value = `https://www.ala.monster/${nickname}/select`;
@@ -229,6 +274,11 @@ const MyPageComponent = ({ state }) => {
     text.select();
     document.execCommand('copy');
     document.body.removeChild(text);
+
+    // 토스트 메세지
+    setTimeout(() => {
+      setShowToast(false);
+    }, 1000);
   };
 
   return (
@@ -308,6 +358,11 @@ const MyPageComponent = ({ state }) => {
               </ModalContentsWrapper>
             </ModalContents>
           </ModalWrapper>
+        )}
+        {showToast && (
+          <ToastWrapper>
+            <Toast>링크가 클립보드에 복사되었습니다.</Toast>
+          </ToastWrapper>
         )}
       </Wrapper>
     </>
