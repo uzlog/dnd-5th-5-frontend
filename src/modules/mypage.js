@@ -1,31 +1,27 @@
 import { createAction, handleActions } from 'redux-actions';
 import { takeLatest } from 'redux-saga/effects';
 import createRequestSaga, { createRequestActionTypes } from '../lib/createRequestSaga';
-import * as memberAPI from '@lib/api/member';
 import * as alacardAPI from '@lib/api/alacard';
 
 /**
  * 액션 타입
  */
-// const [GET_SELECT_VIEW_LINK, GET_SELECT_VIEW_LINK_SUCCESS, GET_SELECT_VIEW_LINK_FAILURE] =
-//   createRequestActionTypes('mypage/GET_SELECT_VIEW_LINK');
 const [GET_ALA_CARD_LIST, GET_ALA_CARD_LIST_SUCCESS, GET_ALA_CARD_LIST_FAILURE] =
   createRequestActionTypes('mypage/GET_ALA_CARD_LIST');
+const UPDATE_ERROR = 'mypage/UPDATE_ERROR';
 
 /**
  * 액션 생성 함수
  */
-// export const getSelectViewLink = createAction(GET_SELECT_VIEW_LINK, (nickname) => nickname);
 export const getAlaCardList = createAction(GET_ALA_CARD_LIST);
+export const updateError = createAction(UPDATE_ERROR);
 
 /**
  * 사가 생성
  */
-// const getSelectViewLinkSaga = createRequestSaga(GET_SELECT_VIEW_LINK, memberAPI.getSelectViewLink);
 const getAlaCardListSaga = createRequestSaga(GET_ALA_CARD_LIST, alacardAPI.getAlaCardList);
 
 export function* mypageSaga() {
-  // yield takeLatest(GET_SELECT_VIEW_LINK, getSelectViewLinkSaga);
   yield takeLatest(GET_ALA_CARD_LIST, getAlaCardListSaga);
 }
 
@@ -38,14 +34,16 @@ const initialState = {
   alacardData: {},
   alacardTimestamp: '',
   alacardError: '',
-
-  // selectLinkStatus: 0,
-  // selectLinkData: '',
-  // selectLinkError: '',
+  hadError: false,
 };
 
 const mypage = handleActions(
   {
+    [UPDATE_ERROR]: (state) => ({
+      ...state,
+      alacardError: '',
+      hadError: true,
+    }),
     [GET_ALA_CARD_LIST_SUCCESS]: (state, { payload: { status, message, data, timestamp } }) => ({
       ...state,
       alacardStatus: status,
@@ -57,15 +55,6 @@ const mypage = handleActions(
       ...state,
       alacardError: error,
     }),
-    // [GET_SELECT_VIEW_LINK_SUCCESS]: (state, { payload: { status, data } }) => ({
-    //   ...state,
-    //   selectLinkStatus: status,
-    //   selectLinkData: data,
-    // }),
-    // [GET_SELECT_VIEW_LINK_FAILURE]: (state, { payload: error }) => ({
-    //   ...state,
-    //   selectLinkError: error,
-    // }),
   },
   initialState,
 );

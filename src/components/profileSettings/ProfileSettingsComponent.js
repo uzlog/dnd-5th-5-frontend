@@ -106,7 +106,8 @@ const ProfileSettingsComponent = ({ history }) => {
           alert('성공적으로 변경됐습니다 :)');
           setNickname(myInfo.nickname);
           sessionStorage.setItem('nickname', myInfo.nickname);
-          window.location.replace(`/${myInfo.nickname}/settings`);
+          localStorage.setItem('nickname', myInfo.nickname);
+          window.location.replace(`/${myInfo.nickname}`);
         }
       }
     }
@@ -125,6 +126,7 @@ const ProfileSettingsComponent = ({ history }) => {
     console.log(document.cookie);
     //logout한번 다시 손봐야할듯,,, 잘못한듯
     document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC;';
+    document.cookie.removeItem();
     history.push('/');
     sessionStorage.removeItem('nickname');
   };

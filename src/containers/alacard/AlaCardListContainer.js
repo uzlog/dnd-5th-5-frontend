@@ -6,11 +6,12 @@ import AlaCardListComponent from '@components/alacard/AlaCardListComponent';
 
 const AlaCardListContainer = () => {
   const dispatch = useDispatch();
-  const { alacardData, alacardLoading } = useSelector(({ mypage, loading }) => ({
+  const { nickname, alacardData, alacardLoading } = useSelector(({ member, mypage, loading }) => ({
+    nickname: member.nickname,
     alacardData: mypage.alacardData,
     alacardLoading: loading['mypage/GET_ALA_CARD_LIST'],
   }));
-  const state = { alacardData };
+  const state = { alacardData, nickname };
 
   const onClickUploadCardInfo = useCallback((payload) => dispatch(uploadCardInfo(payload)), [dispatch]);
 

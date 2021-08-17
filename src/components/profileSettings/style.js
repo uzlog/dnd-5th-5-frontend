@@ -10,7 +10,10 @@ export const MainWrapper = styled.div`
   }
   @media screen and (min-width: 1023px) {
     display: flex;
-    width: 500px;
+    max-width: 576px;
+    height: 100vh;
+    background-color: #121212;
+    width: 40vw;
     background-color: #121212;
     flex-direction: column;
   }
