@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { ModalWrapper, ModalOverlay, ModalContents } from './style';
+import emoji_sad from '@assets/img/emoji/emoji_sad.svg';
 
 const ContentWrapper = styled.div`
   margin: auto;
@@ -57,8 +58,8 @@ export const DeleteButton = styled.button`
   border: solid 1px white;
   @media screen and (min-width: 1023px) {
     border: solid 1.6px;
-    font-size: 26px;
-    width: 214px;
+    font-size: min(2.6rem, 3vh);
+    width: 200px;
     height: 74px;
     padding: 17.6px 22.4px 18.2px 22.4px;
   }
@@ -78,8 +79,8 @@ export const CanceleButton = styled.button`
   border: solid 1px;
   @media screen and (min-width: 1023px) {
     border: solid 1.6px;
-    font-size: 26px;
-    width: 182px;
+    font-size: min(2.6rem, 3vh);
+    width: 160px;
     height: 74px;
     padding: 17.6px 22.4px 18.2px 22.4px;
   }
@@ -105,7 +106,9 @@ const Modal = ({ setDeleteModal, onDeleteHandler }) => {
       <ModalOverlay onClick={() => setDeleteModal(false)} />
       <ModalContents style={{ color: 'black' }}>
         <ContentWrapper>
-          <Emoji>😭</Emoji>
+          <Emoji>
+            <img src={emoji_sad} />
+          </Emoji>
           <Announce>정말 탈퇴하시겠어요?</Announce>
           <Alert>*카드, 프로필 등 모든 데이터가 삭제됩니다. </Alert>
           <Alert> *모든 데이터 복구가 불가능합니다.</Alert>

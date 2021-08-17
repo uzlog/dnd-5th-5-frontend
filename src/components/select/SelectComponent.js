@@ -44,6 +44,7 @@ const SelectComponent = ({ history }) => {
   const [getWordListError, setGetWordListError] = useState(false);
   const [wordList, setWordList] = useState([[], [], [], []]);
   const [idList, setIdList] = useState([]);
+  const [cookieId, setcookieId] = useState('');
   const COLUMN = 4;
   const backgroundGradientList = [
     'linear-gradient(to right, #bf5ae0, #a811da)',
@@ -66,11 +67,13 @@ const SelectComponent = ({ history }) => {
   //axios사용해서 데이터 받아오기
   const getWord = async () => {
     //여기 리덕스로 바꾸기
-    const response = await client.get(`/api/v1/alacard/wordlist`, {
-      params: { nickname: owner, offset },
-    });
-
-    const setData = await response.data.data;
+    const response = await client.get(
+      `/api/v2/alacard/wordlist`,
+      cookieId ? { params: { nickname: owner, offset, cookieId } } : { params: { nickname: owner, offset } },
+    );
+    console.log(cookieId);
+    const setData = await response.data.data.wordList;
+    setcookieId(response.data.data.cookieId);
     if (setData.length > 15) {
       const newWordList = setData.map((i) => ({ ...i, clicked: false }));
 
