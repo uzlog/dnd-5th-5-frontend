@@ -49,7 +49,6 @@ const Title = styled.span`
 `;
 
 const Description = styled.p`
-  background-color: yellow;
   text-align: center;
   max-height: 70.4px;
   height: 6.8vh;
@@ -216,69 +215,6 @@ const InfoStatusMessage = styled.span`
   }
 `;
 
-const mockData = [
-  {
-    nickname: 'babo',
-    statusMessage: '푸하하하하',
-    imgUrl: null,
-  },
-  {
-    nickname: '준서',
-    statusMessage: '바아아아아아아',
-    imgUrl: null,
-  },
-  {
-    nickname: '커피',
-    statusMessage: '맛없는 커피',
-    imgUrl: null,
-  },
-  {
-    nickname: 'BYC',
-    statusMessage: 'BYC',
-    imgUrl: null,
-  },
-  {
-    nickname: 'BYC2',
-    statusMessage: 'BYC2',
-    imgUrl: null,
-  },
-  {
-    nickname: 'BYC3',
-    statusMessage: 'BYC3',
-    imgUrl: null,
-  },
-  {
-    nickname: 'BYC3',
-    statusMessage: 'BYC3',
-    imgUrl: null,
-  },
-  {
-    nickname: 'BYC3',
-    statusMessage: 'BYC3',
-    imgUrl: null,
-  },
-  {
-    nickname: 'BYC3',
-    statusMessage: 'BYC3',
-    imgUrl: null,
-  },
-  {
-    nickname: 'BYC3',
-    statusMessage: 'BYC3',
-    imgUrl: null,
-  },
-  {
-    nickname: 'BYC3',
-    statusMessage: 'BYC3',
-    imgUrl: null,
-  },
-  {
-    nickname: 'BYC3',
-    statusMessage: 'BYC3',
-    imgUrl: null,
-  },
-];
-
 const FriendModal = ({ state, onClickModalStatus }) => {
   const [showToast, setShowToast] = useState(false);
   const { getFriendListData } = state;
@@ -313,7 +249,7 @@ const FriendModal = ({ state, onClickModalStatus }) => {
             <span>친구</span>
             <img src={closeBtn} alt="닫기 버튼" onClick={closeFriendModal} />
           </Header>
-          {mockData === undefined ? (
+          {getFriendListData === undefined ? (
             <>
               <Title>친구를 추가해 보세요</Title>
               <Description>
@@ -335,7 +271,7 @@ const FriendModal = ({ state, onClickModalStatus }) => {
                 <img src={friendLink} alt="공유 버튼" onClick={onClickShare} />
               </LinkArea>
               <FriendWrapper>
-                {mockData.map((data) => {
+                {getFriendListData.map((data) => {
                   return (
                     <FriendContents to={`/${data.nickname}`}>
                       {data.imgUrl ? (

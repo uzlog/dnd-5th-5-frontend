@@ -8,12 +8,14 @@ import * as authAPI from '../lib/api/auth';
  */
 const [GOOGLE_OAUTH, GOOGLE_OAUTH_SUCCESS, GOOGLE_OAUTH_FAILURE] = createRequestActionTypes('auth/GOOGLE_OAUTH');
 const [NAVER_OAUTH, NAVER_OAUTH_SUCCESS, NAVER_OAUTH_FAILURE] = createRequestActionTypes('auth/NAVER_OAUTH');
+const CHECK_TOKEN_EXISTED = 'auth/CHECK_TOKEN_EXISTED';
 
 /**
  * 액션 생성 함수
  */
 export const googleOauth = createAction(GOOGLE_OAUTH, (userInfo) => userInfo);
 export const naverOauth = createAction(NAVER_OAUTH, (userInfo) => userInfo);
+export const checkTokenExisted = createAction(CHECK_TOKEN_EXISTED, (token) => token);
 
 /**
  * 사가 생성
@@ -34,6 +36,7 @@ const initialState = {
   message: '',
   token: '',
   timestamp: 0,
+  tokenExisted: true,
 };
 
 const auth = handleActions(
@@ -59,6 +62,10 @@ const auth = handleActions(
     [NAVER_OAUTH_FAILURE]: (state, { payload: error }) => ({
       ...state,
       error,
+    }),
+    [CHECK_TOKEN_EXISTED]: (state, { payload: token }) => ({
+      ...state,
+      tokenExisted: token,
     }),
   },
   initialState,

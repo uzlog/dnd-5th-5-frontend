@@ -106,7 +106,7 @@ const LockButton = styled.img`
 `;
 
 const AlaCardListComponent = ({ state, onClickUploadCardInfo }) => {
-  const { alacardData } = state;
+  const { alacardData, nickname } = state;
   const viewSize = useResponsive();
 
   return (
@@ -159,7 +159,7 @@ const AlaCardListComponent = ({ state, onClickUploadCardInfo }) => {
           return (
             <>
               <StyledLink
-                to={`/${sessionStorage.getItem('nickname')}/alacard/settings`}
+                to={`/${nickname || localStorage.getItem('nickname')}/alacard/settings`}
                 onClick={() => {
                   const originCardInfo = {
                     originCardId: alaCardId,

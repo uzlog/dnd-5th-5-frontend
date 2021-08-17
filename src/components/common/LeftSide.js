@@ -38,8 +38,8 @@ const StyledButton = styled.div`
   margin-right: 24px;
   &:hover {
     background-color: #b9ff46;
-    img:hover {
-      color: black;
+    img {
+      filter: invert(100%) sepia(16%) saturate(3091%) hue-rotate(300deg) brightness(97%) contrast(117%);
     }
   }
 `;
@@ -69,7 +69,7 @@ const LeftSide = () => {
           <StyledButton>
             <img src={sendBtn} alt="전송 버튼" />
           </StyledButton>
-          <StyledSpan>요기로 문의 ㄱㄱ</StyledSpan>
+          <StyledSpan>요기로 문의 고고!</StyledSpan>
         </ButtonWrapper>
       </Wrapper>
     </div>
