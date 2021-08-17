@@ -24,12 +24,16 @@ export const ProfileImg = styled.input`
   font-size: 0;
   width: 120px;
   height: 120px;
-  border-radius: 60px;
+  border-radius: 70px;
+  padding-left: 130px;
+  padding-top: 130px;
   @media screen and (min-width: 1023px) {
     max-width: 192px;
     max-height: 192px;
     min-width: 15vh;
     min-height: 15vh;
+    padding-left: 15vh;
+    padding-top: 15vh;
     border-radius: 60px;
   }
 `;
@@ -95,7 +99,7 @@ export const EachTitle = styled.div`
     margin-top: 3vh;
     width: 36vw;
     max-width: 500px;
-    font-size: min(2.5rem, 2.5vh);
+    font-size: min(2.3rem, 2.3vh);
     margin-bottom: 6px;
   }
 `;
