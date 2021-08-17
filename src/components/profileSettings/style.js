@@ -14,7 +14,6 @@ export const MainWrapper = styled.div`
     height: 100vh;
     background-color: #121212;
     width: 40vw;
-    background-color: #121212;
     flex-direction: column;
   }
 `;
@@ -30,13 +29,10 @@ export const ProfileImg = styled.input`
   @media screen and (min-width: 1023px) {
     width: 192px;
     height: 192px;
-    border-radius: 96px;
   }
 `;
 export const ContentWrapper = styled.div`
   margin-left: 24px;
-  @media screen and (min-width: 1023px) {
-  }
 `;
 export const EachTitle = styled.div`
   display: flex;
@@ -46,14 +42,13 @@ export const EachTitle = styled.div`
   color: #ffffff;
   margin-top: 20px;
   margin-bottom: 5px;
+  font-weight: 700;
   justify-content: space-between;
 
   @media screen and (min-width: 1023px) {
-    width: 500px;
-    height: 40px;
-
-    margin-top: 40px;
-    font-size: 28px;
+    height: 3.9vh;
+    margin-top: 4vh;
+    font-size: min(3rem, 3vh);
     margin-bottom: 6px;
   }
 `;
@@ -62,7 +57,7 @@ export const EmailWrapper = styled.div`
   color: rgba(255, 255, 255, 0.5);
   font-size: 16px;
   @media screen and (min-width: 1023px) {
-    font-size: 26px;
+    font-size: min(3rem, 3vh);
   }
 `;
 
@@ -71,8 +66,8 @@ export const EmailImg = styled.img`
   height: 20px;
   margin-right: 8px;
   @media screen and (min-width: 1023px) {
-    width: 32px;
-    height: 32px;
+    width: 3.5vh;
+    height: 3.5vh;
   }
 `;
 export const IsOpen = styled.span`
@@ -87,8 +82,6 @@ export const EmailContentWrapper = styled.div`
 `;
 export const InputBoxWrapper = styled.div`
   flex-direction: row;
-  @media screen and (min-width: 1023px) {
-  }
 `;
 
 export const InputBox = styled.input`
@@ -99,9 +92,9 @@ export const InputBox = styled.input`
   color: white;
   padding: 14px 27px;
   @media screen and (min-width: 1023px) {
-    width: 500px;
+    width: 36vw;
     font-size: 26px;
-    padding: 22px 44px;
+    padding: 15px 35px;
   }
 `;
 export const StatusMessageCount = styled.span`
