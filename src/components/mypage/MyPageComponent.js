@@ -1,5 +1,6 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled, { keyframes } from 'styled-components';
+import { Link } from 'react-router-dom';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -10,7 +11,10 @@ import secretWord from '@assets/img/alacard/secretWord.svg';
 import bigCardCloseBtn from '@assets/img/alacard/bigCardCloseBtn.svg';
 import linkBtn from '@assets/img/alacard/linkBtn.svg';
 import maximizeBtn from '@assets/img/alacard/maximize.svg';
-import { useEffect } from 'react';
+import arrowBtn from '@assets/img/friend/arrow.svg';
+import avatar from '@assets/img/friend/avatar.svg';
+import friendCheckBtn from '@assets/img/friend/friendCheckBtn.svg';
+import friendPlusBtn from '@assets/img/friend/friendPlusBtn.svg';
 
 const fadeIn = keyframes`
   from {
@@ -30,6 +34,80 @@ const Wrapper = styled.div`
     width: 36rem;
     min-height: 64rem;
   }
+`;
+
+const FriendWrapper = styled.div`
+  height: 10vh;
+  display: flex;
+  align-items: center;
+  background-color: red;
+  padding: 20px 2.6vw;
+  img:first-child {
+    border-radius: 50px;
+    width: 64px;
+    height: 64px;
+    @media screen and (max-width: 1023px) {
+      width: 40px;
+      height: 40px;
+    }
+  }
+  @media screen and (max-width: 1023px) {
+    padding: 12px 24px;
+  }
+`;
+
+const FriendInfoWrapper = styled.div`
+  max-width: 327px;
+  width: 22.7vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: blue;
+  height: 64px;
+  margin-left: min(1.3vw, 19px);
+  margin-right: min(1.3vw, 19px);
+  @media screen and (max-width: 1023px) {
+    width: 204px;
+    height: 40px;
+    margin-left: 12px;
+    margin-right: 12px;
+  }
+`;
+
+const Name = styled.div`
+  font-size: 22.4px;
+  font-weight: bold;
+  line-height: 1.6;
+  letter-spacing: -0.16px;
+  color: white;
+  @media screen and (max-width: 1023px) {
+    font-size: 14px;
+  }
+`;
+
+const StatusBox = styled.div`
+  font-size: min(1.5vw, 19.2px);
+  @media screen and (max-width: 1023px) {
+    font-size: 12px;
+  }
+`;
+
+const ImgWrapper = styled.div`
+  img {
+    max-width: 64px;
+    width: 4.4vw;
+    max-height: 56px;
+    height: 5.5vh;
+    @media screen and (max-width: 1023px) {
+      cursor: ${(props) => props.cursor};
+      width: 44px;
+      height: 36px;
+    }
+  }
+`;
+
+const FriendButton = styled.img`
+  cursor: ${(props) => props.cursor};
 `;
 
 const MoreButtonWrapper = styled.div`
@@ -130,7 +208,39 @@ const ButtonWrapper = styled.div`
 `;
 
 const StyledButton = styled.button`
-  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 368px;
+  width: 25.5vw;
+  height: 7.5vh;
+  border-radius: 99px;
+  cursor: pointer;
+  border: solid 1px white;
+  background: transparent;
+  color: white;
+  line-height: 1.6;
+  font-size: min(2.5vh, 25.6px, 1.7vw);
+  @media screen and (max-width: 1023px) {
+    width: 230px;
+    min-height: 48px;
+    border-radius: 62px;
+    font-size: 15px;
+  }
+  img {
+    width: 26px;
+    height: 26px;
+    margin-left: 14px;
+    @media screen and (max-width: 1023px) {
+      width: 18px;
+      height: 18px;
+      margin-left: 8px;
+    }
+  }
+`;
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -205,14 +315,36 @@ const Toast = styled.div`
   }
 `;
 
-const MyPageComponent = ({ state }) => {
-  const { alacardData, nickname, alacardError, showProfileModal } = state;
+const Secret = styled.div`
+  background: white;
+  max-width: 576px;
+  width: 40vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const MyPageComponent = ({ state, apiCall }) => {
+  const {
+    memberData,
+    memberData: { isOpen },
+    getRelationData,
+    alacardData,
+    nickname,
+    alacardError,
+    showProfileModal,
+  } = state;
+  const { onClickSendFollow, onClickCancelFollow } = apiCall;
+  const [isOwner, setIsOwner] = useState(memberData.nickname === nickname);
   const [showModal, setShowModal] = useState(false);
   const [showToast, setShowToast] = useState(false);
+  // const [owner, setOwner] = useState()
   const [sentence, setSentence] = useState('');
   const [bigAlaCardStyle, setBigAlaCardStyle] = useState('');
   const [fontColorStyle, setFontColorStyle] = useState('');
-  const [settings, setSettings] = useState({
+  const viewSize = useResponsive();
+  const slider = useRef(null);
+  const settings = {
     dots: false,
     infinite: true,
     arrows: false,
@@ -221,9 +353,17 @@ const MyPageComponent = ({ state }) => {
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
-  });
-  const viewSize = useResponsive();
-  const slider = useRef(null);
+  };
+  const closeSettings = {
+    dots: false,
+    infinite: false,
+    arrows: false,
+    autoplay: false,
+    autoplaySpeed: 3000,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+  };
 
   useEffect(() => {
     if (!showProfileModal) {
@@ -292,74 +432,167 @@ const MyPageComponent = ({ state }) => {
       setShowToast(false);
     }, 1000);
   };
+
+  const sendFollow = () => {
+    onClickSendFollow(nickname);
+    console.log('친구요청');
+  };
   return (
     <>
       <Wrapper>
         <HeaderContainer />
-        <Slider ref={slider} {...settings}>
-          {alacardData.map((card, idx) => {
-            const { backgroundImgUrl, fontColor } = card.alaCardSettingDto;
-            let cardStyle;
-            let fontStyle;
-            // 카드가 완성된 경우
-            if (card.isCompleted) {
-              if (!card.sentence.includes('strong')) {
-                card.selectedWordList.forEach((word) => {
-                  card.sentence = card.sentence.replaceAll(word.wordName, '<strong>' + word.wordName + '</strong>');
-                });
-              }
-              cardStyle = {
-                backgroundImage: 'url(' + backgroundImgUrl + ')',
-                backgroundSize: 'cover',
-                width: viewSize > '1023' ? '40vw' : '36rem',
-                maxWidth: viewSize > '1023' ? '576px' : '360px',
-              };
-              fontStyle = {
-                color: fontColor,
-              };
-            } else {
-              card.sentence = card.sentence.replaceAll(
-                '???',
-                '<span><img src="' + secretWord + '" alt="비밀 단어" /></span>',
-              );
-              cardStyle = {
-                backgroundColor: '#121212',
-                width: viewSize > '1023' ? '40vw' : '36rem',
-                maxWidth: viewSize > '1023' ? '576px' : '360px',
-              };
-              fontStyle = {
-                color: '#b9ff46',
-              };
-            }
+        {!isOwner && (
+          <FriendWrapper>
+            <img src={memberData.imgUrl} alt="프로필" />
+            <FriendInfoWrapper>
+              <Name>{nickname}</Name>
+              <StatusBox>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</StatusBox>
+            </FriendInfoWrapper>
+            <ImgWrapper>
+              {getRelationData === '일반' && (
+                <FriendButton src={friendPlusBtn} cursor="pointer" onClick={sendFollow} alt="친구 추가" />
+              )}
+              {getRelationData === '친구' && <FriendButton src={friendCheckBtn} alt="친구" />}
+              {getRelationData === '팔로잉' && <span style={{ color: 'white' }}>팔로잉</span>}
+            </ImgWrapper>
+          </FriendWrapper>
+        )}
+        {isOpen ? (
+          // 공개 계정이면서 접속자가 주인인 경우
+          isOwner ? (
+            <Slider ref={slider} {...settings}>
+              {alacardData.map((card, idx) => {
+                const { backgroundImgUrl, fontColor } = card.alaCardSettingDto;
+                let cardStyle;
+                let fontStyle;
+                // 카드가 완성된 경우
+                if (card.isCompleted) {
+                  if (!card.sentence.includes('strong')) {
+                    card.selectedWordList.forEach((word) => {
+                      card.sentence = card.sentence.replaceAll(word.wordName, '<strong>' + word.wordName + '</strong>');
+                    });
+                  }
+                  cardStyle = {
+                    backgroundImage: 'url(' + backgroundImgUrl + ')',
+                    backgroundSize: 'cover',
+                    width: viewSize > '1023' ? '40vw' : '36rem',
+                    maxWidth: viewSize > '1023' ? '576px' : '360px',
+                  };
+                  fontStyle = {
+                    color: fontColor,
+                  };
+                } else {
+                  card.sentence = card.sentence.replaceAll(
+                    '???',
+                    '<span><img src="' + secretWord + '" alt="비밀 단어" /></span>',
+                  );
+                  cardStyle = {
+                    backgroundColor: '#121212',
+                    width: viewSize > '1023' ? '40vw' : '36rem',
+                    maxWidth: viewSize > '1023' ? '576px' : '360px',
+                  };
+                  fontStyle = {
+                    color: '#b9ff46',
+                  };
+                }
 
-            card.sentence = card.sentence.replaceAll(', ', ',<br />');
-            if (!card.sentence.includes('!')) {
-              card.sentence += '!';
-            }
-            return (
-              <>
-                <div key={idx} style={cardStyle}>
-                  <MoreButtonWrapper>
-                    <MoreButton onClick={openModal}>
-                      <img src={maximizeBtn} idx={idx} sentence={card.sentence} alt="확대 버튼" />
-                    </MoreButton>
-                  </MoreButtonWrapper>
-                  <ContentFlexWrapper>
-                    <ContentsWrapper>
-                      <InnerContents style={fontStyle} dangerouslySetInnerHTML={{ __html: card.sentence }} />
-                    </ContentsWrapper>
-                  </ContentFlexWrapper>
-                  <ButtonWrapper>
-                    <StyledButton onClick={onClickShare} value={idx}>
-                      키워드 PICK 요청하기
-                      <img src={linkBtn} alt="링크 버튼" />
-                    </StyledButton>
-                  </ButtonWrapper>
-                </div>
-              </>
-            );
-          })}
-        </Slider>
+                card.sentence = card.sentence.replaceAll(', ', ',<br />');
+                if (!card.sentence.includes('!')) {
+                  card.sentence += '!';
+                }
+                return (
+                  <>
+                    <div key={idx} style={cardStyle}>
+                      <MoreButtonWrapper>
+                        <MoreButton onClick={openModal}>
+                          <img src={maximizeBtn} idx={idx} sentence={card.sentence} alt="확대 버튼" />
+                        </MoreButton>
+                      </MoreButtonWrapper>
+                      <ContentFlexWrapper>
+                        <ContentsWrapper>
+                          <InnerContents style={fontStyle} dangerouslySetInnerHTML={{ __html: card.sentence }} />
+                        </ContentsWrapper>
+                      </ContentFlexWrapper>
+                      <ButtonWrapper>
+                        <StyledButton onClick={onClickShare} value={idx}>
+                          키워드 PICK 요청하기
+                          <img src={linkBtn} alt="링크 버튼" />
+                        </StyledButton>
+                      </ButtonWrapper>
+                    </div>
+                  </>
+                );
+              })}
+            </Slider>
+          ) : (
+            // 공개 계정이면서 접속자가 주인이 아닌 경우
+            <Slider ref={slider} {...settings}>
+              {alacardData.map((card, idx) => {
+                const { backgroundImgUrl, fontColor } = card.alaCardSettingDto;
+                let cardStyle;
+                let fontStyle;
+                // 카드가 완성된 경우
+                if (card.isCompleted) {
+                  if (!card.sentence.includes('strong')) {
+                    card.selectedWordList.forEach((word) => {
+                      card.sentence = card.sentence.replaceAll(word.wordName, '<strong>' + word.wordName + '</strong>');
+                    });
+                  }
+                  cardStyle = {
+                    backgroundImage: 'url(' + backgroundImgUrl + ')',
+                    backgroundSize: 'cover',
+                    width: viewSize > '1023' ? '40vw' : '36rem',
+                    maxWidth: viewSize > '1023' ? '576px' : '360px',
+                  };
+                  fontStyle = {
+                    color: fontColor,
+                  };
+                } else {
+                  card.sentence = card.sentence.replaceAll(
+                    '???',
+                    '<span><img src="' + secretWord + '" alt="비밀 단어" /></span>',
+                  );
+                  cardStyle = {
+                    backgroundColor: '#121212',
+                    width: viewSize > '1023' ? '40vw' : '36rem',
+                    maxWidth: viewSize > '1023' ? '576px' : '360px',
+                  };
+                  fontStyle = {
+                    color: '#b9ff46',
+                  };
+                }
+
+                card.sentence = card.sentence.replaceAll(', ', ',<br />');
+                if (!card.sentence.includes('!')) {
+                  card.sentence += '!';
+                }
+                return (
+                  <>
+                    <div key={idx} style={cardStyle}>
+                      <ContentFlexWrapper>
+                        <ContentsWrapper>
+                          <InnerContents style={fontStyle} dangerouslySetInnerHTML={{ __html: card.sentence }} />
+                        </ContentsWrapper>
+                      </ContentFlexWrapper>
+                      <ButtonWrapper>
+                        <StyledLink to={`/${nickname}/select`}>
+                          키워드 PICK 하러가기
+                          <img src={arrowBtn} alt="이동 버튼" />
+                        </StyledLink>
+                      </ButtonWrapper>
+                    </div>
+                  </>
+                );
+              })}
+            </Slider>
+          )
+        ) : (
+          <Slider ref={slider} {...closeSettings}>
+            <Secret>
+              <h1>비공개 계정</h1>
+            </Secret>
+          </Slider>
+        )}
         {showModal && (
           <ModalWrapper>
             <ModalOverlay onClick={() => closeModal()} />

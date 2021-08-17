@@ -13,14 +13,13 @@ import arrowBtn from '@assets/img/my-profile/arrowBtn.svg';
 import avatarM from '@assets/img/my-profile/avatarM.svg';
 import closeBtnWhite from '@assets/img/my-profile/closeBtnWhite.svg';
 import settingBtn from '@assets/img/my-profile/settingBtn.svg';
-import { useEffect } from 'react';
 
 const Wrapper = styled.div`
   background-color: #121212;
   max-width: 576px;
   width: 40vw;
   height: 9.4vh;
-  padding: 3.1vh 2.2vw 3.1vh 1.8vw;
+  padding: 3.1vh 2.2vw 3.1vh 1.6vw;
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
   &::-webkit-scrollbar {
@@ -35,9 +34,14 @@ const Wrapper = styled.div`
 `;
 
 const InnerWrapper = styled.div`
+  max-width: 500px;
+  width: 35vw;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  @media screen and (max-width: 1023px) {
+    width: 308px;
+  }
 `;
 
 const LogoWrapper = styled(Link)`
@@ -280,14 +284,14 @@ const Header = ({ history, state, onClickModalStatus, onClickOpenProfile }) => {
                   <ProfileInfoWrapper>
                     <div>
                       <span>{nickname || localStorage.getItem('nickname')}</span>
-                      <StyledLink to={isOwned ? `/${nickname}/settings` : ''}>
+                      <StyledLink to={`/${nickname}/settings`}>
                         <ProfileImg src={settingBtn} alt="프로필 수정" />
                       </StyledLink>
                     </div>
                     <span>{statusMessage}</span>
                   </ProfileInfoWrapper>
                 </ProfileWrapper>
-                <StyledLink to={isOwned ? `/${nickname}/alacard` : ''}>
+                <StyledLink to={`/${nickname}/alacard`}>
                   <StyledButton>
                     알라카드 관리
                     <ProfileImg src={arrowBtn} alt="카드 관리" />
