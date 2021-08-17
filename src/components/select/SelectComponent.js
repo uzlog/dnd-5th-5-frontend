@@ -13,9 +13,13 @@ import {
   SelectedCount,
   SelectedCountFoucs,
   SubmitButton,
-  Header,
+  HeaderIconWrapper,
+  HeaderLogoWrapper,
+  HeaderInnerWrapper,
+  HeaderWrapper,
   ButtonWrapper,
 } from './style';
+import logo from '@assets/img/nav/logo.svg';
 import emoji1 from '@assets/img/emoji/emoji1.svg';
 import emoji2 from '@assets/img/emoji/emoji2.svg';
 import emoji3 from '@assets/img/emoji/emoji3.svg';
@@ -27,11 +31,10 @@ import emoji8 from '@assets/img/emoji/emoji8.svg';
 import emoji9 from '@assets/img/emoji/emoji9.svg';
 import emoji10 from '@assets/img/emoji/emoji10.svg';
 import emoji11 from '@assets/img/emoji/emoji11.svg';
+import closeBtnWhite from '@assets/img/my-profile/closeBtnWhite.svg';
 import { useParams, withRouter } from 'react-router-dom';
 import client from '@lib/api/client';
 import ScrollContainer from 'react-indiana-drag-scroll';
-import setCookie from 'set-cookie-parser';
-import http from 'http';
 
 const SelectComponent = ({ history }) => {
   // 주소창에서 가져오기
@@ -65,15 +68,6 @@ const SelectComponent = ({ history }) => {
     //여기 리덕스로 바꾸기
     const response = await client.get(`/api/v1/alacard/wordlist`, {
       params: { nickname: owner, offset },
-    });
-
-    http.get(`http://localhost:3000/${owner}/select`, function (res) {
-      var cookies = setCookie.parse(res, {
-        decodeValues: true, // default: true
-      });
-
-      cookies.forEach(console.log);
-      console.log(cookies);
     });
 
     const setData = await response.data.data;
@@ -208,7 +202,26 @@ const SelectComponent = ({ history }) => {
   return (
     <>
       <MainWrapper>
-        <Header></Header>
+        <HeaderWrapper>
+          <HeaderInnerWrapper>
+            <HeaderLogoWrapper>
+              <img
+                src={logo}
+                onClick={() => {
+                  history.push(`/${owner}`);
+                }}
+              />
+            </HeaderLogoWrapper>
+            <HeaderIconWrapper>
+              <img
+                src={closeBtnWhite}
+                onClick={() => {
+                  history.push(`/${owner}`);
+                }}
+              />
+            </HeaderIconWrapper>
+          </HeaderInnerWrapper>
+        </HeaderWrapper>
 
         <KeywordIntro>
           {owner}과<br />
@@ -233,8 +246,18 @@ const SelectComponent = ({ history }) => {
                       style={{
                         background: item.clicked ? item.clicked : 'rgba(255, 255, 255, 0.1)',
                       }}>
-                      <HintOfItem>{item.hint}</HintOfItem>
-                      <WordNameOfItem>{item.wordName}</WordNameOfItem>
+                      <HintOfItem
+                        style={{
+                          fontWeitght: item.clicked ? 'regular' : 'medium',
+                        }}>
+                        {item.hint}
+                      </HintOfItem>
+                      <WordNameOfItem
+                        style={{
+                          fontWeitght: item.clicked ? 'regular' : 'bold',
+                        }}>
+                        {item.wordName}
+                      </WordNameOfItem>
                     </EachSelectViewItem>
                   ) : (
                     <WhiteBox key={index + 5}>

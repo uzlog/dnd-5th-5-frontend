@@ -175,3 +175,79 @@ export const SubmitButton = styled.button`
     padding: 17.6px 22.4px 18.2px 22.4px;
   }
 `;
+
+export const HeaderWrapper = styled.div`
+  background-color: #121212;
+  max-width: 576px;
+  width: 40vw;
+  height: 9.4vh;
+  padding: 3.1vh 2.2vw 3.1vh 1.8vw;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  &::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
+  }
+  @media screen and (max-width: 1023px) {
+    width: 360px;
+    min-height: 60px;
+    height: 9.3vh;
+    padding: 2.8vh 20px 3vh 20px;
+  }
+`;
+
+export const HeaderInnerWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+export const HeaderLogoWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  max-width: 74px;
+  width: 6.1vw;
+  height: 3.7vh;
+  min-height: 30px;
+  img {
+    max-width: 74px;
+    width: 6.1vw;
+    height: 3.7vh;
+    min-height: 30px;
+  }
+  @media screen and (max-width: 1023px) {
+    width: 37px;
+    min-height: 24px;
+    height: 2.3vh;
+    display: flex;
+    justify-content: flex-start;
+    img {
+      width: 37px;
+      min-height: 24px;
+      height: 2.3vh;
+    }
+  }
+`;
+
+export const HeaderIconWrapper = styled.div`
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: ${(props) => (props.close ? '23px' : '39px')};
+  min-height: 38.4px;
+  width: ${(props) => (props.close ? '1.6vw' : '2.7vw')};
+  height: ${(props) => (props.close ? '1.6vw' : '2.7vw')};
+  img {
+    width: ${(props) => (props.close ? '1.6vw' : '2.7vw')};
+    height: ${(props) => (props.close ? '1.6vw' : '2.7vw')};
+  }
+  @media screen and (max-width: 1023px) {
+    width: 24px;
+    height: 24px;
+
+    img {
+      width: ${(props) => (props.close ? '14px' : '22px')};
+      height: ${(props) => (props.close ? '14px' : '22px')};
+    }
+  }
+`;
