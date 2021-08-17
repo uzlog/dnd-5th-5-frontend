@@ -32,7 +32,13 @@ import { withRouter } from 'react-router-dom';
 import HeaderContainer from '@containers/common/HeaderContainer';
 
 const ProfileSettingsComponent = ({ history }) => {
-  const [myInfo, setMyInfo] = useState({ imgUrl: '', email: '', nickname: '', statusMessage: '', isOpen: false });
+  const [myInfo, setMyInfo] = useState({
+    imgUrl: '',
+    email: '',
+    nickname: '',
+    statusMessage: '',
+    isOpen: false,
+  });
   const [nicknameLength, setNicknameLength] = useState(5);
   const [nicknameExists, setNicknameExists] = useState(false);
   const [statusMessageOverCount, setStatusMessageOverCount] = useState(false);
@@ -47,10 +53,10 @@ const ProfileSettingsComponent = ({ history }) => {
   useEffect(requestData, []);
 
   const onNicknameChange = (e) => {
-    setNicknameExists(false);
     setMyInfo({
       ...myInfo,
       nickname: e.target.value,
+      changed: true,
     });
     setNicknameLength(e.target.value.length);
   };
@@ -60,6 +66,7 @@ const ProfileSettingsComponent = ({ history }) => {
     setMyInfo({
       ...myInfo,
       statusMessage: e.target.value,
+      changed: true,
     });
   };
 
@@ -67,6 +74,7 @@ const ProfileSettingsComponent = ({ history }) => {
     setMyInfo({
       ...myInfo,
       isOpen: !myInfo.isOpen,
+      changed: true,
     });
   };
 
@@ -86,6 +94,7 @@ const ProfileSettingsComponent = ({ history }) => {
         setMyInfo({
           ...myInfo,
           imgUrl: result,
+          changed: true,
         });
       });
     } catch (error) {
@@ -117,7 +126,6 @@ const ProfileSettingsComponent = ({ history }) => {
 
   const onDeleteHandler = async () => {
     const response = await client.get('/api/v1/member/delete', { params: { nickname } });
-    console.log(response.data.message);
     if (response.data.message === 'success') {
       document.cookie = 'token=; expires=1995-11-01T09:11:07.000Z;';
       sessionStorage.removeItem('nickname');
@@ -127,8 +135,6 @@ const ProfileSettingsComponent = ({ history }) => {
   };
 
   const onlogoutHandler = () => {
-    console.log(document.cookie);
-    //logout한번 다시 손봐야할듯,,, 잘못한듯
     document.cookie = 'token=; expires=1995-11-01T09:11:04.000Z;';
     sessionStorage.removeItem('nickname');
     localStorage.removeItem('nickname');
@@ -210,7 +216,10 @@ const ProfileSettingsComponent = ({ history }) => {
           {deleteModal ? <Modal setDeleteModal={setDeleteModal} onDeleteHandler={onDeleteHandler} /> : <></>}
           <ButtonWrapper>
             <LogoutButton onClick={onlogoutHandler}>로그아웃</LogoutButton>
-            <SubmitButton onClick={onUpdataSubmitHandler}>
+            <SubmitButton
+              onClick={onUpdataSubmitHandler}
+              style={myInfo.changed ? { cursor: 'pointer' } : { background: '#2a2a2a' }}
+              disabled={myInfo.changed ? false : true}>
               다 썼음
               <img src={emoji11} />
             </SubmitButton>

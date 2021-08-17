@@ -71,7 +71,6 @@ const SelectComponent = ({ history }) => {
       `/api/v2/alacard/wordlist`,
       cookieId ? { params: { nickname: owner, offset, cookieId } } : { params: { nickname: owner, offset } },
     );
-    console.log(cookieId);
     const setData = await response.data.data.wordList;
     setcookieId(response.data.data.cookieId);
     if (setData.length > 15) {
