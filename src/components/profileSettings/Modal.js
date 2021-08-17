@@ -57,8 +57,8 @@ export const DeleteButton = styled.button`
   border: solid 1px white;
   @media screen and (min-width: 1023px) {
     border: solid 1.6px;
-    font-size: 26px;
-    width: 214px;
+    font-size: min(2.6rem, 3vh);
+    width: 200px;
     height: 74px;
     padding: 17.6px 22.4px 18.2px 22.4px;
   }
@@ -78,8 +78,8 @@ export const CanceleButton = styled.button`
   border: solid 1px;
   @media screen and (min-width: 1023px) {
     border: solid 1.6px;
-    font-size: 26px;
-    width: 182px;
+    font-size: min(2.6rem, 3vh);
+    width: 160px;
     height: 74px;
     padding: 17.6px 22.4px 18.2px 22.4px;
   }

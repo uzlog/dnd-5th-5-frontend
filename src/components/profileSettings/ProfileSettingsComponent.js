@@ -17,6 +17,8 @@ import {
   DeleteButton,
   StatusMessageCount,
   AlertMessage,
+  ToggleButton,
+  ToggleInner,
   IsOpen,
 } from './style';
 import useResponsive from '@hooks/useResponsive';
@@ -24,10 +26,10 @@ import useResponsive from '@hooks/useResponsive';
 import HeaderContainer from '@containers/common/HeaderContainer';
 import google from '@assets/img/profileSettings/google.svg';
 import naver from '@assets/img/profileSettings/naver.svg';
+
 import lock from '@assets/img/profileSettings/lock.svg';
 import unlock from '@assets/img/profileSettings/unlock.svg';
-import unlockBtn from '@assets/img/alacard-setting/unlockBtn.svg';
-import lockBtn from '@assets/img/alacard-setting/lockBtn.svg';
+
 import Modal from './Modal';
 import { withRouter } from 'react-router-dom';
 
@@ -72,8 +74,8 @@ const ProfileSettingsComponent = ({ history }) => {
     const imageFile = e.target.files[0];
     // option 설정 찾기 browser-image-compression 여기서 컴프레싱한거임
     const options = {
-      maxSizeMB: 2,
-      maxWidthOrHeight: 120,
+      maxSizeMB: 10,
+      maxWidthOrWidth: 300,
     };
 
     try {
@@ -117,7 +119,9 @@ const ProfileSettingsComponent = ({ history }) => {
     const response = await client.get('/api/v1/member/delete', { params: { nickname } });
     console.log(response.data.message);
     if (response.data.message === 'success') {
+      document.cookie = 'token=; expires=1995-11-01T08:17:51.000Z;';
       sessionStorage.removeItem('nickname');
+      localStorage.removeItem('nickname');
       history.push('/');
     }
   };
@@ -125,10 +129,10 @@ const ProfileSettingsComponent = ({ history }) => {
   const onlogoutHandler = () => {
     console.log(document.cookie);
     //logout한번 다시 손봐야할듯,,, 잘못한듯
-    document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC;';
-    document.cookie.removeItem();
-    history.push('/');
+    document.cookie = 'token=; expires=1995-11-01T08:17:51.000Z;';
     sessionStorage.removeItem('nickname');
+    localStorage.removeItem('nickname');
+    history.push('/');
   };
 
   return (
@@ -143,6 +147,7 @@ const ProfileSettingsComponent = ({ history }) => {
             backgroundImage: `url(${myInfo.imgUrl})`,
             backgroundRepeat: 'no-repeat',
             backgroundPosition: 'center',
+            backgroundSize: 'cover',
           }}
         />
 
@@ -168,7 +173,9 @@ const ProfileSettingsComponent = ({ history }) => {
           <InputBoxWrapper>
             <EachTitle>
               자기소개
-              <StatusMessageCount>{myInfo.statusMessage.length}/30 byte</StatusMessageCount>
+              <StatusMessageCount style={myInfo.statusMessage.length > 30 ? { color: 'red' } : null}>
+                {myInfo.statusMessage.length}/30 byte
+              </StatusMessageCount>
             </EachTitle>
             <InputBox
               placeholder={myInfo.statusMessage}
@@ -178,13 +185,15 @@ const ProfileSettingsComponent = ({ history }) => {
           </InputBoxWrapper>
           <EachTitle>
             <IsOpen>
-              계정 공개 여부{' '}
+              계정 공개 여부
               <img
                 style={viewSize < 1023 ? { width: '19px', height: '19px' } : { width: '29px', height: '29px' }}
-                src={myInfo.isOpen ? unlockBtn : lockBtn}
+                src={myInfo.isOpen ? unlock : lock}
               />
             </IsOpen>
-            <img onClick={isOpenClick} src={myInfo.isOpen ? unlock : lock} />
+            <ToggleButton onClick={isOpenClick} className={myInfo.isOpen ? 'left' : ''}>
+              <ToggleInner className={myInfo.isOpen ? 'left' : ''} />
+            </ToggleButton>
           </EachTitle>
           <DeleteButton
             style={{ cursor: 'not-allowed' }}

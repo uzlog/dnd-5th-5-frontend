@@ -11,7 +11,7 @@ export const MainWrapper = styled.div`
   @media screen and (min-width: 1023px) {
     display: flex;
     max-width: 576px;
-    height: 100vh;
+    height: 100%;
     background-color: #121212;
     width: 40vw;
     flex-direction: column;
@@ -20,15 +20,60 @@ export const MainWrapper = styled.div`
 
 export const ProfileImg = styled.input`
   margin: 0 auto;
-  margin-top: 28px;
-  margin-bottom: 5px;
+  margin-top: 10px;
   font-size: 0;
   width: 120px;
   height: 120px;
   border-radius: 60px;
   @media screen and (min-width: 1023px) {
-    width: 192px;
-    height: 192px;
+    max-width: 192px;
+    max-height: 192px;
+    min-width: 15vh;
+    min-height: 15vh;
+    border-radius: 60px;
+  }
+`;
+
+export const ToggleButton = styled.div`
+  cursor: pointer;
+  max-width: 76.8px;
+  width: 5.3vw;
+  max-height: 41.6px;
+  height: 4vh;
+  background-color: black;
+  border-radius: 160px;
+  display: flex;
+  align-items: center;
+  &.left {
+    background-color: white;
+  }
+  @media screen and (max-width: 1023px) {
+    width: 48px;
+    height: 26px;
+  }
+`;
+
+export const ToggleInner = styled.div`
+  max-width: 38.4px;
+  width: min(2.6vw, 3.75vh, 38.4px);
+  max-height: 38.4px;
+  height: min(2.6vw, 3.75vh, 38.4px);
+  background: white;
+  border-radius: 160px;
+  margin-left: 0%;
+  transition: all 0.7s;
+  &.left {
+    background-color: black;
+    margin-left: calc(100% - min(2.6vw, 3.75vh, 38.4px));
+    transition: all 0.7s;
+  }
+  @media screen and (max-width: 1023px) {
+    width: 24px;
+    height: 24px;
+    border-radius: 100px;
+    &.left {
+      margin-left: 23px;
+    }
   }
 `;
 export const ContentWrapper = styled.div`
@@ -44,11 +89,12 @@ export const EachTitle = styled.div`
   margin-bottom: 5px;
   font-weight: 700;
   justify-content: space-between;
-
+  align-items: center;
   @media screen and (min-width: 1023px) {
-    height: 3.9vh;
-    margin-top: 4vh;
-    font-size: min(3rem, 3vh);
+    height: 3.5vh;
+    margin-top: 3vh;
+    width: 36vw;
+    font-size: min(2.5rem, 2.5vh);
     margin-bottom: 6px;
   }
 `;
@@ -57,7 +103,7 @@ export const EmailWrapper = styled.div`
   color: rgba(255, 255, 255, 0.5);
   font-size: 16px;
   @media screen and (min-width: 1023px) {
-    font-size: min(3rem, 3vh);
+    font-size: min(2.5rem, 2.5vh);
   }
 `;
 
@@ -93,16 +139,15 @@ export const InputBox = styled.input`
   padding: 14px 27px;
   @media screen and (min-width: 1023px) {
     width: 36vw;
-    font-size: 26px;
-    padding: 15px 35px;
+    font-size: min(2.6rem, 2.5vh);
+    padding: 2vh 35px;
   }
 `;
 export const StatusMessageCount = styled.span`
   font-size: 12px;
   opacity: 0.5;
-
   @media screen and (min-width: 1023px) {
-    font-size: 20px;
+    font-size: min(2rem, 2vh);
   }
 `;
 export const AlertMessage = styled.div`
@@ -117,14 +162,13 @@ export const AlertMessage = styled.div`
 `;
 export const DeleteButton = styled.div`
   margin-top: 28px;
-  margin-bottom: 100px;
+  margin-bottom: 70px;
   color: white;
   font-size: 14px;
   text-decoration: underline;
   opacity: 0.5;
-
   @media screen and (min-width: 1023px) {
-    font-size: 26px;
+    font-size: min(2.6rem, 3vh);
   }
 `;
 
@@ -133,47 +177,40 @@ export const LogoutButton = styled.button`
   background-color: black;
   width: 148px;
   height: 48px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   font-size: 16px;
   padding: 11px 14px 11px 14px;
   border-radius: 62px;
   border: solid 1px white;
   @media screen and (min-width: 1023px) {
     border: solid 1.6px;
-    font-size: 26px;
-    width: 237px;
-    height: 77px;
-    padding: 17.6px 22.4px 18.2px 22.4px;
+    font-size: min(2.6rem, 3vh);
+    width: 220px;
+    height: 8.5vh;
   }
 `;
 export const SubmitButton = styled.button`
   color: black;
   background-color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   width: 148px;
   height: 48px;
   font-size: 16px;
-  margin: 0 auto;
   padding: 11px 14px 11px 14px;
   border-radius: 62px;
   border: solid 1px;
   @media screen and (min-width: 1023px) {
     border: solid 1.6px;
-    font-size: 26px;
-    width: 237px;
-    height: 77px;
-    padding: 17.6px 22.4px 18.2px 22.4px;
+    font-size: min(2.6rem, 3vh);
+    width: 220px;
+    height: 8.5vh;
   }
 `;
 export const ButtonWrapper = styled.span`
   background-color: #121212;
   border: 0;
   display: flex;
+  justify-content: space-evenly;
   padding-bottom: 50px;
+  margin-right: 24px;
 `;
 
 //// 모달 css
