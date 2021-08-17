@@ -39,8 +39,10 @@ export const KeywordIntro = styled.div`
   margin-top: 3.1vh;
   font-size: 18px;
   @media screen and (min-width: 1023px) {
-    font-size: min(2.9rem, 4.5vh);
-    margin-left: 1.8vw;
+    padding-left: 1.8vw;
+
+    font-size: min(2.9rem, 3.5vh);
+    margin-left: 1.2vw;
   }
 `;
 export const SelectedCount = styled.div`
@@ -49,7 +51,9 @@ export const SelectedCount = styled.div`
   margin-top: 3.1vh;
   font-size: 16px;
   @media screen and (min-width: 1023px) {
-    font-size: 26px;
+    padding-left: 1.2vw;
+
+    font-size: min(2rem, 2.3vh);
     margin-left: 1.8vw;
     margin-top: 3.1vh;
   }
@@ -92,21 +96,21 @@ export const EachSelectViewItem = styled.div`
   @media screen and (min-width: 1023px) {
     height: 7.8vh;
     margin: 1.7vh 8px;
-    padding: 0.8vh 45px;
+    padding: 1vh 30px;
   }
 `;
 export const HintOfItem = styled.div`
   font-size: 10px;
   color: #ffffff;
   @media screen and (min-width: 1023px) {
-    font-size: min(1.5vh, 2.6rem);
+    font-size: min(1.5vh, 1.6rem);
   }
 `;
 export const WordNameOfItem = styled.div`
   font-size: 16px;
   color: #ffffff;
   @media screen and (min-width: 1023px) {
-    font-size: min(4vh, 2.6rem);
+    font-size: min(3vh, 2.6rem);
   }
 `;
 export const WhiteBox = styled.span`
@@ -139,14 +143,13 @@ export const GetMoreWorldButton = styled.button`
   align-items: center;
   justify-content: center;
   font-size: 16px;
-
   margin: 0 auto;
   padding: 11px 14px 11px 14px;
   border-radius: 62px;
   border: solid 1px white;
   @media screen and (min-width: 1023px) {
     border: solid 1.6px;
-    font-size: min(33vw, 4vh, 2.6rem);
+    font-size: min(33vw, 3vh, 2.6rem);
     width: 41.7%;
     height: 7.5vh;
     padding: 17.6px 22.4px 18.2px 22.4px;
@@ -168,7 +171,7 @@ export const SubmitButton = styled.button`
   border: solid 1px;
   @media screen and (min-width: 1023px) {
     border: solid 1.6px;
-    font-size: min(33vw, 4vh, 2.6rem);
+    font-size: min(33vw, 3vh, 2.6rem);
 
     width: 41.7%;
     height: 7.5vh;
