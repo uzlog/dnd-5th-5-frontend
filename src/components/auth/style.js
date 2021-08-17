@@ -199,6 +199,7 @@ export const ErrorMessage = styled.div`
 `;
 
 export const SubmitButton = styled.button`
+  cursor: pointer;
   text-align: center;
   background-color: #121212;
   padding: 14px 40px;

@@ -318,7 +318,10 @@ const MyPageComponent = ({ state }) => {
                 color: fontColor,
               };
             } else {
-              card.sentence = card.sentence.replaceAll('???', '<img src="' + secretWord + '" alt="비밀 단어" />');
+              card.sentence = card.sentence.replaceAll(
+                '???',
+                '<span><img src="' + secretWord + '" alt="비밀 단어" /></span>',
+              );
               cardStyle = {
                 backgroundColor: '#121212',
                 width: viewSize > '1023' ? '40vw' : '36rem',
