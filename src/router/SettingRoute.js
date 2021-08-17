@@ -11,8 +11,10 @@ const SettingRoute = ({ history, component: Component, ...rest }) => {
   }));
   const token = cookies.get('token');
   const urlNickname = history.location.pathname.split('/')[1];
-  const userInfo = { nickname, urlNickname };
-  const isOwned = useOwner(userInfo);
+  // const userInfo = { nickname, urlNickname };
+  // const isOwned = useOwner(userInfo);
+  const isOwned = nickname === urlNickname;
+
   return (
     <Route
       {...rest}
