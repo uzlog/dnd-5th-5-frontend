@@ -24,9 +24,6 @@ const HeaderContainer = ({ history }) => {
       memberDataLoading: loading['member/GET_MY_INFO'],
     }));
   const user = token ? true : false;
-  let localNickname = localStorage.getItem('nickname');
-  const [sibal, setSibal] = useState(sessionStorage.getItem('nickname'));
-  let sessionNickname = sessionStorage.getItem('nickname');
   const state = { tokenExisted, showFriendModal, showAlarmModal, memberData, user };
   useWatchCookie();
 
@@ -43,29 +40,6 @@ const HeaderContainer = ({ history }) => {
       window.location.reload();
     }
   }, [tokenExisted]);
-
-  // useEffect(() => {
-  //   if (socialLoginStatus === 200) {
-  //     cookies.set('token', authToken, { path: '/', expires: new Date(Date.now() + 1000 * 10) });
-  //     client.defaults.headers.common['X-AUTH_TOKEN'] = token;
-  //   }
-  // }, [socialLoginStatus]);
-  // useEffect(() => {
-  //   console.log('token: ', token, 'sibal: ', sessionStorage.getItem('nickname'));
-  //   if (!tokenExisted && sessionStorage.getItem('nickname') !== null) {
-  //     alert('토큰 만료');
-  //     if (sessionStorage.getItem('type') === 'google') {
-  //       dispatch(googleOauth(JSON.parse(sessionStorage.getItem('userInfo'))));
-  //     } else {
-  //       dispatch(naverOauth(JSON.parse(sessionStorage.getItem('userInfo'))));
-  //     }
-  //   }
-  // }, [tokenExisted]);
-
-  // useEffect(() => {
-  //   cookies.set('token', authToken, { path: '/', expires: new Date(Date.now() + 1000 * 5) });
-  //   console.log('토큰 바꿈');
-  // }, [socialLoginStatus]);
 
   /**
    * 1. 토큰 유무
