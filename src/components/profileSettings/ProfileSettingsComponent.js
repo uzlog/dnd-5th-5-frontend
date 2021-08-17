@@ -22,16 +22,14 @@ import {
   IsOpen,
 } from './style';
 import useResponsive from '@hooks/useResponsive';
-
-import HeaderContainer from '@containers/common/HeaderContainer';
 import google from '@assets/img/profileSettings/google.svg';
 import naver from '@assets/img/profileSettings/naver.svg';
-
+import emoji11 from '@assets/img/emoji/emoji11.svg';
 import lock from '@assets/img/profileSettings/lock.svg';
 import unlock from '@assets/img/profileSettings/unlock.svg';
-
 import Modal from './Modal';
 import { withRouter } from 'react-router-dom';
+import HeaderContainer from '@containers/common/HeaderContainer';
 
 const ProfileSettingsComponent = ({ history }) => {
   const [myInfo, setMyInfo] = useState({ imgUrl: '', email: '', nickname: '', statusMessage: '', isOpen: false });
@@ -212,7 +210,10 @@ const ProfileSettingsComponent = ({ history }) => {
           {deleteModal ? <Modal setDeleteModal={setDeleteModal} onDeleteHandler={onDeleteHandler} /> : <></>}
           <ButtonWrapper>
             <LogoutButton onClick={onlogoutHandler}>로그아웃</LogoutButton>
-            <SubmitButton onClick={onUpdataSubmitHandler}>다 썼음😋</SubmitButton>
+            <SubmitButton onClick={onUpdataSubmitHandler}>
+              다 썼음
+              <img src={emoji11} />
+            </SubmitButton>
           </ButtonWrapper>
         </ContentWrapper>
       </MainWrapper>

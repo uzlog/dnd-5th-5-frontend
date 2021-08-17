@@ -193,6 +193,9 @@ export const LogoutButton = styled.button`
   }
 `;
 export const SubmitButton = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   color: black;
   background-color: white;
   width: 148px;
