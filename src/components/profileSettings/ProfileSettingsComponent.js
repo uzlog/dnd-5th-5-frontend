@@ -37,6 +37,7 @@ const ProfileSettingsComponent = ({ history }) => {
   const [myInfo, setMyInfo] = useState({ imgUrl: '', email: '', nickname: '', statusMessage: '', isOpen: false });
   const [nicknameLength, setNicknameLength] = useState(5);
   const [nicknameExists, setNicknameExists] = useState(false);
+  const [statusMessageOverCount, setStatusMessageOverCount] = useState(false);
   const viewSize = useResponsive();
   const [nickname, setNickname] = useState(sessionStorage.getItem('nickname'));
   const [deleteModal, setDeleteModal] = useState(false);
@@ -57,6 +58,7 @@ const ProfileSettingsComponent = ({ history }) => {
   };
 
   const onStatusMessageChange = (e) => {
+    setStatusMessageOverCount(false);
     setMyInfo({
       ...myInfo,
       statusMessage: e.target.value,
@@ -101,15 +103,15 @@ const ProfileSettingsComponent = ({ history }) => {
           ? setNicknameExists(false)
           : setNicknameExists(true)
         : setNicknameExists(false);
-      if (existsResponse.data.data === false || myInfo.nickname === nickname) {
+      myInfo.statusMessage.length < 30 ? setStatusMessageOverCount(false) : setStatusMessageOverCount(true);
+      if ((existsResponse.data.data === false || myInfo.nickname === nickname) && myInfo.statusMessage.length < 30) {
         const upDataResponse = await client.patch('/api/v1/member/me', myInfo);
-        console.log(upDataResponse.data.message);
         if (upDataResponse.data.message === 'update') {
           alert('성공적으로 변경됐습니다 :)');
           setNickname(myInfo.nickname);
           sessionStorage.setItem('nickname', myInfo.nickname);
           localStorage.setItem('nickname', myInfo.nickname);
-          window.location.replace(`/${myInfo.nickname}`);
+          window.location.replace(`/${myInfo.nickname}/settings`);
         }
       }
     }
@@ -119,7 +121,7 @@ const ProfileSettingsComponent = ({ history }) => {
     const response = await client.get('/api/v1/member/delete', { params: { nickname } });
     console.log(response.data.message);
     if (response.data.message === 'success') {
-      document.cookie = 'token=; expires=1995-11-01T08:17:51.000Z;';
+      document.cookie = 'token=; expires=1995-11-01T09:11:07.000Z;';
       sessionStorage.removeItem('nickname');
       localStorage.removeItem('nickname');
       history.push('/');
@@ -129,7 +131,7 @@ const ProfileSettingsComponent = ({ history }) => {
   const onlogoutHandler = () => {
     console.log(document.cookie);
     //logout한번 다시 손봐야할듯,,, 잘못한듯
-    document.cookie = 'token=; expires=1995-11-01T08:17:51.000Z;';
+    document.cookie = 'token=; expires=1995-11-01T09:11:04.000Z;';
     sessionStorage.removeItem('nickname');
     localStorage.removeItem('nickname');
     history.push('/');
@@ -182,6 +184,11 @@ const ProfileSettingsComponent = ({ history }) => {
               value={myInfo.statusMessage}
               onChange={onStatusMessageChange}
             />
+            {statusMessageOverCount ? (
+              <AlertMessage>앗, 자기소개가 길어요. 짧고 강렬하게 부탁드려요 :)</AlertMessage>
+            ) : (
+              <></>
+            )}
           </InputBoxWrapper>
           <EachTitle>
             <IsOpen>

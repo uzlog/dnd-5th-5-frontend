@@ -94,6 +94,7 @@ export const EachTitle = styled.div`
     height: 3.5vh;
     margin-top: 3vh;
     width: 36vw;
+    max-width: 500px;
     font-size: min(2.5rem, 2.5vh);
     margin-bottom: 6px;
   }
@@ -139,6 +140,7 @@ export const InputBox = styled.input`
   padding: 14px 27px;
   @media screen and (min-width: 1023px) {
     width: 36vw;
+    max-width: 500px;
     font-size: min(2.6rem, 2.5vh);
     padding: 2vh 35px;
   }
@@ -168,6 +170,8 @@ export const DeleteButton = styled.div`
   text-decoration: underline;
   opacity: 0.5;
   @media screen and (min-width: 1023px) {
+    margin-top: 20px;
+
     font-size: min(2.6rem, 3vh);
   }
 `;
