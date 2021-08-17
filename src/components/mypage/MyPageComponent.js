@@ -115,6 +115,7 @@ const ModalContentsWrapper = styled.div`
 `;
 
 const ButtonWrapper = styled.div`
+  /* position: fixed; */
   width: 40vw;
   max-width: 576px;
   display: flex;
@@ -129,6 +130,7 @@ const ButtonWrapper = styled.div`
 `;
 
 const StyledButton = styled.button`
+  position: fixed;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -215,7 +217,7 @@ const MyPageComponent = ({ state }) => {
     infinite: true,
     arrows: false,
     autoplay: true,
-    autoplaySpeed: 1000,
+    autoplaySpeed: 3000,
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,

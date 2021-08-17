@@ -11,6 +11,8 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
     hadError: mypage.hadError,
   }));
   const { nickname } = memberData;
+  sessionStorage.setItem('nickname', nickname);
+  localStorage.setItem('nickname', nickname);
   const localNickname = localStorage.getItem('nickname');
   const sessionNickname = sessionStorage.getItem('nickname');
 
@@ -22,7 +24,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
         <Route
           {...rest}
           render={(props) =>
-            token && (localNickname || sessionNickname) ? (
+            token && nickname ? (
               <Redirect
                 to={{
                   pathname: `/${nickname || localNickname || sessionNickname}`,

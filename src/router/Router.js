@@ -14,7 +14,7 @@ const CardSettingPage = loadable(() => import('@pages/CardSettingPage'));
 const Router = () => {
   return (
     <>
-      <PrivateRoute path="/" component={MainPage} exact />
+      <Route path="/" component={MainPage} exact />
       <Route path="/:nickname/select" component={SelectPage} exact />
       <SettingRoute path="/:nickname/settings" component={profileSettingsPage} exact />
       <SettingRoute path="/:nickname/alacard/settings" component={CardSettingPage} exact />

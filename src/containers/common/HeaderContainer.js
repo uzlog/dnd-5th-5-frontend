@@ -1,28 +1,71 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import Cookies from 'universal-cookie';
 import { updateModalStatus, openProfileModal } from '@modules/modal';
 import { getMyInfo } from '@modules/member';
+import useWatchCookie from '@hooks/useWatchCookie';
 import Header from '@components/common/Header';
 
-const HeaderContainer = () => {
+const HeaderContainer = ({ history }) => {
   const dispatch = useDispatch();
   const cookies = new Cookies();
   const token = cookies.get('token');
-  const { showFriendModal, showAlarmModal, memberData, memberDataLoading } = useSelector(
-    ({ modal, member, loading }) => ({
+  const { authToken, socialLoginStatus, tokenExisted, showFriendModal, showAlarmModal, memberData, memberDataLoading } =
+    useSelector(({ auth, modal, member, loading }) => ({
+      authToken: auth.token,
+      socialLoginStatus: auth.status,
+      tokenExisted: auth.tokenExisted,
+
       showFriendModal: modal.showFriendModal,
       showAlarmModal: modal.showAlarmModal,
 
       memberData: member.data,
       memberDataLoading: loading['member/GET_MY_INFO'],
-    }),
-  );
+    }));
   const user = token ? true : false;
-  const state = { showFriendModal, showAlarmModal, memberData, user };
+  let localNickname = localStorage.getItem('nickname');
+  const [sibal, setSibal] = useState(sessionStorage.getItem('nickname'));
+  let sessionNickname = sessionStorage.getItem('nickname');
+  const state = { tokenExisted, showFriendModal, showAlarmModal, memberData, user };
+  useWatchCookie();
 
   const onClickModalStatus = useCallback((payload) => dispatch(updateModalStatus(payload)), [dispatch]);
   const onClickOpenProfile = useCallback((payload) => dispatch(openProfileModal(payload)), [dispatch]);
+
+  useEffect(() => {
+    console.log(sessionStorage.getItem('nickname'));
+    if (!tokenExisted && sessionStorage.getItem('nickname') !== null) {
+      sessionStorage.removeItem('nickname');
+      localStorage.removeItem('nickname');
+      alert('다시 로그인해주세요');
+      history.push('/');
+      window.location.reload();
+    }
+  }, [tokenExisted]);
+
+  // useEffect(() => {
+  //   if (socialLoginStatus === 200) {
+  //     cookies.set('token', authToken, { path: '/', expires: new Date(Date.now() + 1000 * 10) });
+  //     client.defaults.headers.common['X-AUTH_TOKEN'] = token;
+  //   }
+  // }, [socialLoginStatus]);
+  // useEffect(() => {
+  //   console.log('token: ', token, 'sibal: ', sessionStorage.getItem('nickname'));
+  //   if (!tokenExisted && sessionStorage.getItem('nickname') !== null) {
+  //     alert('토큰 만료');
+  //     if (sessionStorage.getItem('type') === 'google') {
+  //       dispatch(googleOauth(JSON.parse(sessionStorage.getItem('userInfo'))));
+  //     } else {
+  //       dispatch(naverOauth(JSON.parse(sessionStorage.getItem('userInfo'))));
+  //     }
+  //   }
+  // }, [tokenExisted]);
+
+  // useEffect(() => {
+  //   cookies.set('token', authToken, { path: '/', expires: new Date(Date.now() + 1000 * 5) });
+  //   console.log('토큰 바꿈');
+  // }, [socialLoginStatus]);
 
   /**
    * 1. 토큰 유무
@@ -51,4 +94,4 @@ const HeaderContainer = () => {
   );
 };
 
-export default HeaderContainer;
+export default withRouter(HeaderContainer);

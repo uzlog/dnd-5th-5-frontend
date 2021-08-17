@@ -6,13 +6,14 @@ import FriendModalContainer from '@containers/modal/FriendModalContainer';
 import { ModalWrapper, ModalOverlay, ModalContents } from '@components/main/Style';
 import logo from '@assets/img/nav/logo.svg';
 import friend from '@assets/img/nav/friend.svg';
-import activatedNotice from '@assets/img/nav/activatedNotice.svg';
+// import activatedNotice from '@assets/img/nav/activatedNotice.svg';
 import inactivatedNotice from '@assets/img/nav/inactivatedNotice.svg';
 import avatar from '@assets/img/nav/avatar.svg';
 import arrowBtn from '@assets/img/my-profile/arrowBtn.svg';
 import avatarM from '@assets/img/my-profile/avatarM.svg';
 import closeBtnWhite from '@assets/img/my-profile/closeBtnWhite.svg';
 import settingBtn from '@assets/img/my-profile/settingBtn.svg';
+import { useEffect } from 'react';
 
 const Wrapper = styled.div`
   background-color: #121212;
@@ -208,6 +209,7 @@ const StyledLink = styled(Link)`
 const Header = ({ history, state, onClickModalStatus, onClickOpenProfile }) => {
   const [showProfile, setShowProfile] = useState(false);
   const {
+    tokenExisted,
     showFriendModal,
     showAlarmModal,
     user,

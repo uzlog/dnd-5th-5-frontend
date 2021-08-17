@@ -54,7 +54,7 @@ const SocialLoginContainer = ({ history, closeModal }) => {
   // 로그인이 성공하면 유저 정보를 받아온다.
   useEffect(() => {
     if (socialLoginStatus === 200) {
-      cookies.set('token', token, { path: '/' });
+      cookies.set('token', token, { path: '/', expires: new Date(Date.now() + 1000 * 60 * 29) });
       client.defaults.headers.common['X-AUTH_TOKEN'] = token;
       dispatch(getMyInfo());
     }
@@ -63,9 +63,9 @@ const SocialLoginContainer = ({ history, closeModal }) => {
   // message == login
   useEffect(() => {
     if (memberData && authMessage === 'login') {
-      history.push(`/${memberData.nickname}`);
-      localStorage.setItem('nickname', memberData.nickname);
       sessionStorage.setItem('nickname', memberData.nickname);
+      localStorage.setItem('nickname', memberData.nickname);
+      history.push(`/${memberData.nickname}`);
     }
   }, [memberData]);
 
