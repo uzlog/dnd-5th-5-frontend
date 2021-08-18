@@ -161,7 +161,7 @@ const SocialLogin = ({
               <NaverLogin
                 clientId={naverId}
                 callbackUrl={process.env.REACT_APP_URL}
-                isPopup={false}
+                isPopup={true}
                 render={(props) => (
                   <NaverButton type="button" onClick={props.onClick}>
                     <img src={naverIcon} alt="네이버 로그인" />
