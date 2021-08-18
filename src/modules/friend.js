@@ -1,11 +1,14 @@
 import { createAction, handleActions } from 'redux-actions';
 import { takeLatest } from 'redux-saga/effects';
 import createRequestSaga, { createRequestActionTypes } from '../lib/createRequestSaga';
+import * as memberAPI from '@lib/api/member';
 import * as friendAPI from '@lib/api/friend';
 
 /**
  * 액션 타입
  */
+const [GET_OTHER_INFO, GET_OTHER_INFO_SUCCESS, GET_OTHER_INFO_FAILURE] =
+  createRequestActionTypes('friend/GET_OTHER_INFO');
 const [GET_FRIEND_LIST, GET_FRIEND_LIST_SUCCESS, GET_FRIEND_LIST_FAILURE] =
   createRequestActionTypes('friend/GET_FRIEND_LIST');
 const [GET_RELATION, GET_RELATION_SUCCESS, GET_RELATION_FAILURE] = createRequestActionTypes('friend/GET_RELATION');
@@ -19,6 +22,7 @@ const [DELETE_FRIEND, DELETE_FRIEND_SUCCESS, DELETE_FRIEND_FAILURE] = createRequ
 /**
  * 액션 생성 함수
  */
+export const getOtherInfo = createAction(GET_OTHER_INFO, (nickname) => nickname);
 export const getFriendList = createAction(GET_FRIEND_LIST);
 export const getRelation = createAction(GET_RELATION, (nickname) => nickname);
 export const sendFollow = createAction(SEND_FOLLOW, (nickname) => nickname);
@@ -30,6 +34,7 @@ export const deleteFriend = createAction(DELETE_FRIEND, (nickname) => nickname);
 /**
  * 사가 생성
  */
+const getOtherInfoSaga = createRequestSaga(GET_OTHER_INFO, memberAPI.getOtherInfo);
 const getFriendListSaga = createRequestSaga(GET_FRIEND_LIST, friendAPI.getFriendList);
 const getRelationSaga = createRequestSaga(GET_RELATION, friendAPI.getRelation);
 const sendFollowSaga = createRequestSaga(SEND_FOLLOW, friendAPI.sendFollow);
@@ -39,6 +44,7 @@ const cancelFollowSaga = createRequestSaga(CANCEL_FOLLOW, friendAPI.cancelFollow
 const deleteFriendSaga = createRequestSaga(DELETE_FRIEND, friendAPI.deleteFriend);
 
 export function* friendSaga() {
+  yield takeLatest(GET_OTHER_INFO, getOtherInfoSaga);
   yield takeLatest(GET_FRIEND_LIST, getFriendListSaga);
   yield takeLatest(GET_RELATION, getRelationSaga);
   yield takeLatest(SEND_FOLLOW, sendFollowSaga);
@@ -52,6 +58,10 @@ export function* friendSaga() {
  * 초기 상태
  */
 const initialStae = {
+  getOtherInfoStatus: 0,
+  getOtherInfoData: {},
+  getOtherInfoError: '',
+
   getFriendListStatus: 0,
   getFriendListMessage: '',
   getFriendListData: [],
@@ -79,6 +89,15 @@ const initialStae = {
 
 const friend = handleActions(
   {
+    [GET_OTHER_INFO_SUCCESS]: (state, { payload: { status, data } }) => ({
+      ...state,
+      getOtherInfoStatus: status,
+      getOtherInfoData: data,
+    }),
+    [GET_OTHER_INFO_FAILURE]: (state, { payload: error }) => ({
+      ...state,
+      getOtherInfoError: error,
+    }),
     [GET_FRIEND_LIST_SUCCESS]: (state, { payload: { status, message, data } }) => ({
       ...state,
       getFriendListStatus: status,

@@ -326,6 +326,7 @@ const Secret = styled.div`
 
 const MyPageComponent = ({ state, apiCall }) => {
   const {
+    getOtherInfoData,
     memberData,
     memberData: { isOpen },
     getRelationData,
@@ -443,10 +444,10 @@ const MyPageComponent = ({ state, apiCall }) => {
         <HeaderContainer />
         {!isOwner && (
           <FriendWrapper>
-            <img src={memberData.imgUrl} alt="프로필" />
+            <img src={getOtherInfoData.imgUrl} alt="프로필" />
             <FriendInfoWrapper>
-              <Name>{nickname}</Name>
-              <StatusBox>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</StatusBox>
+              <Name>{getOtherInfoData.nickname}</Name>
+              <StatusBox>{getOtherInfoData.statusMessage}</StatusBox>
             </FriendInfoWrapper>
             <ImgWrapper>
               {getRelationData === '일반' && (

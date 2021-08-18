@@ -4,7 +4,15 @@ import { withRouter } from 'react-router-dom';
 import Cookies from 'universal-cookie';
 import { getAlaCardList, updateError } from '@modules/mypage';
 import { getMyInfo } from '@modules/member';
-import { getRelation, sendFollow, acceptFollow, declineFollow, cancelFollow, deleteFriend } from '@modules/friend';
+import {
+  getOtherInfo,
+  getRelation,
+  sendFollow,
+  acceptFollow,
+  declineFollow,
+  cancelFollow,
+  deleteFriend,
+} from '@modules/friend';
 import MyPageComponent from '@components/mypage/MyPageComponent';
 
 const MyPageContainer = ({ history, nickname }) => {
@@ -19,6 +27,11 @@ const MyPageContainer = ({ history, nickname }) => {
     alacardError,
     alacardLoading,
     showProfileModal,
+
+    getOtherInfoStatus,
+    getOtherInfoData,
+    getOtherInfoError,
+    getOtherInfoLoading,
 
     getRelationStatus,
     getRelationData,
@@ -45,6 +58,11 @@ const MyPageContainer = ({ history, nickname }) => {
 
     showProfileModal: modal.showProfileModal,
 
+    getOtherInfoStatus: friend.getOtherInfoStatus,
+    getOtherInfoData: friend.getOtherInfoData,
+    getOtherInfoError: friend.getOtherInfoError,
+    getOtherInfoLoading: loading['member/GET_OTHER_INFO'],
+
     getRelationStatus: friend.getRelationStatus,
     getRelationData: friend.getRelationData.relation,
     getRelationError: friend.getRelationError,
@@ -61,7 +79,15 @@ const MyPageContainer = ({ history, nickname }) => {
   }));
   const token = cookies.get('token');
   const sessionNickname = sessionStorage.getItem('nickname');
-  const state = { memberData, getRelationData, alacardData, nickname, alacardError, showProfileModal };
+  const state = {
+    getOtherInfoData,
+    memberData,
+    getRelationData,
+    alacardData,
+    nickname,
+    alacardError,
+    showProfileModal,
+  };
 
   /**
    * 화면 첫 진입시, 내 정보 받아오기
@@ -77,6 +103,9 @@ const MyPageContainer = ({ history, nickname }) => {
     dispatch(getAlaCardList(nickname));
     if (token && nickname !== sessionNickname) {
       dispatch(getRelation(nickname));
+    }
+    if (nickname !== sessionNickname) {
+      dispatch(getOtherInfo(nickname));
     }
   }, []);
 
@@ -97,7 +126,7 @@ const MyPageContainer = ({ history, nickname }) => {
   const apiCall = { onClickSendFollow, onClickCancelFollow };
   return (
     <>
-      {alacardLoading && memberLoading && !alacardError ? (
+      {alacardLoading && (memberLoading || memberLoading === undefined) ? (
         <MyPageComponent state={state} apiCall={apiCall} />
       ) : (
         <div>loading...</div>

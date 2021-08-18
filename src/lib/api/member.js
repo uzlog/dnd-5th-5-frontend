@@ -1,7 +1,10 @@
 import client from './client';
 
-// 정보 받아오기
+// 내 정보 받아오기
 export const getMyInfo = () => client.get('/api/v1/member/me');
+
+// 다른 사람 정보 받아오기
+export const getOtherInfo = (nickname) => client.get('/api/v1/member', { params: { nickname } });
 
 // 회원 탈퇴
 export const deleteMyInfo = (userInfo) => client.patch('/api/v1/member/delete', userInfo);
