@@ -79,27 +79,34 @@ const ProfileSettingsComponent = ({ history }) => {
   };
 
   const onFileChange = async (e) => {
-    const imageFile = e.target.files[0];
     // option 설정 찾기 browser-image-compression 여기서 컴프레싱한거임
-    const options = {
-      maxSizeMB: 2,
-      maxWidthOrWidth: 200,
-    };
 
-    try {
-      const compressedFile = await imageCompression(imageFile, options);
-      // resize된 이미지의 url을 받아 fileUrl에 저장
-      const promise = imageCompression.getDataUrlFromFile(compressedFile);
-      promise.then((result) => {
-        setMyInfo({
-          ...myInfo,
-          imgUrl: result,
-          changed: true,
-        });
-      });
-    } catch (error) {
-      console.log(error);
-    }
+    setMyInfo({
+      ...myInfo,
+      imgUrl: e.target.files[0],
+      changed: true,
+    });
+
+    // const imageFile = e.target.files[0];
+    // const options = {
+    //   maxSizeMB: 2,
+    //   maxWidthOrWidth: 200,
+    // };
+
+    // try {
+    //   const compressedFile = await imageCompression(imageFile, options);
+    //   // resize된 이미지의 url을 받아 fileUrl에 저장
+    //   const promise = imageCompression.getDataUrlFromFile(compressedFile);
+    //   promise.then((result) => {
+    //     setMyInfo({
+    //       ...myInfo,
+    //       imgUrl: result,
+    //       changed: true,
+    //     });
+    //   });
+    // } catch (error) {
+    //   console.log(error);
+    // }
   };
 
   const onUpdataSubmitHandler = async () => {
