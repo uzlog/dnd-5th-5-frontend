@@ -489,6 +489,7 @@ const MyPageComponent = ({ history, state, apiCall }) => {
           </FriendWrapper>
         )}
         {isOwner ? (
+          // 페이지 주인인 경우 다 보여주기
           <Slider ref={slider} {...settings}>
             {alacardData.map((card, idx) => {
               const { backgroundImgUrl, fontColor } = card.alaCardSettingDto;
@@ -597,11 +598,6 @@ const MyPageComponent = ({ history, state, apiCall }) => {
               return (
                 <>
                   <div key={idx} style={cardStyle}>
-                    <MoreButtonWrapper>
-                      <MoreButton onClick={openModal}>
-                        <img src={maximizeBtn} idx={idx} sentence={card.sentence} alt="확대 버튼" />
-                      </MoreButton>
-                    </MoreButtonWrapper>
                     <ContentFlexWrapper>
                       <ContentsWrapper>
                         <InnerContents style={fontStyle} dangerouslySetInnerHTML={{ __html: card.sentence }} />
@@ -662,11 +658,6 @@ const MyPageComponent = ({ history, state, apiCall }) => {
               return (
                 <>
                   <div key={idx} style={cardStyle}>
-                    <MoreButtonWrapper>
-                      <MoreButton onClick={openModal}>
-                        <img src={maximizeBtn} idx={idx} sentence={card.sentence} alt="확대 버튼" />
-                      </MoreButton>
-                    </MoreButtonWrapper>
                     <ContentFlexWrapper>
                       <ContentsWrapper>
                         <InnerContents style={fontStyle} dangerouslySetInnerHTML={{ __html: card.sentence }} />
