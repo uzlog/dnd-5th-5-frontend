@@ -1,27 +1,45 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import Cookies from 'universal-cookie';
-import { updateModalStatus } from '@modules/modal';
+import { updateModalStatus, openProfileModal } from '@modules/modal';
 import { getMyInfo } from '@modules/member';
+import useWatchCookie from '@hooks/useWatchCookie';
 import Header from '@components/common/Header';
 
-const HeaderContainer = () => {
+const HeaderContainer = ({ history }) => {
   const dispatch = useDispatch();
   const cookies = new Cookies();
   const token = cookies.get('token');
-  const { showFriendModal, showAlarmModal, memberData, memberDataLoading } = useSelector(
-    ({ modal, member, loading }) => ({
+  const { authToken, socialLoginStatus, tokenExisted, showFriendModal, showAlarmModal, memberData, memberDataLoading } =
+    useSelector(({ auth, modal, member, loading }) => ({
+      authToken: auth.token,
+      socialLoginStatus: auth.status,
+      tokenExisted: auth.tokenExisted,
+
       showFriendModal: modal.showFriendModal,
       showAlarmModal: modal.showAlarmModal,
 
       memberData: member.data,
       memberDataLoading: loading['member/GET_MY_INFO'],
-    }),
-  );
+    }));
   const user = token ? true : false;
-  const state = { showFriendModal, showAlarmModal, memberData, user };
+  const state = { tokenExisted, showFriendModal, showAlarmModal, memberData, user };
+  useWatchCookie();
 
   const onClickModalStatus = useCallback((payload) => dispatch(updateModalStatus(payload)), [dispatch]);
+  const onClickOpenProfile = useCallback((payload) => dispatch(openProfileModal(payload)), [dispatch]);
+
+  useEffect(() => {
+    console.log(sessionStorage.getItem('nickname'));
+    if (!tokenExisted && sessionStorage.getItem('nickname') !== null) {
+      sessionStorage.removeItem('nickname');
+      localStorage.removeItem('nickname');
+      alert('다시 로그인해주세요');
+      history.push('/');
+      window.location.reload();
+    }
+  }, [tokenExisted]);
 
   /**
    * 1. 토큰 유무
@@ -40,9 +58,9 @@ const HeaderContainer = () => {
   return (
     <>
       {memberDataLoading === undefined ? ( // 데이터 불러오기 안하는 경우
-        <Header state={state} onClickModalStatus={onClickModalStatus} />
+        <Header state={state} onClickModalStatus={onClickModalStatus} onClickOpenProfile={onClickOpenProfile} />
       ) : memberDataLoading ? (
-        <Header state={state} onClickModalStatus={onClickModalStatus} />
+        <Header state={state} onClickModalStatus={onClickModalStatus} onClickOpenProfile={onClickOpenProfile} />
       ) : (
         <div>loading...</div>
       )}
@@ -50,4 +68,4 @@ const HeaderContainer = () => {
   );
 };
 
-export default HeaderContainer;
+export default withRouter(HeaderContainer);
