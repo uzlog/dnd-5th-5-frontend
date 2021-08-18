@@ -118,7 +118,7 @@ const ProfileSettingsComponent = ({ history }) => {
           setNickname(myInfo.nickname);
           sessionStorage.setItem('nickname', myInfo.nickname);
           localStorage.setItem('nickname', myInfo.nickname);
-          window.location.replace(`/${myInfo.nickname}/settings`);
+          history.push(`/${myInfo.nickname}`);
         }
       }
     }
