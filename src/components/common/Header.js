@@ -6,21 +6,20 @@ import FriendModalContainer from '@containers/modal/FriendModalContainer';
 import { ModalWrapper, ModalOverlay, ModalContents } from '@components/main/Style';
 import logo from '@assets/img/nav/logo.svg';
 import friend from '@assets/img/nav/friend.svg';
-import activatedNotice from '@assets/img/nav/activatedNotice.svg';
+// import activatedNotice from '@assets/img/nav/activatedNotice.svg';
 import inactivatedNotice from '@assets/img/nav/inactivatedNotice.svg';
 import avatar from '@assets/img/nav/avatar.svg';
 import arrowBtn from '@assets/img/my-profile/arrowBtn.svg';
 import avatarM from '@assets/img/my-profile/avatarM.svg';
 import closeBtnWhite from '@assets/img/my-profile/closeBtnWhite.svg';
 import settingBtn from '@assets/img/my-profile/settingBtn.svg';
-import { useEffect } from 'react';
 
 const Wrapper = styled.div`
   background-color: #121212;
   max-width: 576px;
   width: 40vw;
   height: 9.4vh;
-  padding: 3.1vh 2.2vw 3.1vh 1.8vw;
+  padding: 3.1vh 2.2vw 3.1vh 1.6vw;
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
   &::-webkit-scrollbar {
@@ -35,9 +34,14 @@ const Wrapper = styled.div`
 `;
 
 const InnerWrapper = styled.div`
+  max-width: 500px;
+  width: 35vw;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  @media screen and (max-width: 1023px) {
+    width: 308px;
+  }
 `;
 
 const LogoWrapper = styled(Link)`
@@ -109,6 +113,7 @@ const ImgWrapper = styled.div`
 
 const ProfileWrapper = styled.div`
   display: flex;
+  align-items: center;
   height: 7.6vh;
   padding-left: 2.3vw;
   @media screen and (max-width: 1023px) {
@@ -153,7 +158,6 @@ const ProfileInfoWrapper = styled.div`
   @media screen and (max-width: 1023px) {
     margin-left: 12px;
     font-size: 16px;
-
     img {
       margin-left: 9px;
     }
@@ -201,11 +205,14 @@ const StyledButton = styled.button`
 
 const StyledLink = styled(Link)`
   text-decoration: none;
+  display: flex;
+  align-items: center;
 `;
 
-const Header = ({ history, state, onClickModalStatus }) => {
+const Header = ({ history, state, onClickModalStatus, onClickOpenProfile }) => {
   const [showProfile, setShowProfile] = useState(false);
   const {
+    tokenExisted,
     showFriendModal,
     showAlarmModal,
     user,
@@ -221,11 +228,13 @@ const Header = ({ history, state, onClickModalStatus }) => {
   };
 
   const openProfileModal = () => {
+    onClickOpenProfile(true);
     document.body.style = `overflow: hidden`;
     setShowProfile(true);
   };
 
   const closeProfileModal = () => {
+    onClickOpenProfile(false);
     document.body.style = `overflow: visible`;
     setShowProfile(false);
   };
@@ -273,15 +282,15 @@ const Header = ({ history, state, onClickModalStatus }) => {
                   <ProfileImg src={avatarM} avatar="avatar" alt="프로필 사진" />
                   <ProfileInfoWrapper>
                     <div>
-                      <span>{nickname}</span>
-                      <StyledLink to={isOwned ? `/${nickname}/settings` : ''}>
+                      <span>{nickname || localStorage.getItem('nickname')}</span>
+                      <StyledLink to={`/${nickname}/settings`}>
                         <ProfileImg src={settingBtn} alt="프로필 수정" />
                       </StyledLink>
                     </div>
                     <span>{statusMessage}</span>
                   </ProfileInfoWrapper>
                 </ProfileWrapper>
-                <StyledLink to={isOwned ? `/${nickname}/alacard` : ''}>
+                <StyledLink to={`/${nickname}/alacard`}>
                   <StyledButton>
                     알라카드 관리
                     <ProfileImg src={arrowBtn} alt="카드 관리" />
