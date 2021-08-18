@@ -38,7 +38,6 @@ const MoreButtonWrapper = styled.div`
   align-items: center;
   justify-content: flex-end;
   padding-right: 1.9vw;
-
   img {
     width: 38.4px;
     height: 38.4px;
@@ -62,7 +61,7 @@ const MoreButton = styled.div`
   align-items: center;
   flex-direction: row;
   justify-content: space-between;
-  position: fixed;
+  @media screen and (max-width: 1023px) {
     width: 2.4rem;
     height: 2.4rem;
   }
@@ -71,7 +70,6 @@ const MoreButton = styled.div`
 const ContentFlexWrapper = styled.div`
   display: flex;
   justify-content: center;
-  padding-bottom: 10.6vh;
 `;
 
 const ContentsWrapper = styled.div`
@@ -97,18 +95,12 @@ const ContentsWrapper = styled.div`
 `;
 
 const InnerContents = styled.div`
+  display: table-cell;
+  vertical-align: middle;
   height: ${(props) => props.height || ''};
   text-align: left;
   img {
-    display: inline-block;
-    vertical-align: top;
-    width: 182px;
-  }
-  @media screen and (max-width: 1023px) {
-    img {
-      vertical-align: sub;
-      width: 114px;
-    }
+    display: inline;
   }
 `;
 
@@ -122,10 +114,23 @@ const ModalContentsWrapper = styled.div`
   font-size: 36px;
 `;
 
+const ButtonWrapper = styled.div`
+  /* position: fixed; */
+  width: 40vw;
+  max-width: 576px;
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 1.9vw;
+  height: 10.6vh;
+  @media screen and (max-width: 1023px) {
+    min-height: 96px;
+    width: 36rem;
+    padding-right: 2.4rem;
+  }
+`;
+
 const StyledButton = styled.button`
-  position: relative;
-  bottom: 12vh;
-  left: 12vw;
+  position: fixed;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -139,9 +144,6 @@ const StyledButton = styled.button`
   color: white;
   line-height: 1.6;
   font-size: min(2.5vh, 25.6px, 1.7vw);
-  :active {
-    filter: invert(70%);
-  }
   @media screen and (max-width: 1023px) {
     width: 230px;
     min-height: 48px;
@@ -180,7 +182,7 @@ const Toast = styled.div`
   align-items: center;
   justify-content: center;
   margin: 0 auto;
-  top: 80%;
+  top: 90%;
   opacity: 0.5;
   border-radius: 5px;
   background-color: #000000;
@@ -294,7 +296,6 @@ const MyPageComponent = ({ state }) => {
     <>
       <Wrapper>
         <HeaderContainer />
-
         <Slider ref={slider} {...settings}>
           {alacardData.map((card, idx) => {
             const { backgroundImgUrl, fontColor } = card.alaCardSettingDto;
@@ -317,7 +318,10 @@ const MyPageComponent = ({ state }) => {
                 color: fontColor,
               };
             } else {
-              card.sentence = card.sentence.replaceAll('???', '<img src="' + secretWord + '" alt="비밀 단어" />');
+              card.sentence = card.sentence.replaceAll(
+                '???',
+                '<span><img src="' + secretWord + '" alt="비밀 단어" /></span>',
+              );
               cardStyle = {
                 backgroundColor: '#121212',
                 width: viewSize > '1023' ? '40vw' : '36rem',
@@ -345,16 +349,17 @@ const MyPageComponent = ({ state }) => {
                       <InnerContents style={fontStyle} dangerouslySetInnerHTML={{ __html: card.sentence }} />
                     </ContentsWrapper>
                   </ContentFlexWrapper>
+                  <ButtonWrapper>
+                    <StyledButton onClick={onClickShare} value={idx}>
+                      키워드 PICK 요청하기
+                      <img src={linkBtn} alt="링크 버튼" />
+                    </StyledButton>
+                  </ButtonWrapper>
                 </div>
               </>
             );
           })}
         </Slider>
-        <StyledButton onClick={onClickShare}>
-          키워드 PICK 요청하기
-          <img src={linkBtn} alt="링크 버튼" />
-        </StyledButton>
-
         {showModal && (
           <ModalWrapper>
             <ModalOverlay onClick={() => closeModal()} />
