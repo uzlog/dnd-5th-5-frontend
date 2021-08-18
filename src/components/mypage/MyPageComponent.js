@@ -604,10 +604,10 @@ const MyPageComponent = ({ history, state, apiCall }) => {
                       </ContentsWrapper>
                     </ContentFlexWrapper>
                     <ButtonWrapper>
-                      <StyledButton onClick={onClickShare} value={idx}>
-                        키워드 PICK 요청하기
-                        <img src={linkBtn} alt="링크 버튼" />
-                      </StyledButton>
+                      <StyledLink to={`${nickname}/select`}>
+                        키워드 PICK 하러가기
+                        <img src={arrowBtn} alt="이동 버튼" />
+                      </StyledLink>
                     </ButtonWrapper>
                   </div>
                 </>
@@ -664,10 +664,10 @@ const MyPageComponent = ({ history, state, apiCall }) => {
                       </ContentsWrapper>
                     </ContentFlexWrapper>
                     <ButtonWrapper>
-                      <StyledButton onClick={onClickShare} value={idx}>
-                        키워드 PICK 요청하기
-                        <img src={linkBtn} alt="링크 버튼" />
-                      </StyledButton>
+                      <StyledLink to={`${nickname}/select`}>
+                        키워드 PICK 하러가기
+                        <img src={arrowBtn} alt="이동 버튼" />
+                      </StyledLink>
                     </ButtonWrapper>
                   </div>
                 </>
