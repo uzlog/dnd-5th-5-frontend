@@ -17,67 +17,74 @@ import {
   DeleteButton,
   StatusMessageCount,
   AlertMessage,
+  ToggleButton,
+  ToggleInner,
   IsOpen,
 } from './style';
 import useResponsive from '@hooks/useResponsive';
-
-import HeaderContainer from '@containers/common/HeaderContainer';
 import google from '@assets/img/profileSettings/google.svg';
 import naver from '@assets/img/profileSettings/naver.svg';
+import emoji11 from '@assets/img/emoji/emoji11.svg';
 import lock from '@assets/img/profileSettings/lock.svg';
 import unlock from '@assets/img/profileSettings/unlock.svg';
 import Modal from './Modal';
 import { withRouter } from 'react-router-dom';
+import HeaderContainer from '@containers/common/HeaderContainer';
 
 const ProfileSettingsComponent = ({ history }) => {
-  const [myInfo, setMyInfo] = useState({ imgUrl: '', email: '', nickname: '', statusMessage: '', isOpen: false });
+  const [myInfo, setMyInfo] = useState({
+    imgUrl: '',
+    email: '',
+    nickname: '',
+    statusMessage: '',
+    isOpen: false,
+  });
   const [nicknameLength, setNicknameLength] = useState(5);
   const [nicknameExists, setNicknameExists] = useState(false);
+  const [statusMessageOverCount, setStatusMessageOverCount] = useState(false);
+  const viewSize = useResponsive();
+  const [nickname, setNickname] = useState(sessionStorage.getItem('nickname'));
+  const [deleteModal, setDeleteModal] = useState(false);
   const requestData = async () => {
     const response = await client.get('/api/v1/member/me');
     setMyInfo(response.data.data);
   };
-  const nickname = sessionStorage.getItem('nickname');
-  const [deleteModal, setDeleteModal] = useState(false);
+
   useEffect(requestData, []);
+
   const onNicknameChange = (e) => {
     setMyInfo({
       ...myInfo,
       nickname: e.target.value,
+      changed: true,
     });
     setNicknameLength(e.target.value.length);
   };
+
   const onStatusMessageChange = (e) => {
+    setStatusMessageOverCount(false);
     setMyInfo({
       ...myInfo,
       statusMessage: e.target.value,
+      changed: true,
     });
   };
+
   const isOpenClick = () => {
     setMyInfo({
       ...myInfo,
       isOpen: !myInfo.isOpen,
+      changed: true,
     });
   };
-  const onUpdataSubmit = async () => {
-    if (nicknameLength > 2) {
-      const existsResponse = await client.get('/api/v1/member/exists', { params: { nickname: myInfo.nickname } });
-      (await existsResponse.data.data) === true ? setNicknameExists(true) : setNicknameExists(false);
-      if (existsResponse.data.data === false) {
-        const upDataResponse = await client.patch('/api/v1/member/me', myInfo);
-        console.log(upDataResponse.data.message);
-        if (upDataResponse.data.message === 'update') {
-          alert('성공적으로 변경됐습니다 :)');
-        }
-      }
-    }
-  };
+
   const onFileChange = async (e) => {
     const imageFile = e.target.files[0];
     // option 설정 찾기 browser-image-compression 여기서 컴프레싱한거임
     const options = {
-      maxSizeMB: 2,
-      maxWidthOrHeight: 120,
+      maxSizeMB: 1,
+      maxWidthOrWidth: 200,
+      useWebWorker: true,
     };
 
     try {
@@ -88,31 +95,52 @@ const ProfileSettingsComponent = ({ history }) => {
         setMyInfo({
           ...myInfo,
           imgUrl: result,
+          changed: true,
         });
       });
     } catch (error) {
       console.log(error);
     }
   };
+
+  const onUpdataSubmitHandler = async () => {
+    if (nicknameLength > 2) {
+      const existsResponse = await client.get('/api/v1/member/exists', { params: { nickname: myInfo.nickname } });
+      existsResponse.data.data === true
+        ? myInfo.nickname === nickname
+          ? setNicknameExists(false)
+          : setNicknameExists(true)
+        : setNicknameExists(false);
+      myInfo.statusMessage.length < 30 ? setStatusMessageOverCount(false) : setStatusMessageOverCount(true);
+      if ((existsResponse.data.data === false || myInfo.nickname === nickname) && myInfo.statusMessage.length < 30) {
+        const upDataResponse = await client.patch('/api/v1/member/me', myInfo);
+        if (upDataResponse.data.message === 'update') {
+          alert('성공적으로 변경됐습니다 :)');
+          setNickname(myInfo.nickname);
+          sessionStorage.setItem('nickname', myInfo.nickname);
+          localStorage.setItem('nickname', myInfo.nickname);
+          window.location.replace(`/${myInfo.nickname}/settings`);
+        }
+      }
+    }
+  };
+
   const onDeleteHandler = async () => {
     const response = await client.get('/api/v1/member/delete', { params: { nickname } });
-    console.log(response.data.message);
     if (response.data.message === 'success') {
+      document.cookie = 'token=; expires=1995-11-01T09:11:07.000Z;';
       sessionStorage.removeItem('nickname');
       localStorage.removeItem('nickname');
       history.push('/');
     }
   };
+
   const onlogoutHandler = () => {
-    console.log(document.cookie);
-    //logout한번 다시 손봐야할듯,,, 잘못한듯
-    document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC;';
-    history.push('/');
-
+    document.cookie = 'token=; expires=1995-11-01T09:11:04.000Z;';
+    sessionStorage.removeItem('nickname');
     localStorage.removeItem('nickname');
+    history.push('/');
   };
-
-  const viewSize = useResponsive();
 
   return (
     <>
@@ -126,6 +154,7 @@ const ProfileSettingsComponent = ({ history }) => {
             backgroundImage: `url(${myInfo.imgUrl})`,
             backgroundRepeat: 'no-repeat',
             backgroundPosition: 'center',
+            backgroundSize: 'cover',
           }}
         />
 
@@ -151,23 +180,32 @@ const ProfileSettingsComponent = ({ history }) => {
           <InputBoxWrapper>
             <EachTitle>
               자기소개
-              <StatusMessageCount>{myInfo.statusMessage.length}/30 byte</StatusMessageCount>
+              <StatusMessageCount style={myInfo.statusMessage.length > 30 ? { color: 'red' } : null}>
+                {myInfo.statusMessage.length}/30 byte
+              </StatusMessageCount>
             </EachTitle>
             <InputBox
               placeholder={myInfo.statusMessage}
               value={myInfo.statusMessage}
               onChange={onStatusMessageChange}
             />
+            {statusMessageOverCount ? (
+              <AlertMessage>앗, 자기소개가 길어요. 짧고 강렬하게 부탁드려요 :)</AlertMessage>
+            ) : (
+              <></>
+            )}
           </InputBoxWrapper>
           <EachTitle>
             <IsOpen>
-              계정 공개 여부{' '}
+              계정 공개 여부
               <img
                 style={viewSize < 1023 ? { width: '19px', height: '19px' } : { width: '29px', height: '29px' }}
                 src={myInfo.isOpen ? unlock : lock}
               />
             </IsOpen>
-            <img onClick={isOpenClick} src={myInfo.isOpen ? unlock : lock} />
+            <ToggleButton onClick={isOpenClick} className={myInfo.isOpen ? 'left' : ''}>
+              <ToggleInner className={myInfo.isOpen ? 'left' : ''} />
+            </ToggleButton>
           </EachTitle>
           <DeleteButton
             style={{ cursor: 'not-allowed' }}
@@ -179,7 +217,13 @@ const ProfileSettingsComponent = ({ history }) => {
           {deleteModal ? <Modal setDeleteModal={setDeleteModal} onDeleteHandler={onDeleteHandler} /> : <></>}
           <ButtonWrapper>
             <LogoutButton onClick={onlogoutHandler}>로그아웃</LogoutButton>
-            <SubmitButton onClick={onUpdataSubmit}>다 썼음😋</SubmitButton>
+            <SubmitButton
+              onClick={onUpdataSubmitHandler}
+              style={myInfo.changed ? { cursor: 'pointer' } : { background: '#2a2a2a' }}
+              disabled={myInfo.changed ? false : true}>
+              다 썼음
+              <img src={emoji11} />
+            </SubmitButton>
           </ButtonWrapper>
         </ContentWrapper>
       </MainWrapper>
