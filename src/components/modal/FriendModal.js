@@ -273,7 +273,7 @@ const FriendModal = ({ state, onClickModalStatus }) => {
               <FriendWrapper>
                 {getFriendListData.map((data) => {
                   return (
-                    <FriendContents to={`/${data.nickname}`}>
+                    <FriendContents to={`/${data.nickname}`} onClick={closeFriendModal}>
                       {data.imgUrl ? (
                         <img src={data.imgUrl} width="40px" height="40px" alt="프로필 이미지" />
                       ) : (

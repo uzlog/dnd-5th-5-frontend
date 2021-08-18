@@ -6,11 +6,14 @@ import FriendModal from '@components/modal/FriendModal';
 
 const FriendModalContainer = () => {
   const dispatch = useDispatch();
-  const { getFriendListData, getFriendListError, getFriendListLoading } = useSelector(({ friend, loading }) => ({
-    getFriendListData: friend.getFriendListData,
-    getFriendListError: friend.getFriendListError,
-    getFriendListLoading: loading['friend/GET_FRIEND_LIST'],
-  }));
+  const { getFriendListData, getFriendListError, getFriendListLoading, deleteFriendStatus } = useSelector(
+    ({ friend, loading }) => ({
+      getFriendListData: friend.getFriendListData,
+      getFriendListError: friend.getFriendListError,
+      getFriendListLoading: loading['friend/GET_FRIEND_LIST'],
+      deleteFriendStatus: friend.deleteFriendStatus,
+    }),
+  );
   const state = { getFriendListData };
 
   const onClickModalStatus = useCallback((payload) => dispatch(updateModalStatus(payload)), [dispatch]);
@@ -18,6 +21,13 @@ const FriendModalContainer = () => {
   useEffect(() => {
     dispatch(getFriendList());
   }, []);
+
+  // 친구 삭제시 친구 목록 다시 받아오기
+  useEffect(() => {
+    if (deleteFriendStatus === 204) {
+      dispatch(getFriendList());
+    }
+  }, [deleteFriendStatus]);
 
   return (
     <>

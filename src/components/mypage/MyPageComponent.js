@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styled, { keyframes } from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { ModalWrapper, ModalOverlay, ModalContents } from '@components/main/Style';
 import HeaderContainer from '@containers/common/HeaderContainer';
+import DeleteFriendContainer from '@containers/mypage/DeleteFriendContainer';
 import useResponsive from '../../hooks/useResponsive';
 import secretWord from '@assets/img/alacard/secretWord.svg';
 import bigCardCloseBtn from '@assets/img/alacard/bigCardCloseBtn.svg';
@@ -15,6 +16,7 @@ import arrowBtn from '@assets/img/friend/arrow.svg';
 import avatar from '@assets/img/friend/avatar.svg';
 import friendCheckBtn from '@assets/img/friend/friendCheckBtn.svg';
 import friendPlusBtn from '@assets/img/friend/friendPlusBtn.svg';
+import friendWaitingBtn from '@assets/img/friend/friendWaitingBtn.svg';
 
 const fadeIn = keyframes`
   from {
@@ -37,10 +39,10 @@ const Wrapper = styled.div`
 `;
 
 const FriendWrapper = styled.div`
+  background-color: #121212;
   height: 10vh;
   display: flex;
   align-items: center;
-  background-color: red;
   padding: 20px 2.6vw;
   img:first-child {
     border-radius: 50px;
@@ -62,7 +64,6 @@ const FriendInfoWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background-color: blue;
   height: 64px;
   margin-left: min(1.3vw, 19px);
   margin-right: min(1.3vw, 19px);
@@ -75,7 +76,7 @@ const FriendInfoWrapper = styled.div`
 `;
 
 const Name = styled.div`
-  font-size: 22.4px;
+  font-size: min(calc((1.56vw + 2.19vh) / 2), 22.4px);
   font-weight: bold;
   line-height: 1.6;
   letter-spacing: -0.16px;
@@ -86,7 +87,8 @@ const Name = styled.div`
 `;
 
 const StatusBox = styled.div`
-  font-size: min(1.5vw, 19.2px);
+  color: white;
+  font-size: min(calc((1.5vw + 1.875vh) / 2), 19.2px);
   @media screen and (max-width: 1023px) {
     font-size: 12px;
   }
@@ -324,7 +326,7 @@ const Secret = styled.div`
   justify-content: center;
 `;
 
-const MyPageComponent = ({ state, apiCall }) => {
+const MyPageComponent = ({ history, state, apiCall }) => {
   const {
     getOtherInfoData,
     memberData,
@@ -334,8 +336,11 @@ const MyPageComponent = ({ state, apiCall }) => {
     nickname,
     alacardError,
     showProfileModal,
+    showDeleteFriendModal,
+    showCancelFollowModal,
   } = state;
-  const { onClickSendFollow, onClickCancelFollow } = apiCall;
+  const { onClickSendFollow, onClickCancelFollow, onClickAcceptFollow, onClickDeleteFriend, onClickUpdateModalStatus } =
+    apiCall;
   const [isOwner, setIsOwner] = useState(memberData.nickname === nickname);
   const [showModal, setShowModal] = useState(false);
   const [showToast, setShowToast] = useState(false);
@@ -360,7 +365,7 @@ const MyPageComponent = ({ state, apiCall }) => {
     infinite: false,
     arrows: false,
     autoplay: false,
-    autoplaySpeed: 3000,
+    autoplaySpeed: 5000,
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
@@ -418,6 +423,10 @@ const MyPageComponent = ({ state, apiCall }) => {
     setShowModal(false);
   };
 
+  const openFriendRelationModal = ({ key, value }) => {
+    onClickUpdateModalStatus({ key, value });
+  };
+
   const onClickShare = () => {
     setShowToast(true);
     const text = document.createElement('textarea');
@@ -436,8 +445,12 @@ const MyPageComponent = ({ state, apiCall }) => {
 
   const sendFollow = () => {
     onClickSendFollow(nickname);
-    console.log('친구요청');
   };
+
+  const acceptFollow = () => {
+    onClickAcceptFollow(nickname);
+  };
+
   return (
     <>
       <Wrapper>
@@ -453,8 +466,25 @@ const MyPageComponent = ({ state, apiCall }) => {
               {getRelationData === '일반' && (
                 <FriendButton src={friendPlusBtn} cursor="pointer" onClick={sendFollow} alt="친구 추가" />
               )}
-              {getRelationData === '친구' && <FriendButton src={friendCheckBtn} alt="친구" />}
-              {getRelationData === '팔로잉' && <span style={{ color: 'white' }}>팔로잉</span>}
+              {getRelationData === '친구' && (
+                <FriendButton
+                  src={friendCheckBtn}
+                  cursor="pointer"
+                  onClick={() => openFriendRelationModal({ key: 'showDeleteFriendModal', value: true })}
+                  alt="친구"
+                />
+              )}
+              {getRelationData === '팔로잉' && (
+                <FriendButton
+                  src={friendWaitingBtn}
+                  cursor="pointer"
+                  onClick={() => openFriendRelationModal({ key: 'showCancelFollowModal', value: true })}
+                  alt="수락 대기"
+                />
+              )}
+              {getRelationData === '팔로워' && (
+                <FriendButton src={friendPlusBtn} cursor="pointer" onClick={acceptFollow} alt="친구 수락" />
+              )}
             </ImgWrapper>
           </FriendWrapper>
         )}
@@ -607,6 +637,7 @@ const MyPageComponent = ({ state, apiCall }) => {
             </ModalContents>
           </ModalWrapper>
         )}
+        {(showDeleteFriendModal || showCancelFollowModal) && <DeleteFriendContainer nickname={nickname} />}
         {showToast && (
           <ToastWrapper>
             <Toast>링크가 클립보드에 복사되었습니다.</Toast>
@@ -617,4 +648,4 @@ const MyPageComponent = ({ state, apiCall }) => {
   );
 };
 
-export default MyPageComponent;
+export default withRouter(MyPageComponent);

@@ -13,6 +13,7 @@ import {
   cancelFollow,
   deleteFriend,
 } from '@modules/friend';
+import { updateModalStatus } from '@modules/modal';
 import MyPageComponent from '@components/mypage/MyPageComponent';
 
 const MyPageContainer = ({ history, nickname }) => {
@@ -26,7 +27,10 @@ const MyPageContainer = ({ history, nickname }) => {
     alacardData,
     alacardError,
     alacardLoading,
+
     showProfileModal,
+    showDeleteFriendModal,
+    showCancelFollowModal,
 
     getOtherInfoStatus,
     getOtherInfoData,
@@ -36,7 +40,7 @@ const MyPageContainer = ({ history, nickname }) => {
     getRelationStatus,
     getRelationData,
     getRelationError,
-    snedFollowStatus,
+    sendFollowStatus,
     sendFollowError,
     acceptFollowStatus,
     acceptFollowError,
@@ -57,6 +61,8 @@ const MyPageContainer = ({ history, nickname }) => {
     alacardLoading: loading['mypage/GET_ALA_CARD_LIST'],
 
     showProfileModal: modal.showProfileModal,
+    showDeleteFriendModal: modal.showDeleteFriendModal,
+    showCancelFollowModal: modal.showCancelFollowModal,
 
     getOtherInfoStatus: friend.getOtherInfoStatus,
     getOtherInfoData: friend.getOtherInfoData,
@@ -87,6 +93,8 @@ const MyPageContainer = ({ history, nickname }) => {
     nickname,
     alacardError,
     showProfileModal,
+    showDeleteFriendModal,
+    showCancelFollowModal,
   };
 
   /**
@@ -107,7 +115,7 @@ const MyPageContainer = ({ history, nickname }) => {
     if (nickname !== sessionNickname) {
       dispatch(getOtherInfo(nickname));
     }
-  }, []);
+  }, [nickname]);
 
   useEffect(() => {
     if (alacardError) {
@@ -120,10 +128,31 @@ const MyPageContainer = ({ history, nickname }) => {
     }
   }, [alacardError]);
 
+  // 친구 관계가 변할시 관계 다시 받아오기
+  useEffect(() => {
+    if (
+      sendFollowStatus === 200 ||
+      acceptFollowStatus === 200 ||
+      cancelFollowStatus === 200 ||
+      deleteFriendStatus === 204
+    ) {
+      dispatch(getRelation(nickname));
+    }
+  }, [sendFollowStatus, acceptFollowStatus, cancelFollowStatus, deleteFriendStatus]);
+
   const onClickSendFollow = useCallback((payload) => dispatch(sendFollow(payload)), [dispatch]);
   const onClickCancelFollow = useCallback((payload) => dispatch(cancelFollow(payload)), [dispatch]);
+  const onClickAcceptFollow = useCallback((payload) => dispatch(acceptFollow(payload)), [dispatch]);
+  const onClickDeleteFriend = useCallback((payload) => dispatch(deleteFriend(payload)), [dispatch]);
+  const onClickUpdateModalStatus = useCallback((payload) => dispatch(updateModalStatus(payload)), [dispatch]);
 
-  const apiCall = { onClickSendFollow, onClickCancelFollow };
+  const apiCall = {
+    onClickSendFollow,
+    onClickCancelFollow,
+    onClickAcceptFollow,
+    onClickDeleteFriend,
+    onClickUpdateModalStatus,
+  };
   return (
     <>
       {alacardLoading && (memberLoading || memberLoading === undefined) ? (

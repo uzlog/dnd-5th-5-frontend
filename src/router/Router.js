@@ -15,12 +15,12 @@ const Router = () => {
   return (
     <>
       <Route path="/" component={MainPage} exact />
-      <Route path="/:nickname/select" component={SelectPage} exact />
-      <SettingRoute path="/:nickname/settings" component={profileSettingsPage} exact />
-      <SettingRoute path="/:nickname/alacard/settings" component={CardSettingPage} exact />
+      <Route path="/:nickname" component={MyPage} exact />
       <Switch>
+        <Route path="/:nickname/select" component={SelectPage} exact />
         <Route path="/:nickname/alacard" component={AlaCardPage} exact />
-        <Route path="/:nickname" component={MyPage} exact />
+        <SettingRoute path="/:nickname/settings" component={profileSettingsPage} exact />
+        <SettingRoute path="/:nickname/alacard/settings" component={CardSettingPage} exact />
       </Switch>
     </>
   );

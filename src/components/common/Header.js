@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Link, withRouter } from 'react-router-dom';
 import useOwner from '@hooks/useOwner';
 import FriendModalContainer from '@containers/modal/FriendModalContainer';
+import FollowerModalContainer from '@containers/modal/FollowerModalContainer';
 import { ModalWrapper, ModalOverlay, ModalContents } from '@components/main/Style';
 import logo from '@assets/img/nav/logo.svg';
 import friend from '@assets/img/nav/friend.svg';
@@ -215,6 +216,7 @@ const Header = ({ history, state, onClickModalStatus, onClickOpenProfile }) => {
     tokenExisted,
     showFriendModal,
     showAlarmModal,
+    showFollowerModal,
     user,
     memberData: { nickname, statusMessage, imgUrl },
   } = state;
@@ -225,6 +227,11 @@ const Header = ({ history, state, onClickModalStatus, onClickOpenProfile }) => {
   const openFriendModal = () => {
     document.body.style = `overflow: hidden`;
     onClickModalStatus({ key: 'showFriendModal', value: true });
+  };
+
+  const openFollowerModal = () => {
+    document.body.style = 'overflow: hidden';
+    onClickModalStatus({ key: 'showFollowerModal', value: true });
   };
 
   const openProfileModal = () => {
@@ -250,7 +257,7 @@ const Header = ({ history, state, onClickModalStatus, onClickOpenProfile }) => {
             <ImgWrapper onClick={openFriendModal}>
               <img src={friend} alt="친구창" />
             </ImgWrapper>
-            <ImgWrapper>
+            <ImgWrapper onClick={openFollowerModal}>
               <img src={inactivatedNotice} alt="알림창" />
             </ImgWrapper>
             <ImgWrapper onClick={openProfileModal}>
@@ -260,6 +267,7 @@ const Header = ({ history, state, onClickModalStatus, onClickOpenProfile }) => {
         </InnerWrapper>
       </Wrapper>
       {showFriendModal && <FriendModalContainer />}
+      {showFollowerModal && <FollowerModalContainer />}
       {showProfile && (
         <ModalWrapper profile="profile">
           <ModalOverlay onClick={() => closeProfileModal()} />

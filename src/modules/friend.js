@@ -11,6 +11,8 @@ const [GET_OTHER_INFO, GET_OTHER_INFO_SUCCESS, GET_OTHER_INFO_FAILURE] =
   createRequestActionTypes('friend/GET_OTHER_INFO');
 const [GET_FRIEND_LIST, GET_FRIEND_LIST_SUCCESS, GET_FRIEND_LIST_FAILURE] =
   createRequestActionTypes('friend/GET_FRIEND_LIST');
+const [GET_FOLLOWER_LIST, GET_FOLLOWER_LIST_SUCCESS, GET_FOLLOWER_LIST_FAILURE] =
+  createRequestActionTypes('friend/GET_FOLLOWER_LIST');
 const [GET_RELATION, GET_RELATION_SUCCESS, GET_RELATION_FAILURE] = createRequestActionTypes('friend/GET_RELATION');
 const [SEND_FOLLOW, SEND_FOLLOW_SUCCESS, SEND_FOLLOW_FAILURE] = createRequestActionTypes('friend/SEND_FOLLOW');
 const [ACCEPT_FOLLOW, ACCEPT_FOLLOW_SUCCESS, ACCEPT_FOLLOW_FAILURE] = createRequestActionTypes('friend/ACCEPT_FOLLOW');
@@ -24,6 +26,7 @@ const [DELETE_FRIEND, DELETE_FRIEND_SUCCESS, DELETE_FRIEND_FAILURE] = createRequ
  */
 export const getOtherInfo = createAction(GET_OTHER_INFO, (nickname) => nickname);
 export const getFriendList = createAction(GET_FRIEND_LIST);
+export const getFollowerList = createAction(GET_FOLLOWER_LIST);
 export const getRelation = createAction(GET_RELATION, (nickname) => nickname);
 export const sendFollow = createAction(SEND_FOLLOW, (nickname) => nickname);
 export const acceptFollow = createAction(ACCEPT_FOLLOW, (nickname) => nickname);
@@ -36,6 +39,7 @@ export const deleteFriend = createAction(DELETE_FRIEND, (nickname) => nickname);
  */
 const getOtherInfoSaga = createRequestSaga(GET_OTHER_INFO, memberAPI.getOtherInfo);
 const getFriendListSaga = createRequestSaga(GET_FRIEND_LIST, friendAPI.getFriendList);
+const getFollowerListSaga = createRequestSaga(GET_FOLLOWER_LIST, friendAPI.getFollowerList);
 const getRelationSaga = createRequestSaga(GET_RELATION, friendAPI.getRelation);
 const sendFollowSaga = createRequestSaga(SEND_FOLLOW, friendAPI.sendFollow);
 const acceptFollowSaga = createRequestSaga(ACCEPT_FOLLOW, friendAPI.acceptFollow);
@@ -46,6 +50,7 @@ const deleteFriendSaga = createRequestSaga(DELETE_FRIEND, friendAPI.deleteFriend
 export function* friendSaga() {
   yield takeLatest(GET_OTHER_INFO, getOtherInfoSaga);
   yield takeLatest(GET_FRIEND_LIST, getFriendListSaga);
+  yield takeLatest(GET_FOLLOWER_LIST, getFollowerListSaga);
   yield takeLatest(GET_RELATION, getRelationSaga);
   yield takeLatest(SEND_FOLLOW, sendFollowSaga);
   yield takeLatest(ACCEPT_FOLLOW, acceptFollowSaga);
@@ -66,6 +71,10 @@ const initialStae = {
   getFriendListMessage: '',
   getFriendListData: [],
   getFriendListError: '',
+
+  getFollowerListStatus: 0,
+  getFollowerListData: [],
+  getFollowerListError: '',
 
   getRelationStatus: 0,
   getRelationData: {},
@@ -108,6 +117,15 @@ const friend = handleActions(
       ...state,
       getFriendListError: error,
     }),
+    [GET_FOLLOWER_LIST_SUCCESS]: (state, { payload: { status, data } }) => ({
+      ...state,
+      getFollowerListStatus: status,
+      getFollowerListData: data,
+    }),
+    [GET_FOLLOWER_LIST_FAILURE]: (state, { payload: error }) => ({
+      ...state,
+      getFollowerListError: error,
+    }),
     [GET_RELATION_SUCCESS]: (state, { payload: { status, data } }) => ({
       ...state,
       getRelationStatus: status,
@@ -117,7 +135,7 @@ const friend = handleActions(
       ...state,
       getRelationError: error,
     }),
-    [SEND_FOLLOW_SUCCESS]: (state, { payload: status }) => ({
+    [SEND_FOLLOW_SUCCESS]: (state, { payload: { status } }) => ({
       ...state,
       sendFollowStatus: status,
     }),
@@ -125,7 +143,7 @@ const friend = handleActions(
       ...state,
       sendFollowError: error,
     }),
-    [ACCEPT_FOLLOW_SUCCESS]: (state, { payload: status }) => ({
+    [ACCEPT_FOLLOW_SUCCESS]: (state, { payload: { status } }) => ({
       ...state,
       acceptFollowStatus: status,
     }),
@@ -133,7 +151,7 @@ const friend = handleActions(
       ...state,
       acceptFollowError: error,
     }),
-    [DECLINE_FOLLOW_SUCCESS]: (state, { payload: status }) => ({
+    [DECLINE_FOLLOW_SUCCESS]: (state, { payload: { status } }) => ({
       ...state,
       declineFollowStatus: status,
     }),
@@ -141,7 +159,7 @@ const friend = handleActions(
       ...state,
       declineFollowError: error,
     }),
-    [CANCEL_FOLLOW_SUCCESS]: (state, { payload: status }) => ({
+    [CANCEL_FOLLOW_SUCCESS]: (state, { payload: { status } }) => ({
       ...state,
       cancelFollowStatus: status,
     }),
@@ -149,9 +167,9 @@ const friend = handleActions(
       ...state,
       cancelFollowError: error,
     }),
-    [DELETE_FRIEND_SUCCESS]: (state, { payload: status }) => ({
+    [DELETE_FRIEND_SUCCESS]: (state) => ({
       ...state,
-      deleteFriendStatus: status,
+      deleteFriendStatus: 204,
     }),
     [DELETE_FRIEND_FAILURE]: (state, { payload: error }) => ({
       ...state,

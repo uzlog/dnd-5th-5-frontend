@@ -11,20 +11,29 @@ const HeaderContainer = ({ history }) => {
   const dispatch = useDispatch();
   const cookies = new Cookies();
   const token = cookies.get('token');
-  const { authToken, socialLoginStatus, tokenExisted, showFriendModal, showAlarmModal, memberData, memberDataLoading } =
-    useSelector(({ auth, modal, member, loading }) => ({
-      authToken: auth.token,
-      socialLoginStatus: auth.status,
-      tokenExisted: auth.tokenExisted,
+  const {
+    authToken,
+    socialLoginStatus,
+    tokenExisted,
+    showFriendModal,
+    showAlarmModal,
+    showFollowerModal,
+    memberData,
+    memberDataLoading,
+  } = useSelector(({ auth, modal, member, loading }) => ({
+    authToken: auth.token,
+    socialLoginStatus: auth.status,
+    tokenExisted: auth.tokenExisted,
 
-      showFriendModal: modal.showFriendModal,
-      showAlarmModal: modal.showAlarmModal,
+    showFriendModal: modal.showFriendModal,
+    showAlarmModal: modal.showAlarmModal,
+    showFollowerModal: modal.showFollowerModal,
 
-      memberData: member.data,
-      memberDataLoading: loading['member/GET_MY_INFO'],
-    }));
+    memberData: member.data,
+    memberDataLoading: loading['member/GET_MY_INFO'],
+  }));
   const user = token ? true : false;
-  const state = { tokenExisted, showFriendModal, showAlarmModal, memberData, user };
+  const state = { tokenExisted, showFriendModal, showAlarmModal, showFollowerModal, memberData, user };
   useWatchCookie();
 
   const onClickModalStatus = useCallback((payload) => dispatch(updateModalStatus(payload)), [dispatch]);

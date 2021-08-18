@@ -432,10 +432,10 @@ const AlaCardSettingComponent = ({ history, state, onClickUpdateCardInfo }) => {
           <CardLockWrapper>
             <LockWrapper>
               <StyledSpan>카드 공개 여부</StyledSpan>
-              <img src={toggle ? lockBtn : unlockBtn} alt="잠금 버튼" />
+              <img src={!toggle ? lockBtn : unlockBtn} alt="잠금 버튼" />
             </LockWrapper>
-            <ToggleButton onClick={onClickToggle} className={toggle ? 'left' : ''}>
-              <ToggleInner className={toggle ? 'left' : ''} />
+            <ToggleButton onClick={onClickToggle} className={!toggle ? 'left' : ''}>
+              <ToggleInner className={!toggle ? 'left' : ''} />
             </ToggleButton>
           </CardLockWrapper>
           <BgHeader>
