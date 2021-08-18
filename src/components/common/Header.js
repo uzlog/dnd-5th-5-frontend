@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Link, withRouter } from 'react-router-dom';
 import useOwner from '@hooks/useOwner';
 import FriendModalContainer from '@containers/modal/FriendModalContainer';
+import FollowerModalContainer from '@containers/modal/FollowerModalContainer';
 import { ModalWrapper, ModalOverlay, ModalContents } from '@components/main/Style';
 import logo from '@assets/img/nav/logo.svg';
 import friend from '@assets/img/nav/friend.svg';
@@ -13,14 +14,13 @@ import arrowBtn from '@assets/img/my-profile/arrowBtn.svg';
 import avatarM from '@assets/img/my-profile/avatarM.svg';
 import closeBtnWhite from '@assets/img/my-profile/closeBtnWhite.svg';
 import settingBtn from '@assets/img/my-profile/settingBtn.svg';
-import { useEffect } from 'react';
 
 const Wrapper = styled.div`
   background-color: #121212;
   max-width: 576px;
   width: 40vw;
   height: 9.4vh;
-  padding: 3.1vh 2.2vw 3.1vh 1.8vw;
+  padding: 3.1vh 2.2vw 3.1vh 1.6vw;
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
   &::-webkit-scrollbar {
@@ -35,9 +35,14 @@ const Wrapper = styled.div`
 `;
 
 const InnerWrapper = styled.div`
+  max-width: 500px;
+  width: 35vw;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  @media screen and (max-width: 1023px) {
+    width: 308px;
+  }
 `;
 
 const LogoWrapper = styled(Link)`
@@ -154,7 +159,6 @@ const ProfileInfoWrapper = styled.div`
   @media screen and (max-width: 1023px) {
     margin-left: 12px;
     font-size: 16px;
-
     img {
       margin-left: 9px;
     }
@@ -212,6 +216,7 @@ const Header = ({ history, state, onClickModalStatus, onClickOpenProfile }) => {
     tokenExisted,
     showFriendModal,
     showAlarmModal,
+    showFollowerModal,
     user,
     memberData: { nickname, statusMessage, imgUrl },
   } = state;
@@ -222,6 +227,11 @@ const Header = ({ history, state, onClickModalStatus, onClickOpenProfile }) => {
   const openFriendModal = () => {
     document.body.style = `overflow: hidden`;
     onClickModalStatus({ key: 'showFriendModal', value: true });
+  };
+
+  const openFollowerModal = () => {
+    document.body.style = 'overflow: hidden';
+    onClickModalStatus({ key: 'showFollowerModal', value: true });
   };
 
   const openProfileModal = () => {
@@ -247,7 +257,7 @@ const Header = ({ history, state, onClickModalStatus, onClickOpenProfile }) => {
             <ImgWrapper onClick={openFriendModal}>
               <img src={friend} alt="친구창" />
             </ImgWrapper>
-            <ImgWrapper>
+            <ImgWrapper onClick={openFollowerModal}>
               <img src={inactivatedNotice} alt="알림창" />
             </ImgWrapper>
             <ImgWrapper onClick={openProfileModal}>
@@ -257,6 +267,7 @@ const Header = ({ history, state, onClickModalStatus, onClickOpenProfile }) => {
         </InnerWrapper>
       </Wrapper>
       {showFriendModal && <FriendModalContainer />}
+      {showFollowerModal && <FollowerModalContainer />}
       {showProfile && (
         <ModalWrapper profile="profile">
           <ModalOverlay onClick={() => closeProfileModal()} />
@@ -280,14 +291,14 @@ const Header = ({ history, state, onClickModalStatus, onClickOpenProfile }) => {
                   <ProfileInfoWrapper>
                     <div>
                       <span>{nickname || localStorage.getItem('nickname')}</span>
-                      <StyledLink to={isOwned ? `/${nickname}/settings` : ''}>
+                      <StyledLink to={`/${nickname}/settings`}>
                         <ProfileImg src={settingBtn} alt="프로필 수정" />
                       </StyledLink>
                     </div>
                     <span>{statusMessage}</span>
                   </ProfileInfoWrapper>
                 </ProfileWrapper>
-                <StyledLink to={isOwned ? `/${nickname}/alacard` : ''}>
+                <StyledLink to={`/${nickname}/alacard`}>
                   <StyledButton>
                     알라카드 관리
                     <ProfileImg src={arrowBtn} alt="카드 관리" />

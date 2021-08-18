@@ -408,6 +408,7 @@ const AlaCardSettingComponent = ({ history, state, onClickUpdateCardInfo }) => {
         originCardSentence,
         originCardBg: background ? background : '',
         isOpen: toggle,
+        isCompleted,
       };
       sessionStorage.setItem('originCardInfo', JSON.stringify(newCardInfo));
     }
@@ -431,10 +432,10 @@ const AlaCardSettingComponent = ({ history, state, onClickUpdateCardInfo }) => {
           <CardLockWrapper>
             <LockWrapper>
               <StyledSpan>카드 공개 여부</StyledSpan>
-              <img src={toggle ? lockBtn : unlockBtn} alt="잠금 버튼" />
+              <img src={!toggle ? lockBtn : unlockBtn} alt="잠금 버튼" />
             </LockWrapper>
-            <ToggleButton onClick={onClickToggle} className={toggle ? 'left' : ''}>
-              <ToggleInner className={toggle ? 'left' : ''} />
+            <ToggleButton onClick={onClickToggle} className={!toggle ? 'left' : ''}>
+              <ToggleInner className={!toggle ? 'left' : ''} />
             </ToggleButton>
           </CardLockWrapper>
           <BgHeader>
@@ -459,7 +460,7 @@ const AlaCardSettingComponent = ({ history, state, onClickUpdateCardInfo }) => {
             {bgSolid &&
               alaCardBgSolid.map((card, idx) => {
                 return (
-                  <ImgWrapper onClick={onClickBackground}>
+                  <ImgWrapper isCompleted={isCompleted ? true : ''} onClick={onClickBackground}>
                     {idx === 0 && isCompleted === false ? (
                       <img src={bgSelected} alt="기본 배경" />
                     ) : (
@@ -479,7 +480,7 @@ const AlaCardSettingComponent = ({ history, state, onClickUpdateCardInfo }) => {
             {bgPhoto &&
               alaCardBgPhoto.map((card, idx) => {
                 return (
-                  <ImgWrapper onClick={onClickBackground}>
+                  <ImgWrapper isCompleted={isCompleted ? true : ''} onClick={onClickBackground}>
                     <img src={card} alt="배경" />
                   </ImgWrapper>
                 );

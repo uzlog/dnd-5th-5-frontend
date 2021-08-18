@@ -38,15 +38,15 @@ export const ModalContents = styled.div`
   padding: 0 auto;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
   background-color: white;
-  max-width: 529px;
-  max-height: 864px;
-  width: 36.7vw;
-  height: 84.3vh;
+  max-width: 525px;
+  max-height: ${(props) => (props.delete ? '448px' : '864px')};
+  width: 36.4vw;
+  height: ${(props) => (props.delete ? '43.7vh' : '84.3vh')};
   overflow-y: auto;
   @media screen and (max-width: 1023px) {
     left: 0px;
     width: 328px;
-    height: 540px;
+    height: ${(props) => (props.delete ? '280px' : '540px')};
   }
   @media screen and (max-width: 1023px) and (max-height: 660px) {
     top: calc(9.4vh - 8.3vh);

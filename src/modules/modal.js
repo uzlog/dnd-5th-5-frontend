@@ -21,7 +21,10 @@ export const openProfileModal = createAction(OPEN_PROFILE_MODAL);
 const initialStae = {
   showFriendModal: false,
   showAlarmModal: false,
+  showFollowerModal: false,
   showProfileModal: false,
+  showDeleteFriendModal: false,
+  showCancelFollowModal: false,
 };
 
 const modal = handleActions(
