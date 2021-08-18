@@ -450,7 +450,7 @@ const MyPageComponent = ({ history, state, apiCall }) => {
   const acceptFollow = () => {
     onClickAcceptFollow(nickname);
   };
-
+  console.log(isOpen, isOwner);
   return (
     <>
       <Wrapper>
@@ -488,135 +488,201 @@ const MyPageComponent = ({ history, state, apiCall }) => {
             </ImgWrapper>
           </FriendWrapper>
         )}
-        {isOpen ? (
-          // 공개 계정이면서 접속자가 주인인 경우
-          isOwner ? (
-            <Slider ref={slider} {...settings}>
-              {alacardData.map((card, idx) => {
-                const { backgroundImgUrl, fontColor } = card.alaCardSettingDto;
-                let cardStyle;
-                let fontStyle;
-                // 카드가 완성된 경우
-                if (card.isCompleted) {
-                  if (!card.sentence.includes('strong')) {
-                    card.selectedWordList.forEach((word) => {
-                      card.sentence = card.sentence.replaceAll(word.wordName, '<strong>' + word.wordName + '</strong>');
-                    });
-                  }
-                  cardStyle = {
-                    backgroundImage: 'url(' + backgroundImgUrl + ')',
-                    backgroundSize: 'cover',
-                    width: viewSize > '1023' ? '40vw' : '36rem',
-                    maxWidth: viewSize > '1023' ? '576px' : '360px',
-                  };
-                  fontStyle = {
-                    color: fontColor,
-                  };
-                } else {
-                  card.sentence = card.sentence.replaceAll(
-                    '???',
-                    '<span><img src="' + secretWord + '" alt="비밀 단어" /></span>',
-                  );
-                  cardStyle = {
-                    backgroundColor: '#121212',
-                    width: viewSize > '1023' ? '40vw' : '36rem',
-                    maxWidth: viewSize > '1023' ? '576px' : '360px',
-                  };
-                  fontStyle = {
-                    color: '#b9ff46',
-                  };
+        {isOwner ? (
+          <Slider ref={slider} {...settings}>
+            {alacardData.map((card, idx) => {
+              const { backgroundImgUrl, fontColor } = card.alaCardSettingDto;
+              let cardStyle;
+              let fontStyle;
+              // 카드가 완성된 경우
+              if (card.isCompleted) {
+                if (!card.sentence.includes('strong')) {
+                  card.selectedWordList.forEach((word) => {
+                    card.sentence = card.sentence.replaceAll(word.wordName, '<strong>' + word.wordName + '</strong>');
+                  });
                 }
-
-                card.sentence = card.sentence.replaceAll(', ', ',<br />');
-                if (!card.sentence.includes('!')) {
-                  card.sentence += '!';
-                }
-                return (
-                  <>
-                    <div key={idx} style={cardStyle}>
-                      <MoreButtonWrapper>
-                        <MoreButton onClick={openModal}>
-                          <img src={maximizeBtn} idx={idx} sentence={card.sentence} alt="확대 버튼" />
-                        </MoreButton>
-                      </MoreButtonWrapper>
-                      <ContentFlexWrapper>
-                        <ContentsWrapper>
-                          <InnerContents style={fontStyle} dangerouslySetInnerHTML={{ __html: card.sentence }} />
-                        </ContentsWrapper>
-                      </ContentFlexWrapper>
-                      <ButtonWrapper>
-                        <StyledButton onClick={onClickShare} value={idx}>
-                          키워드 PICK 요청하기
-                          <img src={linkBtn} alt="링크 버튼" />
-                        </StyledButton>
-                      </ButtonWrapper>
-                    </div>
-                  </>
+                cardStyle = {
+                  backgroundImage: 'url(' + backgroundImgUrl + ')',
+                  backgroundSize: 'cover',
+                  width: viewSize > '1023' ? '40vw' : '36rem',
+                  maxWidth: viewSize > '1023' ? '576px' : '360px',
+                };
+                fontStyle = {
+                  color: fontColor,
+                };
+              } else {
+                card.sentence = card.sentence.replaceAll(
+                  '???',
+                  '<span><img src="' + secretWord + '" alt="비밀 단어" /></span>',
                 );
-              })}
-            </Slider>
-          ) : (
-            // 공개 계정이면서 접속자가 주인이 아닌 경우
-            <Slider ref={slider} {...settings}>
-              {alacardData.map((card, idx) => {
-                const { backgroundImgUrl, fontColor } = card.alaCardSettingDto;
-                let cardStyle;
-                let fontStyle;
-                // 카드가 완성된 경우
-                if (card.isCompleted) {
-                  if (!card.sentence.includes('strong')) {
-                    card.selectedWordList.forEach((word) => {
-                      card.sentence = card.sentence.replaceAll(word.wordName, '<strong>' + word.wordName + '</strong>');
-                    });
-                  }
-                  cardStyle = {
-                    backgroundImage: 'url(' + backgroundImgUrl + ')',
-                    backgroundSize: 'cover',
-                    width: viewSize > '1023' ? '40vw' : '36rem',
-                    maxWidth: viewSize > '1023' ? '576px' : '360px',
-                  };
-                  fontStyle = {
-                    color: fontColor,
-                  };
-                } else {
-                  card.sentence = card.sentence.replaceAll(
-                    '???',
-                    '<span><img src="' + secretWord + '" alt="비밀 단어" /></span>',
-                  );
-                  cardStyle = {
-                    backgroundColor: '#121212',
-                    width: viewSize > '1023' ? '40vw' : '36rem',
-                    maxWidth: viewSize > '1023' ? '576px' : '360px',
-                  };
-                  fontStyle = {
-                    color: '#b9ff46',
-                  };
-                }
+                cardStyle = {
+                  backgroundColor: '#121212',
+                  width: viewSize > '1023' ? '40vw' : '36rem',
+                  maxWidth: viewSize > '1023' ? '576px' : '360px',
+                };
+                fontStyle = {
+                  color: '#b9ff46',
+                };
+              }
 
-                card.sentence = card.sentence.replaceAll(', ', ',<br />');
-                if (!card.sentence.includes('!')) {
-                  card.sentence += '!';
+              card.sentence = card.sentence.replaceAll(', ', ',<br />');
+              if (!card.sentence.includes('!')) {
+                card.sentence += '!';
+              }
+              return (
+                <>
+                  <div key={idx} style={cardStyle}>
+                    <MoreButtonWrapper>
+                      <MoreButton onClick={openModal}>
+                        <img src={maximizeBtn} idx={idx} sentence={card.sentence} alt="확대 버튼" />
+                      </MoreButton>
+                    </MoreButtonWrapper>
+                    <ContentFlexWrapper>
+                      <ContentsWrapper>
+                        <InnerContents style={fontStyle} dangerouslySetInnerHTML={{ __html: card.sentence }} />
+                      </ContentsWrapper>
+                    </ContentFlexWrapper>
+                    <ButtonWrapper>
+                      <StyledButton onClick={onClickShare} value={idx}>
+                        키워드 PICK 요청하기
+                        <img src={linkBtn} alt="링크 버튼" />
+                      </StyledButton>
+                    </ButtonWrapper>
+                  </div>
+                </>
+              );
+            })}
+          </Slider>
+        ) : getOtherInfoData.isOpen ? (
+          <Slider ref={slider} {...settings}>
+            {alacardData.map((card, idx) => {
+              const { backgroundImgUrl, fontColor } = card.alaCardSettingDto;
+              let cardStyle;
+              let fontStyle;
+              // 카드가 완성된 경우
+              if (card.isCompleted) {
+                if (!card.sentence.includes('strong')) {
+                  card.selectedWordList.forEach((word) => {
+                    card.sentence = card.sentence.replaceAll(word.wordName, '<strong>' + word.wordName + '</strong>');
+                  });
                 }
-                return (
-                  <>
-                    <div key={idx} style={cardStyle}>
-                      <ContentFlexWrapper>
-                        <ContentsWrapper>
-                          <InnerContents style={fontStyle} dangerouslySetInnerHTML={{ __html: card.sentence }} />
-                        </ContentsWrapper>
-                      </ContentFlexWrapper>
-                      <ButtonWrapper>
-                        <StyledLink to={`/${nickname}/select`}>
-                          키워드 PICK 하러가기
-                          <img src={arrowBtn} alt="이동 버튼" />
-                        </StyledLink>
-                      </ButtonWrapper>
-                    </div>
-                  </>
+                cardStyle = {
+                  backgroundImage: 'url(' + backgroundImgUrl + ')',
+                  backgroundSize: 'cover',
+                  width: viewSize > '1023' ? '40vw' : '36rem',
+                  maxWidth: viewSize > '1023' ? '576px' : '360px',
+                };
+                fontStyle = {
+                  color: fontColor,
+                };
+              } else {
+                card.sentence = card.sentence.replaceAll(
+                  '???',
+                  '<span><img src="' + secretWord + '" alt="비밀 단어" /></span>',
                 );
-              })}
-            </Slider>
-          )
+                cardStyle = {
+                  backgroundColor: '#121212',
+                  width: viewSize > '1023' ? '40vw' : '36rem',
+                  maxWidth: viewSize > '1023' ? '576px' : '360px',
+                };
+                fontStyle = {
+                  color: '#b9ff46',
+                };
+              }
+
+              card.sentence = card.sentence.replaceAll(', ', ',<br />');
+              if (!card.sentence.includes('!')) {
+                card.sentence += '!';
+              }
+              return (
+                <>
+                  <div key={idx} style={cardStyle}>
+                    <MoreButtonWrapper>
+                      <MoreButton onClick={openModal}>
+                        <img src={maximizeBtn} idx={idx} sentence={card.sentence} alt="확대 버튼" />
+                      </MoreButton>
+                    </MoreButtonWrapper>
+                    <ContentFlexWrapper>
+                      <ContentsWrapper>
+                        <InnerContents style={fontStyle} dangerouslySetInnerHTML={{ __html: card.sentence }} />
+                      </ContentsWrapper>
+                    </ContentFlexWrapper>
+                    <ButtonWrapper>
+                      <StyledButton onClick={onClickShare} value={idx}>
+                        키워드 PICK 요청하기
+                        <img src={linkBtn} alt="링크 버튼" />
+                      </StyledButton>
+                    </ButtonWrapper>
+                  </div>
+                </>
+              );
+            })}
+          </Slider>
+        ) : getRelationData === '친구' ? (
+          <Slider ref={slider} {...settings}>
+            {alacardData.map((card, idx) => {
+              const { backgroundImgUrl, fontColor } = card.alaCardSettingDto;
+              let cardStyle;
+              let fontStyle;
+              // 카드가 완성된 경우
+              if (card.isCompleted) {
+                if (!card.sentence.includes('strong')) {
+                  card.selectedWordList.forEach((word) => {
+                    card.sentence = card.sentence.replaceAll(word.wordName, '<strong>' + word.wordName + '</strong>');
+                  });
+                }
+                cardStyle = {
+                  backgroundImage: 'url(' + backgroundImgUrl + ')',
+                  backgroundSize: 'cover',
+                  width: viewSize > '1023' ? '40vw' : '36rem',
+                  maxWidth: viewSize > '1023' ? '576px' : '360px',
+                };
+                fontStyle = {
+                  color: fontColor,
+                };
+              } else {
+                card.sentence = card.sentence.replaceAll(
+                  '???',
+                  '<span><img src="' + secretWord + '" alt="비밀 단어" /></span>',
+                );
+                cardStyle = {
+                  backgroundColor: '#121212',
+                  width: viewSize > '1023' ? '40vw' : '36rem',
+                  maxWidth: viewSize > '1023' ? '576px' : '360px',
+                };
+                fontStyle = {
+                  color: '#b9ff46',
+                };
+              }
+
+              card.sentence = card.sentence.replaceAll(', ', ',<br />');
+              if (!card.sentence.includes('!')) {
+                card.sentence += '!';
+              }
+              return (
+                <>
+                  <div key={idx} style={cardStyle}>
+                    <MoreButtonWrapper>
+                      <MoreButton onClick={openModal}>
+                        <img src={maximizeBtn} idx={idx} sentence={card.sentence} alt="확대 버튼" />
+                      </MoreButton>
+                    </MoreButtonWrapper>
+                    <ContentFlexWrapper>
+                      <ContentsWrapper>
+                        <InnerContents style={fontStyle} dangerouslySetInnerHTML={{ __html: card.sentence }} />
+                      </ContentsWrapper>
+                    </ContentFlexWrapper>
+                    <ButtonWrapper>
+                      <StyledButton onClick={onClickShare} value={idx}>
+                        키워드 PICK 요청하기
+                        <img src={linkBtn} alt="링크 버튼" />
+                      </StyledButton>
+                    </ButtonWrapper>
+                  </div>
+                </>
+              );
+            })}
+          </Slider>
         ) : (
           <Slider ref={slider} {...closeSettings}>
             <Secret>
