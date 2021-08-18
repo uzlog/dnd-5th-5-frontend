@@ -9429,7 +9429,7 @@ react-is@^17.0.1:
 
 "react-login-by-naver@https://github.com/11t518s/react-naver-login":
   version "0.1.8"
-  resolved "https://github.com/11t518s/react-naver-login#45d6116c6a8238fd09d6ec8ab1c7e94c76c4bb83"
+  resolved "https://github.com/11t518s/react-naver-login#79ba52cac3e5148199bebc87f615655f494193a7"
 
 react-redux@^7.2.4:
   version "7.2.4"
