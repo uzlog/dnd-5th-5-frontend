@@ -6,14 +6,10 @@ import useOwner from '@hooks/useOwner';
 
 const SettingRoute = ({ history, component: Component, ...rest }) => {
   const cookies = new Cookies();
-  const { nickname } = useSelector(({ member }) => ({
-    nickname: member.nickname,
-  }));
   const token = cookies.get('token');
+  const sessionNickname = sessionStorage.getItem('nickname');
   const urlNickname = history.location.pathname.split('/')[1];
-  // const userInfo = { nickname, urlNickname };
-  // const isOwned = useOwner(userInfo);
-  const isOwned = nickname === urlNickname;
+  const isOwned = sessionNickname === urlNickname;
 
   return (
     <Route
