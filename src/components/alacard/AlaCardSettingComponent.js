@@ -337,6 +337,7 @@ const AlaCardSettingComponent = ({ history, state, onClickUpdateCardInfo }) => {
   const { alaCardBgSolid, alaCardBgGrad, alaCardBgPhoto, updateCardInfoMessage } = state;
 
   const [toggle, setToggle] = useState(isOpen);
+  const [isChanged, setIsChanged] = useState(false);
   const [showHelp, setShowHelp] = useState(false);
   const [bgSolid, setBgSolid] = useState(true);
   const [bgGrad, setBgGrad] = useState(false);
@@ -383,6 +384,7 @@ const AlaCardSettingComponent = ({ history, state, onClickUpdateCardInfo }) => {
   };
 
   const onClickBackground = (e) => {
+    setIsChanged(true);
     if (isCompleted) {
       setBackground(e.target.src);
     }
@@ -390,6 +392,7 @@ const AlaCardSettingComponent = ({ history, state, onClickUpdateCardInfo }) => {
 
   const submitCardInfo = (e) => {
     e.preventDefault();
+    setIsChanged(false);
     let cardInfo = {
       alaCardId: originCardId,
       isOpen: toggle,
@@ -490,7 +493,12 @@ const AlaCardSettingComponent = ({ history, state, onClickUpdateCardInfo }) => {
             <StyledButton close="close" onClick={() => history.goBack()}>
               취소
             </StyledButton>
-            <StyledButton onClick={submitCardInfo}>저장할래😋</StyledButton>
+
+            <StyledButton
+              style={isChanged ? null : { background: '#2a2a2a', border: '0', cursor: 'not-allowed' }}
+              onClick={submitCardInfo}>
+              저장할래😋
+            </StyledButton>
           </ButtonWrapper>
         </SettingWrapper>
       </Wrapper>
