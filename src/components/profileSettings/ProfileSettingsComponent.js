@@ -82,7 +82,7 @@ const ProfileSettingsComponent = ({ history }) => {
     const imageFile = e.target.files[0];
     // option 설정 찾기 browser-image-compression 여기서 컴프레싱한거임
     const options = {
-      maxSizeMB: 2,
+      maxSizeMB: 1,
       maxWidthOrWidth: 200,
       useWebWorker: true,
     };
