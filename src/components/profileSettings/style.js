@@ -11,10 +11,15 @@ export const MainWrapper = styled.div`
   @media screen and (min-width: 1023px) {
     display: flex;
     max-width: 576px;
-    height: 100%;
-    background-color: #121212;
     width: 40vw;
+    height: 100vh;
+    background-color: #121212;
     flex-direction: column;
+    overflow: scroll;
+    -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  &::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
   }
 `;
 
@@ -28,13 +33,12 @@ export const ProfileImg = styled.input`
   padding-left: 130px;
   padding-top: 130px;
   @media screen and (min-width: 1023px) {
-    max-width: 192px;
-    max-height: 192px;
-    min-width: 15vh;
-    min-height: 15vh;
-    padding-left: 15vh;
-    padding-top: 15vh;
-    border-radius: 60px;
+    width: 192px;
+    min-height: 192px;
+    padding-left: 192px;
+    padding-top: 192px;
+    border-radius: 96px;
+    margin-top: 45px;
   }
 `;
 
@@ -95,11 +99,11 @@ export const EachTitle = styled.div`
   justify-content: space-between;
   align-items: center;
   @media screen and (min-width: 1023px) {
-    height: 3.5vh;
-    margin-top: 3vh;
-    width: 36vw;
+    height: 46px;
+    margin-top: 45px;
     max-width: 500px;
-    font-size: min(2.3rem, 2.3vh);
+    width: 35vw;
+    font-size: 29px;
     margin-bottom: 6px;
   }
 `;
@@ -108,7 +112,7 @@ export const EmailWrapper = styled.div`
   color: rgba(255, 255, 255, 0.5);
   font-size: 16px;
   @media screen and (min-width: 1023px) {
-    font-size: min(2.5rem, 2.5vh);
+    font-size: 25px;
   }
 `;
 
@@ -143,9 +147,9 @@ export const InputBox = styled.input`
   color: white;
   padding: 14px 27px;
   @media screen and (min-width: 1023px) {
-    width: 36vw;
     max-width: 500px;
-    font-size: min(2.6rem, 2.5vh);
+    width: 36vw;
+    font-size: 25px;
     padding: 2vh 35px;
   }
 `;
@@ -164,6 +168,9 @@ export const AlertMessage = styled.div`
   justify-content: center;
   font-size: 12px;
   @media screen and (min-width: 1023px) {
+    max-width: 500px;
+    width: 36vw;
+    font-size: 19px;
   }
 `;
 export const DeleteButton = styled.div`
@@ -174,9 +181,10 @@ export const DeleteButton = styled.div`
   text-decoration: underline;
   opacity: 0.5;
   @media screen and (min-width: 1023px) {
-    margin-top: 20px;
+    margin-top: 38px;
+    margin-bottom: 120px;
 
-    font-size: min(2.6rem, 3vh);
+    font-size: 22px;
   }
 `;
 
@@ -191,9 +199,9 @@ export const LogoutButton = styled.button`
   border: solid 1px white;
   @media screen and (min-width: 1023px) {
     border: solid 1.6px;
-    font-size: min(2.6rem, 3vh);
-    width: 220px;
-    height: 8.5vh;
+    font-size: 26px;
+    width: 237px;
+    height: 76px;
   }
 `;
 export const SubmitButton = styled.button`
@@ -210,9 +218,9 @@ export const SubmitButton = styled.button`
   border: solid 1px;
   @media screen and (min-width: 1023px) {
     border: solid 1.6px;
-    font-size: min(2.6rem, 3vh);
-    width: 220px;
-    height: 8.5vh;
+    font-size: 26px;
+    width: 237px;
+    height: 76px;
   }
 `;
 export const ButtonWrapper = styled.span`
