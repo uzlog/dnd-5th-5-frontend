@@ -9427,14 +9427,9 @@ react-is@^17.0.1:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-17.0.1.tgz#5b3531bd76a645a4c9fb6e693ed36419e3301339"
   integrity sha512-NAnt2iGDXohE5LI7uBnLnqvLQMtzhkiAOLXTmv+qnF9Ky7xAPcX8Up/xWIhxvLVGJvuLiNc4xQLtuqDRzb4fSA==
 
-react-login-by-naver@^0.1.8:
-  version "0.1.8"
-  resolved "https://registry.yarnpkg.com/react-login-by-naver/-/react-login-by-naver-0.1.8.tgz#f7b47affb08d7b58f33519206a019c5728ebb3ff"
-  integrity sha512-+6klp2mKVIy69ms6KIyAVt8h3tA7De0fzyHhKtev6I+um3ey5nFhsB4qSJJX7nOwgJZKqpBnmdnvuw8QHGoSNA==
-
 "react-login-by-naver@https://github.com/11t518s/react-naver-login":
   version "0.1.8"
-  resolved "https://github.com/11t518s/react-naver-login#46c3976fd29cbf514a3967918c9851a30e1d294e"
+  resolved "https://github.com/11t518s/react-naver-login#45d6116c6a8238fd09d6ec8ab1c7e94c76c4bb83"
 
 react-redux@^7.2.4:
   version "7.2.4"
