@@ -7,6 +7,7 @@ import lockBtn from '@assets/img/alacard-setting/lockBtn.svg';
 import unlockBtn from '@assets/img/alacard-setting/unlockBtn.svg';
 import helpBtn from '@assets/img/alacard-setting/helpBtn.svg';
 import bgSelected from '@assets/img/alacard-setting/bgSelected.svg';
+import { useTitle } from '@hooks/useMeta';
 
 const fadeIn = keyframes`
         from {
@@ -416,6 +417,7 @@ const AlaCardSettingComponent = ({ history, state, onClickUpdateCardInfo }) => {
       sessionStorage.setItem('originCardInfo', JSON.stringify(newCardInfo));
     }
   };
+  useTitle(sessionStorage.getItem('nickname'));
 
   return (
     <>

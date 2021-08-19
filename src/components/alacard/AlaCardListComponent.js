@@ -5,6 +5,7 @@ import useResponsive from '../../hooks/useResponsive';
 import HeaderContainer from '@containers/common/HeaderContainer';
 import secretWord from '@assets/img/alacard/secretWord.svg';
 import lockBtn from '@assets/img/alacard-list/lockBtn.svg';
+import { useTitle } from '@hooks/useMeta';
 
 const Wrapper = styled.div`
   max-width: 57.6rem;
@@ -108,6 +109,7 @@ const LockButton = styled.img`
 const AlaCardListComponent = ({ state, onClickUploadCardInfo }) => {
   const { alacardData, nickname } = state;
   const viewSize = useResponsive();
+  useTitle(sessionStorage.getItem('nickname'));
 
   return (
     <>

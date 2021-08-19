@@ -17,6 +17,7 @@ import avatar from '@assets/img/friend/avatar.svg';
 import friendCheckBtn from '@assets/img/friend/friendCheckBtn.svg';
 import friendPlusBtn from '@assets/img/friend/friendPlusBtn.svg';
 import friendWaitingBtn from '@assets/img/friend/friendWaitingBtn.svg';
+import { useTitle } from '@hooks/useMeta';
 
 const fadeIn = keyframes`
   from {
@@ -466,6 +467,8 @@ const MyPageComponent = ({ history, state, apiCall }) => {
   const acceptFollow = () => {
     onClickAcceptFollow(nickname);
   };
+
+  useTitle(nickname);
 
   return (
     <>
