@@ -346,7 +346,7 @@ const AlaCardSettingComponent = ({ history, state, apiCall }) => {
   const [newCardInfo, setNewCardInfo] = useState(null);
   const cardStyle = {
     backgroundImage: originCardBg ? 'url(' + originCardBg + ')' : 'url(' + sessionCardInfo.originCardBg + ')',
-    backgroundSize: originCardBg ? 'cover' : '',
+    backgroundSize: originCardBg || sessionCardInfo.originCardBg ? 'cover' : '',
     backgroundColor: originCardBg || sessionCardInfo.originCardBg ? '' : '#171717',
     maxWidth: viewSize > '1023' ? '57.6rem' : '36rem',
     width: viewSize > '1023' ? '40vw' : '36rem',
