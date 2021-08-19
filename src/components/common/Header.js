@@ -223,7 +223,7 @@ const StyledLink = styled(Link)`
   align-items: center;
 `;
 
-const Header = ({ history, state, onClickModalStatus, onClickOpenProfile }) => {
+const Header = ({ history, state, apiCall }) => {
   const [showProfile, setShowProfile] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
   const {
@@ -235,6 +235,7 @@ const Header = ({ history, state, onClickModalStatus, onClickOpenProfile }) => {
     user,
     memberData: { nickname, statusMessage, imgUrl },
   } = state;
+  const { onClickModalStatus, onClickOpenProfile } = apiCall;
   const urlNickname = history.location.pathname.split('/')[1];
   const userInfo = { nickname, urlNickname };
   const isOwned = useOwner(userInfo);

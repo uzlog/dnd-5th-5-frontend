@@ -43,6 +43,8 @@ const HeaderContainer = ({ history }) => {
   const onClickModalStatus = useCallback((payload) => dispatch(updateModalStatus(payload)), [dispatch]);
   const onClickOpenProfile = useCallback((payload) => dispatch(openProfileModal(payload)), [dispatch]);
 
+  const apiCall = { onClickModalStatus, onClickOpenProfile };
+
   useEffect(() => {
     console.log(sessionStorage.getItem('nickname'));
     if (!tokenExisted && sessionStorage.getItem('nickname') !== null) {
@@ -68,28 +70,9 @@ const HeaderContainer = ({ history }) => {
     }
   }, [token, memberData]);
 
-  /**
-   * 비로그인으로 사용중에 로그인을 하면 스토리지에 닉네임 저장이 안 된다.
-   * 그래서 토큰이 있고 스토리지가 비어있는 상태이기 때문에, 이때 스토리지에 넣어준다.
-   */
-  useEffect(() => {
-    if (token && sessionStorage.getItem('nickname') === null) {
-      if (memberNickname.length > 0) {
-        sessionStorage.setItem('nickname', memberNickname);
-        localStorage.setItem('nickname', memberNickname);
-      }
-    }
-  });
-
   return (
     <>
-      {memberDataLoading === undefined ? ( // 데이터 불러오기 안하는 경우
-        <Header state={state} onClickModalStatus={onClickModalStatus} onClickOpenProfile={onClickOpenProfile} />
-      ) : memberDataLoading ? (
-        <Header state={state} onClickModalStatus={onClickModalStatus} onClickOpenProfile={onClickOpenProfile} />
-      ) : (
-        <div>loading...</div>
-      )}
+      <Header state={state} apiCall={apiCall} />
     </>
   );
 };
