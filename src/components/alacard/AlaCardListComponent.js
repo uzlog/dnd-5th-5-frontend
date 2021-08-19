@@ -9,7 +9,7 @@ import lockBtn from '@assets/img/alacard-list/lockBtn.svg';
 const Wrapper = styled.div`
   max-width: 57.6rem;
   width: 40vw;
-  height: 100vh;
+  height: 92vh;
   overflow-y: auto;
   background-color: #121212;
   display: flex;
@@ -110,9 +110,9 @@ const AlaCardListComponent = ({ state, onClickUploadCardInfo }) => {
   const viewSize = useResponsive();
 
   return (
-    <>
+    <div style={{ display: 'flex', flexDirection: 'column' }}>
+      <HeaderContainer />
       <Wrapper>
-        <HeaderContainer />
         <TitleWrapper>
           <Title>알라 카드</Title>
         </TitleWrapper>
@@ -189,7 +189,7 @@ const AlaCardListComponent = ({ state, onClickUploadCardInfo }) => {
           );
         })}
       </Wrapper>
-    </>
+    </div>
   );
 };
 

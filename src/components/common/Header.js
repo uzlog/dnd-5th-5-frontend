@@ -18,24 +18,27 @@ import settingBtn from '@assets/img/my-profile/settingBtn.svg';
 
 const Wrapper = styled.div`
   background-color: #121212;
+  background: red;
   max-width: 576px;
   width: 40vw;
   height: 9.4vh;
-  padding: 3.1vh 2.2vw 3.1vh 1.6vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
   &::-webkit-scrollbar {
     display: none; /* Chrome, Safari, Opera*/
   }
   @media screen and (max-width: 1023px) {
+    margin: 0 auto;
     width: 360px;
-    min-height: 60px;
-    height: 9.3vh;
-    padding: 2.8vh 20px 3vh 20px;
+    height: 60px;
   }
 `;
 
 const InnerWrapper = styled.div`
+  background: blue;
   max-width: 500px;
   width: 35vw;
   display: flex;
@@ -62,12 +65,10 @@ const LogoWrapper = styled(Link)`
   }
   @media screen and (max-width: 1023px) {
     width: 37px;
-    min-height: 24px;
-    height: 2.3vh;
+    height: 24px;
     img {
       width: 37px;
-      min-height: 24px;
-      height: 2.3vh;
+      height: 24px;
     }
   }
 `;
@@ -78,8 +79,8 @@ const IconWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  max-width: 220px;
-  width: 15.2vw;
+  max-width: 180px;
+  width: 12.5vw;
   div:not(:last-child) {
     margin-right: min(32px, 2.2vw);
   }
@@ -107,9 +108,9 @@ const ImgWrapper = styled.div`
   }
   @media screen and (max-width: 1023px) {
     width: 24px;
-    min-height: 24px;
     img {
       width: ${(props) => (props.close ? '14px' : '24px')};
+      height: ${(props) => (props.close ? '14px' : '24px')};
     }
   }
 `;
