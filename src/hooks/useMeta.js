@@ -9,11 +9,10 @@ export const useTitle = (initialTitle) => {
   useEffect(updateTitle, [title]);
   return setTitle;
 };
-export const useMeta = ({ initialTitle }) => {
-  const [metaTegs, setMetaTegs] = useState(initialTitle);
+export const useMetaTegs = (TitleofMetaTegs) => {
+  const [metaTegs, setMetaTegs] = useState(TitleofMetaTegs);
   const updateMetaTags = () => {
-    document.querySelector('meta[property="og:title"]').setAttribute('content', metaTegs.title);
-    document.querySelector('meta[property="og:description"]').setAttribute('content', metaTegs.description);
+    document.querySelector('meta[property="og:description"]').setAttribute('content', TitleofMetaTegs);
     document.querySelector('meta[property="og:url"]').setAttribute('content', window.location.href);
   };
 
