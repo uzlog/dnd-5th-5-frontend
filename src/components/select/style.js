@@ -40,7 +40,6 @@ export const KeywordIntro = styled.div`
   font-size: 18px;
   @media screen and (min-width: 1023px) {
     padding-left: 1.8vw;
-
     font-size: min(2.9rem, 3.5vh);
     margin-left: 1.2vw;
   }
@@ -65,8 +64,8 @@ export const SelectedCountFoucs = styled.b`
 export const SelectViewWrapper = styled.div`
   overflow: scroll;
   white-space: nowrap;
-  margin-top: 7vh;
-  margin-bottom: 11.7vh;
+  margin-top: 6vh;
+  margin-bottom: 10.7vh;
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
   &::-webkit-scrollbar {
@@ -209,8 +208,8 @@ export const HeaderLogoWrapper = styled.div`
   align-items: center;
   max-width: 74px;
   width: 6.1vw;
-  height: 3.7vh;
-  min-height: 30px;
+  height: 4vh;
+  min-height: 35px;
   img {
     max-width: 74px;
     width: 6.1vw;
@@ -238,19 +237,18 @@ export const HeaderIconWrapper = styled.div`
   justify-content: center;
   max-width: ${(props) => (props.close ? '23px' : '39px')};
   min-height: 38.4px;
-  width: ${(props) => (props.close ? '1.6vw' : '2.7vw')};
-  height: ${(props) => (props.close ? '1.6vw' : '2.7vw')};
+  width: 2vw;
+  height: 2vw;
   img {
-    width: ${(props) => (props.close ? '1.6vw' : '2.7vw')};
-    height: ${(props) => (props.close ? '1.6vw' : '2.7vw')};
+    width: 2vw;
+    height: 2vw;
   }
   @media screen and (max-width: 1023px) {
-    width: 24px;
-    height: 24px;
-
+    width: 20px;
+    height: 20px;
     img {
-      width: ${(props) => (props.close ? '14px' : '22px')};
-      height: ${(props) => (props.close ? '14px' : '22px')};
+      width: 20px;
+      height: 20px;
     }
   }
 `;
