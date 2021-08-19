@@ -304,11 +304,14 @@ const StyledButton = styled.button`
 `;
 const CheckedBg = styled.img`
   position: relative;
-
   bottom: 105%;
+  left: 20%;
+
+  max-width: 60% !important;
 
   @media screen and (max-width: 1023px) {
-    bottom: 100%;
+    bottom: 105%;
+    left: 23%;
   }
 `;
 
