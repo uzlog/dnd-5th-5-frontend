@@ -18,7 +18,6 @@ import settingBtn from '@assets/img/my-profile/settingBtn.svg';
 
 const Wrapper = styled.div`
   background-color: #121212;
-  background-color: red;
   max-width: 576px;
   width: 40vw;
   height: 9.4vh;
