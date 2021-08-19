@@ -153,15 +153,7 @@ const MyPageContainer = ({ history, nickname }) => {
     onClickDeleteFriend,
     onClickUpdateModalStatus,
   };
-  return (
-    <>
-      {alacardLoading && (memberLoading || memberLoading === undefined) ? (
-        <MyPageComponent state={state} apiCall={apiCall} />
-      ) : (
-        <div>loading...</div>
-      )}
-    </>
-  );
+  return <>{alacardLoading ? <MyPageComponent state={state} apiCall={apiCall} /> : <div>loading...</div>}</>;
 };
 
 export default withRouter(MyPageContainer);

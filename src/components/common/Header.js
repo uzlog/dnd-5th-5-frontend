@@ -4,6 +4,7 @@ import { Link, withRouter } from 'react-router-dom';
 import useOwner from '@hooks/useOwner';
 import FriendModalContainer from '@containers/modal/FriendModalContainer';
 import FollowerModalContainer from '@containers/modal/FollowerModalContainer';
+import SocialLoginContainer from '@containers/auth/SocialLoginContainer';
 import { ModalWrapper, ModalOverlay, ModalContents } from '@components/main/Style';
 import logo from '@assets/img/nav/logo.svg';
 import friend from '@assets/img/nav/friend.svg';
@@ -20,17 +21,18 @@ const Wrapper = styled.div`
   max-width: 576px;
   width: 40vw;
   height: 9.4vh;
-  padding: 3.1vh 2.2vw 3.1vh 1.6vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
   &::-webkit-scrollbar {
     display: none; /* Chrome, Safari, Opera*/
   }
   @media screen and (max-width: 1023px) {
+    margin: 0 auto;
     width: 360px;
-    min-height: 60px;
-    height: 9.3vh;
-    padding: 2.8vh 20px 3vh 20px;
+    height: 60px;
   }
 `;
 
@@ -61,12 +63,10 @@ const LogoWrapper = styled(Link)`
   }
   @media screen and (max-width: 1023px) {
     width: 37px;
-    min-height: 24px;
-    height: 2.3vh;
+    height: 19px;
     img {
       width: 37px;
-      min-height: 24px;
-      height: 2.3vh;
+      height: 19px;
     }
   }
 `;
@@ -76,13 +76,14 @@ const IconWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  max-width: 220px;
-  width: 15.2vw;
+  max-width: 180px;
+  width: 12.5vw;
   div:not(:last-child) {
     margin-right: min(32px, 2.2vw);
   }
   @media screen and (max-width: 1023px) {
     width: 112px;
+    height: 24px;
     div:not(:last-child) {
       margin-right: 20px;
     }
@@ -95,8 +96,8 @@ const ImgWrapper = styled.div`
   align-items: center;
   justify-content: center;
   max-width: ${(props) => (props.close ? '23px' : '39px')};
-  min-height: 38.4px;
   width: ${(props) => (props.close ? '1.6vw' : '2.7vw')};
+  min-height: 38.4px;
   height: ${(props) => (props.close ? '2.2vh' : '3.8vh')};
   img {
     width: ${(props) => (props.close ? '1.6vw' : '2.7vw')};
@@ -105,10 +106,22 @@ const ImgWrapper = styled.div`
   }
   @media screen and (max-width: 1023px) {
     width: 24px;
-    min-height: 24px;
+    height: 24px;
     img {
       width: ${(props) => (props.close ? '14px' : '24px')};
+      height: ${(props) => (props.close ? '14px' : '24px')};
     }
+  }
+`;
+
+const LoginButtonWrapper = styled.div`
+  color: white;
+  cursor: pointer;
+  font-size: min(calc((1.5vw + 2.2vh) / 2), 22.4px);
+  line-height: 1.6;
+  @media screen and (max-width: 1023px) {
+    width: 39px;
+    font-size: 14px;
   }
 `;
 
@@ -119,7 +132,7 @@ const ProfileWrapper = styled.div`
   padding-left: 2.3vw;
   @media screen and (max-width: 1023px) {
     padding-left: 24px;
-    min-height: 62px;
+    height: 62px;
   }
   span {
     color: white;
@@ -128,6 +141,7 @@ const ProfileWrapper = styled.div`
 
 const ProfileImg = styled.img`
   max-width: ${(props) => (props.avatar ? '77px' : '24px')};
+  max-height: ${(props) => (props.avatar ? '77px' : '24px')};
   width: ${(props) => (props.avatar ? '5.3vw' : '1.6vw')};
   height: ${(props) => (props.avatar ? '7.6vh' : '2.3vh')};
   @media screen and (max-width: 1023px) {
@@ -147,22 +161,25 @@ const ProfileInfoWrapper = styled.div`
   div {
     display: flex;
     align-items: center;
-    font-size: min(1.7vw, 2.5vh, 2.56rem);
+    font-size: min(calc((1.7vw + 2.5vh) / 2), 2.56rem);
     font-weight: bold;
     line-height: 1.6;
     letter-spacing: -0.5px;
   }
   span:last-child {
     margin-top: 0.8vh;
-    font-size: min(1.3vw, 1.8vh, 1.92rem);
+    font-size: min(calc((1.3vw + 1.8vh) / 2), 1.92rem);
   }
   @media screen and (max-width: 1023px) {
     margin-left: 12px;
-    font-size: 16px;
+    div {
+      font-size: 16px;
+    }
     img {
       margin-left: 9px;
     }
     span:last-child {
+      margin-top: 5px;
       font-size: 12px;
     }
   }
@@ -173,11 +190,12 @@ const StyledButton = styled.button`
   background-color: #2a2a2a;
   border-radius: 48px;
   max-width: 175px;
+  max-height: 56.6px;
   width: 12.2vw;
   height: 5.5vh;
   margin-left: min(8.7vw, 135px);
   margin-top: 2.4vh;
-  font-size: min(1.3vw, 1.8vh, 1.9rem);
+  font-size: min(calc((1.3vw + 1.8vh) / 2), 1.9rem);
   letter-spacing: -0.8px;
   padding: 1vh 0.8vw 1vh 1.7w;
   outline: none;
@@ -189,17 +207,16 @@ const StyledButton = styled.button`
   @media screen and (max-width: 1023px) {
     width: 10.9rem;
     height: 3.5rem;
-    min-height: 35px;
     border-radius: 30px;
     line-height: 1.6;
     letter-spacing: -0.5px;
-    font-size: min(1.8vh, 1.3vw, 1.2rem);
+    font-size: 1.2rem;
     padding: 8px 8px 8px 16px;
     margin-left: 8.4rem;
     margin-top: 16px;
     img {
       width: 18px;
-      min-height: 18px;
+      height: 18px;
     }
   }
 `;
@@ -210,16 +227,19 @@ const StyledLink = styled(Link)`
   align-items: center;
 `;
 
-const Header = ({ history, state, onClickModalStatus, onClickOpenProfile }) => {
+const Header = ({ history, state, apiCall }) => {
   const [showProfile, setShowProfile] = useState(false);
+  const [showLogin, setShowLogin] = useState(false);
   const {
     tokenExisted,
+    showLoginModal,
     showFriendModal,
     showAlarmModal,
     showFollowerModal,
     user,
     memberData: { nickname, statusMessage, imgUrl },
   } = state;
+  const { onClickModalStatus, onClickOpenProfile } = apiCall;
   const urlNickname = history.location.pathname.split('/')[1];
   const userInfo = { nickname, urlNickname };
   const isOwned = useOwner(userInfo);
@@ -246,6 +266,16 @@ const Header = ({ history, state, onClickModalStatus, onClickOpenProfile }) => {
     setShowProfile(false);
   };
 
+  const oepnLoginModal = () => {
+    document.body.style = `overflow: hidden`;
+    setShowLogin(true);
+  };
+
+  const closeLoginModal = () => {
+    document.body.style = `overflow: visible`;
+    setShowLogin(false);
+  };
+
   return (
     <>
       <Wrapper>
@@ -253,41 +283,66 @@ const Header = ({ history, state, onClickModalStatus, onClickOpenProfile }) => {
           <LogoWrapper to={user ? `/${nickname || sessionStorage.getItem('nickname')}` : `/`}>
             <img src={logo} alt="로고" />
           </LogoWrapper>
-          <IconWrapper>
-            <ImgWrapper onClick={openFriendModal}>
-              <img src={friend} alt="친구창" />
-            </ImgWrapper>
-            <ImgWrapper onClick={openFollowerModal}>
-              <img src={inactivatedNotice} alt="알림창" />
-            </ImgWrapper>
-            <ImgWrapper onClick={openProfileModal}>
-              <img src={imgUrl ? imgUrl : avatar} alt="프로필 사진" />
-            </ImgWrapper>
-          </IconWrapper>
+          {/* <IconWrapper> */}
+          {user ? (
+            <IconWrapper>
+              <ImgWrapper onClick={openFriendModal}>
+                <img src={friend} alt="친구창" />
+              </ImgWrapper>
+              <ImgWrapper onClick={openFollowerModal}>
+                <img src={inactivatedNotice} alt="알림창" />
+              </ImgWrapper>
+              <ImgWrapper onClick={openProfileModal}>
+                <img src={imgUrl ? imgUrl : avatar} style={{ borderRadius: '50%' }} alt="프로필 사진" />
+              </ImgWrapper>
+            </IconWrapper>
+          ) : (
+            <>
+              <ImgWrapper />
+              <ImgWrapper />
+              <LoginButtonWrapper onClick={oepnLoginModal}>로그인</LoginButtonWrapper>
+            </>
+          )}
+          {/* </IconWrapper> */}
         </InnerWrapper>
       </Wrapper>
       {showFriendModal && <FriendModalContainer />}
       {showFollowerModal && <FollowerModalContainer />}
+      {showLogin && (
+        <ModalWrapper>
+          <ModalOverlay onClick={() => closeLoginModal()} />
+          <ModalContents>
+            <SocialLoginContainer closeModal={closeLoginModal} />
+          </ModalContents>
+        </ModalWrapper>
+      )}
       {showProfile && (
         <ModalWrapper profile="profile">
           <ModalOverlay onClick={() => closeProfileModal()} />
           <ModalContents profile="profile">
             <Wrapper>
-              <LogoWrapper to={user ? `/${nickname}` : `/`}>
-                <img src={logo} alt="로고" />
-              </LogoWrapper>
-              <IconWrapper>
-                <div />
-                <div />
-                <ImgWrapper style={{ color: 'white' }} close="close" onClick={closeProfileModal}>
-                  <img src={closeBtnWhite} alt="닫기" />
-                </ImgWrapper>
-              </IconWrapper>
+              <InnerWrapper>
+                <LogoWrapper to={user ? `/${nickname}` : `/`}>
+                  <img src={logo} alt="로고" />
+                </LogoWrapper>
+                <IconWrapper>
+                  <div />
+                  <div />
+                  <ImgWrapper style={{ color: 'white' }} close="close" onClick={closeProfileModal}>
+                    <img src={closeBtnWhite} alt="닫기" />
+                  </ImgWrapper>
+                </IconWrapper>
+              </InnerWrapper>
             </Wrapper>
             {user ? (
               <>
                 <ProfileWrapper>
-                  <ProfileImg src={avatarM} avatar="avatar" alt="프로필 사진" />
+                  <ProfileImg
+                    src={imgUrl ? imgUrl : avatarM}
+                    avatar="avatar"
+                    style={{ borderRadius: '50%' }}
+                    alt="프로필 사진"
+                  />
                   <ProfileInfoWrapper>
                     <div>
                       <span>{nickname || localStorage.getItem('nickname')}</span>
