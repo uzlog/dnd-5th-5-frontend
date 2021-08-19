@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import useResponsive from '../../hooks/useResponsive';
 import { withRouter } from 'react-router';
 import styled, { keyframes } from 'styled-components';
@@ -7,6 +7,7 @@ import lockBtn from '@assets/img/alacard-setting/lockBtn.svg';
 import unlockBtn from '@assets/img/alacard-setting/unlockBtn.svg';
 import helpBtn from '@assets/img/alacard-setting/helpBtn.svg';
 import bgSelected from '@assets/img/alacard-setting/bgSelected.svg';
+import { uploadCardInfo } from '@modules/cardSetting';
 
 const fadeIn = keyframes`
         from {
@@ -329,24 +330,24 @@ const HelpMessage = styled.div`
   }
 `;
 
-const AlaCardSettingComponent = ({ history, state, onClickUpdateCardInfo }) => {
+const AlaCardSettingComponent = ({ history, state, apiCall }) => {
   const viewSize = useResponsive();
-  const { originCardId, originCardFont, originCardSentence, originCardBg, isOpen, isCompleted } = JSON.parse(
-    sessionStorage.getItem('originCardInfo'),
-  );
-  const { alaCardBgSolid, alaCardBgGrad, alaCardBgPhoto, updateCardInfoMessage } = state;
-
-  const [toggle, setToggle] = useState(isOpen);
+  const { alaCardBgSolid, alaCardBgGrad, alaCardBgPhoto, updateCardInfoMessage, originCardInfo } = state;
+  const { originCardId, originCardFont, originCardSentence, originCardBg, isOpen, isCompleted } = originCardInfo;
+  const sessionCardInfo = JSON.parse(sessionStorage.getItem('originCardInfo'));
+  const { onClickUpdateCardInfo, onClickUploadCardInfo } = apiCall;
+  const [toggle, setToggle] = useState(isOpen || sessionCardInfo.isOpen);
   const [isChanged, setIsChanged] = useState(false);
   const [showHelp, setShowHelp] = useState(false);
   const [bgSolid, setBgSolid] = useState(true);
   const [bgGrad, setBgGrad] = useState(false);
   const [bgPhoto, setBgPhoto] = useState(false);
   const [background, setBackground] = useState(originCardBg);
+  const [newCardInfo, setNewCardInfo] = useState(null);
   const cardStyle = {
-    backgroundImage: originCardBg ? 'url(' + originCardBg + ')' : '',
+    backgroundImage: originCardBg ? 'url(' + originCardBg + ')' : 'url(' + sessionCardInfo.originCardBg + ')',
     backgroundSize: originCardBg ? 'cover' : '',
-    backgroundColor: originCardBg ? '' : '#171717',
+    backgroundColor: originCardBg || sessionCardInfo.originCardBg ? '' : '#171717',
     maxWidth: viewSize > '1023' ? '57.6rem' : '36rem',
     width: viewSize > '1023' ? '40vw' : '36rem',
   };
@@ -384,9 +385,20 @@ const AlaCardSettingComponent = ({ history, state, onClickUpdateCardInfo }) => {
   };
 
   const onClickBackground = (e) => {
-    setIsChanged(true);
-    if (isCompleted) {
+    // e.target
+    if (isCompleted || sessionCardInfo.isCompleted) {
+      setIsChanged(true);
+      const newCardInfo = {
+        originCardId: originCardId || sessionCardInfo.originCardId,
+        originCardFont: e.target.getAttribute('font'),
+        originCardSentence: originCardSentence || sessionCardInfo.originCardSentence,
+        originCardBg: e.target.getAttribute('bg'),
+        isOpen: toggle,
+        isCompleted: isCompleted || sessionCardInfo.isCompleted,
+      };
       setBackground(e.target.src);
+      setNewCardInfo(newCardInfo);
+      onClickUploadCardInfo(newCardInfo);
     }
   };
 
@@ -397,25 +409,21 @@ const AlaCardSettingComponent = ({ history, state, onClickUpdateCardInfo }) => {
       alaCardId: originCardId,
       isOpen: toggle,
     };
-    if (isCompleted && background) {
+    if (isCompleted && newCardInfo) {
       cardInfo = {
         ...cardInfo,
         backgroundImgUrl: background,
+        fontColor: newCardInfo.originCardFont,
       };
     }
     onClickUpdateCardInfo(cardInfo);
+  };
+
+  useEffect(() => {
     if (updateCardInfoMessage === 'success') {
-      const newCardInfo = {
-        originCardId,
-        originCardFont,
-        originCardSentence,
-        originCardBg: background ? background : '',
-        isOpen: toggle,
-        isCompleted,
-      };
       sessionStorage.setItem('originCardInfo', JSON.stringify(newCardInfo));
     }
-  };
+  }, [updateCardInfoMessage]);
 
   return (
     <>
@@ -427,7 +435,10 @@ const AlaCardSettingComponent = ({ history, state, onClickUpdateCardInfo }) => {
         <div style={cardStyle}>
           <ContentsWrapper>
             <ContentsInnerWrapper>
-              <InnerContents style={originCardFont} dangerouslySetInnerHTML={{ __html: originCardSentence }} />
+              <InnerContents
+                style={{ color: originCardFont || sessionCardInfo.originCardFont }}
+                dangerouslySetInnerHTML={{ __html: originCardSentence || sessionCardInfo.originCardSentence }}
+              />
             </ContentsInnerWrapper>
           </ContentsWrapper>
         </div>
@@ -463,11 +474,13 @@ const AlaCardSettingComponent = ({ history, state, onClickUpdateCardInfo }) => {
             {bgSolid &&
               alaCardBgSolid.map((card, idx) => {
                 return (
-                  <ImgWrapper isCompleted={isCompleted ? true : ''} onClick={onClickBackground}>
+                  <ImgWrapper
+                    isCompleted={isCompleted || sessionCardInfo.isCompleted ? true : ''}
+                    onClick={onClickBackground}>
                     {idx === 0 && isCompleted === false ? (
-                      <img src={bgSelected} alt="기본 배경" />
+                      <img src={bgSelected} className="checked" alt="기본 배경" />
                     ) : (
-                      <img src={card} alt="배경" />
+                      <img src={card.thumbnailImgUrl} bg={card.backgroundImgUrl} font={card.fontColor} alt="배경" />
                     )}
                   </ImgWrapper>
                 );
@@ -475,16 +488,20 @@ const AlaCardSettingComponent = ({ history, state, onClickUpdateCardInfo }) => {
             {bgGrad &&
               alaCardBgGrad.map((card, idx) => {
                 return (
-                  <ImgWrapper isCompleted={isCompleted ? true : ''} onClick={onClickBackground}>
-                    <img src={card} alt="배경" />
+                  <ImgWrapper
+                    isCompleted={isCompleted || sessionCardInfo.isCompleted ? true : ''}
+                    onClick={onClickBackground}>
+                    <img src={card.thumbnailImgUrl} bg={card.backgroundImgUrl} font={card.fontColor} alt="배경" />
                   </ImgWrapper>
                 );
               })}
             {bgPhoto &&
               alaCardBgPhoto.map((card, idx) => {
                 return (
-                  <ImgWrapper isCompleted={isCompleted ? true : ''} onClick={onClickBackground}>
-                    <img src={card} alt="배경" />
+                  <ImgWrapper
+                    isCompleted={isCompleted || sessionCardInfo.isCompleted ? true : ''}
+                    onClick={onClickBackground}>
+                    <img src={card.thumbnailImgUrl} bg={card.backgroundImgUrl} font={card.fontColor} alt="배경" />
                   </ImgWrapper>
                 );
               })}

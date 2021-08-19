@@ -37,9 +37,7 @@ export function* cardSettingSaga() {
  */
 const initialState = {
   // 기존 카드 정보
-  originCardFont: '',
-  originCardImg: '',
-  originCardSentence: '',
+  originCardInfo: {},
 
   // 배경 정보
   alaCardBgStatus: 0,
@@ -55,11 +53,9 @@ const initialState = {
 
 const cardSetting = handleActions(
   {
-    [UPLOAD_CARD_INFO]: (state, { payload: { originCardFont, originCardImg, originCardSentence } }) => ({
+    [UPLOAD_CARD_INFO]: (state, { payload: originCardInfo }) => ({
       ...state,
-      originCardFont,
-      originCardImg,
-      originCardSentence,
+      originCardInfo,
     }),
     [GET_ALA_CARD_BG_SUCCESS]: (
       state,
