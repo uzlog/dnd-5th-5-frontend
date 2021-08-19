@@ -1,6 +1,6 @@
 import React, { useEffect, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getAlaCardBg, updateCardInfo } from '@modules/cardSetting';
+import { getAlaCardBg, updateCardInfo, uploadCardInfo } from '@modules/cardSetting';
 import AlaCardSettingComponent from '@components/alacard/AlaCardSettingComponent';
 
 const AlaCardSettingContainer = () => {
@@ -14,6 +14,7 @@ const AlaCardSettingContainer = () => {
     alaCardBgLoading,
     updateCardInfoMessage,
     updateCardInfoError,
+    originCardInfo,
   } = useSelector(({ cardSetting, loading }) => ({
     alaCardBgStatus: cardSetting.alaCardBgStatus,
     alaCardBgSolid: cardSetting.alaCardBgSolid,
@@ -24,24 +25,21 @@ const AlaCardSettingContainer = () => {
 
     updateCardInfoMessage: cardSetting.updateCardInfoMessage,
     updateCardInfoError: cardSetting.updateCardInfoError,
+
+    originCardInfo: cardSetting.originCardInfo,
   }));
-  const state = { alaCardBgPhoto, alaCardBgSolid, alaCardBgGrad, updateCardInfoMessage };
+  const state = { alaCardBgPhoto, alaCardBgSolid, alaCardBgGrad, updateCardInfoMessage, originCardInfo };
 
   useEffect(() => {
     dispatch(getAlaCardBg());
   }, []);
 
   const onClickUpdateCardInfo = useCallback((payload) => dispatch(updateCardInfo(payload)), [dispatch]);
+  const onClickUploadCardInfo = useCallback((payload) => dispatch(uploadCardInfo(payload)), [dispatch]);
 
-  return (
-    <>
-      {alaCardBgLoading ? (
-        <AlaCardSettingComponent state={state} onClickUpdateCardInfo={onClickUpdateCardInfo} />
-      ) : (
-        <div>loading...</div>
-      )}
-    </>
-  );
+  const apiCall = { onClickUpdateCardInfo, onClickUploadCardInfo };
+
+  return <>{alaCardBgLoading ? <AlaCardSettingComponent state={state} apiCall={apiCall} /> : <div>loading...</div>}</>;
 };
 
 export default AlaCardSettingContainer;

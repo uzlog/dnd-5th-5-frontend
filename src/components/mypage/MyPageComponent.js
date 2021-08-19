@@ -114,18 +114,20 @@ const FriendButton = styled.img`
 `;
 
 const MoreButtonWrapper = styled.div`
+  margin: 0 auto;
+  max-width: 500px;
+  width: 35vw;
   height: 10vh;
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  padding-right: 1.9vw;
   img {
     width: 38.4px;
     height: 38.4px;
   }
   @media screen and (max-width: 1023px) {
-    min-height: 6.4rem;
-    padding-right: 2.4rem;
+    width: 308px;
+    height: 6.4rem;
     img {
       width: 2.4rem;
       height: 2.4rem;
