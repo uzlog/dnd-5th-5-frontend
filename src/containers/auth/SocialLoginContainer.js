@@ -63,6 +63,7 @@ const SocialLoginContainer = ({ history, closeModal }) => {
   // message == login
   useEffect(() => {
     if (memberData && authMessage === 'login') {
+      console.log('login');
       sessionStorage.setItem('nickname', memberData.nickname);
       localStorage.setItem('nickname', memberData.nickname);
       history.push(`/${memberData.nickname}`);

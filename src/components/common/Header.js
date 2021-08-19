@@ -4,6 +4,7 @@ import { Link, withRouter } from 'react-router-dom';
 import useOwner from '@hooks/useOwner';
 import FriendModalContainer from '@containers/modal/FriendModalContainer';
 import FollowerModalContainer from '@containers/modal/FollowerModalContainer';
+import SocialLoginContainer from '@containers/auth/SocialLoginContainer';
 import { ModalWrapper, ModalOverlay, ModalContents } from '@components/main/Style';
 import logo from '@assets/img/nav/logo.svg';
 import friend from '@assets/img/nav/friend.svg';
@@ -72,6 +73,7 @@ const LogoWrapper = styled(Link)`
 `;
 
 const IconWrapper = styled.div`
+  background-color: yellow;
   float: right;
   display: flex;
   align-items: center;
@@ -95,8 +97,8 @@ const ImgWrapper = styled.div`
   align-items: center;
   justify-content: center;
   max-width: ${(props) => (props.close ? '23px' : '39px')};
-  min-height: 38.4px;
   width: ${(props) => (props.close ? '1.6vw' : '2.7vw')};
+  min-height: 38.4px;
   height: ${(props) => (props.close ? '2.2vh' : '3.8vh')};
   img {
     width: ${(props) => (props.close ? '1.6vw' : '2.7vw')};
@@ -109,6 +111,17 @@ const ImgWrapper = styled.div`
     img {
       width: ${(props) => (props.close ? '14px' : '24px')};
     }
+  }
+`;
+
+const LoginButtonWrapper = styled.div`
+  color: white;
+  cursor: pointer;
+  font-size: min(calc((1.5vw + 2.2vh) / 2), 22.4px);
+  line-height: 1.6;
+  @media screen and (max-width: 1023px) {
+    width: 39px;
+    font-size: 14px;
   }
 `;
 
@@ -212,8 +225,10 @@ const StyledLink = styled(Link)`
 
 const Header = ({ history, state, onClickModalStatus, onClickOpenProfile }) => {
   const [showProfile, setShowProfile] = useState(false);
+  const [showLogin, setShowLogin] = useState(false);
   const {
     tokenExisted,
+    showLoginModal,
     showFriendModal,
     showAlarmModal,
     showFollowerModal,
@@ -246,6 +261,16 @@ const Header = ({ history, state, onClickModalStatus, onClickOpenProfile }) => {
     setShowProfile(false);
   };
 
+  const oepnLoginModal = () => {
+    document.body.style = `overflow: hidden`;
+    setShowLogin(true);
+  };
+
+  const closeLoginModal = () => {
+    document.body.style = `overflow: visible`;
+    setShowLogin(false);
+  };
+
   return (
     <>
       <Wrapper>
@@ -253,21 +278,39 @@ const Header = ({ history, state, onClickModalStatus, onClickOpenProfile }) => {
           <LogoWrapper to={user ? `/${nickname || sessionStorage.getItem('nickname')}` : `/`}>
             <img src={logo} alt="로고" />
           </LogoWrapper>
-          <IconWrapper>
-            <ImgWrapper onClick={openFriendModal}>
-              <img src={friend} alt="친구창" />
-            </ImgWrapper>
-            <ImgWrapper onClick={openFollowerModal}>
-              <img src={inactivatedNotice} alt="알림창" />
-            </ImgWrapper>
-            <ImgWrapper onClick={openProfileModal}>
-              <img src={imgUrl ? imgUrl : avatar} alt="프로필 사진" />
-            </ImgWrapper>
-          </IconWrapper>
+          {/* <IconWrapper> */}
+          {user ? (
+            <IconWrapper>
+              <ImgWrapper onClick={openFriendModal}>
+                <img src={friend} alt="친구창" />
+              </ImgWrapper>
+              <ImgWrapper onClick={openFollowerModal}>
+                <img src={inactivatedNotice} alt="알림창" />
+              </ImgWrapper>
+              <ImgWrapper onClick={openProfileModal}>
+                <img src={imgUrl ? imgUrl : avatar} alt="프로필 사진" />
+              </ImgWrapper>
+            </IconWrapper>
+          ) : (
+            <>
+              <ImgWrapper />
+              <ImgWrapper />
+              <LoginButtonWrapper onClick={oepnLoginModal}>로그인</LoginButtonWrapper>
+            </>
+          )}
+          {/* </IconWrapper> */}
         </InnerWrapper>
       </Wrapper>
       {showFriendModal && <FriendModalContainer />}
       {showFollowerModal && <FollowerModalContainer />}
+      {showLogin && (
+        <ModalWrapper>
+          <ModalOverlay onClick={() => closeLoginModal()} />
+          <ModalContents>
+            <SocialLoginContainer closeModal={closeLoginModal} />
+          </ModalContents>
+        </ModalWrapper>
+      )}
       {showProfile && (
         <ModalWrapper profile="profile">
           <ModalOverlay onClick={() => closeProfileModal()} />
