@@ -157,7 +157,6 @@ const ProfileSettingsComponent = ({ history }) => {
             backgroundSize: 'cover',
           }}
         />
-
         <ContentWrapper>
           <EmailWrapper>
             <EachTitle>계정</EachTitle>
@@ -203,8 +202,8 @@ const ProfileSettingsComponent = ({ history }) => {
                 src={myInfo.isOpen ? unlock : lock}
               />
             </IsOpen>
-            <ToggleButton onClick={isOpenClick} className={myInfo.isOpen ? 'left' : ''}>
-              <ToggleInner className={myInfo.isOpen ? 'left' : ''} />
+            <ToggleButton onClick={isOpenClick} className={myInfo.isOpen ? '' : 'left'}>
+              <ToggleInner className={myInfo.isOpen ? '' : 'left'} />
             </ToggleButton>
           </EachTitle>
           <DeleteButton

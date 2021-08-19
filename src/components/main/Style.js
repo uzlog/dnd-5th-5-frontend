@@ -40,8 +40,7 @@ export const ModalContents = styled.div`
   @media screen and (max-width: 1023px) {
     width: 360px;
     left: 0px;
-    max-height: ${(props) => (props.profile ? '192px' : '')};
-    height: ${(props) => (props.profile ? '30vh' : '613px')};
+    height: ${(props) => (props.profile ? '192px' : '613px')};
     transition: ${(props) => (props.profile ? '5s ease' : '')};
   }
 `;

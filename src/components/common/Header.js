@@ -18,7 +18,7 @@ import settingBtn from '@assets/img/my-profile/settingBtn.svg';
 
 const Wrapper = styled.div`
   background-color: #121212;
-  background: red;
+  background-color: red;
   max-width: 576px;
   width: 40vw;
   height: 9.4vh;
@@ -38,7 +38,6 @@ const Wrapper = styled.div`
 `;
 
 const InnerWrapper = styled.div`
-  background: blue;
   max-width: 500px;
   width: 35vw;
   display: flex;
@@ -65,16 +64,15 @@ const LogoWrapper = styled(Link)`
   }
   @media screen and (max-width: 1023px) {
     width: 37px;
-    height: 24px;
+    height: 19px;
     img {
       width: 37px;
-      height: 24px;
+      height: 19px;
     }
   }
 `;
 
 const IconWrapper = styled.div`
-  background-color: yellow;
   float: right;
   display: flex;
   align-items: center;
@@ -86,6 +84,7 @@ const IconWrapper = styled.div`
   }
   @media screen and (max-width: 1023px) {
     width: 112px;
+    height: 24px;
     div:not(:last-child) {
       margin-right: 20px;
     }
@@ -108,6 +107,7 @@ const ImgWrapper = styled.div`
   }
   @media screen and (max-width: 1023px) {
     width: 24px;
+    height: 24px;
     img {
       width: ${(props) => (props.close ? '14px' : '24px')};
       height: ${(props) => (props.close ? '14px' : '24px')};
@@ -133,7 +133,7 @@ const ProfileWrapper = styled.div`
   padding-left: 2.3vw;
   @media screen and (max-width: 1023px) {
     padding-left: 24px;
-    min-height: 62px;
+    height: 62px;
   }
   span {
     color: white;
@@ -142,6 +142,7 @@ const ProfileWrapper = styled.div`
 
 const ProfileImg = styled.img`
   max-width: ${(props) => (props.avatar ? '77px' : '24px')};
+  max-height: ${(props) => (props.avatar ? '77px' : '24px')};
   width: ${(props) => (props.avatar ? '5.3vw' : '1.6vw')};
   height: ${(props) => (props.avatar ? '7.6vh' : '2.3vh')};
   @media screen and (max-width: 1023px) {
@@ -161,22 +162,25 @@ const ProfileInfoWrapper = styled.div`
   div {
     display: flex;
     align-items: center;
-    font-size: min(1.7vw, 2.5vh, 2.56rem);
+    font-size: min(calc((1.7vw + 2.5vh) / 2), 2.56rem);
     font-weight: bold;
     line-height: 1.6;
     letter-spacing: -0.5px;
   }
   span:last-child {
     margin-top: 0.8vh;
-    font-size: min(1.3vw, 1.8vh, 1.92rem);
+    font-size: min(calc((1.3vw + 1.8vh) / 2), 1.92rem);
   }
   @media screen and (max-width: 1023px) {
     margin-left: 12px;
-    font-size: 16px;
+    div {
+      font-size: 16px;
+    }
     img {
       margin-left: 9px;
     }
     span:last-child {
+      margin-top: 5px;
       font-size: 12px;
     }
   }
@@ -187,11 +191,12 @@ const StyledButton = styled.button`
   background-color: #2a2a2a;
   border-radius: 48px;
   max-width: 175px;
+  max-height: 56.6px;
   width: 12.2vw;
   height: 5.5vh;
   margin-left: min(8.7vw, 135px);
   margin-top: 2.4vh;
-  font-size: min(1.3vw, 1.8vh, 1.9rem);
+  font-size: min(calc((1.3vw + 1.8vh) / 2), 1.9rem);
   letter-spacing: -0.8px;
   padding: 1vh 0.8vw 1vh 1.7w;
   outline: none;
@@ -203,17 +208,16 @@ const StyledButton = styled.button`
   @media screen and (max-width: 1023px) {
     width: 10.9rem;
     height: 3.5rem;
-    min-height: 35px;
     border-radius: 30px;
     line-height: 1.6;
     letter-spacing: -0.5px;
-    font-size: min(1.8vh, 1.3vw, 1.2rem);
+    font-size: 1.2rem;
     padding: 8px 8px 8px 16px;
     margin-left: 8.4rem;
     margin-top: 16px;
     img {
       width: 18px;
-      min-height: 18px;
+      height: 18px;
     }
   }
 `;
@@ -290,7 +294,7 @@ const Header = ({ history, state, apiCall }) => {
                 <img src={inactivatedNotice} alt="알림창" />
               </ImgWrapper>
               <ImgWrapper onClick={openProfileModal}>
-                <img src={imgUrl ? imgUrl : avatar} alt="프로필 사진" />
+                <img src={imgUrl ? imgUrl : avatar} style={{ borderRadius: '50%' }} alt="프로필 사진" />
               </ImgWrapper>
             </IconWrapper>
           ) : (
@@ -318,21 +322,28 @@ const Header = ({ history, state, apiCall }) => {
           <ModalOverlay onClick={() => closeProfileModal()} />
           <ModalContents profile="profile">
             <Wrapper>
-              <LogoWrapper to={user ? `/${nickname}` : `/`}>
-                <img src={logo} alt="로고" />
-              </LogoWrapper>
-              <IconWrapper>
-                <div />
-                <div />
-                <ImgWrapper style={{ color: 'white' }} close="close" onClick={closeProfileModal}>
-                  <img src={closeBtnWhite} alt="닫기" />
-                </ImgWrapper>
-              </IconWrapper>
+              <InnerWrapper>
+                <LogoWrapper to={user ? `/${nickname}` : `/`}>
+                  <img src={logo} alt="로고" />
+                </LogoWrapper>
+                <IconWrapper>
+                  <div />
+                  <div />
+                  <ImgWrapper style={{ color: 'white' }} close="close" onClick={closeProfileModal}>
+                    <img src={closeBtnWhite} alt="닫기" />
+                  </ImgWrapper>
+                </IconWrapper>
+              </InnerWrapper>
             </Wrapper>
             {user ? (
               <>
                 <ProfileWrapper>
-                  <ProfileImg src={avatarM} avatar="avatar" alt="프로필 사진" />
+                  <ProfileImg
+                    src={imgUrl ? imgUrl : avatarM}
+                    avatar="avatar"
+                    style={{ borderRadius: '50%' }}
+                    alt="프로필 사진"
+                  />
                   <ProfileInfoWrapper>
                     <div>
                       <span>{nickname || localStorage.getItem('nickname')}</span>
