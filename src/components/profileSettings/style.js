@@ -190,6 +190,7 @@ export const LogoutButton = styled.button`
   background-color: black;
   width: 148px;
   height: 48px;
+  cursor: pointer;
   font-size: 16px;
   padding: 11px 14px 11px 14px;
   border-radius: 62px;
