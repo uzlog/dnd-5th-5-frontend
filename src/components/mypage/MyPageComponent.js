@@ -370,7 +370,7 @@ const MyPageComponent = ({ history, state, apiCall }) => {
     dots: false,
     infinite: true,
     arrows: false,
-    autoplay: false,
+    autoplay: true,
     autoplaySpeed: 3000,
     speed: 500,
     slidesToShow: 1,
