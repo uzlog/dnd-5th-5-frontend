@@ -32,6 +32,8 @@ const Wrapper = styled.div`
   max-width: 576px;
   width: 40vw;
   height: 100vh;
+  background-color: #121212;
+  overflow: hidden;
   @media screen and (max-width: 1023px) {
     margin: 0 auto;
     width: 36rem;
@@ -114,20 +116,18 @@ const FriendButton = styled.img`
 `;
 
 const MoreButtonWrapper = styled.div`
-  margin: 0 auto;
-  max-width: 500px;
-  width: 35vw;
   height: 10vh;
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  padding-right: 1.9vw;
   img {
     width: 38.4px;
     height: 38.4px;
   }
   @media screen and (max-width: 1023px) {
-    width: 308px;
-    height: 6.4rem;
+    min-height: 6.4rem;
+    padding-right: 2.4rem;
     img {
       width: 2.4rem;
       height: 2.4rem;
@@ -209,8 +209,8 @@ const ModalContentsWrapper = styled.div`
 `;
 
 const StyledButton = styled.button`
-  position: relative;
-  bottom: 13%;
+  position: sticky;
+  bottom: 4%;
   left: 31%;
   display: flex;
   align-items: center;
@@ -235,6 +235,7 @@ const StyledButton = styled.button`
   @media screen and (max-width: 1023px) {
     left: 110px;
     width: 230px;
+
     min-height: 48px;
     border-radius: 62px;
     font-size: 15px;
@@ -252,8 +253,8 @@ const StyledButton = styled.button`
 `;
 
 const StyledLink = styled(Link)`
-  position: relative;
-  bottom: 13%;
+  position: sticky;
+  bottom: 4%;
   left: 31%;
   text-decoration: none;
   display: flex;
