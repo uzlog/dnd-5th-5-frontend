@@ -163,10 +163,10 @@ const AlaCardListComponent = ({ state, onClickUploadCardInfo }) => {
                 onClick={() => {
                   const originCardInfo = {
                     originCardId: alaCardId,
-                    originCardFont: fontStyle,
+                    originCardFont: fontStyle.color,
                     originCardSentence: card.sentence,
                     originCardBg: card.isCompleted ? backgroundImgUrl : null,
-                    isOpen: isOpen,
+                    isOpen,
                     isCompleted: card.isCompleted,
                   };
                   onClickUploadCardInfo(originCardInfo);
