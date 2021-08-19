@@ -190,7 +190,6 @@ const InnerContents = styled.div`
       vertical-align: -8%;
       display: inline;
       width: min(33%, 15vh);
-
       max-width: 182px;
     }
   }
@@ -226,6 +225,9 @@ const StyledButton = styled.button`
   :active {
     color: black;
     background-color: white;
+    img {
+      filter: invert(100%) sepia(16%) saturate(3091%) hue-rotate(300deg) brightness(97%) contrast(117%);
+    }
   }
   @media screen and (max-width: 1023px) {
     left: 110px;
@@ -247,6 +249,9 @@ const StyledButton = styled.button`
 `;
 
 const StyledLink = styled(Link)`
+  position: relative;
+  bottom: 13%;
+  left: 31%;
   text-decoration: none;
   display: flex;
   align-items: center;
@@ -261,6 +266,13 @@ const StyledLink = styled(Link)`
   color: white;
   line-height: 1.6;
   font-size: min(2.5vh, 25.6px, 1.7vw);
+  :active {
+    color: black;
+    background-color: white;
+    img {
+      filter: invert(100%) sepia(16%) saturate(3091%) hue-rotate(300deg) brightness(97%) contrast(117%);
+    }
+  }
   @media screen and (max-width: 1023px) {
     width: 230px;
     min-height: 48px;
@@ -358,7 +370,7 @@ const MyPageComponent = ({ history, state, apiCall }) => {
     dots: false,
     infinite: true,
     arrows: false,
-    autoplay: true,
+    autoplay: false,
     autoplaySpeed: 3000,
     speed: 500,
     slidesToShow: 1,
@@ -454,7 +466,7 @@ const MyPageComponent = ({ history, state, apiCall }) => {
   const acceptFollow = () => {
     onClickAcceptFollow(nickname);
   };
-  console.log(isOpen, isOwner);
+
   return (
     <>
       <Wrapper>
@@ -510,8 +522,8 @@ const MyPageComponent = ({ history, state, apiCall }) => {
                   cardStyle = {
                     backgroundImage: 'url(' + backgroundImgUrl + ')',
                     backgroundSize: 'cover',
-                    width: viewSize > '1023' ? '40vw' : '36rem',
-                    maxWidth: viewSize > '1023' ? '576px' : '360px',
+                    width: viewSize > '1023' ? '39.9vw' : '36rem',
+                    maxWidth: viewSize > '1023' ? '576px' : '359px',
                   };
                   fontStyle = {
                     color: fontColor,
@@ -523,8 +535,8 @@ const MyPageComponent = ({ history, state, apiCall }) => {
                   );
                   cardStyle = {
                     backgroundColor: '#121212',
-                    width: viewSize > '1023' ? '40vw' : '36rem',
-                    maxWidth: viewSize > '1023' ? '576px' : '360px',
+                    width: viewSize > '1023' ? '39.9vw' : '36rem',
+                    maxWidth: viewSize > '1023' ? '576px' : '359px',
                   };
                   fontStyle = {
                     color: '#b9ff46',
@@ -575,8 +587,8 @@ const MyPageComponent = ({ history, state, apiCall }) => {
                   cardStyle = {
                     backgroundImage: 'url(' + backgroundImgUrl + ')',
                     backgroundSize: 'cover',
-                    width: viewSize > '1023' ? '40vw' : '36rem',
-                    maxWidth: viewSize > '1023' ? '576px' : '360px',
+                    width: viewSize > '1023' ? '39.9vw' : '36rem',
+                    maxWidth: viewSize > '1023' ? '576px' : '359px',
                   };
                   fontStyle = {
                     color: fontColor,
@@ -588,8 +600,8 @@ const MyPageComponent = ({ history, state, apiCall }) => {
                   );
                   cardStyle = {
                     backgroundColor: '#121212',
-                    width: viewSize > '1023' ? '40vw' : '36rem',
-                    maxWidth: viewSize > '1023' ? '576px' : '360px',
+                    width: viewSize > '1023' ? '39.9vw' : '36rem',
+                    maxWidth: viewSize > '1023' ? '576px' : '359px',
                   };
                   fontStyle = {
                     color: '#b9ff46',
@@ -635,8 +647,8 @@ const MyPageComponent = ({ history, state, apiCall }) => {
                   cardStyle = {
                     backgroundImage: 'url(' + backgroundImgUrl + ')',
                     backgroundSize: 'cover',
-                    width: viewSize > '1023' ? '40vw' : '36rem',
-                    maxWidth: viewSize > '1023' ? '576px' : '360px',
+                    width: viewSize > '1023' ? '39.9vw' : '36rem',
+                    maxWidth: viewSize > '1023' ? '576px' : '359px',
                   };
                   fontStyle = {
                     color: fontColor,
@@ -648,8 +660,8 @@ const MyPageComponent = ({ history, state, apiCall }) => {
                   );
                   cardStyle = {
                     backgroundColor: '#121212',
-                    width: viewSize > '1023' ? '40vw' : '36rem',
-                    maxWidth: viewSize > '1023' ? '576px' : '360px',
+                    width: viewSize > '1023' ? '39.9vw' : '36rem',
+                    maxWidth: viewSize > '1023' ? '576px' : '359px',
                   };
                   fontStyle = {
                     color: '#b9ff46',
