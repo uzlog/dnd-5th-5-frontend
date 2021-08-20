@@ -40,6 +40,10 @@ export const ProfileImg = styled.input`
     margin-top: 45px;
   }
 `;
+export const HideBox = styled.div`
+  min-height: 14px;
+  background-color: #121212;
+`;
 
 export const ToggleButton = styled.div`
   cursor: pointer;
