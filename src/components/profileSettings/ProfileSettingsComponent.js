@@ -17,6 +17,7 @@ import {
   DeleteButton,
   StatusMessageCount,
   AlertMessage,
+  HideBox,
   ToggleButton,
   ToggleInner,
   IsOpen,
@@ -176,6 +177,7 @@ const ProfileSettingsComponent = ({ history }) => {
             backgroundSize: 'cover',
           }}
         />
+        <HideBox></HideBox>
         <ContentWrapper>
           <EmailWrapper>
             <EachTitle>계정</EachTitle>
