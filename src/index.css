@@ -2,7 +2,7 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: 'SpoqaHanSansNeo-Regular';
+  font-family: 'SpoqaHanSansNeo-Thin';
 }
 
 html {
@@ -21,6 +21,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #000000;
+  font-weight: 400;
 }
 
 code {
@@ -28,6 +29,6 @@ code {
 }
 
 @font-face {
-  font-family: 'SpoqaHanSansNeo-Regular';
-  src: url('assets/fonts/SpoqaHanSansNeo-Regular.ttf');
+  font-family: 'SpoqaHanSansNeo-Thin';
+  src: url('assets/fonts/SpoqaHanSansNeo-Thin.otf');
 }
