@@ -4,7 +4,7 @@ import client from './client';
 export const googleOauth = (userInfo) => client.post('/api/v1/oauth/jwt/google', userInfo);
 
 // naver oauth
-export const naverOauth = (userInfo) => client.post('/api/v1/oauth/jwt/naver', userInfo);
+export const naverOauth = (userInfo) => client.get('/api/v1/oauth/jwt/naver', { params: { access_token: userInfo } });
 
 // 회원가입시 받아올 임시 정보
 export const getMyInfo = () => client.get('/api/v1/member/me');

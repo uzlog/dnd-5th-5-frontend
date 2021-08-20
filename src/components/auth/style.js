@@ -88,7 +88,7 @@ export const GoogleButton = styled.button`
   }
 `;
 
-export const NaverButton = styled.button`
+export const NaverButton = styled.div`
   cursor: pointer;
   width: 180px;
   height: 64px;

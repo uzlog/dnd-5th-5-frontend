@@ -23,6 +23,9 @@ import {
 import googleIcon from '@assets/img/auth/googleIcon.svg';
 import naverIcon from '@assets/img/auth/naverIcon.svg';
 import closeBtn from '@assets/img/auth/closeBtn.svg';
+import { withRouter } from 'react-router-dom';
+import client from '@lib/api/client';
+import { access } from 'fs';
 
 dotenv.config();
 
@@ -34,26 +37,16 @@ const SocialLogin = ({
   onChangeField,
   onSubmitUpdateMyInfo,
   onSubmitCheckNicknameDuplicated,
+  location,
 }) => {
   const [error, setError] = useState('');
   const [regError, setRegError] = useState(false);
   const googleId = process.env.REACT_APP_GOOGLE_KEY;
   const naverId = process.env.REACT_APP_NAVER_KEY;
   const { authMessage, memberNickname, getMemberLoading, duplicatedData, memberData } = state;
-
   const onSuccessGoogle = (result) => {
     const userInfo = { profileObj: result.profileObj };
     onSubmitGoogle(userInfo);
-  };
-  const onSuccessNaver = (result) => {
-    const { id, profile_image, email, name } = result;
-    const userInfo = {
-      id,
-      profile_image,
-      email,
-      name,
-    };
-    onSubmitNaver(userInfo);
   };
   const onChange = (e) => {
     const { name, value } = e.target;
@@ -85,6 +78,17 @@ const SocialLogin = ({
     }
   }, [duplicatedData]);
 
+  const onSuccessNaver = async () => {
+    if (location.hash) {
+      const response = await client.get('/api/v1/member/me', {
+        params: { access_token: location.hash.split('=')[1].split('&')[0] },
+      });
+      console.log(response);
+    }
+  };
+  useEffect(() => {
+    return onSuccessNaver();
+  }, []);
   return (
     <>
       {authMessage === 'join' && getMemberLoading ? (
@@ -159,9 +163,10 @@ const SocialLogin = ({
                 onFailure={(result) => console.log(result)}
               />
               <NaverLogin
-                clientId={naverId}
-                callbackUrl={process.env.REACT_APP_URL}
-                isPopup={true}
+                id="naverIdLogin"
+                clientId={'IJ7GzNOsMH9wRsRGA15e'}
+                callbackUrl={'http://localhost:3000'}
+                isPopup={false}
                 render={(props) => (
                   <NaverButton type="button" onClick={props.onClick}>
                     <img src={naverIcon} alt="네이버 로그인" />
@@ -183,4 +188,4 @@ const SocialLogin = ({
   );
 };
 
-export default SocialLogin;
+export default withRouter(SocialLogin);
