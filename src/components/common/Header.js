@@ -15,7 +15,6 @@ import arrowBtn from '@assets/img/my-profile/arrowBtn.svg';
 import avatarM from '@assets/img/my-profile/avatarM.svg';
 import closeBtnWhite from '@assets/img/my-profile/closeBtnWhite.svg';
 import settingBtn from '@assets/img/my-profile/settingBtn.svg';
-
 const Wrapper = styled.div`
   background-color: #121212;
   max-width: 576px;
@@ -39,6 +38,7 @@ const Wrapper = styled.div`
 const InnerWrapper = styled.div`
   max-width: 500px;
   width: 35vw;
+  /* background-color: red; */
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -51,15 +51,11 @@ const LogoWrapper = styled(Link)`
   float: left;
   display: flex;
   align-items: center;
-  max-width: 74px;
-  width: 5.1vw;
-  height: 2.7vh;
-  min-height: 30px;
+  width: 59px;
+  height: 30px;
   img {
-    max-width: 74px;
-    width: 5.1vw;
-    height: 2.7vh;
-    min-height: 30px;
+    width: 59px;
+    height: 30px;
   }
   @media screen and (max-width: 1023px) {
     width: 37px;
@@ -95,14 +91,11 @@ const ImgWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  max-width: ${(props) => (props.close ? '23px' : '39px')};
-  width: ${(props) => (props.close ? '1.6vw' : '2.7vw')};
-  min-height: 38.4px;
-  height: ${(props) => (props.close ? '2.2vh' : '3.8vh')};
+  width: ${(props) => (props.close ? '23px' : '39px')};
+  height: 38.4px;
   img {
-    width: ${(props) => (props.close ? '1.6vw' : '2.7vw')};
-    height: ${(props) => (props.close ? '2.2vh' : '3.8vh')};
-    min-height: 38.4px;
+    width: ${(props) => (props.close ? '23px' : '39px')};
+    height: 38.4px;
   }
   @media screen and (max-width: 1023px) {
     width: 24px;
@@ -283,7 +276,6 @@ const Header = ({ history, state, apiCall }) => {
           <LogoWrapper to={user ? `/${nickname || sessionStorage.getItem('nickname')}` : `/`}>
             <img src={logo} alt="로고" />
           </LogoWrapper>
-          {/* <IconWrapper> */}
           {user ? (
             <IconWrapper>
               <ImgWrapper onClick={openFriendModal}>
@@ -303,7 +295,6 @@ const Header = ({ history, state, apiCall }) => {
               <LoginButtonWrapper onClick={oepnLoginModal}>로그인</LoginButtonWrapper>
             </>
           )}
-          {/* </IconWrapper> */}
         </InnerWrapper>
       </Wrapper>
       {showFriendModal && <FriendModalContainer />}

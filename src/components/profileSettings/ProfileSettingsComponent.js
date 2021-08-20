@@ -143,9 +143,9 @@ const ProfileSettingsComponent = ({ history }) => {
   };
 
   return (
-    <>
+    <div style={{ display: 'flex', flexDirection: 'column' }}>
+      <HeaderContainer />
       <MainWrapper>
-        <HeaderContainer />
         <ProfileImg
           type="file"
           accept="image/x-png,image/gif,image/jpeg"
@@ -226,7 +226,7 @@ const ProfileSettingsComponent = ({ history }) => {
           </ButtonWrapper>
         </ContentWrapper>
       </MainWrapper>
-    </>
+    </div>
   );
 };
 

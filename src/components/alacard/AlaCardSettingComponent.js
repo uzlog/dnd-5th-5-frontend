@@ -22,7 +22,7 @@ const fadeIn = keyframes`
 const Wrapper = styled.div`
   max-width: 576px;
   width: 40vw;
-  height: 100vh;
+  height: 92vh;
   background-color: #121212;
   overflow-y: auto;
   -ms-overflow-style: none; /* IE and Edge */
@@ -33,23 +33,36 @@ const Wrapper = styled.div`
   @media screen and (max-width: 1023px) {
     margin: 0 auto;
     width: 360px;
-    height: 100vh;
+    height: 92vh;
   }
 `;
 
 const TitleWrapper = styled.div`
-  max-width: 57.6rem;
-  width: 40vw;
-  max-height: 135px;
-  height: 13.1vh;
-  display: flex;
-  padding: min(3.4vh, 34.8px) min(2.6vw, 38px);
+  max-width: 500px;
+  width: 35vw;
+  margin: 0 auto;
+  font-size: min(calc((2.6vw + 3.75vh) / 2), 38.4px);
+  margin-top: min(3.44vh, 35.2px);
+  margin-bottom: min(3.6vh, 36.8px);
   @media screen and (max-width: 1023px) {
-    width: 360px;
+    width: 308px;
     font-size: 2.4rem;
-    padding: 2.4rem 2.4rem;
+    margin-bottom: 23px;
   }
 `;
+// const TitleWrapper = styled.div`
+//   max-width: 57.6rem;
+//   width: 40vw;
+//   max-height: 135px;
+//   height: 13.1vh;
+//   display: flex;
+//   padding: min(3.4vh, 34.8px) min(2.6vw, 38px);
+//   @media screen and (max-width: 1023px) {
+//     width: 360px;
+//     font-size: 2.4rem;
+//     padding: 2.4rem 2.4rem;
+//   }
+// `;
 
 const Title = styled.div`
   font-size: min(2.6vw, 3.7vh, 3.8rem);
@@ -491,9 +504,9 @@ const AlaCardSettingComponent = ({ history, state, apiCall }) => {
   }, [updateCardInfoMessage]);
 
   return (
-    <>
+    <div style={{ display: 'flex', flexDirection: 'column' }}>
+      <HeaderContainer />
       <Wrapper onClick={closeHelp}>
-        <HeaderContainer />
         <TitleWrapper>
           <Title>배경/설정 변경</Title>
         </TitleWrapper>
@@ -589,7 +602,7 @@ const AlaCardSettingComponent = ({ history, state, apiCall }) => {
           </ButtonWrapper>
         </SettingWrapper>
       </Wrapper>
-    </>
+    </div>
   );
 };
 

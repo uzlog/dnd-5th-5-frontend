@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const MainWrapper = styled.div`
   max-width: 576px;
   width: 40vw;
-  height: 100vh;
+  height: 92vh;
   background-color: #121212;
   overflow-y: auto;
   -ms-overflow-style: none; /* IE and Edge */
@@ -14,7 +14,7 @@ export const MainWrapper = styled.div`
   @media screen and (max-width: 1023px) {
     margin: 0 auto;
     width: 360px;
-    height: 100vh;
+    height: 92vh;
     background-color: #121212;
   }
 `;

@@ -25,7 +25,7 @@ const Wrapper = styled.div`
   }
   @media screen and (max-width: 1023px) {
     margin: 0 auto;
-    min-width: 36rem;
+    width: 36rem;
     & > div {
       padding-right: 2.4rem;
     }
@@ -33,20 +33,22 @@ const Wrapper = styled.div`
 `;
 
 const TitleWrapper = styled.div`
-  max-width: 57.6rem;
-  width: 40vw;
-  height: 300px;
+  max-width: 500px;
+  width: 35vw;
   display: flex;
-  padding: 3.4vh 2.6vw;
+  align-items: center;
+  font-size: 38.4px;
+  margin-top: min(3.44vh, 35.2px);
+  margin-bottom: min(3.6vh, 36.8px);
   @media screen and (max-width: 1023px) {
-    width: 360px;
+    width: 308px;
     font-size: 2.4rem;
-    padding: 2.3rem 2.4rem;
+    margin-bottom: 23px;
   }
 `;
 
 const Title = styled.div`
-  font-size: min(2.6vw, 3.7vh, 3.8rem);
+  font-size: min(calc((2.6vw + 3.7vh) / 2), 3.8rem);
   font-weight: bold;
   line-height: 1.6;
   color: white;
@@ -71,7 +73,7 @@ const ContentsWrapper = styled.div`
   font-size: 3.84rem;
   font-weight: 300;
   @media screen and (max-width: 1023px) {
-    min-width: 31.2rem;
+    width: 31.2rem;
     font-size: 2.4rem;
     padding: 2.4rem 2.4rem 2.4rem 2.4rem;
   }
@@ -85,6 +87,18 @@ const InnerContents = styled.div`
   display: table-cell;
   vertical-align: middle;
   text-align: left;
+  img {
+    display: inline;
+    vertical-align: -11%;
+  }
+  @media screen and (min-width: 1023px) {
+    img {
+      vertical-align: -8%;
+      display: inline;
+      width: min(33%, 15vh);
+      max-width: 182px;
+    }
+  }
 `;
 
 const ButtonWrapper = styled.div`
