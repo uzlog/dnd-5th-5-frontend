@@ -36,6 +36,7 @@ const Alert = styled.div`
 const Confirm = styled.div`
   margin-top: 22px;
   font-size: 12px;
+  cursor: pointer;
   display: flex;
   height: 16px;
   align-items: center;
@@ -68,6 +69,7 @@ export const CanceleButton = styled.button`
   color: black;
   background-color: white;
   display: flex;
+  cursor: pointer;
   align-items: center;
   justify-content: center;
   width: 114px;
@@ -114,6 +116,7 @@ const Modal = ({ setDeleteModal, onDeleteHandler }) => {
           <Alert> *모든 데이터 복구가 불가능합니다.</Alert>
           <Confirm onClick={() => setDeleteConfirm(!deleteConfirm)}>
             <input
+              style={{ cursor: 'pointer' }}
               type="checkbox"
               onChange={() => {
                 setDeleteConfirm(!deleteConfirm);
@@ -123,7 +126,7 @@ const Modal = ({ setDeleteModal, onDeleteHandler }) => {
           </Confirm>
           <ButtonWrapper>
             <DeleteButton
-              style={deleteConfirm ? { opacity: 1 } : { opacity: 0.2 }}
+              style={deleteConfirm ? { opacity: 1, cursor: 'pointer' } : { opacity: 0.2 }}
               disabled={deleteConfirm ? false : true}
               onClick={onDeleteHandler}>
               네, 탈퇴할래요

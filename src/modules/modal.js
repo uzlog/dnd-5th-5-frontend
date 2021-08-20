@@ -19,6 +19,7 @@ export const openProfileModal = createAction(OPEN_PROFILE_MODAL);
  * 초기 상태
  */
 const initialStae = {
+  showLoginModal: false,
   showFriendModal: false,
   showAlarmModal: false,
   showFollowerModal: false,

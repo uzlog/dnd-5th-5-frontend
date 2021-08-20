@@ -15,9 +15,11 @@ const HeaderContainer = ({ history }) => {
     authToken,
     socialLoginStatus,
     tokenExisted,
+    showLoginModal,
     showFriendModal,
     showAlarmModal,
     showFollowerModal,
+    memberNickname,
     memberData,
     memberDataLoading,
   } = useSelector(({ auth, modal, member, loading }) => ({
@@ -25,19 +27,23 @@ const HeaderContainer = ({ history }) => {
     socialLoginStatus: auth.status,
     tokenExisted: auth.tokenExisted,
 
+    showLoginModal: modal.showLoginModal,
     showFriendModal: modal.showFriendModal,
     showAlarmModal: modal.showAlarmModal,
     showFollowerModal: modal.showFollowerModal,
 
+    memberNickname: member.nickname,
     memberData: member.data,
     memberDataLoading: loading['member/GET_MY_INFO'],
   }));
   const user = token ? true : false;
-  const state = { tokenExisted, showFriendModal, showAlarmModal, showFollowerModal, memberData, user };
+  const state = { tokenExisted, showFriendModal, showLoginModal, showAlarmModal, showFollowerModal, memberData, user };
   useWatchCookie();
 
   const onClickModalStatus = useCallback((payload) => dispatch(updateModalStatus(payload)), [dispatch]);
   const onClickOpenProfile = useCallback((payload) => dispatch(openProfileModal(payload)), [dispatch]);
+
+  const apiCall = { onClickModalStatus, onClickOpenProfile };
 
   useEffect(() => {
     console.log(sessionStorage.getItem('nickname'));
@@ -66,13 +72,7 @@ const HeaderContainer = ({ history }) => {
 
   return (
     <>
-      {memberDataLoading === undefined ? ( // 데이터 불러오기 안하는 경우
-        <Header state={state} onClickModalStatus={onClickModalStatus} onClickOpenProfile={onClickOpenProfile} />
-      ) : memberDataLoading ? (
-        <Header state={state} onClickModalStatus={onClickModalStatus} onClickOpenProfile={onClickOpenProfile} />
-      ) : (
-        <div>loading...</div>
-      )}
+      <Header state={state} apiCall={apiCall} />
     </>
   );
 };

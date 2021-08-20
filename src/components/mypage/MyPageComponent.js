@@ -17,6 +17,7 @@ import avatar from '@assets/img/friend/avatar.svg';
 import friendCheckBtn from '@assets/img/friend/friendCheckBtn.svg';
 import friendPlusBtn from '@assets/img/friend/friendPlusBtn.svg';
 import friendWaitingBtn from '@assets/img/friend/friendWaitingBtn.svg';
+import lock from '@assets/img/profileSettings/lock.svg';
 import { useTitle } from '@hooks/useMeta';
 
 const fadeIn = keyframes`
@@ -32,6 +33,8 @@ const Wrapper = styled.div`
   max-width: 576px;
   width: 40vw;
   height: 100vh;
+  background-color: #121212;
+  overflow: hidden;
   @media screen and (max-width: 1023px) {
     margin: 0 auto;
     width: 36rem;
@@ -207,8 +210,8 @@ const ModalContentsWrapper = styled.div`
 `;
 
 const StyledButton = styled.button`
-  position: relative;
-  bottom: 13%;
+  position: sticky;
+  bottom: 4%;
   left: 31%;
   display: flex;
   align-items: center;
@@ -233,6 +236,7 @@ const StyledButton = styled.button`
   @media screen and (max-width: 1023px) {
     left: 110px;
     width: 230px;
+
     min-height: 48px;
     border-radius: 62px;
     font-size: 15px;
@@ -250,8 +254,8 @@ const StyledButton = styled.button`
 `;
 
 const StyledLink = styled(Link)`
-  position: relative;
-  bottom: 13%;
+  position: sticky;
+  bottom: 4%;
   left: 31%;
   text-decoration: none;
   display: flex;
@@ -335,12 +339,31 @@ const Toast = styled.div`
 `;
 
 const Secret = styled.div`
-  background: white;
+  padding-top: 10.6vh;
+  margin: 0 auto;
+  margin-top: 10.6vh;
+  font-size: 14px;
+  width: (40vw-2.4rem);
   max-width: 576px;
-  width: 40vw;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  font-weight: 500;
+  img {
+    width: 17px;
+    height: 17px;
+  }
+  p {
+    font-size: 12px;
+    color: #ffffff;
+    opacity: 0.5;
+    font-weight: 400;
+  }
+
+  @media screen and (max-width: 1023px) {
+    width: 312px;
+  }
 `;
 
 const MyPageComponent = ({ history, state, apiCall }) => {
@@ -695,9 +718,18 @@ const MyPageComponent = ({ history, state, apiCall }) => {
           </>
         ) : (
           <Slider ref={slider} {...closeSettings}>
-            <Secret>
-              <h1>비공개 계정</h1>
-            </Secret>
+            <ContentFlexWrapper>
+              <ContentsWrapper>
+                <InnerContents>
+                  <Secret style={{ color: 'white' }}>
+                    <span>
+                      <img src={lock} /> 앗! 비공개 계정이에요
+                    </span>
+                    <p>친구를 맺으면 알라카드를 확인할 수 있어요.</p>
+                  </Secret>
+                </InnerContents>
+              </ContentsWrapper>
+            </ContentFlexWrapper>
           </Slider>
         )}
         {showModal && (

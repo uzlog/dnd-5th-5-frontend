@@ -1,30 +1,26 @@
 import styled from 'styled-components';
 
 export const MainWrapper = styled.div`
+  max-width: 576px;
+  width: 40vw;
+  height: 100vh;
+  background-color: #121212;
+  overflow-y: auto;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  &::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
+  }
   @media screen and (max-width: 1023px) {
     margin: 0 auto;
-    display: flex;
     width: 360px;
-    background-color: #121212;
-    flex-direction: column;
-  }
-  @media screen and (min-width: 1023px) {
-    display: flex;
-    max-width: 576px;
-    width: 40vw;
     height: 100vh;
     background-color: #121212;
-    flex-direction: column;
-    overflow: scroll;
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
-    &::-webkit-scrollbar {
-      display: none; /* Chrome, Safari, Opera*/
-    }
   }
 `;
 
 export const ProfileImg = styled.input`
+  display: flex;
   margin: 0 auto;
   margin-top: 10px;
   font-size: 0;
@@ -194,6 +190,7 @@ export const LogoutButton = styled.button`
   background-color: black;
   width: 148px;
   height: 48px;
+  cursor: pointer;
   font-size: 16px;
   padding: 11px 14px 11px 14px;
   border-radius: 62px;

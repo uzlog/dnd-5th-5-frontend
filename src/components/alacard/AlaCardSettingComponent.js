@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import useResponsive from '../../hooks/useResponsive';
 import { withRouter } from 'react-router';
 import styled, { keyframes } from 'styled-components';
@@ -8,6 +8,7 @@ import unlockBtn from '@assets/img/alacard-setting/unlockBtn.svg';
 import helpBtn from '@assets/img/alacard-setting/helpBtn.svg';
 import bgSelected from '@assets/img/alacard-setting/bgSelected.svg';
 import { useTitle } from '@hooks/useMeta';
+import { uploadCardInfo } from '@modules/cardSetting';
 
 const fadeIn = keyframes`
         from {
@@ -302,6 +303,18 @@ const StyledButton = styled.button`
     font-size: 16px;
   }
 `;
+const CheckedBg = styled.img`
+  position: relative;
+  bottom: 105%;
+  left: 20%;
+
+  max-width: 60% !important;
+
+  @media screen and (max-width: 1023px) {
+    bottom: 105%;
+    left: 23%;
+  }
+`;
 
 const HelpMessage = styled.div`
   position: relative;
@@ -330,30 +343,65 @@ const HelpMessage = styled.div`
   }
 `;
 
-const AlaCardSettingComponent = ({ history, state, onClickUpdateCardInfo }) => {
+const AlaCardSettingComponent = ({ history, state, apiCall }) => {
   const viewSize = useResponsive();
-  const { originCardId, originCardFont, originCardSentence, originCardBg, isOpen, isCompleted } = JSON.parse(
-    sessionStorage.getItem('originCardInfo'),
-  );
-  const { alaCardBgSolid, alaCardBgGrad, alaCardBgPhoto, updateCardInfoMessage } = state;
-
-  const [toggle, setToggle] = useState(isOpen);
+  const { alaCardBgSolid, alaCardBgGrad, alaCardBgPhoto, updateCardInfoMessage, originCardInfo } = state;
+  const { originCardId, originCardFont, originCardSentence, originCardBg, isOpen, isCompleted } = originCardInfo;
+  const sessionCardInfo = JSON.parse(sessionStorage.getItem('originCardInfo'));
+  const { onClickUpdateCardInfo, onClickUploadCardInfo } = apiCall;
+  const [toggle, setToggle] = useState(isOpen || sessionCardInfo.isOpen);
   const [isChanged, setIsChanged] = useState(false);
   const [showHelp, setShowHelp] = useState(false);
   const [bgSolid, setBgSolid] = useState(true);
   const [bgGrad, setBgGrad] = useState(false);
   const [bgPhoto, setBgPhoto] = useState(false);
   const [background, setBackground] = useState(originCardBg);
+  const [newFontColor, setNewFontColor] = useState(null);
+  const [newBg, setNewBg] = useState(null);
+  const [newCardInfo, setNewCardInfo] = useState(null);
   const cardStyle = {
-    backgroundImage: originCardBg ? 'url(' + originCardBg + ')' : '',
-    backgroundSize: originCardBg ? 'cover' : '',
-    backgroundColor: originCardBg ? '' : '#171717',
+    backgroundImage: originCardBg ? 'url(' + originCardBg + ')' : 'url(' + sessionCardInfo.originCardBg + ')',
+    backgroundSize: originCardBg || sessionCardInfo.originCardBg ? 'cover' : '',
+    backgroundColor: originCardBg || sessionCardInfo.originCardBg ? '' : '#171717',
     maxWidth: viewSize > '1023' ? '57.6rem' : '36rem',
     width: viewSize > '1023' ? '40vw' : '36rem',
   };
+  console.log(cardStyle);
+  const [solid, setSolid] = useState(
+    alaCardBgSolid.map((item) =>
+      item.backgroundImgUrl === (originCardBg ? originCardBg : sessionCardInfo.originCardBg)
+        ? { ...item, clicked: true }
+        : { ...item, clicked: false },
+    ),
+  );
+  const [grad, setGrad] = useState(
+    alaCardBgGrad.map((item) =>
+      item.backgroundImgUrl === (originCardBg ? originCardBg : sessionCardInfo.originCardBg)
+        ? { ...item, clicked: true }
+        : { ...item, clicked: false },
+    ),
+  );
+  const [photo, setPhoto] = useState(
+    alaCardBgPhoto.map((item) =>
+      item.backgroundImgUrl === (originCardBg ? originCardBg : sessionCardInfo.originCardBg)
+        ? { ...item, clicked: true }
+        : { ...item, clicked: false },
+    ),
+  );
 
   const onClickToggle = () => {
     setToggle((prevState) => !prevState);
+    setIsChanged(true);
+    const newCardInfo = {
+      originCardId: originCardId || sessionCardInfo.originCardId,
+      originCardFont: newFontColor || originCardFont || sessionCardInfo.originCardFont,
+      originCardSentence: originCardSentence || sessionCardInfo.originCardSentence,
+      originCardBg: newBg || originCardBg || sessionCardInfo.originCardBg,
+      isOpen: !toggle,
+      isCompleted: isCompleted || sessionCardInfo.isCompleted,
+    };
+    setNewCardInfo(newCardInfo);
+    onClickUploadCardInfo(newCardInfo);
   };
 
   const openHelp = (e) => {
@@ -385,12 +433,41 @@ const AlaCardSettingComponent = ({ history, state, onClickUpdateCardInfo }) => {
   };
 
   const onClickBackground = (e) => {
-    setIsChanged(true);
-    if (isCompleted) {
+    // e.target
+    if (isCompleted || sessionCardInfo.isCompleted) {
+      setIsChanged(true);
+      const newCardInfo = {
+        originCardId: originCardId || sessionCardInfo.originCardId,
+        originCardFont: e.target.getAttribute('font'),
+        originCardSentence: originCardSentence || sessionCardInfo.originCardSentence,
+        originCardBg: e.target.getAttribute('bg'),
+        isOpen: toggle,
+        isCompleted: isCompleted || sessionCardInfo.isCompleted,
+      };
       setBackground(e.target.src);
+      setNewFontColor(e.target.getAttribute('font'));
+      setNewBg(e.target.getAttribute('bg'));
+      setNewCardInfo(newCardInfo);
+      onClickUploadCardInfo(newCardInfo);
+
+      setSolid(
+        solid.map((item) =>
+          item.thumbnailImgUrl === e.target.src ? { ...item, clicked: true } : { ...item, clicked: false },
+        ),
+      );
+      setGrad(
+        grad.map((item) =>
+          item.thumbnailImgUrl === e.target.src ? { ...item, clicked: true } : { ...item, clicked: false },
+        ),
+      );
+      setPhoto(
+        photo.map((item) =>
+          item.thumbnailImgUrl === e.target.src ? { ...item, clicked: true } : { ...item, clicked: false },
+        ),
+      );
     }
   };
-
+  console.log(solid);
   const submitCardInfo = (e) => {
     e.preventDefault();
     setIsChanged(false);
@@ -398,27 +475,23 @@ const AlaCardSettingComponent = ({ history, state, onClickUpdateCardInfo }) => {
       alaCardId: originCardId,
       isOpen: toggle,
     };
-    if (isCompleted && background) {
+    if (isCompleted && newCardInfo) {
       cardInfo = {
         ...cardInfo,
         backgroundImgUrl: background,
+        fontColor: newCardInfo.originCardFont,
       };
     }
     onClickUpdateCardInfo(cardInfo);
+  };
+
+  useEffect(() => {
     if (updateCardInfoMessage === 'success') {
-      const newCardInfo = {
-        originCardId,
-        originCardFont,
-        originCardSentence,
-        originCardBg: background ? background : '',
-        isOpen: toggle,
-        isCompleted,
-      };
       sessionStorage.setItem('originCardInfo', JSON.stringify(newCardInfo));
     }
-  };
-  useTitle(sessionStorage.getItem('nickname'));
+  }, [updateCardInfoMessage]);
 
+  useTitle(sessionStorage.getItem('nickname'));
   return (
     <>
       <Wrapper onClick={closeHelp}>
@@ -429,7 +502,10 @@ const AlaCardSettingComponent = ({ history, state, onClickUpdateCardInfo }) => {
         <div style={cardStyle}>
           <ContentsWrapper>
             <ContentsInnerWrapper>
-              <InnerContents style={originCardFont} dangerouslySetInnerHTML={{ __html: originCardSentence }} />
+              <InnerContents
+                style={{ color: originCardFont || sessionCardInfo.originCardFont }}
+                dangerouslySetInnerHTML={{ __html: originCardSentence || sessionCardInfo.originCardSentence }}
+              />
             </ContentsInnerWrapper>
           </ContentsWrapper>
         </div>
@@ -463,30 +539,41 @@ const AlaCardSettingComponent = ({ history, state, onClickUpdateCardInfo }) => {
           </BgTitle>
           <BgWrapper bgSolid={bgSolid ? true : false}>
             {bgSolid &&
-              alaCardBgSolid.map((card, idx) => {
+              solid.map((card, idx) => {
                 return (
-                  <ImgWrapper isCompleted={isCompleted ? true : ''} onClick={onClickBackground}>
+                  <ImgWrapper
+                    isCompleted={isCompleted || sessionCardInfo.isCompleted ? true : ''}
+                    onClick={onClickBackground}>
                     {idx === 0 && isCompleted === false ? (
-                      <img src={bgSelected} alt="기본 배경" />
+                      <img src={bgSelected} className="checked" alt="기본 배경" />
                     ) : (
-                      <img src={card} alt="배경" />
+                      <>
+                        <img src={card.thumbnailImgUrl} bg={card.backgroundImgUrl} font={card.fontColor} alt="배경" />
+                        {card.clicked ? <CheckedBg src={bgSelected} /> : <></>}
+                      </>
                     )}
                   </ImgWrapper>
                 );
               })}
             {bgGrad &&
-              alaCardBgGrad.map((card, idx) => {
+              grad.map((card, idx) => {
                 return (
-                  <ImgWrapper isCompleted={isCompleted ? true : ''} onClick={onClickBackground}>
-                    <img src={card} alt="배경" />
+                  <ImgWrapper
+                    isCompleted={isCompleted || sessionCardInfo.isCompleted ? true : ''}
+                    onClick={onClickBackground}>
+                    <img src={card.thumbnailImgUrl} bg={card.backgroundImgUrl} font={card.fontColor} alt="배경" />
+                    {card.clicked ? <CheckedBg src={bgSelected} /> : <></>}
                   </ImgWrapper>
                 );
               })}
             {bgPhoto &&
-              alaCardBgPhoto.map((card, idx) => {
+              photo.map((card, idx) => {
                 return (
-                  <ImgWrapper isCompleted={isCompleted ? true : ''} onClick={onClickBackground}>
-                    <img src={card} alt="배경" />
+                  <ImgWrapper
+                    isCompleted={isCompleted || sessionCardInfo.isCompleted ? true : ''}
+                    onClick={onClickBackground}>
+                    <img src={card.thumbnailImgUrl} bg={card.backgroundImgUrl} font={card.fontColor} alt="배경" />
+                    {card.clicked ? <CheckedBg src={bgSelected} /> : <></>}
                   </ImgWrapper>
                 );
               })}
