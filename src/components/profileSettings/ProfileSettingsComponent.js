@@ -134,7 +134,8 @@ const ProfileSettingsComponent = ({ history }) => {
       cookies.remove('token');
       sessionStorage.removeItem('nickname');
       localStorage.removeItem('nickname');
-      history.push('/');
+      client.defaults.headers.common['X-AUTH_TOKEN'] = undefined;
+      window.location.replace('/');
     }
   };
 
@@ -142,7 +143,7 @@ const ProfileSettingsComponent = ({ history }) => {
     cookies.remove('token');
     sessionStorage.removeItem('nickname');
     localStorage.removeItem('nickname');
-    history.push('/');
+    window.location.replace('/');
   };
 
   useTitle(sessionStorage.getItem('nickname'));
