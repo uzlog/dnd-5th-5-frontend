@@ -23,6 +23,7 @@ import {
 import googleIcon from '@assets/img/auth/googleIcon.svg';
 import naverIcon from '@assets/img/auth/naverIcon.svg';
 import closeBtn from '@assets/img/auth/closeBtn.svg';
+import { withRouter } from 'react-router-dom';
 
 dotenv.config();
 
@@ -34,26 +35,21 @@ const SocialLogin = ({
   onChangeField,
   onSubmitUpdateMyInfo,
   onSubmitCheckNicknameDuplicated,
+  location,
 }) => {
   const [error, setError] = useState('');
   const [regError, setRegError] = useState(false);
   const googleId = process.env.REACT_APP_GOOGLE_KEY;
   const naverId = process.env.REACT_APP_NAVER_KEY;
   const { authMessage, memberNickname, getMemberLoading, duplicatedData, memberData } = state;
-
   const onSuccessGoogle = (result) => {
     const userInfo = { profileObj: result.profileObj };
     onSubmitGoogle(userInfo);
   };
-  const onSuccessNaver = (result) => {
-    const { id, profile_image, email, name } = result;
-    const userInfo = {
-      id,
-      profile_image,
-      email,
-      name,
-    };
-    onSubmitNaver(userInfo);
+  const onSuccessNaver = () => {
+    if (location.hash) {
+      setTimeout(onSubmitNaver(location.hash.split('=')[1].split('&')[0]), 1000);
+    }
   };
   const onChange = (e) => {
     const { name, value } = e.target;
@@ -76,6 +72,7 @@ const SocialLogin = ({
       }
     }
   };
+
   useEffect(() => {
     const userInfo = { nickname: memberNickname };
     if (duplicatedData === false) {
@@ -83,6 +80,7 @@ const SocialLogin = ({
     } else if (duplicatedData === true) {
       setError('앗, 누군가 이미 사용중인 별명이네요,\n 다른 별명을 사용해보세요.');
     }
+    return onSuccessNaver();
   }, [duplicatedData]);
 
   return (
@@ -161,14 +159,14 @@ const SocialLogin = ({
               <NaverLogin
                 clientId={naverId}
                 callbackUrl={process.env.REACT_APP_URL}
-                isPopup={true}
+                isPopup={false}
                 render={(props) => (
                   <NaverButton type="button" onClick={props.onClick}>
                     <img src={naverIcon} alt="네이버 로그인" />
                     Naver
                   </NaverButton>
                 )}
-                onSuccess={(naverUser) => onSuccessNaver(naverUser)}
+                onSuccess={() => onSuccessNaver()}
                 onFailure={(result) => console.error(result)}
               />
             </ButtonWrapper>
@@ -183,4 +181,4 @@ const SocialLogin = ({
   );
 };
 
-export default SocialLogin;
+export default withRouter(SocialLogin);

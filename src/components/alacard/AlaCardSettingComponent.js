@@ -8,7 +8,6 @@ import unlockBtn from '@assets/img/alacard-setting/unlockBtn.svg';
 import helpBtn from '@assets/img/alacard-setting/helpBtn.svg';
 import bgSelected from '@assets/img/alacard-setting/bgSelected.svg';
 import { useTitle } from '@hooks/useMeta';
-import { uploadCardInfo } from '@modules/cardSetting';
 
 const fadeIn = keyframes`
         from {
@@ -51,19 +50,6 @@ const TitleWrapper = styled.div`
     margin-bottom: 23px;
   }
 `;
-// const TitleWrapper = styled.div`
-//   max-width: 57.6rem;
-//   width: 40vw;
-//   max-height: 135px;
-//   height: 13.1vh;
-//   display: flex;
-//   padding: min(3.4vh, 34.8px) min(2.6vw, 38px);
-//   @media screen and (max-width: 1023px) {
-//     width: 360px;
-//     font-size: 2.4rem;
-//     padding: 2.4rem 2.4rem;
-//   }
-// `;
 
 const Title = styled.div`
   font-size: min(2.6vw, 3.7vh, 3.8rem);
@@ -157,7 +143,8 @@ const LockWrapper = styled.div`
 const StyledSpan = styled.span`
   cursor: ${(props) => props.cursor};
   font-size: min(2vw, 2.8vh, 28.8px);
-  font-weight: ${(props) => (props.notClicked ? '500' : 'bold')};
+  font-weight: ${(props) => (props.notClicked ? '300' : 'bold')};
+  opacity: ${(props) => (props.notClicked ? '0.3' : '1')};
   color: white;
   @media screen and (max-width: 1023px) {
     font-size: 18px;
@@ -356,12 +343,47 @@ const HelpMessage = styled.div`
   }
 `;
 
+const ToastWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
+const Toast = styled.div`
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  top: 82%;
+  border-radius: 5px;
+  background-color: #000000;
+  line-height: 1.6;
+  color: white;
+  max-width: 460px;
+  width: 31.9vw;
+  max-height: 57.6px;
+  height: 5.6vh;
+  font-size: min(1.3vw, 1.8vh, 19.2px);
+  animation: ${fadeIn} 3s;
+  -moz-animation: ${fadeIn} 3s; /* Firefox */
+  -webkit-animation: ${fadeIn} 3s; /* Safari and Chrome */
+  -o-animation: ${fadeIn} 3s; /* Opera */
+  @media screen and (max-width: 1023px) {
+    width: 302px;
+    height: 36px;
+    font-size: 12px;
+    text-align: center;
+    top: 82%;
+  }
+`;
+
 const AlaCardSettingComponent = ({ history, state, apiCall }) => {
   const viewSize = useResponsive();
   const { alaCardBgSolid, alaCardBgGrad, alaCardBgPhoto, updateCardInfoMessage, originCardInfo } = state;
   const { originCardId, originCardFont, originCardSentence, originCardBg, isOpen, isCompleted } = originCardInfo;
   const sessionCardInfo = JSON.parse(sessionStorage.getItem('originCardInfo'));
-  const { onClickUpdateCardInfo, onClickUploadCardInfo } = apiCall;
+  const { onClickUpdateCardInfo, onClickUploadCardInfo, onClickInitializeUpdateMessage } = apiCall;
+  const [showToast, setShowToast] = useState(false);
   const [toggle, setToggle] = useState(isOpen || sessionCardInfo.isOpen);
   const [isChanged, setIsChanged] = useState(false);
   const [showHelp, setShowHelp] = useState(false);
@@ -379,7 +401,6 @@ const AlaCardSettingComponent = ({ history, state, apiCall }) => {
     maxWidth: viewSize > '1023' ? '57.6rem' : '36rem',
     width: viewSize > '1023' ? '40vw' : '36rem',
   };
-  console.log(cardStyle);
   const [solid, setSolid] = useState(
     alaCardBgSolid.map((item) =>
       item.backgroundImgUrl === (originCardBg ? originCardBg : sessionCardInfo.originCardBg)
@@ -480,7 +501,7 @@ const AlaCardSettingComponent = ({ history, state, apiCall }) => {
       );
     }
   };
-  console.log(solid);
+
   const submitCardInfo = (e) => {
     e.preventDefault();
     setIsChanged(false);
@@ -500,17 +521,26 @@ const AlaCardSettingComponent = ({ history, state, apiCall }) => {
 
   useEffect(() => {
     if (updateCardInfoMessage === 'success') {
+      document.body.style = `overflow: hidden`;
+      setShowToast((prevState) => !prevState);
       sessionStorage.setItem('originCardInfo', JSON.stringify(newCardInfo));
+      // 토스트 메세지
+      setTimeout(() => {
+        setShowToast((prevState) => !prevState);
+        onClickInitializeUpdateMessage();
+        document.body.style = 'overflow: visible';
+      }, 1500);
     }
   }, [updateCardInfoMessage]);
 
   useTitle(sessionStorage.getItem('nickname'));
+
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>
       <HeaderContainer />
       <Wrapper onClick={closeHelp}>
         <TitleWrapper>
-          <Title>배경/설정 변경</Title>
+          <Title>카드 관리</Title>
         </TitleWrapper>
         <div style={cardStyle}>
           <ContentsWrapper>
@@ -535,7 +565,7 @@ const AlaCardSettingComponent = ({ history, state, apiCall }) => {
           <BgHeader>
             <StyledSpan>배경 선택</StyledSpan>
             {showHelp && <HelpMessage>알라카드가 완성된 후 자유롭게 꾸밀 수 있어요.</HelpMessage>}
-            <img src={helpBtn} onClick={openHelp} alt="도움말" />
+            {!sessionCardInfo.isCompleted && <img src={helpBtn} onClick={openHelp} alt="도움말" />}
           </BgHeader>
           <BgTitle>
             <BgInnerWrapper>
@@ -591,6 +621,7 @@ const AlaCardSettingComponent = ({ history, state, apiCall }) => {
                 );
               })}
           </BgWrapper>
+
           <ButtonWrapper>
             <StyledButton close="close" onClick={() => history.goBack()}>
               취소
@@ -604,6 +635,11 @@ const AlaCardSettingComponent = ({ history, state, apiCall }) => {
           </ButtonWrapper>
         </SettingWrapper>
       </Wrapper>
+      {showToast && (
+        <ToastWrapper>
+          <Toast>저장되었습니다!</Toast>
+        </ToastWrapper>
+      )}
     </div>
   );
 };
