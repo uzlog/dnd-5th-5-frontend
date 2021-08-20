@@ -46,9 +46,9 @@ const SocialLogin = ({
     const userInfo = { profileObj: result.profileObj };
     onSubmitGoogle(userInfo);
   };
-  const onSuccessNaver = async () => {
+  const onSuccessNaver = () => {
     if (location.hash) {
-      onSubmitNaver(location.hash.split('=')[1].split('&')[0]);
+      setTimeout(onSubmitNaver(location.hash.split('=')[1].split('&')[0]), 1000);
     }
   };
   const onChange = (e) => {
@@ -72,6 +72,7 @@ const SocialLogin = ({
       }
     }
   };
+
   useEffect(() => {
     const userInfo = { nickname: memberNickname };
     if (duplicatedData === false) {
@@ -156,8 +157,8 @@ const SocialLogin = ({
                 onFailure={(result) => console.log(result)}
               />
               <NaverLogin
-                clientId={'IJ7GzNOsMH9wRsRGA15e'}
-                callbackUrl={'http://localhost:3000'}
+                clientId={naverId}
+                callbackUrl={process.env.REACT_APP_URL}
                 isPopup={false}
                 render={(props) => (
                   <NaverButton type="button" onClick={props.onClick}>
