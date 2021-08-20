@@ -355,10 +355,12 @@ const AlaCardSettingComponent = ({ history, state, apiCall }) => {
   const [bgGrad, setBgGrad] = useState(false);
   const [bgPhoto, setBgPhoto] = useState(false);
   const [background, setBackground] = useState(originCardBg);
+  const [newFontColor, setNewFontColor] = useState(null);
+  const [newBg, setNewBg] = useState(null);
   const [newCardInfo, setNewCardInfo] = useState(null);
   const cardStyle = {
     backgroundImage: originCardBg ? 'url(' + originCardBg + ')' : 'url(' + sessionCardInfo.originCardBg + ')',
-    backgroundSize: originCardBg ? 'cover' : '',
+    backgroundSize: originCardBg || sessionCardInfo.originCardBg ? 'cover' : '',
     backgroundColor: originCardBg || sessionCardInfo.originCardBg ? '' : '#171717',
     maxWidth: viewSize > '1023' ? '57.6rem' : '36rem',
     width: viewSize > '1023' ? '40vw' : '36rem',
@@ -388,6 +390,17 @@ const AlaCardSettingComponent = ({ history, state, apiCall }) => {
 
   const onClickToggle = () => {
     setToggle((prevState) => !prevState);
+    setIsChanged(true);
+    const newCardInfo = {
+      originCardId: originCardId || sessionCardInfo.originCardId,
+      originCardFont: newFontColor || originCardFont || sessionCardInfo.originCardFont,
+      originCardSentence: originCardSentence || sessionCardInfo.originCardSentence,
+      originCardBg: newBg || originCardBg || sessionCardInfo.originCardBg,
+      isOpen: !toggle,
+      isCompleted: isCompleted || sessionCardInfo.isCompleted,
+    };
+    setNewCardInfo(newCardInfo);
+    onClickUploadCardInfo(newCardInfo);
   };
 
   const openHelp = (e) => {
@@ -431,6 +444,8 @@ const AlaCardSettingComponent = ({ history, state, apiCall }) => {
         isCompleted: isCompleted || sessionCardInfo.isCompleted,
       };
       setBackground(e.target.src);
+      setNewFontColor(e.target.getAttribute('font'));
+      setNewBg(e.target.getAttribute('bg'));
       setNewCardInfo(newCardInfo);
       onClickUploadCardInfo(newCardInfo);
 
