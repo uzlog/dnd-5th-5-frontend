@@ -59,7 +59,7 @@ export const DeleteButton = styled.button`
   border: solid 1px white;
   @media screen and (min-width: 1023px) {
     border: solid 1.6px;
-    font-size: min(2.6rem, 3vh);
+    font-size: min(2.6rem, 2.6vh);
     width: 200px;
     height: 74px;
     padding: 17.6px 22.4px 18.2px 22.4px;
@@ -75,13 +75,12 @@ export const CanceleButton = styled.button`
   width: 114px;
   height: 46px;
   font-size: 16px;
-  margin: 0 auto;
   padding: 11px 14px 11px 14px;
   border-radius: 62px;
   border: solid 1px;
   @media screen and (min-width: 1023px) {
     border: solid 1.6px;
-    font-size: min(2.6rem, 3vh);
+    font-size: min(2.6rem, 2.6vh);
     width: 160px;
     height: 74px;
     padding: 17.6px 22.4px 18.2px 22.4px;
@@ -91,12 +90,11 @@ export const ButtonWrapper = styled.span`
   border: 0;
   width: 264px;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   margin-top: 24px;
   margin-bottom: 24px;
   @media screen and (min-width: 1023px) {
     margin-top: 39px;
-
     width: 423px;
   }
 `;

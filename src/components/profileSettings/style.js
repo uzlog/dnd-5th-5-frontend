@@ -187,27 +187,30 @@ export const DeleteButton = styled.div`
 
 export const LogoutButton = styled.button`
   color: white;
-  background-color: black;
+  background-color: #121212;
   width: 148px;
   height: 48px;
-  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-size: 16px;
   padding: 11px 14px 11px 14px;
   border-radius: 62px;
   border: solid 1px white;
   @media screen and (min-width: 1023px) {
     border: solid 1.6px;
-    font-size: 26px;
-    width: 237px;
-    height: 76px;
+    font-size: min(33vw, 3vh, 2.6rem);
+    width: 45.7%;
+    height: 7.5vh;
+    padding: 17.6px 22.4px 18.2px 22.4px;
   }
 `;
 export const SubmitButton = styled.button`
-  display: flex;
-  justify-content: center;
-  align-items: center;
   color: black;
   background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 148px;
   height: 48px;
   font-size: 16px;
@@ -216,16 +219,17 @@ export const SubmitButton = styled.button`
   border: solid 1px;
   @media screen and (min-width: 1023px) {
     border: solid 1.6px;
-    font-size: 26px;
-    width: 237px;
-    height: 76px;
+    font-size: min(33vw, 3vh, 2.6rem);
+    width: 45.7%;
+    height: 7.5vh;
+    padding: 17.6px 22.4px 18.2px 22.4px;
   }
 `;
 export const ButtonWrapper = styled.span`
   background-color: #121212;
   border: 0;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   padding-bottom: 50px;
   margin-right: 24px;
 `;
