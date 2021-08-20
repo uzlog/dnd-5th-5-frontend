@@ -287,7 +287,7 @@ const SelectComponent = ({ history }) => {
           </GetMoreWorldButton>
           <SubmitButton
             onClick={onSubmitHandler}
-            style={idList.length ? { cursor: 'pointer' } : { background: '#2a2a2a' }}
+            style={idList.length ? { cursor: 'pointer' } : { color: '#555555', background: '#2a2a2a' }}
             disabled={idList.length ? false : true}>
             다 골랐음
             <img src={emoji11} />
