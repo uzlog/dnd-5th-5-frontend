@@ -624,14 +624,14 @@ const AlaCardSettingComponent = ({ history, state, apiCall }) => {
             </StyledButton>
 
             <StyledButton
-              style={isChanged ? null : { background: '#2a2a2a', border: '0', cursor: 'not-allowed' }}
+              style={isChanged ? null : { background: '#2a2a2a', border: '0', cursor: 'none' }}
               onClick={submitCardInfo}>
               저장할래😋
             </StyledButton>
           </ButtonWrapper>
         </SettingWrapper>
         {
-          <HelpMessage style={showHelp ? { display: 'flex' } : { opacity: 0, display: 'none', visibility: 'hidden' }}>
+          <HelpMessage style={showHelp ? { display: 'flex' } : { opacity: 0, display: 'none', visibility: 'unset' }}>
             알라카드가 완성된 후 자유롭게 꾸밀 수 있어요.
           </HelpMessage>
         }

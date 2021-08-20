@@ -28,7 +28,9 @@ export const ProfileImg = styled.input`
   height: 120px;
   border-radius: 70px;
   padding-left: 130px;
+  z-index: 10;
   padding-top: 130px;
+
   @media screen and (min-width: 1023px) {
     width: 192px;
     min-height: 192px;
@@ -143,6 +145,7 @@ export const InputBox = styled.input`
   border-radius: 10px;
   color: white;
   padding: 14px 27px;
+
   @media screen and (min-width: 1023px) {
     max-width: 500px;
     width: 36vw;

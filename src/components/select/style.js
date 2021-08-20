@@ -128,9 +128,17 @@ export const ButtonWrapper = styled.span`
   padding-bottom: 4.8vh;
   margin: 0 24px;
   justify-content: space-between;
+  img {
+    width: 20px;
+    height: 20px;
+  }
 
   @media screen and (min-width: 1023px) {
     margin: 0 2vw;
+    img {
+      width: 25px;
+      height: 25px;
+    }
   }
 `;
 
@@ -165,9 +173,9 @@ export const SubmitButton = styled.button`
   font-size: 16px;
   padding: 11px 14px 11px 14px;
   border-radius: 62px;
-  border: solid 1px;
+  border: 1px solid;
   @media screen and (min-width: 1023px) {
-    border: solid 1.6px;
+    border: 1.6px solid #2a2a2a;
     font-size: min(33vw, 3vh, 2.6rem);
     width: 47.7%;
     height: 7.5vh;
