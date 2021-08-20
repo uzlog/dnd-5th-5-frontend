@@ -307,9 +307,7 @@ const CheckedBg = styled.img`
   position: relative;
   bottom: 105%;
   left: 20%;
-
   max-width: 60% !important;
-
   @media screen and (max-width: 1023px) {
     bottom: 105%;
     left: 23%;
@@ -318,9 +316,8 @@ const CheckedBg = styled.img`
 
 const HelpMessage = styled.div`
   position: relative;
-  left: 5vw;
-  top: -10.3vh;
-  display: flex;
+  left: 18vw;
+  bottom: 72.3vh;
   align-items: center;
   padding-left: 10px;
   max-width: 288px;
@@ -335,8 +332,8 @@ const HelpMessage = styled.div`
   color: white;
   animation: ${fadeIn} 1s;
   @media screen and (max-width: 1023px) {
-    top: -100px;
-    left: 40px;
+    left: 160px;
+    bottom: 475px;
     width: 180px;
     height: 62px;
     font-size: 12px;
@@ -564,7 +561,6 @@ const AlaCardSettingComponent = ({ history, state, apiCall }) => {
           </CardLockWrapper>
           <BgHeader>
             <StyledSpan>배경 선택</StyledSpan>
-            {showHelp && <HelpMessage>알라카드가 완성된 후 자유롭게 꾸밀 수 있어요.</HelpMessage>}
             {!sessionCardInfo.isCompleted && <img src={helpBtn} onClick={openHelp} alt="도움말" />}
           </BgHeader>
           <BgTitle>
@@ -634,6 +630,11 @@ const AlaCardSettingComponent = ({ history, state, apiCall }) => {
             </StyledButton>
           </ButtonWrapper>
         </SettingWrapper>
+        {
+          <HelpMessage style={showHelp ? { display: 'flex' } : { opacity: 0, display: 'none', visibility: 'hidden' }}>
+            알라카드가 완성된 후 자유롭게 꾸밀 수 있어요.
+          </HelpMessage>
+        }
       </Wrapper>
       {showToast && (
         <ToastWrapper>
