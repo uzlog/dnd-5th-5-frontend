@@ -302,6 +302,18 @@ const StyledButton = styled.button`
     font-size: 16px;
   }
 `;
+const CheckedBg = styled.img`
+  position: relative;
+  bottom: 105%;
+  left: 20%;
+
+  max-width: 60% !important;
+
+  @media screen and (max-width: 1023px) {
+    bottom: 105%;
+    left: 23%;
+  }
+`;
 
 const HelpMessage = styled.div`
   position: relative;
@@ -351,6 +363,28 @@ const AlaCardSettingComponent = ({ history, state, apiCall }) => {
     maxWidth: viewSize > '1023' ? '57.6rem' : '36rem',
     width: viewSize > '1023' ? '40vw' : '36rem',
   };
+  console.log(cardStyle);
+  const [solid, setSolid] = useState(
+    alaCardBgSolid.map((item) =>
+      item.backgroundImgUrl === (originCardBg ? originCardBg : sessionCardInfo.originCardBg)
+        ? { ...item, clicked: true }
+        : { ...item, clicked: false },
+    ),
+  );
+  const [grad, setGrad] = useState(
+    alaCardBgGrad.map((item) =>
+      item.backgroundImgUrl === (originCardBg ? originCardBg : sessionCardInfo.originCardBg)
+        ? { ...item, clicked: true }
+        : { ...item, clicked: false },
+    ),
+  );
+  const [photo, setPhoto] = useState(
+    alaCardBgPhoto.map((item) =>
+      item.backgroundImgUrl === (originCardBg ? originCardBg : sessionCardInfo.originCardBg)
+        ? { ...item, clicked: true }
+        : { ...item, clicked: false },
+    ),
+  );
 
   const onClickToggle = () => {
     setToggle((prevState) => !prevState);
@@ -399,9 +433,25 @@ const AlaCardSettingComponent = ({ history, state, apiCall }) => {
       setBackground(e.target.src);
       setNewCardInfo(newCardInfo);
       onClickUploadCardInfo(newCardInfo);
+
+      setSolid(
+        solid.map((item) =>
+          item.thumbnailImgUrl === e.target.src ? { ...item, clicked: true } : { ...item, clicked: false },
+        ),
+      );
+      setGrad(
+        grad.map((item) =>
+          item.thumbnailImgUrl === e.target.src ? { ...item, clicked: true } : { ...item, clicked: false },
+        ),
+      );
+      setPhoto(
+        photo.map((item) =>
+          item.thumbnailImgUrl === e.target.src ? { ...item, clicked: true } : { ...item, clicked: false },
+        ),
+      );
     }
   };
-
+  console.log(solid);
   const submitCardInfo = (e) => {
     e.preventDefault();
     setIsChanged(false);
@@ -472,7 +522,7 @@ const AlaCardSettingComponent = ({ history, state, apiCall }) => {
           </BgTitle>
           <BgWrapper bgSolid={bgSolid ? true : false}>
             {bgSolid &&
-              alaCardBgSolid.map((card, idx) => {
+              solid.map((card, idx) => {
                 return (
                   <ImgWrapper
                     isCompleted={isCompleted || sessionCardInfo.isCompleted ? true : ''}
@@ -480,28 +530,33 @@ const AlaCardSettingComponent = ({ history, state, apiCall }) => {
                     {idx === 0 && isCompleted === false ? (
                       <img src={bgSelected} className="checked" alt="기본 배경" />
                     ) : (
-                      <img src={card.thumbnailImgUrl} bg={card.backgroundImgUrl} font={card.fontColor} alt="배경" />
+                      <>
+                        <img src={card.thumbnailImgUrl} bg={card.backgroundImgUrl} font={card.fontColor} alt="배경" />
+                        {card.clicked ? <CheckedBg src={bgSelected} /> : <></>}
+                      </>
                     )}
                   </ImgWrapper>
                 );
               })}
             {bgGrad &&
-              alaCardBgGrad.map((card, idx) => {
+              grad.map((card, idx) => {
                 return (
                   <ImgWrapper
                     isCompleted={isCompleted || sessionCardInfo.isCompleted ? true : ''}
                     onClick={onClickBackground}>
                     <img src={card.thumbnailImgUrl} bg={card.backgroundImgUrl} font={card.fontColor} alt="배경" />
+                    {card.clicked ? <CheckedBg src={bgSelected} /> : <></>}
                   </ImgWrapper>
                 );
               })}
             {bgPhoto &&
-              alaCardBgPhoto.map((card, idx) => {
+              photo.map((card, idx) => {
                 return (
                   <ImgWrapper
                     isCompleted={isCompleted || sessionCardInfo.isCompleted ? true : ''}
                     onClick={onClickBackground}>
                     <img src={card.thumbnailImgUrl} bg={card.backgroundImgUrl} font={card.fontColor} alt="배경" />
+                    {card.clicked ? <CheckedBg src={bgSelected} /> : <></>}
                   </ImgWrapper>
                 );
               })}
