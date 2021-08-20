@@ -24,8 +24,6 @@ import googleIcon from '@assets/img/auth/googleIcon.svg';
 import naverIcon from '@assets/img/auth/naverIcon.svg';
 import closeBtn from '@assets/img/auth/closeBtn.svg';
 import { withRouter } from 'react-router-dom';
-import client from '@lib/api/client';
-import { access } from 'fs';
 
 dotenv.config();
 
@@ -47,6 +45,11 @@ const SocialLogin = ({
   const onSuccessGoogle = (result) => {
     const userInfo = { profileObj: result.profileObj };
     onSubmitGoogle(userInfo);
+  };
+  const onSuccessNaver = async () => {
+    if (location.hash) {
+      onSubmitNaver(location.hash.split('=')[1].split('&')[0]);
+    }
   };
   const onChange = (e) => {
     const { name, value } = e.target;
@@ -76,19 +79,9 @@ const SocialLogin = ({
     } else if (duplicatedData === true) {
       setError('앗, 누군가 이미 사용중인 별명이네요,\n 다른 별명을 사용해보세요.');
     }
+    return onSuccessNaver();
   }, [duplicatedData]);
 
-  const onSuccessNaver = async () => {
-    if (location.hash) {
-      const response = await client.get('/api/v1/member/me', {
-        params: { access_token: location.hash.split('=')[1].split('&')[0] },
-      });
-      console.log(response);
-    }
-  };
-  useEffect(() => {
-    return onSuccessNaver();
-  }, []);
   return (
     <>
       {authMessage === 'join' && getMemberLoading ? (
@@ -163,7 +156,6 @@ const SocialLogin = ({
                 onFailure={(result) => console.log(result)}
               />
               <NaverLogin
-                id="naverIdLogin"
                 clientId={'IJ7GzNOsMH9wRsRGA15e'}
                 callbackUrl={'http://localhost:3000'}
                 isPopup={false}
@@ -173,7 +165,7 @@ const SocialLogin = ({
                     Naver
                   </NaverButton>
                 )}
-                onSuccess={(naverUser) => onSuccessNaver(naverUser)}
+                onSuccess={() => onSuccessNaver()}
                 onFailure={(result) => console.error(result)}
               />
             </ButtonWrapper>
