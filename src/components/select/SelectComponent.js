@@ -35,6 +35,7 @@ import closeBtnWhite from '@assets/img/my-profile/closeBtnWhite.svg';
 import { useParams, withRouter } from 'react-router-dom';
 import client from '@lib/api/client';
 import ScrollContainer from 'react-indiana-drag-scroll';
+import { useTitle, useMetaTegs } from '@hooks/useMeta';
 
 const SelectComponent = ({ history }) => {
   // 주소창에서 가져오기
@@ -201,6 +202,8 @@ const SelectComponent = ({ history }) => {
   //반응형
   const viewSize = useResponsive();
 
+  useTitle(owner);
+  useMetaTegs(owner);
   return (
     <>
       <MainWrapper>

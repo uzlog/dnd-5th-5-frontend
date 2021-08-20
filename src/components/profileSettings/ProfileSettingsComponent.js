@@ -30,7 +30,10 @@ import unlock from '@assets/img/profileSettings/unlock.svg';
 import Modal from './Modal';
 import { withRouter } from 'react-router-dom';
 import HeaderContainer from '@containers/common/HeaderContainer';
+import { useTitle } from '@hooks/useMeta';
+import Cookies from 'universal-cookie';
 
+const cookies = new Cookies();
 const ProfileSettingsComponent = ({ history }) => {
   const [myInfo, setMyInfo] = useState({
     imgUrl: '',
@@ -128,7 +131,7 @@ const ProfileSettingsComponent = ({ history }) => {
   const onDeleteHandler = async () => {
     const response = await client.get('/api/v1/member/delete', { params: { nickname } });
     if (response.data.message === 'success') {
-      document.cookie = 'token=; expires=1995-11-01T09:11:07.000Z;';
+      cookies.remove('token');
       sessionStorage.removeItem('nickname');
       localStorage.removeItem('nickname');
       history.push('/');
@@ -136,12 +139,13 @@ const ProfileSettingsComponent = ({ history }) => {
   };
 
   const onlogoutHandler = () => {
-    document.cookie = 'token=; expires=1995-11-01T09:11:04.000Z;';
+    cookies.remove('token');
     sessionStorage.removeItem('nickname');
     localStorage.removeItem('nickname');
     history.push('/');
   };
 
+  useTitle(sessionStorage.getItem('nickname'));
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>
       <HeaderContainer />
