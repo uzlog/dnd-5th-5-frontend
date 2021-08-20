@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 export const Header = styled.div`
   background-color: #121212;
@@ -29,8 +29,8 @@ export const MainWrapper = styled.div`
     max-width: 576px;
     height: 100vh;
     background-color: #121212;
-
     width: 40vw;
+    overflow: hidden;
   }
 `;
 export const KeywordIntro = styled.div`
@@ -39,26 +39,21 @@ export const KeywordIntro = styled.div`
   margin-top: 3.1vh;
   font-size: 18px;
   @media screen and (min-width: 1023px) {
-    padding-left: 1.8vw;
     font-size: min(2.9rem, 3.5vh);
-    margin-left: 1.2vw;
+    margin-left: 2vw;
   }
-`;
-export const SelectedCount = styled.div`
-  color: white;
-  margin-left: 24px;
-  margin-top: 3.1vh;
-  font-size: 16px;
-  @media screen and (min-width: 1023px) {
-    padding-left: 1.2vw;
 
-    font-size: min(2rem, 2.3vh);
-    margin-left: 1.8vw;
+  p {
+    color: white;
     margin-top: 3.1vh;
+    font-size: 16px;
+    @media screen and (min-width: 1023px) {
+      font-size: min(2rem, 2.3vh);
+    }
+    b {
+      color: #b9ff46;
+    }
   }
-`;
-export const SelectedCountFoucs = styled.b`
-  color: #b9ff46;
 `;
 
 export const SelectViewWrapper = styled.div`
@@ -131,6 +126,12 @@ export const ButtonWrapper = styled.span`
   border: 0;
   display: flex;
   padding-bottom: 4.8vh;
+  margin: 0 24px;
+  justify-content: space-between;
+
+  @media screen and (min-width: 1023px) {
+    margin: 0 2vw;
+  }
 `;
 
 export const GetMoreWorldButton = styled.button`
@@ -142,14 +143,13 @@ export const GetMoreWorldButton = styled.button`
   align-items: center;
   justify-content: center;
   font-size: 16px;
-  margin: 0 auto;
   padding: 11px 14px 11px 14px;
   border-radius: 62px;
   border: solid 1px white;
   @media screen and (min-width: 1023px) {
     border: solid 1.6px;
     font-size: min(33vw, 3vh, 2.6rem);
-    width: 41.7%;
+    width: 47.7%;
     height: 7.5vh;
     padding: 17.6px 22.4px 18.2px 22.4px;
   }
@@ -163,16 +163,13 @@ export const SubmitButton = styled.button`
   width: 148px;
   height: 48px;
   font-size: 16px;
-
-  margin: 0 auto;
   padding: 11px 14px 11px 14px;
   border-radius: 62px;
   border: solid 1px;
   @media screen and (min-width: 1023px) {
     border: solid 1.6px;
     font-size: min(33vw, 3vh, 2.6rem);
-
-    width: 41.7%;
+    width: 47.7%;
     height: 7.5vh;
     padding: 17.6px 22.4px 18.2px 22.4px;
   }
@@ -183,7 +180,8 @@ export const HeaderWrapper = styled.div`
   max-width: 576px;
   width: 40vw;
   height: 9.4vh;
-  padding: 3.1vh 2.2vw 3.1vh 1.8vw;
+  padding: 3.1vh 2vw 3.1vh 2vw;
+
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
   &::-webkit-scrollbar {
@@ -193,7 +191,7 @@ export const HeaderWrapper = styled.div`
     width: 360px;
     min-height: 60px;
     height: 9.3vh;
-    padding: 2.8vh 20px 3vh 20px;
+    padding: 2.8vh 24px 3vh 24px;
   }
 `;
 
@@ -250,5 +248,45 @@ export const HeaderIconWrapper = styled.div`
       width: 20px;
       height: 20px;
     }
+  }
+`;
+const fadeIn = keyframes`
+  from {
+    opacity: 0.5;
+  }
+  to {
+    opacity: 0;
+  }
+`;
+export const ToastWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
+export const Toast = styled.div`
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  top: 82%;
+  border-radius: 5px;
+  background-color: #000000;
+  line-height: 1.6;
+  color: white;
+  max-width: 460px;
+  width: 31.9vw;
+  max-height: 57.6px;
+  height: 5.6vh;
+  font-size: min(1.3vw, 1.8vh, 19.2px);
+  animation: ${fadeIn} 5s;
+  -moz-animation: ${fadeIn} 5s; /* Firefox */
+  -webkit-animation: ${fadeIn} 5s; /* Safari and Chrome */
+  -o-animation: ${fadeIn} 5s; /* Opera */
+  @media screen and (max-width: 1023px) {
+    width: 302px;
+    height: 36px;
+    font-size: 12px;
+    text-align: center;
   }
 `;

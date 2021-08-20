@@ -42,7 +42,7 @@ const ProfileSettingsComponent = ({ history }) => {
     statusMessage: '',
     isOpen: false,
   });
-  const [nicknameLength, setNicknameLength] = useState(5);
+  const [nicknameLength, setNicknameLength] = useState(false);
   const [nicknameExists, setNicknameExists] = useState(false);
   const [statusMessageOverCount, setStatusMessageOverCount] = useState(false);
   const viewSize = useResponsive();
@@ -61,7 +61,7 @@ const ProfileSettingsComponent = ({ history }) => {
       nickname: e.target.value,
       changed: true,
     });
-    setNicknameLength(e.target.value.length);
+    setNicknameLength(false);
   };
 
   const onStatusMessageChange = (e) => {
@@ -125,6 +125,8 @@ const ProfileSettingsComponent = ({ history }) => {
           window.location.replace(`/${myInfo.nickname}/settings`);
         }
       }
+    } else {
+      setNicknameLength(true);
     }
   };
 
@@ -174,7 +176,7 @@ const ProfileSettingsComponent = ({ history }) => {
           <InputBoxWrapper>
             <EachTitle>별명</EachTitle>
             <InputBox placeholder={myInfo.nickname} value={myInfo.nickname} onChange={onNicknameChange} />
-            {nicknameLength < 3 ? <AlertMessage>앗, 별명이 너무 짧아요! 3자 이상 입력해주세요.</AlertMessage> : <></>}
+            {nicknameLength ? <AlertMessage>앗, 별명이 너무 짧아요! 3자 이상 입력해주세요.</AlertMessage> : <></>}
             {nicknameExists ? (
               <AlertMessage>앗, 누군가 이미 사용중인 별명이네요. 다른 별명을 사용해보세요.</AlertMessage>
             ) : (
@@ -211,12 +213,14 @@ const ProfileSettingsComponent = ({ history }) => {
               <ToggleInner className={myInfo.isOpen ? '' : 'left'} />
             </ToggleButton>
           </EachTitle>
-          <DeleteButton
-            style={{ cursor: 'not-allowed' }}
-            onClick={() => {
-              setDeleteModal(!deleteModal);
-            }}>
-            회원탈퇴
+          <DeleteButton>
+            <span
+              style={{ cursor: 'not-allowed' }}
+              onClick={() => {
+                setDeleteModal(!deleteModal);
+              }}>
+              회원탈퇴
+            </span>
           </DeleteButton>
           {deleteModal ? <Modal setDeleteModal={setDeleteModal} onDeleteHandler={onDeleteHandler} /> : <></>}
           <ButtonWrapper>
@@ -225,8 +229,7 @@ const ProfileSettingsComponent = ({ history }) => {
               onClick={onUpdataSubmitHandler}
               style={myInfo.changed ? { cursor: 'pointer' } : { background: '#2a2a2a' }}
               disabled={myInfo.changed ? false : true}>
-              다 썼음
-              <img src={emoji11} />
+              저장할래 <img src={emoji11} />
             </SubmitButton>
           </ButtonWrapper>
         </ContentWrapper>
