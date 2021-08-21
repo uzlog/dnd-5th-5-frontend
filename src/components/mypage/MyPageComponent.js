@@ -105,7 +105,8 @@ const StatusBox = styled.div`
 `;
 
 const ImgWrapper = styled.div`
-  img {
+  img,
+  div {
     max-width: 64px;
     width: 4.4vw;
     max-height: 56px;
@@ -169,7 +170,7 @@ const ContentFlexWrapper = styled.div`
 
 const ContentsWrapper = styled.div`
   display: table;
-  padding-bottom: 15vh;
+  padding-bottom: 10vh;
   width: 34.7vw;
   max-width: 500px;
   height: 80vh;
@@ -225,7 +226,8 @@ const ButtonWrapper = styled.div`
   justify-content: flex-end;
   position: sticky;
   bottom: 0%;
-  height: 15vh;
+  /* height: 15vh; */
+  padding-bottom: 5vh;
   width: 34.7vw;
   max-width: 500px;
   margin: 0 auto;
@@ -549,6 +551,7 @@ const MyPageComponent = ({ history, state, apiCall }) => {
               {getRelationData === '팔로워' && (
                 <FriendButton src={friendPlusBtn} cursor="pointer" onClick={acceptFollow} alt="친구 수락" />
               )}
+              {getRelationData === undefined && <div />}
             </ImgWrapper>
           </FriendWrapper>
         )}
