@@ -20,6 +20,12 @@ import friendWaitingBtn from '@assets/img/friend/friendWaitingBtn.svg';
 import lock from '@assets/img/profileSettings/lock.svg';
 import { useTitle } from '@hooks/useMeta';
 
+const StyledSlider = styled(Slider)`
+  .slick-slide img {
+    display: inline;
+  }
+`;
+
 const fadeIn = keyframes`
   from {
     opacity: 0.5;
@@ -47,7 +53,7 @@ const FriendWrapper = styled.div`
   height: 10vh;
   display: flex;
   align-items: center;
-  padding: 20px 2.6vw;
+  justify-content: center;
   img:first-child {
     border-radius: 50px;
     width: 64px;
@@ -99,7 +105,8 @@ const StatusBox = styled.div`
 `;
 
 const ImgWrapper = styled.div`
-  img {
+  img,
+  div {
     max-width: 64px;
     width: 4.4vw;
     max-height: 56px;
@@ -120,19 +127,28 @@ const MoreButtonWrapper = styled.div`
   height: 10vh;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
-  padding-right: 1.9vw;
+  justify-content: center;
   img {
     width: 38.4px;
     height: 38.4px;
   }
   @media screen and (max-width: 1023px) {
     min-height: 6.4rem;
-    padding-right: 2.4rem;
     img {
       width: 2.4rem;
       height: 2.4rem;
     }
+  }
+`;
+
+const MoreButtonInnerWrapper = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  width: 34.7vw;
+  max-width: 500px;
+
+  @media screen and (max-width: 1023px) {
+    width: 311px;
   }
 `;
 
@@ -141,10 +157,6 @@ const MoreButton = styled.div`
   width: 38.4px;
   height: 3.8vh;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-  justify-content: space-between;
   @media screen and (max-width: 1023px) {
     width: 2.4rem;
     height: 2.4rem;
@@ -154,35 +166,34 @@ const MoreButton = styled.div`
 const ContentFlexWrapper = styled.div`
   display: flex;
   justify-content: center;
-  padding-bottom: 10.6vh;
 `;
 
 const ContentsWrapper = styled.div`
   display: table;
-  width: 40vw;
-  max-width: 576px;
-  height: 70vh;
+  padding-bottom: 10vh;
+  width: 34.7vw;
+  max-width: 500px;
+  height: 80vh;
+  white-space: pre-line;
   line-height: 1.6;
   letter-spacing: -0.8px;
-  font-size: min(5.6vh, 57.6px, 4vw);
+  font-size: min(calc((5.6vh + 4vw) / 2), 57.6px);
   font-weight: 300;
-  padding-bottom: 10.6vh;
-  padding-left: 38.4px;
-  padding-right: 38.4px;
   @media screen and (max-width: 1023px) {
     width: 36rem;
-    min-height: 42rem;
     line-height: 1.6;
     letter-spacing: -0.5px;
     font-size: 3.6rem;
     padding-left: 2.4rem;
     padding-right: 2.4rem;
+    height: 85vh;
   }
 `;
 
 const InnerContents = styled.div`
   display: table-cell;
   vertical-align: middle;
+  white-space: pre-line;
   height: ${(props) => props.height || ''};
   text-align: left;
   img {
@@ -209,10 +220,24 @@ const ModalContentsWrapper = styled.div`
   font-size: 36px;
 `;
 
-const StyledButton = styled.button`
+const ButtonWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
   position: sticky;
-  bottom: 4%;
-  left: 31%;
+  bottom: 0%;
+  /* height: 15vh; */
+  padding-bottom: 5vh;
+  width: 34.7vw;
+  max-width: 500px;
+  margin: 0 auto;
+  @media screen and (max-width: 1023px) {
+    width: 311px;
+  }
+`;
+
+const StyledButton = styled.button`
+  z-index: 10;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -221,7 +246,7 @@ const StyledButton = styled.button`
   height: 7.5vh;
   border-radius: 99px;
   cursor: pointer;
-  border: solid 1px white;
+  border: solid 2px white;
   background: transparent;
   color: white;
   line-height: 1.6;
@@ -266,7 +291,7 @@ const StyledLink = styled(Link)`
   height: 7.5vh;
   border-radius: 99px;
   cursor: pointer;
-  border: solid 1px white;
+  border: solid 2px white;
   background: transparent;
   color: white;
   line-height: 1.6;
@@ -384,7 +409,6 @@ const MyPageComponent = ({ history, state, apiCall }) => {
   const [isOwner, setIsOwner] = useState(memberData.nickname === nickname);
   const [showModal, setShowModal] = useState(false);
   const [showToast, setShowToast] = useState(false);
-  // const [owner, setOwner] = useState()
   const [sentence, setSentence] = useState('');
   const [bigAlaCardStyle, setBigAlaCardStyle] = useState('');
   const [fontColorStyle, setFontColorStyle] = useState('');
@@ -394,7 +418,7 @@ const MyPageComponent = ({ history, state, apiCall }) => {
     dots: false,
     infinite: true,
     arrows: false,
-    autoplay: true,
+    autoplay: false,
     autoplaySpeed: 3000,
     speed: 500,
     slidesToShow: 1,
@@ -527,13 +551,14 @@ const MyPageComponent = ({ history, state, apiCall }) => {
               {getRelationData === '팔로워' && (
                 <FriendButton src={friendPlusBtn} cursor="pointer" onClick={acceptFollow} alt="친구 수락" />
               )}
+              {getRelationData === undefined && <div />}
             </ImgWrapper>
           </FriendWrapper>
         )}
         {isOwner ? (
           // 페이지 주인인 경우 다 보여주기
           <>
-            <Slider ref={slider} {...settings}>
+            <StyledSlider ref={slider} {...settings}>
               {alacardData.map((card, idx) => {
                 const { backgroundImgUrl, fontColor } = card.alaCardSettingDto;
                 let cardStyle;
@@ -560,7 +585,7 @@ const MyPageComponent = ({ history, state, apiCall }) => {
                     '<span><img src="' + secretWord + '" alt="비밀 단어" /></span>',
                   );
                   cardStyle = {
-                    backgroundColor: '#121212',
+                    backgroundColor: '#171717',
                     width: viewSize > '1023' ? '39.9vw' : '36rem',
                     maxWidth: viewSize > '1023' ? '576px' : '359px',
                   };
@@ -569,7 +594,6 @@ const MyPageComponent = ({ history, state, apiCall }) => {
                   };
                 }
 
-                card.sentence = card.sentence.replaceAll(', ', ',<br />');
                 if (!card.sentence.includes('!')) {
                   card.sentence += '!';
                 }
@@ -577,9 +601,11 @@ const MyPageComponent = ({ history, state, apiCall }) => {
                   <>
                     <div key={idx} style={cardStyle}>
                       <MoreButtonWrapper>
-                        <MoreButton onClick={openModal}>
-                          <img src={maximizeBtn} idx={idx} sentence={card.sentence} alt="확대 버튼" />
-                        </MoreButton>
+                        <MoreButtonInnerWrapper>
+                          <MoreButton onClick={openModal}>
+                            <img src={maximizeBtn} idx={idx} sentence={card.sentence} alt="확대 버튼" />
+                          </MoreButton>
+                        </MoreButtonInnerWrapper>
                       </MoreButtonWrapper>
                       <ContentFlexWrapper>
                         <ContentsWrapper>
@@ -590,15 +616,17 @@ const MyPageComponent = ({ history, state, apiCall }) => {
                   </>
                 );
               })}
-            </Slider>
-            <StyledButton onClick={onClickShare}>
-              키워드 PICK 요청하기
-              <img src={linkBtn} alt="링크 버튼" />
-            </StyledButton>
+            </StyledSlider>
+            <ButtonWrapper>
+              <StyledButton onClick={onClickShare}>
+                키워드 PICK 요청하기
+                <img src={linkBtn} alt="링크 버튼" />
+              </StyledButton>
+            </ButtonWrapper>
           </>
         ) : getOtherInfoData.isOpen ? (
           <>
-            <Slider ref={slider} {...settings}>
+            <StyledSlider ref={slider} {...settings}>
               {alacardData.map((card, idx) => {
                 const { backgroundImgUrl, fontColor } = card.alaCardSettingDto;
                 let cardStyle;
@@ -613,6 +641,7 @@ const MyPageComponent = ({ history, state, apiCall }) => {
                   cardStyle = {
                     backgroundImage: 'url(' + backgroundImgUrl + ')',
                     backgroundSize: 'cover',
+                    backgroundColor: '#171717',
                     width: viewSize > '1023' ? '39.9vw' : '36rem',
                     maxWidth: viewSize > '1023' ? '576px' : '359px',
                   };
@@ -625,7 +654,7 @@ const MyPageComponent = ({ history, state, apiCall }) => {
                     '<span><img src="' + secretWord + '" alt="비밀 단어" /></span>',
                   );
                   cardStyle = {
-                    backgroundColor: '#121212',
+                    backgroundColor: '#171717',
                     width: viewSize > '1023' ? '39.9vw' : '36rem',
                     maxWidth: viewSize > '1023' ? '576px' : '359px',
                   };
@@ -634,7 +663,6 @@ const MyPageComponent = ({ history, state, apiCall }) => {
                   };
                 }
 
-                card.sentence = card.sentence.replaceAll(', ', ',<br />');
                 if (!card.sentence.includes('!')) {
                   card.sentence += '!';
                 }
@@ -650,15 +678,17 @@ const MyPageComponent = ({ history, state, apiCall }) => {
                   </>
                 );
               })}
-            </Slider>
-            <StyledLink to={`${nickname}/select`}>
-              키워드 PICK 하러가기
-              <img src={arrowBtn} alt="이동 버튼" />
-            </StyledLink>
+            </StyledSlider>
+            <ButtonWrapper>
+              <StyledLink to={`${nickname}/select`}>
+                키워드 PICK 하러가기
+                <img src={arrowBtn} alt="이동 버튼" />
+              </StyledLink>
+            </ButtonWrapper>
           </>
         ) : getRelationData === '친구' ? (
           <>
-            <Slider ref={slider} {...settings}>
+            <StyledSlider ref={slider} {...settings}>
               {alacardData.map((card, idx) => {
                 const { backgroundImgUrl, fontColor } = card.alaCardSettingDto;
                 let cardStyle;
@@ -685,7 +715,7 @@ const MyPageComponent = ({ history, state, apiCall }) => {
                     '<span><img src="' + secretWord + '" alt="비밀 단어" /></span>',
                   );
                   cardStyle = {
-                    backgroundColor: '#121212',
+                    backgroundColor: '#171717',
                     width: viewSize > '1023' ? '39.9vw' : '36rem',
                     maxWidth: viewSize > '1023' ? '576px' : '359px',
                   };
@@ -694,7 +724,6 @@ const MyPageComponent = ({ history, state, apiCall }) => {
                   };
                 }
 
-                card.sentence = card.sentence.replaceAll(', ', ',<br />');
                 if (!card.sentence.includes('!')) {
                   card.sentence += '!';
                 }
@@ -710,11 +739,13 @@ const MyPageComponent = ({ history, state, apiCall }) => {
                   </>
                 );
               })}
-            </Slider>
-            <StyledLink to={`${nickname}/select`}>
-              키워드 PICK 하러가기
-              <img src={arrowBtn} alt="이동 버튼" />
-            </StyledLink>
+            </StyledSlider>
+            <ButtonWrapper>
+              <StyledLink to={`${nickname}/select`}>
+                키워드 PICK 하러가기
+                <img src={arrowBtn} alt="이동 버튼" />
+              </StyledLink>
+            </ButtonWrapper>
           </>
         ) : (
           <Slider ref={slider} {...closeSettings}>
