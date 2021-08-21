@@ -67,7 +67,7 @@ const HeaderContainer = ({ history }) => {
         dispatch(getMyInfo());
       }
     }
-  }, [token, memberData]);
+  }, [token]);
 
   useEffect(() => {
     if (memberNickname.length > 0) {
