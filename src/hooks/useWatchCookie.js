@@ -11,7 +11,6 @@ const useWatchCookie = () => {
   useEffect(() => {
     const newToken = cookies.get('token');
     if (originToken !== newToken) {
-      console.log('token changed');
     }
   }, []);
 

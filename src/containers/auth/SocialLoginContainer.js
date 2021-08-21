@@ -63,7 +63,6 @@ const SocialLoginContainer = ({ history, closeModal }) => {
   // message == login
   useEffect(() => {
     if (memberData && authMessage === 'login') {
-      console.log('login');
       sessionStorage.setItem('nickname', memberData.nickname);
       localStorage.setItem('nickname', memberData.nickname);
       history.push(`/${memberData.nickname}`);
@@ -73,7 +72,6 @@ const SocialLoginContainer = ({ history, closeModal }) => {
   // 닉네임 변경 (회원가입)
   useEffect(() => {
     if (memberMessage === 'update') {
-      console.log('update');
       sessionStorage.setItem('nickname', memberData.nickname);
       localStorage.setItem('nickname', memberData.nickname);
       history.push(`/${memberData.nickname}`);

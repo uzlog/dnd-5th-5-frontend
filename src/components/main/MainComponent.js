@@ -84,7 +84,8 @@ const StyledButton = styled.button`
   }
 `;
 
-const MainComponent = () => {
+const MainComponent = ({ state }) => {
+  const { getTotalUserData } = state;
   const [showModal, setShowModal] = useState(false);
 
   const openModal = () => {
@@ -109,7 +110,7 @@ const MainComponent = () => {
         <StyledButton onClick={openModal}>시작하기 GO!! 🐨</StyledButton>
         <Description size="16px">
           지금까지 알라와 함께한
-          <br /> <span>123,463명</span>
+          <br /> <span>{getTotalUserData}명</span>
         </Description>
       </Wrapper>
       {showModal && (

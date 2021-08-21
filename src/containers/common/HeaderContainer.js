@@ -46,7 +46,6 @@ const HeaderContainer = ({ history }) => {
   const apiCall = { onClickModalStatus, onClickOpenProfile };
 
   useEffect(() => {
-    console.log(sessionStorage.getItem('nickname'));
     if (!tokenExisted && sessionStorage.getItem('nickname') !== null) {
       sessionStorage.removeItem('nickname');
       localStorage.removeItem('nickname');
