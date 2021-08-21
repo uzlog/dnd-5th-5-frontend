@@ -65,6 +65,7 @@ const ContentsWrapper = styled.div`
   display: table;
   max-width: 57.6rem;
   width: 40vw;
+  min-height: 56vh;
   @media screen and (max-width: 1023px) {
     min-width: 36rem;
   }
@@ -73,6 +74,7 @@ const ContentsWrapper = styled.div`
 const ContentsInnerWrapper = styled.div`
   display: table;
   max-width: 50rem;
+  min-height: 56vh;
   width: 34.7vw;
   padding: min(3.75vh, 3.84rem) min(2.6vw, 3.84rem);
   line-height: 1.6;
@@ -394,7 +396,7 @@ const AlaCardSettingComponent = ({ history, state, apiCall }) => {
   const cardStyle = {
     backgroundImage: originCardBg ? 'url(' + originCardBg + ')' : 'url(' + sessionCardInfo.originCardBg + ')',
     backgroundSize: originCardBg || sessionCardInfo.originCardBg ? 'cover' : '',
-    backgroundColor: originCardBg || sessionCardInfo.originCardBg ? '' : '#171717',
+    backgroundColor: isCompleted || sessionCardInfo.isCompleted ? '' : '#171717',
     maxWidth: viewSize > '1023' ? '57.6rem' : '36rem',
     width: viewSize > '1023' ? '40vw' : '36rem',
   };
