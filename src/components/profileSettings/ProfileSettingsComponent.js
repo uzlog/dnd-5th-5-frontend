@@ -137,7 +137,7 @@ const ProfileSettingsComponent = ({ history }) => {
         alert('성공적으로 변경됐습니다 :)');
         setNickname(myInfo.nickname);
         sessionStorage.setItem('nickname', myInfo.nickname);
-        localStorage.setItem('nickname', myInfo.nickname);
+        // localStorage.setItem('nickname', myInfo.nickname);
         window.location.replace(`/${myInfo.nickname}/settings`);
       }
     }
@@ -240,7 +240,7 @@ const ProfileSettingsComponent = ({ history }) => {
               회원탈퇴
             </span>
           </DeleteButton>
-          {deleteModal ? <Modal setDeleteModal={setDeleteModal} onDeleteHandler={onDeleteHandler} /> : <></>}
+          {/* {deleteModal ? <Modal setDeleteModal={setDeleteModal} onDeleteHandler={onDeleteHandler} /> : <></>} */}
           <ButtonWrapper>
             <LogoutButton onClick={onlogoutHandler}>로그아웃</LogoutButton>
             <SubmitButton

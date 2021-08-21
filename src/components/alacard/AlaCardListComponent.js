@@ -175,7 +175,7 @@ const AlaCardListComponent = ({ state, onClickUploadCardInfo }) => {
           return (
             <>
               <StyledLink
-                to={`/${nickname || localStorage.getItem('nickname')}/alacard/settings`}
+                to={`/${nickname || sessionStorage.getItem('nickname')}/alacard/settings`}
                 onClick={() => {
                   const originCardInfo = {
                     originCardId: alaCardId,

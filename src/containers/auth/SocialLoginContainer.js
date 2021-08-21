@@ -64,7 +64,7 @@ const SocialLoginContainer = ({ history, closeModal }) => {
   useEffect(() => {
     if (memberData && authMessage === 'login') {
       sessionStorage.setItem('nickname', memberData.nickname);
-      localStorage.setItem('nickname', memberData.nickname);
+      // localStorage.setItem('nickname', memberData.nickname);
       history.push(`/${memberData.nickname}`);
     }
   }, [memberData]);
@@ -73,7 +73,7 @@ const SocialLoginContainer = ({ history, closeModal }) => {
   useEffect(() => {
     if (memberMessage === 'update') {
       sessionStorage.setItem('nickname', memberData.nickname);
-      localStorage.setItem('nickname', memberData.nickname);
+      // localStorage.setItem('nickname', memberData.nickname);
       history.push(`/${memberData.nickname}`);
     }
   }, [memberMessage]);

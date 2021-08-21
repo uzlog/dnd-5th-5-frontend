@@ -48,7 +48,7 @@ const HeaderContainer = ({ history }) => {
   useEffect(() => {
     if (!tokenExisted && sessionStorage.getItem('nickname') !== null) {
       sessionStorage.removeItem('nickname');
-      localStorage.removeItem('nickname');
+      // localStorage.removeItem('nickname');
       alert('다시 로그인해주세요');
       history.push('/');
       window.location.reload();
