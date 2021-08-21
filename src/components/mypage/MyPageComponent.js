@@ -4,7 +4,7 @@ import { Link, withRouter } from 'react-router-dom';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import { ModalWrapper, ModalOverlay, ModalContents } from '@components/main/Style';
+import { ModalWrapper, ModalOverlay, ModalContents } from './style';
 import HeaderContainer from '@containers/common/HeaderContainer';
 import DeleteFriendContainer from '@containers/mypage/DeleteFriendContainer';
 import useResponsive from '../../hooks/useResponsive';
@@ -191,6 +191,7 @@ const ContentsWrapper = styled.div`
 `;
 
 const InnerContents = styled.div`
+  padding-top: ${(props) => props.paddingTop};
   display: table-cell;
   vertical-align: middle;
   white-space: pre-line;
@@ -210,23 +211,12 @@ const InnerContents = styled.div`
   }
 `;
 
-const ModalContentsWrapper = styled.div`
-  width: 312px;
-  height: 420px;
-  margin-left: 24px;
-  margin-right: 24px;
-  line-height: 1.6;
-  letter-spacing: -0.5px;
-  font-size: 36px;
-`;
-
 const ButtonWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;
   position: sticky;
   bottom: 0%;
-  /* height: 15vh; */
   padding-bottom: 5vh;
   width: 34.7vw;
   max-width: 500px;
@@ -364,11 +354,10 @@ const Toast = styled.div`
 `;
 
 const Secret = styled.div`
-  padding-top: 10.6vh;
   margin: 0 auto;
   margin-top: 10.6vh;
   font-size: 14px;
-  width: (40vw-2.4rem);
+  width: 40vw;
   max-width: 576px;
   display: flex;
   flex-direction: column;
@@ -443,6 +432,14 @@ const MyPageComponent = ({ history, state, apiCall }) => {
     }
   }, [showProfileModal]);
 
+  useEffect(() => {
+    if (!showModal) {
+      slider.current.slickPlay();
+    } else {
+      slider.current.slickPause();
+    }
+  }, [showModal]);
+
   const openModal = (e) => {
     setShowModal(true);
     document.body.style = `overflow: hidden`;
@@ -452,14 +449,14 @@ const MyPageComponent = ({ history, state, apiCall }) => {
       const { backgroundImgUrl, fontColor } = alacardData[index].alaCardSettingDto;
       setBigAlaCardStyle({
         backgroundImage: 'url(' + backgroundImgUrl + ')',
-        backgroundSize: '360px 640px',
-        width: '360px',
-        height: '640px',
+        backgroundSize: viewSize > 1023 ? '40vw 100vh' : '360px 100vh',
+        width: viewSize > 1023 ? '40vw' : '360px',
+        height: '100vh',
         color: fontColor,
         display: 'table',
         lineHeight: '1.6',
         letterSpacing: '-0.5px',
-        fontSize: '36px',
+        fontSize: viewSize > 1023 ? 'min(calc((4vw + 5.6vh) / 2), 57.6px)' : 'min(calc((10vw + 3.5vh) / 2), 36px)',
         fontWeight: '300',
       });
       setFontColorStyle({
@@ -467,13 +464,13 @@ const MyPageComponent = ({ history, state, apiCall }) => {
       });
     } else {
       setBigAlaCardStyle({
-        width: '360px',
-        height: '640px',
-        backgroundColor: '#121212',
+        width: viewSize > 1023 ? '40vw' : '360px',
+        height: '100vh',
+        backgroundColor: '#171717',
         color: '#b9ff46',
         lineHeight: '1.6',
         letterSpacing: '-0.5px',
-        fontSize: '36px',
+        fontSize: viewSize > 1023 ? 'min(calc((4vw + 5.6vh) / 2), 57.6px)' : 'min(calc((10vw + 3.5vh) / 2), 36px)',
         fontWeight: '300',
       });
       setFontColorStyle({
@@ -754,7 +751,7 @@ const MyPageComponent = ({ history, state, apiCall }) => {
                 <InnerContents>
                   <Secret style={{ color: 'white' }}>
                     <span>
-                      <img src={lock} /> 앗! 비공개 계정이에요
+                      <img src={lock} alt="잠금 이미지" /> 앗! 비공개 계정이에요
                     </span>
                     <p>친구를 맺으면 알라카드를 확인할 수 있어요.</p>
                   </Secret>
@@ -768,11 +765,24 @@ const MyPageComponent = ({ history, state, apiCall }) => {
             <ModalOverlay onClick={() => closeModal()} />
             <ModalContents style={bigAlaCardStyle}>
               <CloseBtnWrapper>
-                <img src={bigCardCloseBtn} width="24px" height="24px" alt="닫기 버튼" onClick={closeModal} />
+                <img
+                  src={bigCardCloseBtn}
+                  width={viewSize > 1023 ? '38.4px' : '24px'}
+                  height={viewSize > 1023 ? '38.4px' : '24px'}
+                  alt="닫기 버튼"
+                  onClick={closeModal}
+                />
               </CloseBtnWrapper>
-              <ModalContentsWrapper style={fontColorStyle}>
-                <InnerContents height="592px" dangerouslySetInnerHTML={{ __html: sentence }} />
-              </ModalContentsWrapper>
+              <ContentFlexWrapper>
+                <ContentsWrapper>
+                  <InnerContents
+                    height="80vh"
+                    paddingTop="10vh"
+                    style={fontColorStyle}
+                    dangerouslySetInnerHTML={{ __html: sentence }}
+                  />
+                </ContentsWrapper>
+              </ContentFlexWrapper>
             </ModalContents>
           </ModalWrapper>
         )}
