@@ -65,10 +65,15 @@ const HeaderContainer = ({ history }) => {
     if (token) {
       if (Object.values(memberData).length === 0) {
         dispatch(getMyInfo());
-        sessionStorage.setItem('nickname', memberNickname);
       }
     }
   }, [token, memberData]);
+
+  useEffect(() => {
+    if (memberNickname.length > 0) {
+      sessionStorage.setItem('nickname', memberNickname);
+    }
+  }, [memberNickname]);
 
   return (
     <>
