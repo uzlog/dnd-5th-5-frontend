@@ -16,7 +16,7 @@ const SelectContainers = ({}) => {
   const state = { alaWordData };
   return (
     <>
-      <SelectComponent />
+      <SelectComponent state={state} />
     </>
   );
 };

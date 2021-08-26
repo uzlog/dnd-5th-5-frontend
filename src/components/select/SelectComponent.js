@@ -36,6 +36,7 @@ import { useParams, withRouter } from 'react-router-dom';
 import client from '@lib/api/client';
 import ScrollContainer from 'react-indiana-drag-scroll';
 import { useTitle, useMetaTegs } from '@hooks/useMeta';
+import axios from 'axios';
 
 const SelectComponent = ({ history }) => {
   // 주소창에서 가져오기
@@ -66,11 +67,11 @@ const SelectComponent = ({ history }) => {
 
   //axios사용해서 데이터 받아오기
   const getWord = async () => {
-    //여기 리덕스로 바꾸기
     const response = await client.get(
       `/api/v2/alacard/wordlist`,
       cookieId ? { params: { nickname: owner, offset, cookieId } } : { params: { nickname: owner, offset } },
     );
+    console.log(response);
     const setData = await response.data.data.wordList;
     setcookieId(response.data.data.cookieId);
     if (setData.length > 15) {
