@@ -8,9 +8,9 @@ const cookies = new Cookies();
 const token = cookies.get('token');
 
 const client = axios.create({
-  baseURL: process.env.REACT_API_SERVER,
+  baseURL: process.env.REACT_APP_API_SERVER,
 });
 
-client.defaults.headers.common['X-AUTH-TOKEN'] = token;
+client.defaults.headers.common['X-AUTH_TOKEN'] = token;
 
 export default client;
