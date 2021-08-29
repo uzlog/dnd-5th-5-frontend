@@ -13,6 +13,7 @@ const [GET_ALA_CARD_BG, GET_ALA_CARD_BG_SUCCESS, GET_ALA_CARD_BG_FAILURE] =
   createRequestActionTypes('cardSetting/GET_ALA_CARD_BG');
 const [UPDATE_CARD_INFO, UPDATE_CARD_INFO_SUCCESS, UPDATE_CARD_INFO_FAILURE] =
   createRequestActionTypes('cardSetting/UPDATE_CARD_INFO');
+const INITIALIZE_UPDATE = 'cardSetting/INITIALIZE_UPDATE';
 
 /**
  * 액션 생성 함수
