@@ -336,7 +336,7 @@ const Header = ({ history, state, apiCall }) => {
                   />
                   <ProfileInfoWrapper>
                     <div>
-                      <span>{nickname || localStorage.getItem('nickname')}</span>
+                      <span>{nickname || sessionStorage.getItem('nickname')}</span>
                       <StyledLink to={`/${nickname}/settings`}>
                         <ProfileImg src={settingBtn} alt="프로필 수정" />
                       </StyledLink>

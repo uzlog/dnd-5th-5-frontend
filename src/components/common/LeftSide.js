@@ -14,7 +14,8 @@ const Wrapper = styled.div`
   justify-content: flex-end;
 `;
 
-const ButtonWrapper = styled.div`
+const ButtonWrapper = styled.a`
+  text-decoration: none;
   width: 146px;
   height: 132px;
   margin-top: 10px;
@@ -51,10 +52,13 @@ const AlaImage = styled.img`
 `;
 
 const StyledSpan = styled.span`
+  width: 120px;
   color: white;
   font-size: 16px;
   font-weight: 500;
   line-height: 1.6;
+  margin-left: -15px;
+  margin-top: 10px;
 `;
 
 const LeftSide = () => {
@@ -62,7 +66,7 @@ const LeftSide = () => {
     <div>
       <Wrapper>
         <img src={deco} alt="소개" />
-        <ButtonWrapper>
+        <ButtonWrapper href="https://pm8nnftoca1.typeform.com/to/YKRgB84m" target="_blank">
           <div style={{ display: 'flex' }}>
             <AlaImage src={sendAla} alt="알라" />
           </div>

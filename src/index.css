@@ -21,13 +21,9 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #000000;
+  font-weight: 400;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
-}
-
-@font-face {
-  font-family: 'SpoqaHanSansNeo-Regular';
-  src: url('assets/fonts/SpoqaHanSansNeo-Regular.ttf');
 }

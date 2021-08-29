@@ -90,13 +90,13 @@ const InnerContents = styled.div`
   text-align: left;
   img {
     display: inline;
-    vertical-align: -11%;
+    width: min(33%, 15vh);
+    vertical-align: -15%;
   }
   @media screen and (min-width: 1023px) {
     img {
       vertical-align: -8%;
       display: inline;
-      width: min(33%, 15vh);
       max-width: 182px;
     }
   }
@@ -175,7 +175,7 @@ const AlaCardListComponent = ({ state, onClickUploadCardInfo }) => {
           return (
             <>
               <StyledLink
-                to={`/${nickname || localStorage.getItem('nickname')}/alacard/settings`}
+                to={`/${nickname || sessionStorage.getItem('nickname')}/alacard/settings`}
                 onClick={() => {
                   const originCardInfo = {
                     originCardId: alaCardId,

@@ -13,7 +13,7 @@ const [GET_ALA_CARD_BG, GET_ALA_CARD_BG_SUCCESS, GET_ALA_CARD_BG_FAILURE] =
   createRequestActionTypes('cardSetting/GET_ALA_CARD_BG');
 const [UPDATE_CARD_INFO, UPDATE_CARD_INFO_SUCCESS, UPDATE_CARD_INFO_FAILURE] =
   createRequestActionTypes('cardSetting/UPDATE_CARD_INFO');
-const INITIALIZE_UPDATE = 'cardSetting/INITIALIZE_UPDATE';
+const INITIALIZE_UPDATE_MESSAGE = 'cardSetting/INITIALIZE_UPDATE_MESSAGE';
 
 /**
  * 액션 생성 함수
@@ -21,6 +21,7 @@ const INITIALIZE_UPDATE = 'cardSetting/INITIALIZE_UPDATE';
 export const uploadCardInfo = createAction(UPLOAD_CARD_INFO, (originCardInfo) => originCardInfo);
 export const getAlaCardBg = createAction(GET_ALA_CARD_BG);
 export const updateCardInfo = createAction(UPDATE_CARD_INFO, (cardInfo) => cardInfo);
+export const initializeUpdateMessage = createAction(INITIALIZE_UPDATE_MESSAGE);
 
 /**
  * 사가 생성
@@ -84,6 +85,10 @@ const cardSetting = handleActions(
     [UPDATE_CARD_INFO_FAILURE]: (state, { payload: error }) => ({
       ...state,
       updateCardInfoError: error,
+    }),
+    [INITIALIZE_UPDATE_MESSAGE]: (state) => ({
+      ...state,
+      updateCardInfoMessage: '',
     }),
   },
   initialState,

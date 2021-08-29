@@ -17,6 +17,7 @@ import {
   DeleteButton,
   StatusMessageCount,
   AlertMessage,
+  HideBox,
   ToggleButton,
   ToggleInner,
   IsOpen,
@@ -42,8 +43,8 @@ const ProfileSettingsComponent = ({ history }) => {
     statusMessage: '',
     isOpen: false,
   });
-  const [nicknameLength, setNicknameLength] = useState(5);
   const [nicknameExists, setNicknameExists] = useState(false);
+  const [nicknameRoles, setNicknameRoles] = useState(false);
   const [statusMessageOverCount, setStatusMessageOverCount] = useState(false);
   const viewSize = useResponsive();
   const [nickname, setNickname] = useState(sessionStorage.getItem('nickname'));
@@ -61,7 +62,7 @@ const ProfileSettingsComponent = ({ history }) => {
       nickname: e.target.value,
       changed: true,
     });
-    setNicknameLength(e.target.value.length);
+    setNicknameRoles(false);
   };
 
   const onStatusMessageChange = (e) => {
@@ -107,23 +108,37 @@ const ProfileSettingsComponent = ({ history }) => {
   };
 
   const onUpdataSubmitHandler = async () => {
-    if (nicknameLength > 2) {
-      const existsResponse = await client.get('/api/v1/member/exists', { params: { nickname: myInfo.nickname } });
-      existsResponse.data.data === true
-        ? myInfo.nickname === nickname
-          ? setNicknameExists(false)
-          : setNicknameExists(true)
-        : setNicknameExists(false);
-      myInfo.statusMessage.length < 30 ? setStatusMessageOverCount(false) : setStatusMessageOverCount(true);
-      if ((existsResponse.data.data === false || myInfo.nickname === nickname) && myInfo.statusMessage.length < 30) {
-        const upDataResponse = await client.patch('/api/v1/member/me', myInfo);
-        if (upDataResponse.data.message === 'update') {
-          alert('성공적으로 변경됐습니다 :)');
-          setNickname(myInfo.nickname);
-          sessionStorage.setItem('nickname', myInfo.nickname);
-          localStorage.setItem('nickname', myInfo.nickname);
-          window.location.replace(`/${myInfo.nickname}/settings`);
-        }
+    // 닉네임이 있나?
+    const existsResponse = await client.get('/api/v1/member/exists', { params: { nickname: myInfo.nickname } });
+    existsResponse.data.data === true
+      ? myInfo.nickname === nickname
+        ? setNicknameExists(false)
+        : setNicknameExists(true)
+      : setNicknameExists(false);
+    //상테메시지 30줄보다 짧은가?
+    myInfo.statusMessage.length < 30 ? setStatusMessageOverCount(false) : setStatusMessageOverCount(true);
+    // 조건에 맞나?
+    const regExp = /^[0-9a-zA-Z]([_]?[0-9a-zA-Z]){2,19}$/; // 영문, 숫자, 특수문자 '_' 를 포함한 3~20자 특수문자는 마지막에 못옴
+    if (!regExp.test(myInfo.nickname)) {
+      // 닉네임 조건에 부합하지 않음
+      setNicknameRoles(true);
+    } else {
+      setNicknameRoles(false);
+    }
+
+    // 모든 조건을 만족하는가? (위의 3조건 + 지금 닉네임과 동일한가)
+    if (
+      (existsResponse.data.data === false || myInfo.nickname === nickname) &&
+      myInfo.statusMessage.length < 30 &&
+      regExp.test(myInfo.nickname)
+    ) {
+      const upDataResponse = await client.patch('/api/v1/member/me', myInfo);
+      if (upDataResponse.data.message === 'update') {
+        alert('성공적으로 변경됐습니다 :)');
+        setNickname(myInfo.nickname);
+        sessionStorage.setItem('nickname', myInfo.nickname);
+        // localStorage.setItem('nickname', myInfo.nickname);
+        window.location.replace(`/${myInfo.nickname}/settings`);
       }
     }
   };
@@ -134,7 +149,8 @@ const ProfileSettingsComponent = ({ history }) => {
       cookies.remove('token');
       sessionStorage.removeItem('nickname');
       localStorage.removeItem('nickname');
-      history.push('/');
+      client.defaults.headers.common['X-AUTH_TOKEN'] = undefined;
+      window.location.replace('/');
     }
   };
 
@@ -142,7 +158,7 @@ const ProfileSettingsComponent = ({ history }) => {
     cookies.remove('token');
     sessionStorage.removeItem('nickname');
     localStorage.removeItem('nickname');
-    history.push('/');
+    window.location.replace('/');
   };
 
   useTitle(sessionStorage.getItem('nickname'));
@@ -152,7 +168,7 @@ const ProfileSettingsComponent = ({ history }) => {
       <MainWrapper>
         <ProfileImg
           type="file"
-          accept="image/x-png,image/gif,image/jpeg"
+          accept="image/x-png, image/jpeg, image/jpg"
           onChange={onFileChange}
           style={{
             backgroundImage: `url(${myInfo.imgUrl})`,
@@ -161,6 +177,7 @@ const ProfileSettingsComponent = ({ history }) => {
             backgroundSize: 'cover',
           }}
         />
+        <HideBox></HideBox>
         <ContentWrapper>
           <EmailWrapper>
             <EachTitle>계정</EachTitle>
@@ -173,9 +190,13 @@ const ProfileSettingsComponent = ({ history }) => {
           <InputBoxWrapper>
             <EachTitle>별명</EachTitle>
             <InputBox placeholder={myInfo.nickname} value={myInfo.nickname} onChange={onNicknameChange} />
-            {nicknameLength < 3 ? <AlertMessage>앗, 별명이 너무 짧아요! 3자 이상 입력해주세요.</AlertMessage> : <></>}
             {nicknameExists ? (
               <AlertMessage>앗, 누군가 이미 사용중인 별명이네요. 다른 별명을 사용해보세요.</AlertMessage>
+            ) : (
+              <></>
+            )}
+            {nicknameRoles ? (
+              <AlertMessage>앗, 숫자/영문/_만 사용하여 3-20자 이내로 사용해보세요.</AlertMessage>
             ) : (
               <></>
             )}
@@ -210,22 +231,23 @@ const ProfileSettingsComponent = ({ history }) => {
               <ToggleInner className={myInfo.isOpen ? '' : 'left'} />
             </ToggleButton>
           </EachTitle>
-          <DeleteButton
-            style={{ cursor: 'not-allowed' }}
-            onClick={() => {
-              setDeleteModal(!deleteModal);
-            }}>
-            회원탈퇴
+          <DeleteButton>
+            <span
+              style={{ cursor: 'not-allowed' }}
+              onClick={() => {
+                setDeleteModal(!deleteModal);
+              }}>
+              회원탈퇴
+            </span>
           </DeleteButton>
-          {deleteModal ? <Modal setDeleteModal={setDeleteModal} onDeleteHandler={onDeleteHandler} /> : <></>}
+          {/* {deleteModal ? <Modal setDeleteModal={setDeleteModal} onDeleteHandler={onDeleteHandler} /> : <></>} */}
           <ButtonWrapper>
             <LogoutButton onClick={onlogoutHandler}>로그아웃</LogoutButton>
             <SubmitButton
               onClick={onUpdataSubmitHandler}
               style={myInfo.changed ? { cursor: 'pointer' } : { background: '#2a2a2a' }}
               disabled={myInfo.changed ? false : true}>
-              다 썼음
-              <img src={emoji11} />
+              저장할래 <img src={emoji11} />
             </SubmitButton>
           </ButtonWrapper>
         </ContentWrapper>

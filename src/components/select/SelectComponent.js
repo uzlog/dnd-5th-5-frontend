@@ -10,13 +10,13 @@ import {
   WhiteBox,
   GetMoreWorldButton,
   KeywordIntro,
-  SelectedCount,
-  SelectedCountFoucs,
   SubmitButton,
   HeaderIconWrapper,
   HeaderLogoWrapper,
   HeaderInnerWrapper,
   HeaderWrapper,
+  ToastWrapper,
+  Toast,
   ButtonWrapper,
 } from './style';
 import logo from '@assets/img/nav/logo.svg';
@@ -40,12 +40,11 @@ import { useTitle, useMetaTegs } from '@hooks/useMeta';
 const SelectComponent = ({ history }) => {
   // 주소창에서 가져오기
   const owner = useParams().nickname;
-  // const owner = 'QueenMK';
   const [offset, setOffset] = useState(0);
-  const [getWordListError, setGetWordListError] = useState(false);
   const [wordList, setWordList] = useState([[], [], [], []]);
   const [idList, setIdList] = useState([]);
   const [cookieId, setcookieId] = useState('');
+  const [showToast, setShowToast] = useState(false);
   const COLUMN = 4;
   const backgroundGradientList = [
     'linear-gradient(to right, #bf5ae0, #a811da)',
@@ -164,8 +163,10 @@ const SelectComponent = ({ history }) => {
       setOffset(offset + newWordList.length);
     } else {
       // 여기 토스트 써서 만들기
-      setGetWordListError(true);
-      alert('더 단어가 없어요 ㅠㅠ');
+      setShowToast(true);
+      setTimeout(() => {
+        setShowToast(false);
+      }, 1000);
     }
   };
 
@@ -231,14 +232,15 @@ const SelectComponent = ({ history }) => {
         <KeywordIntro>
           {owner}과<br />
           관련된 키워드를 모두 골라봥!😼
+          {idList.length ? (
+            <p>
+              <b>{idList.length}개</b>의 키워드를 골랐어!
+            </p>
+          ) : (
+            <p>아직 고른 키워드가 없어!</p>
+          )}
         </KeywordIntro>
-        {idList.length ? (
-          <SelectedCount>
-            <SelectedCountFoucs>{idList.length}개</SelectedCountFoucs>의 키워드를 골랐어!
-          </SelectedCount>
-        ) : (
-          <SelectedCount>아직 고른 키워드가 없어!</SelectedCount>
-        )}
+
         <SelectViewWrapper>
           <ScrollContainer>
             {wordList.map((word, index) => (
@@ -274,16 +276,18 @@ const SelectComponent = ({ history }) => {
             ))}
           </ScrollContainer>
         </SelectViewWrapper>
+        {showToast && (
+          <ToastWrapper>
+            <Toast>더 많은 단어를 준비중입니다!</Toast>
+          </ToastWrapper>
+        )}
         <ButtonWrapper>
-          <GetMoreWorldButton
-            onClick={getWord}
-            disabled={getWordListError ? true : false}
-            style={getWordListError ? null : { cursor: 'pointer' }}>
+          <GetMoreWorldButton onClick={getWord}>
             더 보여줘 <img src={emoji1} />
           </GetMoreWorldButton>
           <SubmitButton
             onClick={onSubmitHandler}
-            style={idList.length ? { cursor: 'pointer' } : { background: '#2a2a2a' }}
+            style={idList.length ? { cursor: 'pointer' } : { color: '#555555', background: '#2a2a2a' }}
             disabled={idList.length ? false : true}>
             다 골랐음
             <img src={emoji11} />

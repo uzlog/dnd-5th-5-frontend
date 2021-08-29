@@ -46,10 +46,9 @@ const HeaderContainer = ({ history }) => {
   const apiCall = { onClickModalStatus, onClickOpenProfile };
 
   useEffect(() => {
-    console.log(sessionStorage.getItem('nickname'));
     if (!tokenExisted && sessionStorage.getItem('nickname') !== null) {
       sessionStorage.removeItem('nickname');
-      localStorage.removeItem('nickname');
+      // localStorage.removeItem('nickname');
       alert('다시 로그인해주세요');
       history.push('/');
       window.location.reload();
@@ -68,7 +67,13 @@ const HeaderContainer = ({ history }) => {
         dispatch(getMyInfo());
       }
     }
-  }, [token, memberData]);
+  }, [token]);
+
+  useEffect(() => {
+    if (memberNickname.length > 0) {
+      sessionStorage.setItem('nickname', memberNickname);
+    }
+  }, [memberNickname]);
 
   return (
     <>
