@@ -15,6 +15,7 @@ import {
 } from '@modules/friend';
 import { updateModalStatus } from '@modules/modal';
 import MyPageComponent from '@components/mypage/MyPageComponent';
+import MyPageSkeleton from '@components/mypage/MyPageSkeleton';
 
 const MyPageContainer = ({ history, nickname }) => {
   const dispatch = useDispatch();
@@ -153,7 +154,7 @@ const MyPageContainer = ({ history, nickname }) => {
     onClickDeleteFriend,
     onClickUpdateModalStatus,
   };
-  return <>{alacardLoading ? <MyPageComponent state={state} apiCall={apiCall} /> : <div>loading...</div>}</>;
+  return <>{alacardLoading ? <MyPageComponent state={state} apiCall={apiCall} /> : <MyPageSkeleton />}</>;
 };
 
 export default withRouter(MyPageContainer);
