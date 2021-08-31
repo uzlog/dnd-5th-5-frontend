@@ -1,26 +1,22 @@
-import React from 'react';
-import styled, { keyframes } from 'styled-components';
+import React, { useState } from 'react';
+import styled, { keyframes, css } from 'styled-components';
 import HeaderContainer from '@containers/common/HeaderContainer';
 
 const skeletonGradient = keyframes`
-    0% {
-      background-color: rgba(225, 225, 225, 0.1);
-    }
+  0%{background-position: 90% 70%}
+  50%{background-position: 40% 50%}
+  100%{background-position: 0% 10%}
+`;
 
-    50% {
-      background-color: rgba(225, 225, 225, 1)
-    }
-
-    100% {
-      background-color: rgba(225, 225, 225, 0.1)
-  }
+const skeletonBackground = css`
+  background: linear-gradient(90deg, #121212, #404040, #121212);
 `;
 
 const Wrapper = styled.div`
   max-width: 576px;
   width: 40vw;
   height: 100vh;
-  animation: ${skeletonGradient} 3s infinite ease-in-out;
+  background: #121212;
   overflow: hidden;
   @media screen and (max-width: 1023px) {
     margin: 0 auto;
@@ -63,7 +59,11 @@ const MoreButton = styled.div`
   width: 38.4px;
   height: 3.8vh;
   cursor: pointer;
-  animation: ${skeletonGradient} 3s infinite ease-in-out;
+  background: red;
+  border-radius: 10px;
+  ${skeletonBackground};
+  animation: ${skeletonGradient} 1.8s infinite linear;
+  background-size: 200% 200%;
   @media screen and (max-width: 1023px) {
     width: 2.4rem;
     height: 2.4rem;
@@ -89,12 +89,29 @@ const ContentsWrapper = styled.div`
   }
 `;
 
+const InnerContents = styled.div`
+  padding-top: ${(props) => props.paddingTop};
+  display: table-cell;
+  vertical-align: middle;
+  white-space: pre-line;
+  height: ${(props) => props.height || ''};
+  text-align: left;
+`;
+
 const SkeletonSentence = styled.div`
   max-width: 500px;
   width: 34.7vw;
-  height: 80px;
+  height: min(80px, 7.8vh);
   margin-top: 30px;
-  animation: ${skeletonGradient} 3s infinite ease-in-out;
+  ${skeletonBackground};
+  animation: ${skeletonGradient} 1.8s infinite linear;
+  background-size: 200% 200%;
+
+  border-radius: 10px;
+  @media screen and (max-width: 1023px) {
+    width: 32rem;
+    height: 50px;
+  }
 `;
 
 const ButtonWrapper = styled.div`
@@ -112,8 +129,82 @@ const ButtonWrapper = styled.div`
   }
 `;
 
+const FriendWrapper = styled.div`
+  height: 10vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  @media screen and (max-width: 1023px) {
+    padding: 12px 24px;
+  }
+`;
+
+const SkeletonImg = styled.div`
+  ${skeletonBackground};
+  animation: ${skeletonGradient} 1.8s infinite linear;
+  background-size: 200% 200%;
+
+  border-radius: 50px;
+  width: 64px;
+  height: 64px;
+  border-radius: 10px;
+  @media screen and (max-width: 1023px) {
+    width: 40px;
+    height: 40px;
+  }
+`;
+const FriendInfoWrapper = styled.div`
+  max-width: 327px;
+  width: 22.7vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 64px;
+  margin-left: min(1.3vw, 19px);
+  margin-right: min(1.3vw, 19px);
+  @media screen and (max-width: 1023px) {
+    width: 204px;
+    height: 40px;
+    margin-left: 12px;
+    margin-right: 12px;
+  }
+`;
+
+const SkeletonInfoBox = styled.div`
+  width: 150px;
+  height: 22px;
+  ${skeletonBackground};
+  animation: ${skeletonGradient} 1.8s infinite linear;
+  background-size: 200% 200%;
+
+  border-radius: 10px;
+  @media screen and (max-width: 1023px) {
+    width: 100px;
+    height: 16px;
+  }
+`;
+
+const ImgWrapper = styled.div`
+  ${skeletonBackground};
+  animation: ${skeletonGradient} 1.8s infinite linear;
+  background-size: 200% 200%;
+
+  max-width: 64px;
+  width: 4.4vw;
+  max-height: 56px;
+  height: 5.5vh;
+  border-radius: 10px;
+  @media screen and (max-width: 1023px) {
+    cursor: ${(props) => props.cursor};
+    width: 44px;
+    height: 36px;
+  }
+`;
+
 const StyledButton = styled.button`
-  animation: ${skeletonGradient} 3s infinite ease-in-out;
+  ${skeletonBackground};
+  animation: ${skeletonGradient} 1.8s infinite linear;
+  animation-direction: normal;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -122,6 +213,7 @@ const StyledButton = styled.button`
   height: 7.5vh;
   border-radius: 99px;
   border: none;
+  background-size: 200% 200%;
   @media screen and (max-width: 1023px) {
     left: 110px;
     width: 230px;
@@ -130,22 +222,37 @@ const StyledButton = styled.button`
   }
 `;
 
-const MyPageSkeleton = () => {
+const MyPageSkeleton = ({ state }) => {
+  const { nickname } = state;
+  const [isOwner] = useState(sessionStorage.getItem('nickname') === nickname);
   return (
     <>
       <Wrapper>
         <HeaderContainer />
-        <MoreButtonWrapper>
-          <MoreButtonInnerWrapper>
-            <MoreButton />
-          </MoreButtonInnerWrapper>
-        </MoreButtonWrapper>
+        {isOwner ? (
+          <MoreButtonWrapper>
+            <MoreButtonInnerWrapper>
+              <MoreButton />
+            </MoreButtonInnerWrapper>
+          </MoreButtonWrapper>
+        ) : (
+          <FriendWrapper>
+            <SkeletonImg />
+            <FriendInfoWrapper>
+              <SkeletonInfoBox />
+              <SkeletonInfoBox />
+            </FriendInfoWrapper>
+            <ImgWrapper />
+          </FriendWrapper>
+        )}
         <ContentFlexWrapper>
           <ContentsWrapper>
-            <SkeletonSentence />
-            <SkeletonSentence />
-            <SkeletonSentence />
-            <SkeletonSentence />
+            <InnerContents>
+              <SkeletonSentence />
+              <SkeletonSentence />
+              <SkeletonSentence />
+              <SkeletonSentence />
+            </InnerContents>
           </ContentsWrapper>
         </ContentFlexWrapper>
         <ButtonWrapper>

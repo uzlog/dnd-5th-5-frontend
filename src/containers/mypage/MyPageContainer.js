@@ -109,13 +109,15 @@ const MyPageContainer = ({ history, nickname }) => {
         dispatch(getMyInfo());
       }
     }
-    dispatch(getAlaCardList(nickname));
+
     if (token && nickname !== sessionNickname) {
       dispatch(getRelation(nickname));
     }
     if (nickname !== sessionNickname) {
       dispatch(getOtherInfo(nickname));
     }
+
+    dispatch(getAlaCardList(nickname));
   }, [nickname]);
 
   useEffect(() => {
@@ -154,7 +156,7 @@ const MyPageContainer = ({ history, nickname }) => {
     onClickDeleteFriend,
     onClickUpdateModalStatus,
   };
-  return <>{alacardLoading ? <MyPageComponent state={state} apiCall={apiCall} /> : <MyPageSkeleton />}</>;
+  return <>{alacardLoading ? <MyPageComponent state={state} apiCall={apiCall} /> : <MyPageSkeleton state={state} />}</>;
 };
 
 export default withRouter(MyPageContainer);
