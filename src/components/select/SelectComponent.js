@@ -32,19 +32,19 @@ import emoji9 from '@assets/img/emoji/emoji9.svg';
 import emoji10 from '@assets/img/emoji/emoji10.svg';
 import emoji11 from '@assets/img/emoji/emoji11.svg';
 import closeBtnWhite from '@assets/img/my-profile/closeBtnWhite.svg';
-import { useParams, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import client from '@lib/api/client';
 import ScrollContainer from 'react-indiana-drag-scroll';
 import { useTitle, useMetaTegs } from '@hooks/useMeta';
-import axios from 'axios';
+import Cookies from 'universal-cookie';
 
-const SelectComponent = ({ history }) => {
+const SelectComponent = ({ state, history }) => {
   // 주소창에서 가져오기
-  const owner = useParams().nickname;
+  const { alaWordData, getMoreAlaWordList, owner } = state;
   const [offset, setOffset] = useState(0);
+  const [cookieId, setCookieId] = useState(null);
   const [wordList, setWordList] = useState([[], [], [], []]);
   const [idList, setIdList] = useState([]);
-  const [cookieId, setcookieId] = useState('');
   const [showToast, setShowToast] = useState(false);
   const COLUMN = 4;
   const backgroundGradientList = [
@@ -60,71 +60,76 @@ const SelectComponent = ({ history }) => {
     'linear-gradient(to right, #ef5600, #ffc837)',
   ];
   const emojiList = [emoji1, emoji2, emoji3, emoji4, emoji5, emoji6, emoji7, emoji8, emoji9, emoji10, emoji11];
-
+  let slicedNumberOfWordList = [];
+  let indexOfEmoji = [];
+  let emojiIndexOfWordList = [];
+  //axios사용해서 데이터 받아오기
   useEffect(() => {
-    getWord();
+    setCookieId(alaWordData.cookieId);
   }, []);
 
-  //axios사용해서 데이터 받아오기
-  const getWord = async () => {
-    const response = await client.get(
-      `/api/v2/alacard/wordlist`,
-      cookieId ? { params: { nickname: owner, offset, cookieId } } : { params: { nickname: owner, offset } },
-    );
-    console.log(response);
-    const setData = await response.data.data.wordList;
-    setcookieId(response.data.data.cookieId);
+  const indexing = () => {
+    for (let i = 0; i < 4; i++) {
+      let [num1, num2] = [
+        Math.floor(Math.random() * COLUMN + i * COLUMN),
+        Math.floor(Math.random() * COLUMN + i * COLUMN),
+      ];
+      let [num3, num4] = [Math.floor(Math.random() * 11), Math.floor(Math.random() * 11)];
+      while (num1 === num2) {
+        num2 = Math.floor(Math.random() * COLUMN + i * COLUMN);
+      }
+      slicedNumberOfWordList.push(num1, num2);
+      indexOfEmoji.push(num3, num4);
+    }
+    emojiIndexOfWordList = slicedNumberOfWordList.sort((a, b) => a - b);
+  };
+
+  const getWord = () => {
+    getMoreAlaWordList({ nickname: owner, offset, cookieId });
+    const setData = alaWordData.wordList;
+
+    console.log(alaWordData.wordList);
+    console.log(offset);
+    console.log(cookieId);
     if (setData.length > 15) {
       const newWordList = setData.map((i) => ({ ...i, clicked: false }));
-
-      // 여기부터 리펙토링 필요
-      const slicedNumberOfWordList = [];
-      const indexOfEmoji = [];
-      for (let i = 0; i < 4; i++) {
-        let [num1, num2] = [Math.floor(Math.random() * 4 + i * 4), Math.floor(Math.random() * 4 + i * 4)];
-        let [num3, num4] = [Math.floor(Math.random() * 11), Math.floor(Math.random() * 11)];
-        while (num1 === num2) {
-          num2 = Math.floor(Math.random() * 4 + i * 4);
-        }
-        slicedNumberOfWordList.push(num1, num2);
-        indexOfEmoji.push(num3, num4);
-      }
-      const emojiIndexOfWordList = slicedNumberOfWordList.sort((a, b) => a - b);
-      // 여기까지 리팩토링 해보고싶음
-
+      setOffset(offset + newWordList.length);
+      console.log(newWordList);
+      console.log(wordList);
+      indexing();
       //
-      if (wordList.length > 2) {
+      if (!wordList) {
         setWordList([
           [
             ...wordList[0],
             ...newWordList.slice(0, emojiIndexOfWordList[0]),
-            { url: emojiList[0] },
+            { url: emojiList[indexOfEmoji[0]] },
             ...newWordList.slice(emojiIndexOfWordList[0], emojiIndexOfWordList[1]),
-            { url: emojiList[1] },
+            { url: emojiList[indexOfEmoji[1]] },
             ...newWordList.slice(emojiIndexOfWordList[1], COLUMN),
           ],
           [
             ...wordList[1],
             ...newWordList.slice(COLUMN, emojiIndexOfWordList[2]),
-            { url: emojiList[2] },
+            { url: emojiList[indexOfEmoji[2]] },
             ...newWordList.slice(emojiIndexOfWordList[2], emojiIndexOfWordList[3]),
-            { url: emojiList[3] },
+            { url: emojiList[indexOfEmoji[3]] },
             ...newWordList.slice(emojiIndexOfWordList[3], COLUMN * 2),
           ],
           [
             ...wordList[2],
             ...newWordList.slice(COLUMN * 2, emojiIndexOfWordList[4]),
-            { url: emojiList[4] },
+            { url: emojiList[indexOfEmoji[4]] },
             ...newWordList.slice(emojiIndexOfWordList[4], emojiIndexOfWordList[5]),
-            { url: emojiList[5] },
+            { url: emojiList[indexOfEmoji[5]] },
             ...newWordList.slice(emojiIndexOfWordList[5], COLUMN * 3),
           ],
           [
             ...wordList[3],
             ...newWordList.slice(COLUMN * 3, emojiIndexOfWordList[6]),
-            { url: emojiList[6] },
+            { url: emojiList[indexOfEmoji[6]] },
             ...newWordList.slice(emojiIndexOfWordList[6], emojiIndexOfWordList[7]),
-            { url: emojiList[7] },
+            { url: emojiList[indexOfEmoji[7]] },
             ...newWordList.slice(emojiIndexOfWordList[7]),
           ],
         ]);
@@ -132,36 +137,34 @@ const SelectComponent = ({ history }) => {
         setWordList([
           [
             ...newWordList.slice(0, emojiIndexOfWordList[0]),
-            { url: emojiList[0] },
+            { url: emojiList[indexOfEmoji[0]] },
             ...newWordList.slice(emojiIndexOfWordList[0], emojiIndexOfWordList[1]),
-            { url: emojiList[1] },
+            { url: emojiList[indexOfEmoji[1]] },
             ...newWordList.slice(emojiIndexOfWordList[1], COLUMN),
           ],
           [
             ...newWordList.slice(COLUMN, emojiIndexOfWordList[2]),
-            { url: emojiList[2] },
+            { url: emojiList[indexOfEmoji[2]] },
             ...newWordList.slice(emojiIndexOfWordList[2], emojiIndexOfWordList[3]),
-            { url: emojiList[3] },
+            { url: emojiList[indexOfEmoji[3]] },
             ...newWordList.slice(emojiIndexOfWordList[3], COLUMN * 2),
           ],
           [
             ...newWordList.slice(COLUMN * 2, emojiIndexOfWordList[4]),
-            { url: emojiList[4] },
+            { url: emojiList[indexOfEmoji[4]] },
             ...newWordList.slice(emojiIndexOfWordList[4], emojiIndexOfWordList[5]),
-            { url: emojiList[5] },
+            { url: emojiList[indexOfEmoji[5]] },
             ...newWordList.slice(emojiIndexOfWordList[5], COLUMN * 3),
           ],
           [
             ...newWordList.slice(COLUMN * 3, emojiIndexOfWordList[6]),
-            { url: emojiList[6] },
+            { url: emojiList[indexOfEmoji[6]] },
             ...newWordList.slice(emojiIndexOfWordList[6], emojiIndexOfWordList[7]),
-            { url: emojiList[7] },
+            { url: emojiList[indexOfEmoji[7]] },
             ...newWordList.slice(emojiIndexOfWordList[7]),
           ],
         ]);
       }
-
-      setOffset(offset + newWordList.length);
     } else {
       // 여기 토스트 써서 만들기
       setShowToast(true);

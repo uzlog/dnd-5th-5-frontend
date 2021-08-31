@@ -8,7 +8,11 @@ const [ALA_WORD, ALA_WORD_SUCCESS, ALA_WORD_FAILURE] = createRequestActionTypes(
 
 // 액션 생성 함수
 
-export const getAlaWordList = createAction(ALA_WORD, ({ nickname, offset }) => ({ nickname, offset }));
+export const getAlaWordList = createAction(ALA_WORD, ({ nickname, offset, cookieId }) => ({
+  nickname,
+  offset,
+  cookieId,
+}));
 
 // saga
 
@@ -20,9 +24,8 @@ export function* alaWordSaga() {
 
 const initialState = {
   alaWordStatus: 0,
-  alaWordData: [],
+  alaWordData: {},
   alaWordError: '',
-  alaWordOffset: 0,
 };
 
 const alaWord = handleActions(
@@ -31,7 +34,6 @@ const alaWord = handleActions(
       ...state,
       alaWordStatus: status,
       alaWordData: data,
-      alaWordOffset: 0,
     }),
     [ALA_WORD_FAILURE]: (state, { payload: error }) => ({
       ...state,
