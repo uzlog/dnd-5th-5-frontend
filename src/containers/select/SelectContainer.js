@@ -16,9 +16,9 @@ const SelectContainers = () => {
   const owner = useParams().nickname;
 
   useEffect(() => {
-    if (alaWordData) dispatch(getAlaWordList({ nickname: owner, offset: 0 }));
+    if (alaWordData) dispatch(getMoreAlaWordList({ nickname: owner, offset: 0 }));
   }, []);
-
+  console.log(alaWordData);
   const getMoreAlaWordList = useCallback((payload) => dispatch(getAlaWordList(payload)), [dispatch]);
   const state = { alaWordData, getMoreAlaWordList, owner };
 
