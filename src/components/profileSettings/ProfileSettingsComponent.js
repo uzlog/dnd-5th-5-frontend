@@ -240,7 +240,7 @@ const ProfileSettingsComponent = ({ history }) => {
               회원탈퇴
             </span>
           </DeleteButton>
-          {/* {deleteModal ? <Modal setDeleteModal={setDeleteModal} onDeleteHandler={onDeleteHandler} /> : <></>} */}
+          {deleteModal ? <Modal setDeleteModal={setDeleteModal} onDeleteHandler={onDeleteHandler} /> : <></>}
           <ButtonWrapper>
             <LogoutButton onClick={onlogoutHandler}>로그아웃</LogoutButton>
             <SubmitButton
