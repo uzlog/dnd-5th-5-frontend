@@ -27,6 +27,7 @@ import {
   ToggleInner,
   IsOpen,
 } from './style';
+import Modal from './Modal';
 import google from '@assets/img/profileSettings/google.svg';
 import naver from '@assets/img/profileSettings/naver.svg';
 import emoji11 from '@assets/img/emoji/emoji11.svg';
