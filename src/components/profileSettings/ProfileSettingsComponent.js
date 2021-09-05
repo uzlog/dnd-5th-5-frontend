@@ -144,7 +144,7 @@ const ProfileSettingsComponent = ({ history }) => {
   };
 
   const onDeleteHandler = async () => {
-    const response = await client.get('/api/v1/member/delete', { params: { nickname } });
+    const response = await client.delete('/api/v1/member');
     if (response.data.message === 'success') {
       cookies.remove('token');
       sessionStorage.removeItem('nickname');
