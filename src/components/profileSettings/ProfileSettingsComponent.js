@@ -125,7 +125,7 @@ const ProfileSettingsComponent = ({ history, state }) => {
   };
 
   const onDeleteHandler = async () => {
-    const response = await client.get('/api/v1/member/delete', { params: { nickname } });
+    const response = await client.delete('/api/v1/member');
     if (response.data.message === 'success') {
       cookies.remove('token');
       sessionStorage.removeItem('nickname');
@@ -219,7 +219,7 @@ const ProfileSettingsComponent = ({ history, state }) => {
               회원탈퇴
             </span>
           </DeleteButton>
-          {/* {deleteModal ? <Modal setDeleteModal={setDeleteModal} onDeleteHandler={onDeleteHandler} /> : <></>} */}
+          {deleteModal ? <Modal setDeleteModal={setDeleteModal} onDeleteHandler={onDeleteHandler} /> : <></>}
           <ButtonWrapper>
             <LogoutButton onClick={onlogoutHandler}>로그아웃</LogoutButton>
             <SubmitButton
