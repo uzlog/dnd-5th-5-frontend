@@ -32,7 +32,7 @@ import emoji9 from '@assets/img/emoji/emoji9.svg';
 import emoji10 from '@assets/img/emoji/emoji10.svg';
 import emoji11 from '@assets/img/emoji/emoji11.svg';
 import closeBtnWhite from '@assets/img/my-profile/closeBtnWhite.svg';
-import { useParams, withRouter } from 'react-router-dom';
+import { withRouter, useParams } from 'react-router-dom';
 import client from '@lib/api/client';
 import ScrollContainer from 'react-indiana-drag-scroll';
 import { useTitle, useMetaTegs } from '@hooks/useMeta';
@@ -231,7 +231,7 @@ const SelectComponent = ({ history }) => {
 
         <KeywordIntro>
           {owner}과<br />
-          관련된 키워드를 모두 골라봥!😼
+          관련된 키워드를 모두 골라봥! <img src={emoji5} />
           {idList.length ? (
             <p>
               <b>{idList.length}개</b>의 키워드를 골랐어!
