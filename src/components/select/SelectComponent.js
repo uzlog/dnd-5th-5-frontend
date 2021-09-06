@@ -231,7 +231,7 @@ const SelectComponent = ({ history }) => {
 
         <KeywordIntro>
           {owner}과<br />
-          관련된 키워드를 모두 골라봥!😼
+          관련된 키워드를 모두 골라봥! <img src={emoji5} />
           {idList.length ? (
             <p>
               <b>{idList.length}개</b>의 키워드를 골랐어!

@@ -35,7 +35,7 @@ import lock from '@assets/img/profileSettings/lock.svg';
 import unlock from '@assets/img/profileSettings/unlock.svg';
 
 const cookies = new Cookies();
-const ProfileSettingsComponent = ({ history, state }) => {
+const ProfileSettingsComponent = ({ state }) => {
   const { memberData, onUpdateMyInfo } = state;
   const [myInfo, setMyInfo] = useState(memberData);
   const [isNicknameExists, setIsNicknameExists] = useState(false);
@@ -45,7 +45,7 @@ const ProfileSettingsComponent = ({ history, state }) => {
   const [deleteModal, setDeleteModal] = useState(false);
   const viewSize = useResponsive();
 
-  const onNicknameChange = (e) => {
+  const onChangeNickname = (e) => {
     setMyInfo({
       ...myInfo,
       nickname: e.target.value,
@@ -54,7 +54,7 @@ const ProfileSettingsComponent = ({ history, state }) => {
     setIsNicknameBreakeRoles(false);
   };
 
-  const onStatusMessageChange = (e) => {
+  const onChangeStatusMessage = (e) => {
     setStatusMessageOverCount(false);
     setMyInfo({
       ...myInfo,
@@ -63,7 +63,7 @@ const ProfileSettingsComponent = ({ history, state }) => {
     });
   };
 
-  const isOpenClick = () => {
+  const onClickIsOpen = () => {
     setMyInfo({
       ...myInfo,
       isOpen: !myInfo.isOpen,
@@ -71,7 +71,7 @@ const ProfileSettingsComponent = ({ history, state }) => {
     });
   };
 
-  const onFileChange = async (e) => {
+  const onChangeFile = async (e) => {
     const imageFile = e.target.files[0];
     // option 설정 찾기 browser-image-compression 여기서 컴프레싱한거임
     const options = {
@@ -149,7 +149,7 @@ const ProfileSettingsComponent = ({ history, state }) => {
         <ProfileImg
           type="file"
           accept="image/x-png, image/jpeg, image/jpg"
-          onChange={onFileChange}
+          onChange={onChangeFile}
           style={{
             backgroundImage: `url(${myInfo.imgUrl})`,
             backgroundRepeat: 'no-repeat',
@@ -169,7 +169,7 @@ const ProfileSettingsComponent = ({ history, state }) => {
           </EmailWrapper>
           <InputBoxWrapper>
             <EachTitle>별명</EachTitle>
-            <InputBox placeholder={myInfo.nickname} value={myInfo.nickname} onChange={onNicknameChange} />
+            <InputBox placeholder={myInfo.nickname} value={myInfo.nickname} onChange={onChangeNickname} />
             {isNicknameExists ? (
               <AlertMessage>앗, 누군가 이미 사용중인 별명이네요. 다른 별명을 사용해보세요.</AlertMessage>
             ) : (
@@ -191,7 +191,7 @@ const ProfileSettingsComponent = ({ history, state }) => {
             <InputBox
               placeholder={myInfo.statusMessage}
               value={myInfo.statusMessage}
-              onChange={onStatusMessageChange}
+              onChange={onChangeStatusMessage}
             />
             {statusMessageOverCount ? (
               <AlertMessage>앗, 자기소개가 길어요. 짧고 강렬하게 부탁드려요 :)</AlertMessage>
@@ -207,7 +207,7 @@ const ProfileSettingsComponent = ({ history, state }) => {
                 src={myInfo.isOpen ? unlock : lock}
               />
             </IsOpen>
-            <ToggleButton onClick={isOpenClick} className={myInfo.isOpen ? '' : 'left'}>
+            <ToggleButton onClick={onClickIsOpen} className={myInfo.isOpen ? '' : 'left'}>
               <ToggleInner className={myInfo.isOpen ? '' : 'left'} />
             </ToggleButton>
           </EachTitle>
