@@ -16,7 +16,7 @@ import {
   InputBoxWrapper,
   InputBox,
   ContentWrapper,
-  LogoutButton,
+  CancelButton,
   SubmitButton,
   ButtonWrapper,
   DeleteButton,
@@ -26,6 +26,8 @@ import {
   ToggleButton,
   ToggleInner,
   IsOpen,
+  ToastWrapper,
+  Toast,
 } from './style';
 import Modal from './Modal';
 import google from '@assets/img/profileSettings/google.svg';
@@ -41,7 +43,7 @@ const ProfileSettingsComponent = ({ state }) => {
   const [statusMessageOverCount, setStatusMessageOverCount] = useState(false);
   const [nickname, setNickname] = useState(sessionStorage.getItem('nickname'));
   const [deleteModal, setDeleteModal] = useState(false);
-  const viewSize = useResponsive();
+  const [showToast, setShowToast] = useState(false);
 
   const onChangeNickname = (e) => {
     setMyInfo({
@@ -116,10 +118,12 @@ const ProfileSettingsComponent = ({ state }) => {
       regExp.test(myInfo.nickname)
     ) {
       await onUpdateMyInfo(myInfo);
-      alert('성공적으로 변경됐습니다 :)');
       setNickname(myInfo.nickname);
       sessionStorage.setItem('nickname', myInfo.nickname);
-      window.location.replace(`/${myInfo.nickname}/settings`);
+      setShowToast(true);
+      setTimeout(() => {
+        setShowToast(false);
+      }, 1000);
     }
   };
 
@@ -209,8 +213,10 @@ const ProfileSettingsComponent = ({ state }) => {
             </IsOpen>
           </EachTitle>
           <DeleteButton>
+            <span onClick={onlogoutHandler}>로그아웃</span>
+          </DeleteButton>
+          <DeleteButton>
             <span
-              style={{ cursor: 'not-allowed' }}
               onClick={() => {
                 setDeleteModal(!deleteModal);
               }}>
@@ -218,8 +224,13 @@ const ProfileSettingsComponent = ({ state }) => {
             </span>
           </DeleteButton>
           {deleteModal ? <Modal setDeleteModal={setDeleteModal} onDeleteHandler={onDeleteHandler} /> : <></>}
+          {showToast && (
+            <ToastWrapper>
+              <Toast>변경이 완료됐습니다!</Toast>
+            </ToastWrapper>
+          )}
           <ButtonWrapper>
-            <LogoutButton onClick={onlogoutHandler}>로그아웃</LogoutButton>
+            <CancelButton onClick={onlogoutHandler}>취소</CancelButton>
             <SubmitButton
               onClick={onUpdataSubmitHandler}
               style={myInfo.changed ? { cursor: 'pointer' } : { background: '#2a2a2a' }}

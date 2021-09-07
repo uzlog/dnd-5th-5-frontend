@@ -203,7 +203,7 @@ const InnerContents = styled.div`
     vertical-align: sub;
     display: inline;
     object-fit: cover;
-    height: 4.2rem;
+    height: 4.5rem;
   }
   @media screen and (min-width: 1023px) {
     img {
