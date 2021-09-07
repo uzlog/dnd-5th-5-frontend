@@ -125,7 +125,6 @@ const AlaCardListComponent = ({ state, onClickUploadCardInfo }) => {
   const { alacardData, nickname } = state;
   const viewSize = useResponsive();
   useTitle(sessionStorage.getItem('nickname'));
-
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>
       <HeaderContainer />
