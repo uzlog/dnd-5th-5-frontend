@@ -1,4 +1,13 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
+
+const fadeIn = keyframes`
+  from {
+    opacity: 0.5;
+  }
+  to {
+    opacity: 0;
+  }
+`;
 
 export const MainWrapper = styled.div`
   max-width: 576px;
@@ -41,7 +50,7 @@ export const ProfileImg = styled.input`
   }
 `;
 export const HideBox = styled.div`
-  min-height: 14px;
+  min-height: 20px;
   background-color: #121212;
 `;
 
@@ -185,6 +194,7 @@ export const AlertMessage = styled.div`
   }
 `;
 export const DeleteButton = styled.div`
+  cursor: pointer;
   margin-top: 28px;
   margin-bottom: 70px;
   color: white;
@@ -199,7 +209,7 @@ export const DeleteButton = styled.div`
   }
 `;
 
-export const LogoutButton = styled.button`
+export const CancelButton = styled.button`
   color: white;
   background-color: #121212;
   width: 148px;
@@ -230,9 +240,9 @@ export const SubmitButton = styled.button`
   font-size: 16px;
   padding: 11px 14px 11px 14px;
   border-radius: 62px;
-  border: solid 1px;
+  border: solid 1px #2a2a2a;
   @media screen and (min-width: 1023px) {
-    border: solid 1.6px;
+    border: solid 1.6px #2a2a2a;
     font-size: min(33vw, 3vh, 2.6rem);
     width: 45.7%;
     height: 7.5vh;
@@ -299,5 +309,38 @@ export const ModalContents = styled.div`
   }
   @media screen and (max-width: 1023px) and (max-height: 660px) {
     top: calc(9.4vh - 8.3vh);
+  }
+`;
+
+export const ToastWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
+export const Toast = styled.div`
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  top: 82%;
+  border-radius: 5px;
+  background-color: #000000;
+  line-height: 1.6;
+  color: white;
+  max-width: 460px;
+  width: 31.9vw;
+  max-height: 57.6px;
+  height: 5.6vh;
+  font-size: min(1.3vw, 1.8vh, 19.2px);
+  animation: ${fadeIn} 5s;
+  -moz-animation: ${fadeIn} 5s; /* Firefox */
+  -webkit-animation: ${fadeIn} 5s; /* Safari and Chrome */
+  -o-animation: ${fadeIn} 5s; /* Opera */
+  @media screen and (max-width: 1023px) {
+    width: 302px;
+    height: 36px;
+    font-size: 12px;
+    text-align: center;
   }
 `;
