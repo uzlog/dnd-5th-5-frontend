@@ -88,6 +88,7 @@ const InnerContents = styled.div`
   display: table-cell;
   vertical-align: middle;
   text-align: left;
+  word-break: keep-all;
   img {
     display: inline;
     width: min(33%, 15vh);
@@ -168,7 +169,6 @@ const AlaCardListComponent = ({ state, onClickUploadCardInfo }) => {
             };
           }
 
-          card.sentence = card.sentence.replaceAll(', ', ',<br />');
           if (!card.sentence.includes('!')) {
             card.sentence += '!';
           }

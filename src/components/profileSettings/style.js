@@ -129,8 +129,15 @@ export const EmailImg = styled.img`
   }
 `;
 export const IsOpen = styled.span`
+  width: 100%;
   display: flex;
+  justify-content: space-between;
   align-items: center;
+  p {
+  }
+  span {
+    display: flex;
+  }
 `;
 
 export const EmailContentWrapper = styled.div`
