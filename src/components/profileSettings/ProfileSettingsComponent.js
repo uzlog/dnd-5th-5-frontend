@@ -31,8 +31,6 @@ import Modal from './Modal';
 import google from '@assets/img/profileSettings/google.svg';
 import naver from '@assets/img/profileSettings/naver.svg';
 import emoji11 from '@assets/img/emoji/emoji11.svg';
-import lock from '@assets/img/profileSettings/lock.svg';
-import unlock from '@assets/img/profileSettings/unlock.svg';
 
 const cookies = new Cookies();
 const ProfileSettingsComponent = ({ state }) => {
