@@ -48,7 +48,6 @@ const Title = styled.div`
 `;
 
 const Description = styled.p`
-  font-family: 'spoqaHanSansBold';
   line-height: 1.6;
   text-align: center;
   color: white;
