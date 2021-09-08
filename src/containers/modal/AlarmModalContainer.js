@@ -2,10 +2,11 @@ import React, { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Cookies from 'universal-cookie';
 import { getFollowerList, acceptFollow, declineFollow } from '@modules/friend';
+import { getAlarmData } from '@modules/alarm';
 import { updateModalStatus } from '@modules/modal';
 import FollowerModal from '@components/modal/FollowerModal';
 
-const FollowerModalContainer = () => {
+const AlarmModalContainer = () => {
   const dispatch = useDispatch();
   const cookies = new Cookies();
   const token = cookies.get('token');
@@ -14,13 +15,22 @@ const FollowerModalContainer = () => {
     getFollowerListData,
     getFollowerListError,
     getFollowerListLoading,
+    getAlarmDataStatus,
+    getAlarmDataList,
+    getAlarmDataError,
+    getAlarmDataLoading,
     acceptFollowStatus,
     declineFollowStatus,
-  } = useSelector(({ friend, loading }) => ({
+  } = useSelector(({ friend, alarm, loading }) => ({
     getFollowerListStatus: friend.getFollowerListStatus,
     getFollowerListData: friend.getFollowerListData,
     getFollowerListError: friend.getFollowerListError,
     getFollowerListLoading: loading['friend/GET_FOLLOWER_LIST'],
+
+    getAlarmDataStatus: alarm.getAlarmDataStatus,
+    getAlarmDataList: alarm.getAlarmDataList,
+    getAlarmDataError: alarm.getAlarmDataError,
+    getAlarmDataLoading: loading['friend/GET_ALARM_DATA'],
     acceptFollowStatus: friend.acceptFollowStatus,
     declineFollowStatus: friend.declineFollowStatus,
   }));
@@ -37,13 +47,15 @@ const FollowerModalContainer = () => {
   const onClickModalStatus = useCallback((payload) => dispatch(updateModalStatus(payload)), [dispatch]);
 
   const apiCall = { onClickAcceptFollow, onClickDeclineFollow, onClickModalStatus };
+
   useEffect(() => {
     if (token) {
       dispatch(getFollowerList());
+      dispatch(getAlarmData());
     }
   }, []);
 
   return <>{getFollowerListLoading ? <FollowerModal state={state} apiCall={apiCall} /> : <div>loading...</div>}</>;
 };
 
-export default FollowerModalContainer;
+export default AlarmModalContainer;

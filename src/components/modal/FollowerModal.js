@@ -154,7 +154,7 @@ const FollowerModal = ({ state, apiCall }) => {
   const { onClickAcceptFollow, onClickDeclineFollow, onClickModalStatus } = apiCall;
 
   const closeFollowerModal = () => {
-    onClickModalStatus({ key: 'showFollowerModal', value: false });
+    onClickModalStatus({ key: 'showAlarmModal', value: false });
   };
 
   return (

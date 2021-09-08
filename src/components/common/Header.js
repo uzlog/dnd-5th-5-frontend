@@ -1,20 +1,23 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Link, withRouter } from 'react-router-dom';
+import useSWR from 'swr';
+import client from '@lib/api/client';
 import useOwner from '@hooks/useOwner';
 import FriendModalContainer from '@containers/modal/FriendModalContainer';
-import FollowerModalContainer from '@containers/modal/FollowerModalContainer';
+import AlarmModalContainer from '@containers/modal/AlarmModalContainer';
 import SocialLoginContainer from '@containers/auth/SocialLoginContainer';
 import { ModalWrapper, ModalOverlay, ModalContents } from '@components/main/Style';
 import logo from '@assets/img/nav/logo.svg';
 import friend from '@assets/img/nav/friend.svg';
-// import activatedNotice from '@assets/img/nav/activatedNotice.svg';
+import activatedNotice from '@assets/img/nav/activatedNotice.svg';
 import inactivatedNotice from '@assets/img/nav/inactivatedNotice.svg';
 import avatar from '@assets/img/nav/avatar.svg';
 import arrowBtn from '@assets/img/my-profile/arrowBtn.svg';
 import avatarM from '@assets/img/my-profile/avatarM.svg';
 import closeBtnWhite from '@assets/img/my-profile/closeBtnWhite.svg';
 import settingBtn from '@assets/img/my-profile/settingBtn.svg';
+
 const Wrapper = styled.div`
   background-color: #121212;
   max-width: 576px;
@@ -38,7 +41,6 @@ const Wrapper = styled.div`
 const InnerWrapper = styled.div`
   max-width: 500px;
   width: 35vw;
-  /* background-color: red; */
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -221,6 +223,7 @@ const StyledLink = styled(Link)`
 `;
 
 const Header = ({ history, state, apiCall }) => {
+  const { data: alramData, error, mutate } = useSWR('api/v1/alarm', (url) => client.get(url).then((res) => res.data));
   const [showProfile, setShowProfile] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
   const {
@@ -242,9 +245,9 @@ const Header = ({ history, state, apiCall }) => {
     onClickModalStatus({ key: 'showFriendModal', value: true });
   };
 
-  const openFollowerModal = () => {
+  const openAlarmModal = () => {
     document.body.style = 'overflow: hidden';
-    onClickModalStatus({ key: 'showFollowerModal', value: true });
+    onClickModalStatus({ key: 'showAlarmModal', value: true });
   };
 
   const openProfileModal = () => {
@@ -281,8 +284,16 @@ const Header = ({ history, state, apiCall }) => {
               <ImgWrapper onClick={openFriendModal}>
                 <img src={friend} alt="친구창" />
               </ImgWrapper>
-              <ImgWrapper onClick={openFollowerModal}>
-                <img src={inactivatedNotice} alt="알림창" />
+              <ImgWrapper onClick={openAlarmModal}>
+                {alramData ? (
+                  Object.keys(alramData).length === 3 ? (
+                    <img src={inactivatedNotice} alt="알림창" />
+                  ) : (
+                    <img src={activatedNotice} alt="알림창" />
+                  )
+                ) : (
+                  <img src={inactivatedNotice} alt="알림창" />
+                )}
               </ImgWrapper>
               <ImgWrapper onClick={openProfileModal}>
                 <img src={imgUrl ? imgUrl : avatar} style={{ borderRadius: '50%' }} alt="프로필 사진" />
@@ -298,7 +309,7 @@ const Header = ({ history, state, apiCall }) => {
         </InnerWrapper>
       </Wrapper>
       {showFriendModal && <FriendModalContainer />}
-      {showFollowerModal && <FollowerModalContainer />}
+      {showAlarmModal && <AlarmModalContainer />}
       {showLogin && (
         <ModalWrapper>
           <ModalOverlay onClick={() => closeLoginModal()} />
