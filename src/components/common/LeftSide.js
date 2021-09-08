@@ -15,13 +15,18 @@ import unclick_notion from '@assets/img/desktop/unclick_notion.svg';
 
 const Wrapper = styled.div`
   margin-top: 3vh;
-  width: 38.6rem;
+  width: 328px;
   height: 95vh;
   background-color: black;
   margin-right: 6.8rem;
+  margin-left: 60px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+`;
+
+const QuestionWrapper = styled.div`
+  margin: 0 0 0 auto;
 `;
 
 const ButtonWrapper = styled.a`
@@ -29,8 +34,7 @@ const ButtonWrapper = styled.a`
   text-decoration: none;
   width: 100px;
   height: 132px;
-  margin-top: 10px;
-  margin-bottom: 67px;
+  margin-bottom: 60px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -80,6 +84,7 @@ const Footer = styled.footer`
 `;
 
 const LinkWrapper = styled.div`
+  margin-top: 10px;
   display: flex;
   align-items: center;
 `;
@@ -113,16 +118,18 @@ const LeftSide = () => {
         <p>사용방법</p>
       </HoverLink>
       <span>
-        <img src={deco} alt="소개" />
-        <ButtonWrapper href="https://pm8nnftoca1.typeform.com/to/YKRgB84m" target="_blank">
-          <div style={{ display: 'flex' }}>
-            <AlaImage src={sendAla} alt="알라" />
-          </div>
-          <StyledButton>
-            <img src={sendBtn} alt="전송 버튼" />
-          </StyledButton>
-          <StyledSpan>요기로 문의 고고!</StyledSpan>
-        </ButtonWrapper>
+        <QuestionWrapper>
+          <img style={{ float: 'right' }} src={deco} alt="소개" />
+          <ButtonWrapper href="https://pm8nnftoca1.typeform.com/to/YKRgB84m" target="_blank">
+            <div style={{ display: 'flex' }}>
+              <AlaImage src={sendAla} alt="알라" />
+            </div>
+            <StyledButton>
+              <img src={sendBtn} alt="전송 버튼" />
+            </StyledButton>
+            <StyledSpan>요기로 문의 고고!</StyledSpan>
+          </ButtonWrapper>
+        </QuestionWrapper>
         <Footer>
           <p>만든이 : caption, jjm, bongbong, mr. sorry, jenny, july</p>
           <p>이메일 : alameme629@gmail.com</p>
