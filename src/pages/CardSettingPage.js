@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import useResponsive from '../hooks/useResponsive';
 import AlaCardSettingContainer from '@containers/alacard/AlaCardSettingContainer';
 import LeftSide from '@components/common/LeftSide';
+import Footer from '@components/common/Footer';
 
 const Wrapper = styled.div`
   display: flex;
@@ -17,8 +18,17 @@ const CardSettingPage = () => {
 
   return (
     <Wrapper>
-      {viewSize > 1023 ? <LeftSide /> : <></>}
-      <AlaCardSettingContainer />
+      {viewSize > 1023 ? (
+        <>
+          <LeftSide />
+          <AlaCardSettingContainer />
+        </>
+      ) : (
+        <>
+          <AlaCardSettingContainer />
+          <Footer />
+        </>
+      )}
     </Wrapper>
   );
 };

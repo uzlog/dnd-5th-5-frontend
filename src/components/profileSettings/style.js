@@ -23,7 +23,7 @@ export const MainWrapper = styled.div`
   @media screen and (max-width: 1023px) {
     margin: 0 auto;
     width: 360px;
-    height: 92vh;
+    height: max-content;
     background-color: #121212;
   }
 `;

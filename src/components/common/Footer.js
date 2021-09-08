@@ -22,7 +22,6 @@ const InnerWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  justify-contents: flex-start;
   p {
     font-size: 12px;
     line-height: 1.6;
@@ -59,6 +58,11 @@ const FooterLinkWrapper = styled.div`
   margin-bottom: 28px;
 `;
 
+const SnsWrapper = styled.div`
+  display: flex;
+  height: 40px;
+`;
+
 const Footer = () => {
   const [isQestionHover, setIsQestionHover] = useState(false);
   const [isInstaHover, setIsInstaHover] = useState(false);
@@ -71,7 +75,7 @@ const Footer = () => {
         <p>만든이 : caption, jjm, bongbnong, mr. sorry, jenny, july</p>
         <p>이메일 : alameme629@gmail.com</p>
         <LinkedContents>
-          <div>
+          <SnsWrapper>
             <HoverLink
               onMouseOver={() => setIsInstaHover(true)}
               onMouseOut={() => setIsInstaHover(false)}
@@ -90,7 +94,7 @@ const Footer = () => {
                 <span></span>
               </div>
             </HoverLink>
-          </div>
+          </SnsWrapper>
           <HoverLink
             onMouseOver={() => setIsQestionHover(true)}
             onMouseOut={() => setIsQestionHover(false)}
@@ -103,8 +107,8 @@ const Footer = () => {
         </LinkedContents>
         <HR />
         <FooterLinkWrapper>
-          <FooterLink>개인정보 이용 정책</FooterLink>
-          <FooterLink>서비스 이용약관</FooterLink>
+          <FooterLink href="">개인정보 이용 정책</FooterLink>
+          <FooterLink href="">서비스 이용약관</FooterLink>
         </FooterLinkWrapper>
       </InnerWrapper>
     </Wrapper>

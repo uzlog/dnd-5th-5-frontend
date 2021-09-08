@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getAlaCardList } from '@modules/mypage';
 import { uploadCardInfo } from '@modules/cardSetting';
 import AlaCardListComponent from '@components/alacard/AlaCardListComponent';
+import AlaCardListSkeleton from '@components/alacard/AlaCardListSkeleton';
 
 const AlaCardListContainer = () => {
   const dispatch = useDispatch();
@@ -24,7 +25,7 @@ const AlaCardListContainer = () => {
       {alacardLoading ? (
         <AlaCardListComponent state={state} onClickUploadCardInfo={onClickUploadCardInfo} />
       ) : (
-        <div>loading...</div>
+        <AlaCardListSkeleton />
       )}
     </>
   );

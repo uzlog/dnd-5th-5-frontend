@@ -140,8 +140,8 @@ const LeftSide = () => {
                 <span></span>
               </div>
             </HoverLink>
-            <FooterLink>개인정보 이용 정책</FooterLink>
-            <FooterLink>서비스 이용약관</FooterLink>
+            <FooterLink href="">개인정보 이용 정책</FooterLink>
+            <FooterLink href="">서비스 이용약관</FooterLink>
           </LinkWrapper>
         </FooterContents>
       </span>
