@@ -9,8 +9,7 @@ import {
   Header,
   StyledParagraph,
   ButtonWrapper,
-  GoogleButton,
-  NaverButton,
+  LoginBtn,
   StyledInfoParagraph,
   FormWrapper,
   StyledInput,
@@ -19,9 +18,10 @@ import {
   StyledErrorSpan,
   ErrorMessage,
   SubmitButton,
+  LoginBtnWrapper,
 } from './style';
-import googleIcon from '@assets/img/auth/googleIcon.svg';
-import naverIcon from '@assets/img/auth/naverIcon.svg';
+import googleIcon from '@assets/img/auth/google.svg';
+import kakaoIcon from '@assets/img/auth/kakao.svg';
 import closeBtn from '@assets/img/auth/closeBtn.svg';
 import { withRouter } from 'react-router-dom';
 
@@ -91,7 +91,6 @@ const SocialLogin = ({ state, closeModal, apiCall }) => {
   // 카카오 로그인 init
   useEffect(() => {
     if (!Kakao.isInitialized()) {
-      console.log(Kakao.isInitialized());
       Kakao.init(process.env.REACT_APP_KAKAO_KEY);
     }
   }, []);
@@ -166,19 +165,20 @@ const SocialLogin = ({ state, closeModal, apiCall }) => {
               <br /> <strong>알라</strong>와 함께 <strong>알아</strong>가 보세요.
             </StyledParagraph>
             <ButtonWrapper>
-              <GoogleLogin
-                clientId={googleId}
-                buttonText="Google"
-                render={(renderProps) => (
-                  <GoogleButton onClick={renderProps.onClick}>
-                    <img src={googleIcon} alt="구글 로그인" />
-                    Google
-                  </GoogleButton>
-                )}
-                onSuccess={(result) => onSuccessGoogle(result)}
-                onFailure={(result) => console.log(result)}
-              />
-              <button onClick={kakaoLoginClickHandler}>카카오 로그인</button>
+              <LoginBtnWrapper color="white">
+                <GoogleLogin
+                  clientId={googleId}
+                  buttonText="Google"
+                  render={(renderProps) => (
+                    <LoginBtn src={googleIcon} onClick={renderProps.onClick} alt="구글 로그인" />
+                  )}
+                  onSuccess={(result) => onSuccessGoogle(result)}
+                  onFailure={(result) => console.log(result)}
+                />
+              </LoginBtnWrapper>
+              <LoginBtnWrapper color="#f9e000">
+                <LoginBtn src={kakaoIcon} onClick={kakaoLoginClickHandler} alt="카카오 로그인" />
+              </LoginBtnWrapper>
             </ButtonWrapper>
             <StyledInfoParagraph>
               로그인은 개인 정보 보호 정책 및 서비스 약관에 동의하는 것을 의미하며, <br /> 서비스 이용을 위해 이메일과

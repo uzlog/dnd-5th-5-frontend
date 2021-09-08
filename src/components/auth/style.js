@@ -28,6 +28,7 @@ export const ExitButton = styled.button`
   }
 `;
 export const Header = styled.div`
+  background: 'blue';
   height: 56px;
   font-size: ${(props) => (props.nickname ? '36px' : '40px')};
   font-weight: bold;
@@ -57,55 +58,30 @@ export const ButtonWrapper = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 52px;
+  & > div:nth-child(1) {
+    margin-right: 30px;
+  }
   @media screen and (max-width: 1023px) {
-    flex-direction: column;
     margin-top: 41px;
   }
 `;
 
-export const GoogleButton = styled.button`
-  cursor: pointer;
-  width: 180px;
-  height: 64px;
-  flex-grow: 0;
+export const LoginBtnWrapper = styled.div`
   display: flex;
-  flex-direction: row;
-  justify-content: center;
   align-items: center;
-  gap: 30px;
-  padding: 22px 16px;
-  border-radius: 50px;
-  box-shadow: -1px 2px 25px 10px rgba(0, 0, 0, 0.04);
-  background-color: var(--primary-color-white);
-  border: none;
-  outline: none;
-  font-size: 16px;
-  font-weight: bold;
-  margin-right: 36px;
-  @media screen and (max-width: 1023px) {
-    margin: 0 auto;
-    margin-bottom: 28px;
-  }
+  justify-content: center;
+  width: 58px;
+  height: 64px;
+  background-color: ${(props) => props.color};
+  border-radius: 50%;
 `;
 
-export const NaverButton = styled.div`
+export const LoginBtn = styled.img`
   cursor: pointer;
-  width: 180px;
-  height: 64px;
-  flex-grow: 0;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  gap: 30px;
-  padding: 22px 16px;
-  border-radius: 50px;
-  background-color: #19ce60;
-  border: none;
-  outline: none;
-  color: white;
-  font-size: 16px;
-  font-weight: bold;
+  width: 30px;
+  height: 30px;
+  background: ${(props) => props.color};
+  border-radius: 50%;
 `;
 
 export const StyledInfoParagraph = styled.p`
