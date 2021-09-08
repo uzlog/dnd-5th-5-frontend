@@ -30,7 +30,7 @@ export const ExitButton = styled.button`
 export const Header = styled.div`
   height: 56px;
   font-size: ${(props) => (props.nickname ? '36px' : '40px')};
-  font-weight: bold;
+  font-family: 'spoqaHanSansBold';
   letter-spacing: -0.5px;
   color: #000000;
   margin-top: 119px;

@@ -20,17 +20,6 @@ import {
   ButtonWrapper,
 } from './style';
 import logo from '@assets/img/nav/logo.svg';
-import emoji1 from '@assets/img/emoji/emoji1.svg';
-import emoji2 from '@assets/img/emoji/emoji2.svg';
-import emoji3 from '@assets/img/emoji/emoji3.svg';
-import emoji4 from '@assets/img/emoji/emoji4.svg';
-import emoji5 from '@assets/img/emoji/emoji5.svg';
-import emoji6 from '@assets/img/emoji/emoji6.svg';
-import emoji7 from '@assets/img/emoji/emoji7.svg';
-import emoji8 from '@assets/img/emoji/emoji8.svg';
-import emoji9 from '@assets/img/emoji/emoji9.svg';
-import emoji10 from '@assets/img/emoji/emoji10.svg';
-import emoji11 from '@assets/img/emoji/emoji11.svg';
 import closeBtnWhite from '@assets/img/my-profile/closeBtnWhite.svg';
 import { withRouter, useParams } from 'react-router-dom';
 import client from '@lib/api/client';
@@ -58,7 +47,7 @@ const SelectComponent = ({ history }) => {
     'linear-gradient(to right, #ff512f, #dd2476)',
     'linear-gradient(to right, #ef5600, #ffc837)',
   ];
-  const emojiList = [emoji1, emoji2, emoji3, emoji4, emoji5, emoji6, emoji7, emoji8, emoji9, emoji10, emoji11];
+  const emojiList = ['🤗', '😼', '😋', '😎', '👀', '✋', '😜', '🍿', '😳', '😗', '👻'];
 
   useEffect(() => {
     getWord();
@@ -231,7 +220,7 @@ const SelectComponent = ({ history }) => {
 
         <KeywordIntro>
           {owner}과<br />
-          관련된 키워드를 모두 골라봥! <img src={emoji5} />
+          관련된 키워드를 모두 골라봥!😼
           {idList.length ? (
             <p>
               <b>{idList.length}개</b>의 키워드를 골랐어!
@@ -282,15 +271,12 @@ const SelectComponent = ({ history }) => {
           </ToastWrapper>
         )}
         <ButtonWrapper>
-          <GetMoreWorldButton onClick={getWord}>
-            더 보여줘 <img src={emoji1} />
-          </GetMoreWorldButton>
+          <GetMoreWorldButton onClick={getWord}>더 보여줘😗</GetMoreWorldButton>
           <SubmitButton
             onClick={onSubmitHandler}
             style={idList.length ? { cursor: 'pointer' } : { color: '#555555', background: '#2a2a2a' }}
             disabled={idList.length ? false : true}>
-            다 골랐음
-            <img src={emoji11} />
+            다 골랐음😋
           </SubmitButton>
         </ButtonWrapper>
       </MainWrapper>

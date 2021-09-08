@@ -4,7 +4,6 @@ import imageCompression from 'browser-image-compression';
 import { withRouter } from 'react-router-dom';
 import client from '@lib/api/client';
 import HeaderContainer from '@containers/common/HeaderContainer';
-import useResponsive from '@hooks/useResponsive';
 import { useTitle } from '@hooks/useMeta';
 import {
   MainWrapper,
@@ -32,7 +31,6 @@ import {
 import Modal from './Modal';
 import google from '@assets/img/profileSettings/google.svg';
 import naver from '@assets/img/profileSettings/naver.svg';
-import emoji11 from '@assets/img/emoji/emoji11.svg';
 
 const cookies = new Cookies();
 const ProfileSettingsComponent = ({ state }) => {
@@ -235,7 +233,7 @@ const ProfileSettingsComponent = ({ state }) => {
               onClick={onUpdataSubmitHandler}
               style={myInfo.changed ? { cursor: 'pointer' } : { background: '#2a2a2a' }}
               disabled={myInfo.changed ? false : true}>
-              저장할래 <img src={emoji11} />
+              저장할래😋
             </SubmitButton>
           </ButtonWrapper>
         </ContentWrapper>

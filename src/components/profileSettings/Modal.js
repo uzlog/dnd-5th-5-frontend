@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { ModalWrapper, ModalOverlay, ModalContents } from './style';
-import emoji_sad from '@assets/img/emoji/emoji_sad.svg';
 
 const ContentWrapper = styled.div`
   margin: auto;
@@ -106,9 +105,7 @@ const Modal = ({ setDeleteModal, onDeleteHandler }) => {
       <ModalOverlay onClick={() => setDeleteModal(false)} />
       <ModalContents style={{ color: 'black' }}>
         <ContentWrapper>
-          <Emoji>
-            <img src={emoji_sad} />
-          </Emoji>
+          <Emoji>😭</Emoji>
           <Announce>정말 탈퇴하시겠어요?</Announce>
           <Alert>*카드, 프로필 등 모든 데이터가 삭제됩니다. </Alert>
           <Alert> *모든 데이터 복구가 불가능합니다.</Alert>
