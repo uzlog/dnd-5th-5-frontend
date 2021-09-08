@@ -14,29 +14,31 @@ export const HoverLink = styled.a`
     transition: 0.3s;
   }
   div {
-    margin-left: 10px;
+    opacity: 1;
     min-width: 40px;
     min-height: 40px;
     display: inline-flex;
     justify-content: center;
     align-items: center;
+    border-radious: 20px;
     span {
-      opacity: 1;
       background-image: url(${(props) => props.url});
-      min-width: 32px;
-      min-height: 32px;
+      width: 32px;
+      height: 32px;
       background-size: cover;
       transition: 0.3s;
+    }
+    :hover {
+      span {
+        width: 36px;
+        height: 36px;
+        overflow: visible;
+      }
     }
   }
   :hover {
     p {
       opacity: 1;
-    }
-    span {
-      width: 36px;
-      height: 36px;
-      overflow: visible;
     }
   }
 `;
@@ -58,5 +60,40 @@ export const Wrapper = styled.div`
     margin: 0 auto;
     width: 360px;
     height: 60px;
+  }
+`;
+
+export const InnerWrapper = styled.div`
+  max-width: 500px;
+  width: 35vw;
+  /* background-color: red; */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  @media screen and (max-width: 1023px) {
+    width: 308px;
+  }
+`;
+
+export const FooterContents = styled.footer`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  font-size: 12px;
+  line-height: 1.6;
+  color: #ffffff;
+  p {
+    opacity: 0.5;
+  }
+`;
+
+export const FooterLink = styled.a`
+  font-size: 12px;
+  color: #ffffff;
+  opacity: 0.5;
+  padding-left: 12px;
+  transition: 0.3s;
+  :hover {
+    opacity: 1;
   }
 `;

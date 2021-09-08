@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-
-import { HoverLink } from './style';
-
+import { HoverLink, FooterContents } from './style';
 import deco from '@assets/img/desktop/deco.svg';
 import sendAla from '@assets/img/desktop/sendAla.svg';
 import sendBtn from '@assets/img/desktop/sendBtn.svg';
@@ -73,16 +71,6 @@ const StyledSpan = styled.span`
   margin-top: 10px;
 `;
 
-const Footer = styled.footer`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  font-size: 12px;
-  line-height: 1.6;
-  color: #ffffff;
-  opacity: 0.5;
-`;
-
 const LinkWrapper = styled.div`
   margin-top: 10px;
   display: flex;
@@ -130,7 +118,7 @@ const LeftSide = () => {
             <StyledSpan>요기로 문의 고고!</StyledSpan>
           </ButtonWrapper>
         </QuestionWrapper>
-        <Footer>
+        <FooterContents>
           <p>만든이 : caption, jjm, bongbong, mr. sorry, jenny, july</p>
           <p>이메일 : alameme629@gmail.com</p>
           <LinkWrapper>
@@ -155,7 +143,7 @@ const LeftSide = () => {
             <FooterLink>개인정보 이용 정책</FooterLink>
             <FooterLink>서비스 이용약관</FooterLink>
           </LinkWrapper>
-        </Footer>
+        </FooterContents>
       </span>
     </Wrapper>
   );

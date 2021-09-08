@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Link, withRouter } from 'react-router-dom';
+import { Wrapper, InnerWrapper } from './style';
 import useOwner from '@hooks/useOwner';
 import FriendModalContainer from '@containers/modal/FriendModalContainer';
 import FollowerModalContainer from '@containers/modal/FollowerModalContainer';
 import SocialLoginContainer from '@containers/auth/SocialLoginContainer';
 import { ModalWrapper, ModalOverlay, ModalContents } from '@components/main/Style';
-import { Wrapper } from './style';
 import logo from '@assets/img/nav/logo.svg';
 import friend from '@assets/img/nav/friend.svg';
 // import activatedNotice from '@assets/img/nav/activatedNotice.svg';
@@ -16,18 +16,6 @@ import arrowBtn from '@assets/img/my-profile/arrowBtn.svg';
 import avatarM from '@assets/img/my-profile/avatarM.svg';
 import closeBtnWhite from '@assets/img/my-profile/closeBtnWhite.svg';
 import settingBtn from '@assets/img/my-profile/settingBtn.svg';
-
-const InnerWrapper = styled.div`
-  max-width: 500px;
-  width: 35vw;
-  /* background-color: red; */
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  @media screen and (max-width: 1023px) {
-    width: 308px;
-  }
-`;
 
 const LogoWrapper = styled(Link)`
   float: left;
