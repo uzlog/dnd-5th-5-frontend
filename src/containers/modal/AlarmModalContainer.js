@@ -1,44 +1,24 @@
 import React, { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import Cookies from 'universal-cookie';
-import { getFollowerList, acceptFollow, declineFollow } from '@modules/friend';
-import { getAlarmData } from '@modules/alarm';
+import useGetAlarm from '@hooks/useGetAlarm';
+import { acceptFollow, declineFollow } from '@modules/friend';
 import { updateModalStatus } from '@modules/modal';
-import FollowerModal from '@components/modal/FollowerModal';
+import AlarmModal from '@components/modal/AlarmModal';
 
 const AlarmModalContainer = () => {
+  const { data, getAlarmDataError, getAlarmDataLoading, mutate } = useGetAlarm();
+  const getAlarmDataList = data.data;
   const dispatch = useDispatch();
-  const cookies = new Cookies();
-  const token = cookies.get('token');
-  const {
-    getFollowerListStatus,
-    getFollowerListData,
-    getFollowerListError,
-    getFollowerListLoading,
-    getAlarmDataStatus,
-    getAlarmDataList,
-    getAlarmDataError,
-    getAlarmDataLoading,
-    acceptFollowStatus,
-    declineFollowStatus,
-  } = useSelector(({ friend, alarm, loading }) => ({
-    getFollowerListStatus: friend.getFollowerListStatus,
-    getFollowerListData: friend.getFollowerListData,
-    getFollowerListError: friend.getFollowerListError,
-    getFollowerListLoading: loading['friend/GET_FOLLOWER_LIST'],
 
-    getAlarmDataStatus: alarm.getAlarmDataStatus,
-    getAlarmDataList: alarm.getAlarmDataList,
-    getAlarmDataError: alarm.getAlarmDataError,
-    getAlarmDataLoading: loading['friend/GET_ALARM_DATA'],
+  const { getFollowerListData, acceptFollowStatus, declineFollowStatus } = useSelector(({ friend }) => ({
     acceptFollowStatus: friend.acceptFollowStatus,
     declineFollowStatus: friend.declineFollowStatus,
   }));
-  const state = { getFollowerListData };
+  const state = { getFollowerListData, getAlarmDataList, getAlarmDataError };
 
   useEffect(() => {
     if (acceptFollowStatus === 200 || declineFollowStatus === 200) {
-      dispatch(getFollowerList());
+      dispatch(updateModalStatus({ key: 'showAlarmModal', value: false }));
     }
   }, [acceptFollowStatus, declineFollowStatus]);
 
@@ -48,14 +28,7 @@ const AlarmModalContainer = () => {
 
   const apiCall = { onClickAcceptFollow, onClickDeclineFollow, onClickModalStatus };
 
-  useEffect(() => {
-    if (token) {
-      dispatch(getFollowerList());
-      dispatch(getAlarmData());
-    }
-  }, []);
-
-  return <>{getFollowerListLoading ? <FollowerModal state={state} apiCall={apiCall} /> : <div>loading...</div>}</>;
+  return <>{getAlarmDataLoading ? <AlarmModal state={state} apiCall={apiCall} /> : <></>}</>;
 };
 
 export default AlarmModalContainer;

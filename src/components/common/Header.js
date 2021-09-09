@@ -4,6 +4,7 @@ import { Link, withRouter } from 'react-router-dom';
 import useSWR from 'swr';
 import client from '@lib/api/client';
 import useOwner from '@hooks/useOwner';
+import useGetAlarm from '@hooks/useGetAlarm';
 import FriendModalContainer from '@containers/modal/FriendModalContainer';
 import AlarmModalContainer from '@containers/modal/AlarmModalContainer';
 import SocialLoginContainer from '@containers/auth/SocialLoginContainer';
@@ -223,15 +224,12 @@ const StyledLink = styled(Link)`
 `;
 
 const Header = ({ history, state, apiCall }) => {
-  const { data: alramData, error, mutate } = useSWR('api/v1/alarm', (url) => client.get(url).then((res) => res.data));
+  const { data: alarmData } = useGetAlarm();
   const [showProfile, setShowProfile] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
   const {
-    tokenExisted,
-    showLoginModal,
     showFriendModal,
     showAlarmModal,
-    showFollowerModal,
     user,
     memberData: { nickname, statusMessage, imgUrl },
   } = state;
@@ -285,8 +283,8 @@ const Header = ({ history, state, apiCall }) => {
                 <img src={friend} alt="친구창" />
               </ImgWrapper>
               <ImgWrapper onClick={openAlarmModal}>
-                {alramData ? (
-                  Object.keys(alramData).length === 3 ? (
+                {alarmData ? (
+                  Object.keys(alarmData).length === 3 ? (
                     <img src={inactivatedNotice} alt="알림창" />
                   ) : (
                     <img src={activatedNotice} alt="알림창" />
