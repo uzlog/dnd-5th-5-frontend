@@ -43,38 +43,6 @@ export const HoverLink = styled.a`
   }
 `;
 
-export const Wrapper = styled.div`
-  background-color: #121212;
-  max-width: 576px;
-  width: 40vw;
-  height: 9.4vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
-  &::-webkit-scrollbar {
-    display: none; /* Chrome, Safari, Opera*/
-  }
-  @media screen and (max-width: 1023px) {
-    margin: 0 auto;
-    width: 360px;
-    height: 60px;
-  }
-`;
-
-export const InnerWrapper = styled.div`
-  max-width: 500px;
-  width: 35vw;
-  /* background-color: red; */
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  @media screen and (max-width: 1023px) {
-    width: 308px;
-  }
-`;
-
 export const FooterContents = styled.footer`
   display: flex;
   flex-direction: column;

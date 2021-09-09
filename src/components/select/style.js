@@ -37,6 +37,7 @@ export const KeywordIntro = styled.div`
   color: white;
   margin-left: 24px;
   margin-top: 3.1vh;
+  line-height: 1.6;
   font-size: 18px;
   @media screen and (min-width: 1023px) {
     font-size: min(2.9rem, 3.5vh);
@@ -142,18 +143,23 @@ export const ButtonWrapper = styled.span`
   }
 `;
 
-export const GetMoreWorldButton = styled.button`
+export const GetMoreWordButton = styled.button`
   color: white;
   background-color: #121212;
   width: 148px;
   height: 48px;
   display: flex;
+  cursor: pointer;
   align-items: center;
   justify-content: center;
   font-size: 16px;
   padding: 11px 14px 11px 14px;
   border-radius: 62px;
   border: solid 1px white;
+  :active {
+    color: black;
+    background-color: white;
+  }
   @media screen and (min-width: 1023px) {
     border: solid 1.6px;
     font-size: min(33vw, 3vh, 2.6rem);
@@ -267,17 +273,21 @@ const fadeIn = keyframes`
   }
 `;
 export const ToastWrapper = styled.div`
+  position: relative;
+  bottom: 19vh;
   display: flex;
   justify-content: center;
+  @media screen and (max-width: 1023px) {
+    bottom: 130px;
+  }
 `;
 
 export const Toast = styled.div`
-  position: absolute;
+  margin-bottom: 150px;
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 0 auto;
-  top: 82%;
   border-radius: 5px;
   background-color: #000000;
   line-height: 1.6;

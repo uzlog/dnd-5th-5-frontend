@@ -8,7 +8,7 @@ import {
   MainWrapper,
   EachSelectViewItem,
   WhiteBox,
-  GetMoreWorldButton,
+  GetMoreWordButton,
   KeywordIntro,
   SubmitButton,
   HeaderIconWrapper,
@@ -195,7 +195,7 @@ const SelectComponent = ({ history }) => {
     );
   };
   const onSubmitHandler = async () => {
-    const response = await client.patch(`/api/v1/alacard/wordlist?nickname=${owner}`, {
+    await client.patch(`/api/v1/alacard/wordlist?nickname=${owner}`, {
       idList,
     });
     history.push(`/${owner}`);
@@ -276,15 +276,10 @@ const SelectComponent = ({ history }) => {
             ))}
           </ScrollContainer>
         </SelectViewWrapper>
-        {showToast && (
-          <ToastWrapper>
-            <Toast>더 많은 단어를 준비중입니다!</Toast>
-          </ToastWrapper>
-        )}
         <ButtonWrapper>
-          <GetMoreWorldButton onClick={getWord}>
+          <GetMoreWordButton onClick={getWord}>
             더 보여줘 <img src={emoji1} />
-          </GetMoreWorldButton>
+          </GetMoreWordButton>
           <SubmitButton
             onClick={onSubmitHandler}
             style={idList.length ? { cursor: 'pointer' } : { color: '#555555', background: '#2a2a2a' }}
@@ -293,6 +288,11 @@ const SelectComponent = ({ history }) => {
             <img src={emoji11} />
           </SubmitButton>
         </ButtonWrapper>
+        {showToast && (
+          <ToastWrapper>
+            <Toast>더 많은 단어를 준비중입니다!</Toast>
+          </ToastWrapper>
+        )}
       </MainWrapper>
     </>
   );

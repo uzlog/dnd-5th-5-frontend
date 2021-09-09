@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Link, withRouter } from 'react-router-dom';
-import { Wrapper, InnerWrapper } from './style';
 import useOwner from '@hooks/useOwner';
 import FriendModalContainer from '@containers/modal/FriendModalContainer';
 import FollowerModalContainer from '@containers/modal/FollowerModalContainer';
@@ -16,6 +15,38 @@ import arrowBtn from '@assets/img/my-profile/arrowBtn.svg';
 import avatarM from '@assets/img/my-profile/avatarM.svg';
 import closeBtnWhite from '@assets/img/my-profile/closeBtnWhite.svg';
 import settingBtn from '@assets/img/my-profile/settingBtn.svg';
+
+const Wrapper = styled.div`
+  background-color: #121212;
+  max-width: 576px;
+  width: 40vw;
+  height: 9.4vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  &::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
+  }
+  @media screen and (max-width: 1023px) {
+    margin: 0 auto;
+    width: 360px;
+    height: 60px;
+  }
+`;
+
+const InnerWrapper = styled.div`
+  max-width: 500px;
+  width: 35vw;
+  /* background-color: red; */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  @media screen and (max-width: 1023px) {
+    width: 308px;
+  }
+`;
 
 const LogoWrapper = styled(Link)`
   float: left;

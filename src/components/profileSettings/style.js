@@ -143,6 +143,15 @@ export const IsOpen = styled.span`
   justify-content: space-between;
   align-items: center;
   p {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+    font-size: 2px;
+    @media screen and (mix-width: 1023px) {
+      margin-right: 10px;
+      font-size: 16px;
+    }
   }
   span {
     display: flex;
