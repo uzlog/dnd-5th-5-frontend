@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { HoverLink, FooterContents } from './style';
+import { HoverLink, FooterContents, FooterLink } from './style';
 import deco from '@assets/img/desktop/deco.svg';
 import sendAla from '@assets/img/desktop/sendAla.svg';
 import sendBtn from '@assets/img/desktop/sendBtn.svg';
@@ -77,17 +77,6 @@ const LinkWrapper = styled.div`
   align-items: center;
 `;
 
-const FooterLink = styled.a`
-  font-size: 12px;
-  color: #ffffff;
-  opacity: 0.5;
-  padding-left: 12px;
-  transition: 0.3s;
-  :hover {
-    opacity: 1;
-  }
-`;
-
 const LeftSide = () => {
   const [isQestionHover, setIsQestionHover] = useState(false);
   const [isInstaHover, setIsInstaHover] = useState(false);
@@ -140,8 +129,8 @@ const LeftSide = () => {
                 <span></span>
               </div>
             </HoverLink>
-            <FooterLink>개인정보 이용 정책</FooterLink>
-            <FooterLink>서비스 이용약관</FooterLink>
+            <FooterLink href="">개인정보 이용 정책</FooterLink>
+            <FooterLink href="">서비스 이용약관</FooterLink>
           </LinkWrapper>
         </FooterContents>
       </span>

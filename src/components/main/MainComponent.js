@@ -33,7 +33,7 @@ const Wrapper = styled.div`
 `;
 
 const Title = styled.div`
-  font-weight: bold;
+  font-family: 'spoqaHanSansBold';
   color: white;
   font-size: 60px;
   margin-bottom: min(5.9vh, 61.3px);
@@ -67,7 +67,7 @@ const StyledButton = styled.button`
   background-color: white;
   outline: none;
   border: none;
-  font-weight: bold;
+  font-family: 'spoqaHanSansBold';
   text-align: center;
   border-radius: 50px;
   width: 223px;

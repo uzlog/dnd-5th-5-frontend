@@ -19,9 +19,17 @@ const ProfileSettingsPage = () => {
 
   return (
     <Wrapper>
-      {viewSize > 1023 ? <LeftSide /> : <></>}
-      <ProfileSettingsContainer />
-      {viewSize < 1023 ? <Footer /> : <></>}
+      {viewSize > 1023 ? (
+        <>
+          <LeftSide />
+          <ProfileSettingsContainer />
+        </>
+      ) : (
+        <>
+          <ProfileSettingsContainer />
+          <Footer />
+        </>
+      )}
     </Wrapper>
   );
 };

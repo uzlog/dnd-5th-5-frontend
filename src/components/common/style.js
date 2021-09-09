@@ -20,7 +20,7 @@ export const HoverLink = styled.a`
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    border-radious: 20px;
+    border-radius: 20px;
     span {
       background-image: url(${(props) => props.url});
       width: 32px;
@@ -58,6 +58,7 @@ export const FooterContents = styled.footer`
 export const FooterLink = styled.a`
   font-size: 12px;
   color: #ffffff;
+  text-decoration: none;
   opacity: 0.5;
   padding-left: 12px;
   transition: 0.3s;

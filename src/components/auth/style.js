@@ -31,7 +31,7 @@ export const Header = styled.div`
   background: 'blue';
   height: 56px;
   font-size: ${(props) => (props.nickname ? '36px' : '40px')};
-  font-weight: bold;
+  font-family: 'spoqaHanSansBold';
   letter-spacing: -0.5px;
   color: #000000;
   margin-top: 119px;

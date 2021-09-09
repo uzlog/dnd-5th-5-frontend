@@ -37,13 +37,11 @@ export const KeywordIntro = styled.div`
   color: white;
   margin-left: 24px;
   margin-top: 3.1vh;
-  line-height: 1.6;
   font-size: 18px;
   @media screen and (min-width: 1023px) {
     font-size: min(2.9rem, 3.5vh);
     margin-left: 2vw;
   }
-
   p {
     color: white;
     margin-top: 3.1vh;
@@ -133,7 +131,6 @@ export const ButtonWrapper = styled.span`
     width: 20px;
     height: 20px;
   }
-
   @media screen and (min-width: 1023px) {
     margin: 0 2vw;
     img {
@@ -149,17 +146,12 @@ export const GetMoreWordButton = styled.button`
   width: 148px;
   height: 48px;
   display: flex;
-  cursor: pointer;
   align-items: center;
   justify-content: center;
   font-size: 16px;
   padding: 11px 14px 11px 14px;
   border-radius: 62px;
   border: solid 1px white;
-  :active {
-    color: black;
-    background-color: white;
-  }
   @media screen and (min-width: 1023px) {
     border: solid 1.6px;
     font-size: min(33vw, 3vh, 2.6rem);
@@ -193,9 +185,7 @@ export const HeaderWrapper = styled.div`
   background-color: #121212;
   max-width: 576px;
   width: 40vw;
-  height: 9.4vh;
-  padding: 3.1vh 2vw 3.1vh 2vw;
-
+  margin-top: 20px;
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
   &::-webkit-scrollbar {
@@ -204,8 +194,6 @@ export const HeaderWrapper = styled.div`
   @media screen and (max-width: 1023px) {
     width: 360px;
     min-height: 60px;
-    height: 9.3vh;
-    padding: 2.8vh 24px 3vh 24px;
   }
 `;
 
@@ -213,6 +201,11 @@ export const HeaderInnerWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin: 0 auto;
+  width: 470px;
+  @media screen and (max-width: 1023px) {
+    width: 308px;
+  }
 `;
 
 export const HeaderLogoWrapper = styled.div`
@@ -273,21 +266,17 @@ const fadeIn = keyframes`
   }
 `;
 export const ToastWrapper = styled.div`
-  position: relative;
-  bottom: 19vh;
   display: flex;
   justify-content: center;
-  @media screen and (max-width: 1023px) {
-    bottom: 130px;
-  }
 `;
 
 export const Toast = styled.div`
-  margin-bottom: 150px;
+  position: absolute;
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 0 auto;
+  top: 82%;
   border-radius: 5px;
   background-color: #000000;
   line-height: 1.6;
