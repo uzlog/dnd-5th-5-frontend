@@ -9,8 +9,7 @@ import {
   Header,
   StyledParagraph,
   ButtonWrapper,
-  GoogleButton,
-  NaverButton,
+  LoginBtn,
   StyledInfoParagraph,
   FormWrapper,
   StyledInput,
@@ -19,38 +18,54 @@ import {
   StyledErrorSpan,
   ErrorMessage,
   SubmitButton,
+  LoginBtnWrapper,
 } from './style';
-import googleIcon from '@assets/img/auth/googleIcon.svg';
-import naverIcon from '@assets/img/auth/naverIcon.svg';
+import googleIcon from '@assets/img/auth/google.svg';
+import kakaoIcon from '@assets/img/auth/kakao.svg';
 import closeBtn from '@assets/img/auth/closeBtn.svg';
 import { withRouter } from 'react-router-dom';
 
 dotenv.config();
+const { Kakao } = window;
 
-const SocialLogin = ({
-  state,
-  closeModal,
-  onSubmitGoogle,
-  onSubmitNaver,
-  onChangeField,
-  onSubmitUpdateMyInfo,
-  onSubmitCheckNicknameDuplicated,
-  location,
-}) => {
+const SocialLogin = ({ state, closeModal, apiCall }) => {
   const [error, setError] = useState('');
   const [regError, setRegError] = useState(false);
   const googleId = process.env.REACT_APP_GOOGLE_KEY;
-  const naverId = process.env.REACT_APP_NAVER_KEY;
   const { authMessage, memberNickname, getMemberLoading, duplicatedData, memberData } = state;
+  const { onSubmitGoogle, onSubmitKakao, onChangeField, onSubmitUpdateMyInfo, onSubmitCheckNicknameDuplicated } =
+    apiCall;
   const onSuccessGoogle = (result) => {
     const userInfo = { profileObj: result.profileObj };
     onSubmitGoogle(userInfo);
   };
-  const onSuccessNaver = () => {
-    if (location.hash) {
-      setTimeout(onSubmitNaver(location.hash.split('=')[1].split('&')[0]), 1000);
-    }
+
+  const kakaoLoginClickHandler = async () => {
+    await Kakao.Auth.login({
+      success: function () {
+        Kakao.API.request({
+          url: '/v2/user/me',
+          success: function (response) {
+            const { nickname, thumbnail_image } = response.properties;
+            const kakaoId = response.id;
+            const { email } = response.kakao_account;
+            const profileObj = {
+              kakaoId,
+              imageUrl: thumbnail_image,
+              name: nickname,
+              email,
+            };
+            const userInfo = { profileObj };
+            onSubmitKakao(userInfo);
+          },
+          fail: function (error) {
+            console.log(error);
+          },
+        });
+      },
+    });
   };
+
   const onChange = (e) => {
     const { name, value } = e.target;
     onChangeField({ key: name, value });
@@ -73,6 +88,13 @@ const SocialLogin = ({
     }
   };
 
+  // 카카오 로그인 init
+  useEffect(() => {
+    if (!Kakao.isInitialized()) {
+      Kakao.init(process.env.REACT_APP_KAKAO_KEY);
+    }
+  }, []);
+
   useEffect(() => {
     const userInfo = { nickname: memberNickname };
     if (duplicatedData === false) {
@@ -80,7 +102,6 @@ const SocialLogin = ({
     } else if (duplicatedData === true) {
       setError('앗, 누군가 이미 사용중인 별명이네요,\n 다른 별명을 사용해보세요.');
     }
-    return onSuccessNaver();
   }, [duplicatedData]);
 
   return (
@@ -144,31 +165,20 @@ const SocialLogin = ({
               <br /> <strong>알라</strong>와 함께 <strong>알아</strong>가 보세요.
             </StyledParagraph>
             <ButtonWrapper>
-              <GoogleLogin
-                clientId={googleId}
-                buttonText="Google"
-                render={(renderProps) => (
-                  <GoogleButton onClick={renderProps.onClick}>
-                    <img src={googleIcon} alt="구글 로그인" />
-                    Google
-                  </GoogleButton>
-                )}
-                onSuccess={(result) => onSuccessGoogle(result)}
-                onFailure={(result) => console.log(result)}
-              />
-              <NaverLogin
-                clientId={naverId}
-                callbackUrl={process.env.REACT_APP_URL}
-                isPopup={false}
-                render={(props) => (
-                  <NaverButton type="button" onClick={props.onClick}>
-                    <img src={naverIcon} alt="네이버 로그인" />
-                    Naver
-                  </NaverButton>
-                )}
-                onSuccess={() => onSuccessNaver()}
-                onFailure={(result) => console.error(result)}
-              />
+              <LoginBtnWrapper color="white">
+                <GoogleLogin
+                  clientId={googleId}
+                  buttonText="Google"
+                  render={(renderProps) => (
+                    <LoginBtn src={googleIcon} onClick={renderProps.onClick} alt="구글 로그인" />
+                  )}
+                  onSuccess={(result) => onSuccessGoogle(result)}
+                  onFailure={(result) => console.log(result)}
+                />
+              </LoginBtnWrapper>
+              <LoginBtnWrapper color="#f9e000">
+                <LoginBtn src={kakaoIcon} onClick={kakaoLoginClickHandler} alt="카카오 로그인" />
+              </LoginBtnWrapper>
             </ButtonWrapper>
             <StyledInfoParagraph>
               로그인은 개인 정보 보호 정책 및 서비스 약관에 동의하는 것을 의미하며, <br /> 서비스 이용을 위해 이메일과

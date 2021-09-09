@@ -8,6 +8,7 @@ import * as authAPI from '../lib/api/auth';
  */
 const [GOOGLE_OAUTH, GOOGLE_OAUTH_SUCCESS, GOOGLE_OAUTH_FAILURE] = createRequestActionTypes('auth/GOOGLE_OAUTH');
 const [NAVER_OAUTH, NAVER_OAUTH_SUCCESS, NAVER_OAUTH_FAILURE] = createRequestActionTypes('auth/NAVER_OAUTH');
+const [KAKAO_OAUTH, KAKAO_OAUTH_SUCCESS, KAKAO_OAUTH_FAILURE] = createRequestActionTypes('auth/KAKAO_OAUTH');
 const CHECK_TOKEN_EXISTED = 'auth/CHECK_TOKEN_EXISTED';
 
 /**
@@ -15,6 +16,7 @@ const CHECK_TOKEN_EXISTED = 'auth/CHECK_TOKEN_EXISTED';
  */
 export const googleOauth = createAction(GOOGLE_OAUTH, (userInfo) => userInfo);
 export const naverOauth = createAction(NAVER_OAUTH, (userInfo) => userInfo);
+export const kakaoOauth = createAction(KAKAO_OAUTH, (userInfo) => userInfo);
 export const checkTokenExisted = createAction(CHECK_TOKEN_EXISTED, (token) => token);
 
 /**
@@ -22,10 +24,12 @@ export const checkTokenExisted = createAction(CHECK_TOKEN_EXISTED, (token) => to
  */
 const googleOauthSaga = createRequestSaga(GOOGLE_OAUTH, authAPI.googleOauth);
 const naverOauthSaga = createRequestSaga(NAVER_OAUTH, authAPI.naverOauth);
+const kakaoOauthSaga = createRequestSaga(KAKAO_OAUTH, authAPI.kakaoOauth);
 
 export function* authSaga() {
   yield takeLatest(GOOGLE_OAUTH, googleOauthSaga);
   yield takeLatest(NAVER_OAUTH, naverOauthSaga);
+  yield takeLatest(KAKAO_OAUTH, kakaoOauthSaga);
 }
 
 /**
@@ -60,6 +64,16 @@ const auth = handleActions(
       timestamp,
     }),
     [NAVER_OAUTH_FAILURE]: (state, { payload: error }) => ({
+      ...state,
+      error,
+    }),
+    [KAKAO_OAUTH_SUCCESS]: (state, { payload: { status, message, data } }) => ({
+      ...state,
+      status,
+      message,
+      token: data,
+    }),
+    [KAKAO_OAUTH_FAILURE]: (state, { payload: error }) => ({
       ...state,
       error,
     }),

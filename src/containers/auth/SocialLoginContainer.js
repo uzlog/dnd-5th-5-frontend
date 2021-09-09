@@ -2,7 +2,7 @@ import React, { useEffect, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import Cookies from 'universal-cookie';
-import { googleOauth, naverOauth } from '@modules/auth';
+import { googleOauth, kakaoOauth } from '@modules/auth';
 import { changeField, getMyInfo, updateMyInfo, checkNicknameDuplicated } from '@modules/member';
 import SocialLogin from '@components/auth/SocialLogin';
 import client from '@lib/api/client';
@@ -43,13 +43,21 @@ const SocialLoginContainer = ({ history, closeModal }) => {
   const state = { authMessage, memberNickname, getMemberLoading, duplicatedData, memberData };
 
   const onSubmitGoogle = useCallback((payload) => dispatch(googleOauth(payload)), [dispatch]);
-  const onSubmitNaver = useCallback((payload) => dispatch(naverOauth(payload)), [dispatch]);
+  const onSubmitKakao = useCallback((payload) => dispatch(kakaoOauth(payload)), [dispatch]);
   const onChangeField = useCallback((payload) => dispatch(changeField(payload)), [dispatch]);
   const onSubmitUpdateMyInfo = useCallback((payload) => dispatch(updateMyInfo(payload)), [dispatch]);
   const onSubmitCheckNicknameDuplicated = useCallback(
     (payload) => dispatch(checkNicknameDuplicated(payload)),
     [dispatch],
   );
+
+  const apiCall = {
+    onSubmitGoogle,
+    onSubmitKakao,
+    onChangeField,
+    onSubmitUpdateMyInfo,
+    onSubmitCheckNicknameDuplicated,
+  };
 
   // 로그인이 성공하면 유저 정보를 받아온다.
   useEffect(() => {
@@ -64,7 +72,6 @@ const SocialLoginContainer = ({ history, closeModal }) => {
   useEffect(() => {
     if (memberData && authMessage === 'login') {
       sessionStorage.setItem('nickname', memberData.nickname);
-      // localStorage.setItem('nickname', memberData.nickname);
       history.push(`/${memberData.nickname}`);
     }
   }, [memberData]);
@@ -73,22 +80,13 @@ const SocialLoginContainer = ({ history, closeModal }) => {
   useEffect(() => {
     if (memberMessage === 'update') {
       sessionStorage.setItem('nickname', memberData.nickname);
-      // localStorage.setItem('nickname', memberData.nickname);
       history.push(`/${memberData.nickname}`);
     }
   }, [memberMessage]);
 
   return (
     <>
-      <SocialLogin
-        state={state}
-        closeModal={closeModal}
-        onSubmitGoogle={onSubmitGoogle}
-        onSubmitNaver={onSubmitNaver}
-        onChangeField={onChangeField}
-        onSubmitUpdateMyInfo={onSubmitUpdateMyInfo}
-        onSubmitCheckNicknameDuplicated={onSubmitCheckNicknameDuplicated}
-      />
+      <SocialLogin state={state} closeModal={closeModal} apiCall={apiCall} />
     </>
   );
 };
