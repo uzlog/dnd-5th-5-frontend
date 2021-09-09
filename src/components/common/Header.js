@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Link, withRouter } from 'react-router-dom';
-import useSWR from 'swr';
-import client from '@lib/api/client';
-import useOwner from '@hooks/useOwner';
+// import useSWR from 'swr';
+// import Cookies from 'universal-cookie';
+// import client from '@lib/api/client';
 import useGetAlarm from '@hooks/useGetAlarm';
 import FriendModalContainer from '@containers/modal/FriendModalContainer';
 import AlarmModalContainer from '@containers/modal/AlarmModalContainer';
@@ -234,9 +234,6 @@ const Header = ({ history, state, apiCall }) => {
     memberData: { nickname, statusMessage, imgUrl },
   } = state;
   const { onClickModalStatus, onClickOpenProfile } = apiCall;
-  const urlNickname = history.location.pathname.split('/')[1];
-  const userInfo = { nickname, urlNickname };
-  const isOwned = useOwner(userInfo);
 
   const openFriendModal = () => {
     document.body.style = `overflow: hidden`;
