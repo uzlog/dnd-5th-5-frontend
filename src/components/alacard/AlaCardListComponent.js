@@ -67,12 +67,13 @@ const ContentFlexWrapper = styled.div`
 const ContentsWrapper = styled.div`
   display: table;
   max-width: 50rem;
-  width: 34.7vw;
-  padding: min(3.75vh, 3.84rem) min(2.6vw, 3.84rem);
+  width: 28vw;
+  padding: min(3.75vh, 3rem) min(2.6vw, 3rem);
   line-height: 1.6;
   letter-spacing: -0.08rem;
   font-size: 3.84rem;
   font-weight: 300;
+  margin: 0 auto;
   @media screen and (max-width: 1023px) {
     width: 31.2rem;
     font-size: 2.4rem;
@@ -89,9 +90,10 @@ const InnerContents = styled.div`
   vertical-align: middle;
   text-align: left;
   word-break: keep-all;
+  white-space: pre-wrap;
   img {
     display: inline;
-    width: min(33%, 15vh);
+    width: min(30%, 15vh);
     vertical-align: -15%;
   }
   @media screen and (min-width: 1023px) {

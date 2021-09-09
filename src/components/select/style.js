@@ -82,12 +82,12 @@ export const EachSelectViewItem = styled.div`
   justify-content: space-evenly;
   margin: 1.7vh 6px;
   padding: 0.7vh 28px;
+  height: 40px;
   border-radius: 50px;
-  height: 50px;
   border: 0 solid;
   background-color: rgba(255, 255, 255, 0.1);
   @media screen and (min-width: 1023px) {
-    height: 7.8vh;
+    height: 6.5vh;
     margin: 1.7vh 8px;
     padding: 1vh 30px;
   }
@@ -96,28 +96,30 @@ export const HintOfItem = styled.div`
   font-size: 10px;
   color: #ffffff;
   @media screen and (min-width: 1023px) {
-    font-size: min(1.5vh, 1.6rem);
+    font-size: 15px;
   }
 `;
 export const WordNameOfItem = styled.div`
   font-size: 16px;
   color: #ffffff;
   @media screen and (min-width: 1023px) {
-    font-size: min(3vh, 2.6rem);
+    font-size: 24px;
   }
 `;
 export const WhiteBox = styled.span`
   display: flex;
   justify-content: center;
+  align-items: center;
   min-width: 50px;
   height: 50px;
   border-radius: 100px;
   background-color: white;
+  font-size: 25px;
   margin: 0.7vh 12px;
-  padding: 0.7vh 22px;
   @media screen and (min-width: 1023px) {
     height: 7.8vh;
     min-width: 7.8vh;
+    font-size: 32px;
   }
 `;
 export const ButtonWrapper = styled.span`
@@ -201,8 +203,7 @@ export const HeaderInnerWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: 0 auto;
-  width: 470px;
+  margin: 0 2vw;
   @media screen and (max-width: 1023px) {
     width: 308px;
   }
@@ -242,11 +243,11 @@ export const HeaderIconWrapper = styled.div`
   justify-content: center;
   max-width: ${(props) => (props.close ? '23px' : '39px')};
   min-height: 38.4px;
-  width: 2vw;
-  height: 2vw;
+  width: 1.8vw;
+  height: 1.8vw;
   img {
-    width: 2vw;
-    height: 2vw;
+    width: 1.8vw;
+    height: 1.8vw;
   }
   @media screen and (max-width: 1023px) {
     width: 20px;
@@ -271,12 +272,12 @@ export const ToastWrapper = styled.div`
 `;
 
 export const Toast = styled.div`
-  position: absolute;
+  position: sticky;
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 0 auto;
-  top: 82%;
+  bottom: 390px;
   border-radius: 5px;
   background-color: #000000;
   line-height: 1.6;

@@ -256,8 +256,8 @@ const SelectComponent = ({ history }) => {
                       </WordNameOfItem>
                     </EachSelectViewItem>
                   ) : (
-                    <WhiteBox key={index + 5}>
-                      <img src={item.url} style={viewSize > 1023 ? { width: '38px' } : { width: '24px' }} />
+                    <WhiteBox key={index + 5} style={viewSize > 1023 ? { fo: '38px' } : { width: '24px' }}>
+                      {item.url}
                     </WhiteBox>
                   ),
                 )}
