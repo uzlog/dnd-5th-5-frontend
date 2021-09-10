@@ -12,19 +12,16 @@ const HeaderContainer = ({ history }) => {
   const cookies = new Cookies();
   const token = cookies.get('token');
   const {
-    authToken,
-    socialLoginStatus,
     tokenExisted,
+
     showLoginModal,
     showFriendModal,
     showAlarmModal,
     showFollowerModal,
+
     memberNickname,
     memberData,
-    memberDataLoading,
-  } = useSelector(({ auth, modal, member, loading }) => ({
-    authToken: auth.token,
-    socialLoginStatus: auth.status,
+  } = useSelector(({ auth, modal, member }) => ({
     tokenExisted: auth.tokenExisted,
 
     showLoginModal: modal.showLoginModal,
@@ -34,10 +31,17 @@ const HeaderContainer = ({ history }) => {
 
     memberNickname: member.nickname,
     memberData: member.data,
-    memberDataLoading: loading['member/GET_MY_INFO'],
   }));
   const user = token ? true : false;
-  const state = { tokenExisted, showFriendModal, showLoginModal, showAlarmModal, showFollowerModal, memberData, user };
+  const state = {
+    tokenExisted,
+    showFriendModal,
+    showLoginModal,
+    showAlarmModal,
+    showFollowerModal,
+    memberData,
+    user,
+  };
   useWatchCookie();
 
   const onClickModalStatus = useCallback((payload) => dispatch(updateModalStatus(payload)), [dispatch]);
@@ -48,7 +52,6 @@ const HeaderContainer = ({ history }) => {
   useEffect(() => {
     if (!tokenExisted && sessionStorage.getItem('nickname') !== null) {
       sessionStorage.removeItem('nickname');
-      // localStorage.removeItem('nickname');
       alert('다시 로그인해주세요');
       history.push('/');
       window.location.reload();
