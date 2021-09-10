@@ -66,7 +66,7 @@ const ContentFlexWrapper = styled.div`
 
 const ContentsWrapper = styled.div`
   display: table;
-  max-width: 50rem;
+  max-width: 440px;
   width: 28vw;
   padding: min(3.75vh, 3rem) min(2.6vw, 3rem);
   line-height: 1.6;

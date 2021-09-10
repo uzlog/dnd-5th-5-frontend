@@ -265,6 +265,7 @@ const SelectComponent = ({ history }) => {
             ))}
           </ScrollContainer>
         </SelectViewWrapper>
+        <ToastWrapper>{showToast && <Toast>더 많은 단어를 준비중입니다!</Toast>}</ToastWrapper>
         <ButtonWrapper>
           <GetMoreWordButton onClick={getWord}>더 보여줘 😗</GetMoreWordButton>
           <SubmitButton
@@ -274,11 +275,6 @@ const SelectComponent = ({ history }) => {
             다 골랐음😋
           </SubmitButton>
         </ButtonWrapper>
-        {showToast && (
-          <ToastWrapper>
-            <Toast>더 많은 단어를 준비중입니다!</Toast>
-          </ToastWrapper>
-        )}
       </MainWrapper>
     </>
   );

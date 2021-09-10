@@ -10,7 +10,8 @@ const fadeIn = keyframes`
 `;
 
 export const MainWrapper = styled.div`
-  max-width: 576px;
+  margin: 0 auto;
+  max-width: 500px;
   width: 40vw;
   height: 92vh;
   background-color: #121212;
@@ -36,15 +37,10 @@ export const ProfileImg = styled.input`
   width: 120px;
   height: 120px;
   border-radius: 70px;
-  padding-left: 130px;
   z-index: 10;
-  padding-top: 130px;
-
   @media screen and (min-width: 1023px) {
     width: 192px;
     min-height: 192px;
-    padding-left: 192px;
-    padding-top: 192px;
     border-radius: 96px;
     margin-top: 45px;
   }
@@ -97,30 +93,28 @@ export const ToggleInner = styled.div`
   }
 `;
 export const ContentWrapper = styled.div`
-  margin-left: 24px;
+  margin: 0 24px;
 `;
 export const EachTitle = styled.div`
   display: flex;
   font-size: 18px;
-  width: 320px;
+  width: 312px;
   height: 26px;
   color: #ffffff;
   margin-top: 20px;
   margin-bottom: 5px;
-  font-weight: 700;
   justify-content: space-between;
   align-items: center;
   @media screen and (min-width: 1023px) {
     height: 46px;
     margin-top: 45px;
+    width: 100%;
     max-width: 500px;
-    width: 35vw;
     font-size: 29px;
     margin-bottom: 6px;
   }
 `;
 export const EmailWrapper = styled.div`
-  margin-left: 24;
   color: rgba(255, 255, 255, 0.5);
   font-size: 16px;
   @media screen and (min-width: 1023px) {
@@ -169,15 +163,14 @@ export const InputBoxWrapper = styled.div`
 
 export const InputBox = styled.input`
   background-color: #2a2a2a;
-  width: 320px;
+  width: 258px;
   border: 0;
   border-radius: 10px;
   color: white;
   padding: 14px 27px;
-
   @media screen and (min-width: 1023px) {
-    max-width: 500px;
-    width: 36vw;
+    width: calc(100% - 70px);
+    max-width: 458px;
     font-size: 25px;
     padding: 2vh 35px;
   }
@@ -264,7 +257,6 @@ export const ButtonWrapper = styled.span`
   display: flex;
   justify-content: space-between;
   padding-bottom: 50px;
-  margin-right: 24px;
 `;
 
 //// 모달 css

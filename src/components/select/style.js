@@ -36,8 +36,9 @@ export const MainWrapper = styled.div`
 export const KeywordIntro = styled.div`
   color: white;
   margin-left: 24px;
-  margin-top: 3.1vh;
+  margin-top: 2.1vh;
   font-size: 18px;
+  line-height: 1.6;
   @media screen and (min-width: 1023px) {
     font-size: min(2.9rem, 3.5vh);
     margin-left: 2vw;
@@ -59,15 +60,15 @@ export const SelectViewWrapper = styled.div`
   overflow: scroll;
   white-space: nowrap;
   margin-top: 6vh;
-  margin-bottom: 10.7vh;
+  margin-bottom: 8vh;
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
   &::-webkit-scrollbar {
     display: none; /* Chrome, Safari, Opera*/
   }
   @media screen and (min-width: 1023px) {
-    margin-top: 8vh;
-    margin-bottom: 9.7vh;
+    margin-top: 7.5vh;
+    margin-bottom: 6.5vh;
   }
 `;
 export const EachSelectViewLine = styled.span`
@@ -103,7 +104,7 @@ export const WordNameOfItem = styled.div`
   font-size: 16px;
   color: #ffffff;
   @media screen and (min-width: 1023px) {
-    font-size: 24px;
+    font-size: 20px;
   }
 `;
 export const WhiteBox = styled.span`
@@ -114,12 +115,12 @@ export const WhiteBox = styled.span`
   height: 50px;
   border-radius: 100px;
   background-color: white;
-  font-size: 25px;
+  font-size: 17px;
   margin: 0.7vh 12px;
   @media screen and (min-width: 1023px) {
     height: 7.8vh;
     min-width: 7.8vh;
-    font-size: 32px;
+    font-size: 18px;
   }
 `;
 export const ButtonWrapper = styled.span`
@@ -144,6 +145,7 @@ export const ButtonWrapper = styled.span`
 
 export const GetMoreWordButton = styled.button`
   color: white;
+  cursor: pointer;
   background-color: #121212;
   width: 148px;
   height: 48px;
@@ -154,6 +156,10 @@ export const GetMoreWordButton = styled.button`
   padding: 11px 14px 11px 14px;
   border-radius: 62px;
   border: solid 1px white;
+  :active {
+    background-color: white;
+    color: #121212;
+  }
   @media screen and (min-width: 1023px) {
     border: solid 1.6px;
     font-size: min(33vw, 3vh, 2.6rem);
@@ -206,18 +212,19 @@ export const HeaderInnerWrapper = styled.div`
   margin: 0 2vw;
   @media screen and (max-width: 1023px) {
     width: 308px;
+    margin: 0 24px;
   }
 `;
 
 export const HeaderLogoWrapper = styled.div`
   display: flex;
   align-items: center;
-  max-width: 74px;
+  max-width: 65px;
   width: 6.1vw;
   height: 4vh;
   min-height: 35px;
   img {
-    max-width: 74px;
+    max-width: 65px;
     width: 6.1vw;
     height: 3.7vh;
     min-height: 30px;
@@ -241,11 +248,10 @@ export const HeaderIconWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  max-width: ${(props) => (props.close ? '23px' : '39px')};
-  min-height: 38.4px;
   width: 1.8vw;
-  height: 1.8vw;
+  max-width: 30px;
   img {
+    max-width: 30px;
     width: 1.8vw;
     height: 1.8vw;
   }
@@ -269,15 +275,16 @@ const fadeIn = keyframes`
 export const ToastWrapper = styled.div`
   display: flex;
   justify-content: center;
+  align-items: center;
+  padding-bottom: 40px;
 `;
 
 export const Toast = styled.div`
-  position: sticky;
+  position: absolute;
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 0 auto;
-  bottom: 390px;
   border-radius: 5px;
   background-color: #000000;
   line-height: 1.6;

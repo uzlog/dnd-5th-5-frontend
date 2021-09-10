@@ -129,8 +129,10 @@ const LeftSide = () => {
                 <span></span>
               </div>
             </HoverLink>
-            <FooterLink href="">개인정보 이용 정책</FooterLink>
-            <FooterLink href="">서비스 이용약관</FooterLink>
+            <FooterLink href="https://www.notion.so/dnd-5/1844e5d193ad432bae6a52ad73ded882">
+              개인정보 이용 정책
+            </FooterLink>
+            <FooterLink href="https://www.notion.so/dnd-5/f0e99468bd894f9195f1f8d451002d8b">서비스 이용약관</FooterLink>
           </LinkWrapper>
         </FooterContents>
       </span>
