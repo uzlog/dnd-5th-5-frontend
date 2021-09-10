@@ -8,6 +8,7 @@ import unlockBtn from '@assets/img/alacard-setting/unlockBtn.svg';
 import helpBtn from '@assets/img/alacard-setting/helpBtn.svg';
 import bgSelected from '@assets/img/alacard-setting/bgSelected.svg';
 import { useTitle } from '@hooks/useMeta';
+import Footer from '@components/common/Footer';
 
 const fadeIn = keyframes`
         from {
@@ -21,8 +22,8 @@ const fadeIn = keyframes`
 
 const Wrapper = styled.div`
   max-width: 576px;
-  width: 40vw;
   height: 92vh;
+  width: 40vw;
   background-color: #121212;
   overflow-y: auto;
   -ms-overflow-style: none; /* IE and Edge */
@@ -67,22 +68,19 @@ const ContentsWrapper = styled.div`
   width: 40vw;
   min-height: 56vh;
   @media screen and (max-width: 1023px) {
-    min-width: 36rem;
   }
 `;
 
 const ContentsInnerWrapper = styled.div`
   display: table;
-  max-width: 50rem;
   min-height: 56vh;
-  width: 34.7vw;
   padding: min(3.75vh, 3.84rem) min(2.6vw, 3.84rem);
   line-height: 1.6;
   letter-spacing: -0.08rem;
   font-size: min(4vw, 5.6vh, 5.76rem);
   font-weight: 300;
   @media screen and (max-width: 1023px) {
-    min-width: 31.2rem;
+    width: 312px;
     font-size: 2.4rem;
     padding: 2.4rem 2.4rem 2.4rem 2.4rem;
   }
@@ -307,12 +305,12 @@ const StyledButton = styled.button`
 `;
 const CheckedBg = styled.img`
   position: relative;
-  bottom: 105%;
-  left: 20%;
-  max-width: 60% !important;
+  bottom: 100%;
+  left: 25%;
+  max-width: 50% !important;
   @media screen and (max-width: 1023px) {
-    bottom: 105%;
-    left: 23%;
+    bottom: 100%;
+    left: 25%;
   }
 `;
 
@@ -638,6 +636,7 @@ const AlaCardSettingComponent = ({ history, state, apiCall }) => {
             알라카드가 완성된 후 자유롭게 꾸밀 수 있어요.
           </HelpMessage>
         }
+        {viewSize > 1023 ? <></> : <Footer />}
       </Wrapper>
       {showToast && (
         <ToastWrapper>

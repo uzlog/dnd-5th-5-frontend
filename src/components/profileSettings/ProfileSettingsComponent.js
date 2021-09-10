@@ -31,6 +31,8 @@ import {
 import Modal from './Modal';
 import google from '@assets/img/profileSettings/google.svg';
 import naver from '@assets/img/profileSettings/naver.svg';
+import Footer from '@components/common/Footer';
+import useResponsive from '../../hooks/useResponsive';
 
 const cookies = new Cookies();
 const ProfileSettingsComponent = ({ state }) => {
@@ -42,6 +44,7 @@ const ProfileSettingsComponent = ({ state }) => {
   const [nickname, setNickname] = useState(sessionStorage.getItem('nickname'));
   const [deleteModal, setDeleteModal] = useState(false);
   const [showToast, setShowToast] = useState(false);
+  const viewSize = useResponsive();
 
   const onChangeNickname = (e) => {
     setMyInfo({
@@ -222,11 +225,8 @@ const ProfileSettingsComponent = ({ state }) => {
             </span>
           </DeleteButton>
           {deleteModal ? <Modal setDeleteModal={setDeleteModal} onDeleteHandler={onDeleteHandler} /> : <></>}
-          {showToast && (
-            <ToastWrapper>
-              <Toast>변경이 완료됐습니다!</Toast>
-            </ToastWrapper>
-          )}
+          <ToastWrapper>{showToast && <Toast>변경이 완료됐습니다!</Toast>}</ToastWrapper>
+
           <ButtonWrapper>
             <CancelButton onClick={onlogoutHandler}>취소</CancelButton>
             <SubmitButton
@@ -237,6 +237,7 @@ const ProfileSettingsComponent = ({ state }) => {
             </SubmitButton>
           </ButtonWrapper>
         </ContentWrapper>
+        {viewSize > 1023 ? <></> : <Footer />}
       </MainWrapper>
     </div>
   );

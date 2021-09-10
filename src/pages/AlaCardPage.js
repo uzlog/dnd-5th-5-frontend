@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import useResponsive from '../hooks/useResponsive';
 import AlaCardListContainer from '@containers/alacard/AlaCardListContainer';
 import LeftSide from '@components/common/LeftSide';
-import Footer from '@components/common/Footer';
 
 const Wrapper = styled.div`
   display: flex;
@@ -26,7 +25,6 @@ const AlaCardPage = () => {
       ) : (
         <>
           <AlaCardListContainer />
-          <Footer />
         </>
       )}
     </Wrapper>

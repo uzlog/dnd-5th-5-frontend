@@ -11,7 +11,7 @@ import unclick_insta from '@assets/img/desktop/unclick_insta.svg';
 import unclick_notion from '@assets/img/desktop/unclick_notion.svg';
 
 const Wrapper = styled.footer`
-  width: 360px;
+  width: 308px;
   margin: 0 auto;
   background-color: #121212;
 `;

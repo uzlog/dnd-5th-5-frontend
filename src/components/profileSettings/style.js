@@ -12,10 +12,10 @@ const fadeIn = keyframes`
 export const MainWrapper = styled.div`
   margin: 0 auto;
   max-width: 500px;
+  padding: 0 2vw;
   width: 40vw;
-  height: 92vh;
   background-color: #121212;
-  overflow-y: auto;
+  overflow: scroll;
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
   &::-webkit-scrollbar {
@@ -23,7 +23,8 @@ export const MainWrapper = styled.div`
   }
   @media screen and (max-width: 1023px) {
     margin: 0 auto;
-    width: 360px;
+    padding: 0 26px;
+    width: 308px;
     height: max-content;
     background-color: #121212;
   }
@@ -92,9 +93,7 @@ export const ToggleInner = styled.div`
     }
   }
 `;
-export const ContentWrapper = styled.div`
-  margin: 0 24px;
-`;
+export const ContentWrapper = styled.div``;
 export const EachTitle = styled.div`
   display: flex;
   font-size: 18px;
@@ -136,26 +135,28 @@ export const IsOpen = styled.span`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  p {
+  span {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-right: 10px;
-    font-size: 2px;
-    @media screen and (mix-width: 1023px) {
+    p {
+      display: flex;
+      justify-content: center;
+      align-items: center;
       margin-right: 10px;
       font-size: 16px;
     }
   }
-  span {
-    display: flex;
+  @media screen and (mix-width: 1023px) {
+    span {
+      display: flex;
+      p {
+        font-size: 12px;
+      }
+    }
   }
 `;
 
 export const EmailContentWrapper = styled.div`
   display: flex;
-  @media screen and (min-width: 1023px) {
-  }
 `;
 export const InputBoxWrapper = styled.div`
   flex-direction: row;
@@ -198,14 +199,14 @@ export const AlertMessage = styled.div`
 export const DeleteButton = styled.div`
   cursor: pointer;
   margin-top: 28px;
-  margin-bottom: 70px;
+  margin-bottom: 50px;
   color: white;
   font-size: 14px;
   text-decoration: underline;
   opacity: 0.5;
   @media screen and (min-width: 1023px) {
     margin-top: 38px;
-    margin-bottom: 120px;
+    margin-bottom: 80px;
 
     font-size: 22px;
   }
@@ -256,7 +257,11 @@ export const ButtonWrapper = styled.span`
   border: 0;
   display: flex;
   justify-content: space-between;
+  margin-top: 10px;
   padding-bottom: 50px;
+  @media screen and (min-width: 1023px) {
+    margin-top: 120px;
+  }
 `;
 
 //// 모달 css
@@ -316,6 +321,8 @@ export const ModalContents = styled.div`
 export const ToastWrapper = styled.div`
   display: flex;
   justify-content: center;
+  align-items: center;
+  padding-bottom: 10px;
 `;
 
 export const Toast = styled.div`
@@ -324,10 +331,8 @@ export const Toast = styled.div`
   align-items: center;
   justify-content: center;
   margin: 0 auto;
-  top: 82%;
   border-radius: 5px;
   background-color: #000000;
-  line-height: 1.6;
   color: white;
   max-width: 460px;
   width: 31.9vw;

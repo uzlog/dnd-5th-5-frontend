@@ -9,10 +9,12 @@ const ContentWrapper = styled.div`
   justify-content: center;
   align-items: center;
 `;
-const Emoji = styled.div`
-  font-size: 60px;
+const Emoji = styled.p`
+  font-size: 50px;
+  margin-bottom: 26px;
   @media screen and (min-width: 1023px) {
-    font-size: 96px;
+    font-size: 80px;
+    margin-bottom: 32px;
   }
 `;
 
@@ -26,6 +28,8 @@ const Announce = styled.div`
   }
 `;
 const Alert = styled.div`
+  text-align: center;
+  line-height: 1.6;
   font-size: 12px;
   color: #fc3e57;
   @media screen and (min-width: 1023px) {
@@ -107,8 +111,11 @@ const Modal = ({ setDeleteModal, onDeleteHandler }) => {
         <ContentWrapper>
           <Emoji>😭</Emoji>
           <Announce>정말 탈퇴하시겠어요?</Announce>
-          <Alert>*카드, 프로필 등 모든 데이터가 삭제됩니다. </Alert>
-          <Alert> *모든 데이터 복구가 불가능합니다.</Alert>
+          <Alert>
+            *카드, 프로필 등 모든 데이터가 삭제됩니다.
+            <br />
+            *모든 데이터 복구가 불가능합니다.
+          </Alert>
           <Confirm onClick={() => setDeleteConfirm(!deleteConfirm)}>
             <input
               style={{ cursor: 'pointer' }}

@@ -4,7 +4,6 @@ import { withRouter } from 'react-router';
 import useResponsive from '../hooks/useResponsive';
 import LeftSide from '@components/common/LeftSide';
 import ProfileSettingsContainer from '@containers/profileSettings/ProfileSettingsContainer';
-import Footer from '@components/common/Footer';
 
 const Wrapper = styled.div`
   display: flex;
@@ -27,7 +26,6 @@ const ProfileSettingsPage = () => {
       ) : (
         <>
           <ProfileSettingsContainer />
-          <Footer />
         </>
       )}
     </Wrapper>
