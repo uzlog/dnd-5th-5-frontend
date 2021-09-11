@@ -25,11 +25,7 @@ const rootReducer = combineReducers({
 });
 
 export function* rootSaga() {
-<<<<<<< HEAD
-  yield all([authSaga(), memberSaga(), mypageSaga(), friendSaga(), cardSettingSaga(), alaWordSaga(), mainSaga()]);
-=======
   yield all([authSaga(), memberSaga(), mypageSaga(), friendSaga(), cardSettingSaga(), mainSaga(), alarmSaga()]);
->>>>>>> 10ff931680fa126369b541f197827131bf0cc44d
 }
 
 export default rootReducer;
