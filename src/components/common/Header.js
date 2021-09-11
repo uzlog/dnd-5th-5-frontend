@@ -226,8 +226,8 @@ const StyledLink = styled(Link)`
 const Header = ({ history, state, apiCall }) => {
   const { data: alarmData } = useGetAlarm();
   const [showProfile, setShowProfile] = useState(false);
-  const [showLogin, setShowLogin] = useState(false);
   const {
+    showLoginModal,
     showFriendModal,
     showAlarmModal,
     user,
@@ -259,12 +259,12 @@ const Header = ({ history, state, apiCall }) => {
 
   const oepnLoginModal = () => {
     document.body.style = `overflow: hidden`;
-    setShowLogin(true);
+    onClickModalStatus({ key: 'showLoginModal', value: true });
   };
 
   const closeLoginModal = () => {
     document.body.style = `overflow: visible`;
-    setShowLogin(false);
+    onClickModalStatus({ key: 'showLoginModal', value: false });
   };
 
   return (
@@ -305,7 +305,7 @@ const Header = ({ history, state, apiCall }) => {
       </Wrapper>
       {showFriendModal && <FriendModalContainer />}
       {showAlarmModal && <AlarmModalContainer />}
-      {showLogin && (
+      {showLoginModal && (
         <ModalWrapper>
           <ModalOverlay onClick={() => closeLoginModal()} />
           <ModalContents>
