@@ -17,8 +17,16 @@ const CardSettingPage = () => {
 
   return (
     <Wrapper>
-      {viewSize > 1023 ? <LeftSide /> : <></>}
-      <AlaCardSettingContainer />
+      {viewSize > 1023 ? (
+        <>
+          <LeftSide />
+          <AlaCardSettingContainer />
+        </>
+      ) : (
+        <>
+          <AlaCardSettingContainer />
+        </>
+      )}
     </Wrapper>
   );
 };

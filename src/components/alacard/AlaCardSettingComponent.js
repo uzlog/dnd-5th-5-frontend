@@ -53,7 +53,7 @@ const TitleWrapper = styled.div`
 
 const Title = styled.div`
   font-size: min(2.6vw, 3.7vh, 3.8rem);
-  font-weight: bold;
+  font-family: 'spoqaHanSansBold';
   line-height: 1.6;
   color: white;
   @media screen and (max-width: 1023px) {
@@ -81,14 +81,21 @@ const ContentsInnerWrapper = styled.div`
   letter-spacing: -0.08rem;
   font-size: min(4vw, 5.6vh, 5.76rem);
   font-weight: 300;
+  img {
+    vertical-align: middle;
+  }
   @media screen and (max-width: 1023px) {
     min-width: 31.2rem;
-    font-size: 2.4rem;
+    font-size: 36px;
     padding: 2.4rem 2.4rem 2.4rem 2.4rem;
+    img {
+      width: 100px;
+    }
   }
 `;
 
 const InnerContents = styled.div`
+  font-family: 'spoqaHanSansLight';
   display: table-cell;
   vertical-align: middle;
   text-align: left;
@@ -128,6 +135,21 @@ const CardLockWrapper = styled.div`
 `;
 
 const LockWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  p {
+    width: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+    font-size: 12px;
+    @media screen and (min-width: 1023px) {
+      font-size: 16px;
+    }
+  }
   img {
     max-width: 28.8px;
     width: min(2vw, 2.8vh, 28.8px);
@@ -143,6 +165,9 @@ const LockWrapper = styled.div`
 `;
 
 const StyledSpan = styled.span`
+  display: flex;
+  font-family: 'spoqaHanSansBold';
+  align-items: center;
   cursor: ${(props) => props.cursor};
   font-size: min(2vw, 2.8vh, 28.8px);
   font-weight: ${(props) => (props.notClicked ? '300' : 'bold')};
@@ -287,6 +312,7 @@ const StyledButton = styled.button`
   cursor: pointer;
   display: flex;
   align-items: center;
+  font-family: 'spoqaHanSansRegular';
   justify-content: center;
   max-width: 236.8px;
   width: 16.4vw;
@@ -553,14 +579,19 @@ const AlaCardSettingComponent = ({ history, state, apiCall }) => {
         </div>
         <SettingWrapper>
           <CardLockWrapper>
+            <StyledSpan>카드 공개 여부</StyledSpan>
             <LockWrapper>
-              <StyledSpan>카드 공개 여부</StyledSpan>
-              <img src={!toggle ? lockBtn : unlockBtn} alt="잠금 버튼" />
+              {!toggle ? <p>공개</p> : <p>비공개</p>}
+              <ToggleButton onClick={onClickToggle} className={!toggle ? 'left' : ''}>
+                <ToggleInner className={!toggle ? 'left' : ''} />
+              </ToggleButton>
             </LockWrapper>
-            <ToggleButton onClick={onClickToggle} className={!toggle ? 'left' : ''}>
-              <ToggleInner className={!toggle ? 'left' : ''} />
-            </ToggleButton>
           </CardLockWrapper>
+          {showToast && (
+            <ToastWrapper>
+              <Toast>저장되었습니다!</Toast>
+            </ToastWrapper>
+          )}
           <BgHeader>
             <StyledSpan>배경 선택</StyledSpan>
             {!sessionCardInfo.isCompleted && <img src={helpBtn} onClick={openHelp} alt="도움말" />}
@@ -627,6 +658,7 @@ const AlaCardSettingComponent = ({ history, state, apiCall }) => {
 
             <StyledButton
               style={isChanged ? null : { background: '#2a2a2a', border: '0', cursor: 'none' }}
+              disabled={!isChanged}
               onClick={submitCardInfo}>
               저장할래😋
             </StyledButton>
@@ -638,11 +670,6 @@ const AlaCardSettingComponent = ({ history, state, apiCall }) => {
           </HelpMessage>
         }
       </Wrapper>
-      {showToast && (
-        <ToastWrapper>
-          <Toast>저장되었습니다!</Toast>
-        </ToastWrapper>
-      )}
     </div>
   );
 };

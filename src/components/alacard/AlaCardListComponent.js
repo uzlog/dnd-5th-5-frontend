@@ -6,6 +6,7 @@ import HeaderContainer from '@containers/common/HeaderContainer';
 import secretWord from '@assets/img/alacard/secretWord.svg';
 import lockBtn from '@assets/img/alacard-list/lockBtn.svg';
 import { useTitle } from '@hooks/useMeta';
+import Footer from '@components/common/Footer';
 
 const Wrapper = styled.div`
   max-width: 57.6rem;
@@ -66,15 +67,13 @@ const ContentFlexWrapper = styled.div`
 
 const ContentsWrapper = styled.div`
   display: table;
-  max-width: 50rem;
-  width: 34.7vw;
-  padding: min(3.75vh, 3.84rem) min(2.6vw, 3.84rem);
+  padding: min(3.75vh, 3rem) min(2.6vw, 3rem);
   line-height: 1.6;
   letter-spacing: -0.08rem;
   font-size: 3.84rem;
   font-weight: 300;
+  margin: 0 auto;
   @media screen and (max-width: 1023px) {
-    width: 31.2rem;
     font-size: 2.4rem;
     padding: 2.4rem 2.4rem 2.4rem 2.4rem;
   }
@@ -88,9 +87,10 @@ const InnerContents = styled.div`
   display: table-cell;
   vertical-align: middle;
   text-align: left;
+  word-break: keep-all;
   img {
     display: inline;
-    width: min(33%, 15vh);
+    width: min(30%, 15vh);
     vertical-align: -15%;
   }
   @media screen and (min-width: 1023px) {
@@ -124,7 +124,6 @@ const AlaCardListComponent = ({ state, onClickUploadCardInfo }) => {
   const { alacardData, nickname } = state;
   const viewSize = useResponsive();
   useTitle(sessionStorage.getItem('nickname'));
-
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>
       <HeaderContainer />
@@ -168,7 +167,6 @@ const AlaCardListComponent = ({ state, onClickUploadCardInfo }) => {
             };
           }
 
-          card.sentence = card.sentence.replaceAll(', ', ',<br />');
           if (!card.sentence.includes('!')) {
             card.sentence += '!';
           }
@@ -204,6 +202,7 @@ const AlaCardListComponent = ({ state, onClickUploadCardInfo }) => {
             </>
           );
         })}
+        {viewSize > 1023 ? <></> : <Footer />}
       </Wrapper>
     </div>
   );

@@ -12,5 +12,6 @@ const client = axios.create({
 });
 
 client.defaults.headers.common['X-AUTH_TOKEN'] = token;
+client.defaults.withCredentials = true;
 
 export default client;

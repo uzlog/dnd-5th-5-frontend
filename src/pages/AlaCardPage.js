@@ -17,8 +17,16 @@ const AlaCardPage = () => {
 
   return (
     <Wrapper>
-      {viewSize > 1023 ? <LeftSide /> : <></>}
-      <AlaCardListContainer />
+      {viewSize > 1023 ? (
+        <>
+          <LeftSide />
+          <AlaCardListContainer />
+        </>
+      ) : (
+        <>
+          <AlaCardListContainer />
+        </>
+      )}
     </Wrapper>
   );
 };

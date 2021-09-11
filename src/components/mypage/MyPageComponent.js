@@ -21,6 +21,9 @@ import lock from '@assets/img/profileSettings/lock.svg';
 import { useTitle } from '@hooks/useMeta';
 
 const StyledSlider = styled(Slider)`
+  .slick-slide {
+    word-break: keep-all;
+  }
   .slick-slide img {
     display: inline;
   }
@@ -194,19 +197,19 @@ const InnerContents = styled.div`
   padding-top: ${(props) => props.paddingTop};
   display: table-cell;
   vertical-align: middle;
-  white-space: pre-line;
   height: ${(props) => props.height || ''};
   text-align: left;
   img {
+    vertical-align: sub;
     display: inline;
-    vertical-align: -11%;
+    object-fit: cover;
+    height: 4.5rem;
   }
   @media screen and (min-width: 1023px) {
     img {
-      vertical-align: -8%;
       display: inline;
-      width: min(33%, 15vh);
-      max-width: 182px;
+      object-fit: cover;
+      height: min(calc((6vh + 4.5vw) / 2), 65px);
     }
   }
 `;
@@ -227,7 +230,10 @@ const ButtonWrapper = styled.div`
 `;
 
 const StyledButton = styled.button`
-  z-index: 10;
+  position: sticky;
+  bottom: 4%;
+  left: 31%;
+  text-decoration: none;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -331,7 +337,7 @@ const Toast = styled.div`
   align-items: center;
   justify-content: center;
   margin: 0 auto;
-  top: 82%;
+  bottom: 14.5%;
   border-radius: 5px;
   background-color: #000000;
   line-height: 1.6;
@@ -456,7 +462,7 @@ const MyPageComponent = ({ history, state, apiCall }) => {
         display: 'table',
         lineHeight: '1.6',
         letterSpacing: '-0.5px',
-        fontSize: viewSize > 1023 ? 'min(calc((4vw + 5.6vh) / 2), 57.6px)' : 'min(calc((10vw + 3.5vh) / 2), 36px)',
+        fontSize: viewSize > 1023 ? '57.6px)' : '36px)',
         fontWeight: '300',
       });
       setFontColorStyle({
@@ -470,7 +476,7 @@ const MyPageComponent = ({ history, state, apiCall }) => {
         color: '#b9ff46',
         lineHeight: '1.6',
         letterSpacing: '-0.5px',
-        fontSize: viewSize > 1023 ? 'min(calc((4vw + 5.6vh) / 2), 57.6px)' : 'min(calc((10vw + 3.5vh) / 2), 36px)',
+        fontSize: viewSize > 1023 ? '57.6px' : '36px)',
         fontWeight: '300',
       });
       setFontColorStyle({
@@ -579,7 +585,7 @@ const MyPageComponent = ({ history, state, apiCall }) => {
                 } else {
                   card.sentence = card.sentence.replaceAll(
                     '???',
-                    '<span><img src="' + secretWord + '" alt="비밀 단어" /></span>',
+                    '<img src="' + secretWord + '" alt="비밀 단어"></img>',
                   );
                   cardStyle = {
                     backgroundColor: '#171717',
@@ -648,7 +654,7 @@ const MyPageComponent = ({ history, state, apiCall }) => {
                 } else {
                   card.sentence = card.sentence.replaceAll(
                     '???',
-                    '<span><img src="' + secretWord + '" alt="비밀 단어" /></span>',
+                    '<img src="' + secretWord + '" alt="비밀 단어"></img>',
                   );
                   cardStyle = {
                     backgroundColor: '#171717',
@@ -709,7 +715,7 @@ const MyPageComponent = ({ history, state, apiCall }) => {
                 } else {
                   card.sentence = card.sentence.replaceAll(
                     '???',
-                    '<span><img src="' + secretWord + '" alt="비밀 단어" /></span>',
+                    '<img src="' + secretWord + '" alt="비밀 단어"></img>',
                   );
                   cardStyle = {
                     backgroundColor: '#171717',

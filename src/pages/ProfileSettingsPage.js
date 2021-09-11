@@ -2,8 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { withRouter } from 'react-router';
 import useResponsive from '../hooks/useResponsive';
-import ProfileSettingsContainer from '@containers/profileSettings/ProfileSettingsContainer';
 import LeftSide from '@components/common/LeftSide';
+import ProfileSettingsContainer from '@containers/profileSettings/ProfileSettingsContainer';
 
 const Wrapper = styled.div`
   display: flex;
@@ -18,8 +18,16 @@ const ProfileSettingsPage = () => {
 
   return (
     <Wrapper>
-      {viewSize > 1023 ? <LeftSide /> : <></>}
-      <ProfileSettingsContainer />
+      {viewSize > 1023 ? (
+        <>
+          <LeftSide />
+          <ProfileSettingsContainer />
+        </>
+      ) : (
+        <>
+          <ProfileSettingsContainer />
+        </>
+      )}
     </Wrapper>
   );
 };
