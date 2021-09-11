@@ -5,6 +5,8 @@ import { Provider } from 'react-redux';
 import { applyMiddleware, createStore } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import createSagaMiddleware from 'redux-saga';
+import SWRDevtools from '@jjordy/swr-devtools';
+import { cache, mutate } from 'swr';
 import rootReducer, { rootSaga } from './modules';
 import App from './App';
 import './index.css';
@@ -17,6 +19,7 @@ sagaMiddleware.run(rootSaga);
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
+      <SWRDevtools cache={cache} mutate={mutate} />
       <App />
     </BrowserRouter>
   </Provider>,
