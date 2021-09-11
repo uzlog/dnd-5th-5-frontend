@@ -8,10 +8,8 @@ const AlarmInfo = ({ data }) => {
       <AlarmInnerContentsWrapper>
         <AlarmTitle>공지사항</AlarmTitle>
         <AlarmMessage>{data.string}</AlarmMessage>
-        <StyledLink>
-          <a href={data.addInfo.redirectUrl} target="_blank">
-            확인하러 GO!!
-          </a>
+        <StyledLink pathname={data.addInfo.redirectUrl} target="_blank">
+          확인하러 GO!!
         </StyledLink>
       </AlarmInnerContentsWrapper>
     </>
