@@ -136,10 +136,11 @@ const ProfileWrapper = styled.div`
 `;
 
 const ProfileImg = styled.img`
-  max-width: ${(props) => (props.avatar ? '77px' : '24px')};
-  max-height: ${(props) => (props.avatar ? '77px' : '24px')};
-  width: ${(props) => (props.avatar ? '5.3vw' : '1.6vw')};
-  height: ${(props) => (props.avatar ? '7.6vh' : '2.3vh')};
+  max-width: ${(props) => (props.avatar ? '77px' : '29px')};
+  max-height: ${(props) => (props.avatar ? '77px' : '29px')};
+  width: ${(props) => (props.avatar ? '5.3vw' : '29px')};
+  height: ${(props) => (props.avatar ? '7.5vh' : '29px')};
+  border-radius: 50%;
   @media screen and (max-width: 1023px) {
     width: ${(props) => (props.avatar ? '48px' : '18px')};
     height: ${(props) => (props.avatar ? '48px' : '18px')};
@@ -206,7 +207,7 @@ const StyledButton = styled.button`
     border-radius: 30px;
     line-height: 1.6;
     letter-spacing: -0.5px;
-    font-size: 1.2rem;
+    font-size: 11px;
     padding: 8px 8px 8px 16px;
     margin-left: 8.4rem;
     margin-top: 16px;
@@ -226,8 +227,8 @@ const StyledLink = styled(Link)`
 const Header = ({ history, state, apiCall }) => {
   const { data: alarmData } = useGetAlarm();
   const [showProfile, setShowProfile] = useState(false);
-  const [showLogin, setShowLogin] = useState(false);
   const {
+    showLoginModal,
     showFriendModal,
     showAlarmModal,
     user,
@@ -259,12 +260,12 @@ const Header = ({ history, state, apiCall }) => {
 
   const oepnLoginModal = () => {
     document.body.style = `overflow: hidden`;
-    setShowLogin(true);
+    onClickModalStatus({ key: 'showLoginModal', value: true });
   };
 
   const closeLoginModal = () => {
     document.body.style = `overflow: visible`;
-    setShowLogin(false);
+    onClickModalStatus({ key: 'showLoginModal', value: false });
   };
 
   return (
@@ -305,7 +306,7 @@ const Header = ({ history, state, apiCall }) => {
       </Wrapper>
       {showFriendModal && <FriendModalContainer />}
       {showAlarmModal && <AlarmModalContainer />}
-      {showLogin && (
+      {showLoginModal && (
         <ModalWrapper>
           <ModalOverlay onClick={() => closeLoginModal()} />
           <ModalContents>
@@ -334,12 +335,7 @@ const Header = ({ history, state, apiCall }) => {
             {user ? (
               <>
                 <ProfileWrapper>
-                  <ProfileImg
-                    src={imgUrl ? imgUrl : avatarM}
-                    avatar="avatar"
-                    style={{ borderRadius: '50%' }}
-                    alt="프로필 사진"
-                  />
+                  <ProfileImg src={imgUrl ? imgUrl : avatarM} avatar="avatar" alt="프로필 사진" />
                   <ProfileInfoWrapper>
                     <div>
                       <span>{nickname || sessionStorage.getItem('nickname')}</span>

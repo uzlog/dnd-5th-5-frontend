@@ -29,15 +29,7 @@ const FriendModalContainer = () => {
     }
   }, [deleteFriendStatus]);
 
-  return (
-    <>
-      {getFriendListLoading ? (
-        <FriendModal state={state} onClickModalStatus={onClickModalStatus} />
-      ) : (
-        <div>loading...</div>
-      )}
-    </>
-  );
+  return <>{getFriendListLoading ? <FriendModal state={state} onClickModalStatus={onClickModalStatus} /> : <></>}</>;
 };
 
 export default FriendModalContainer;

@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 export const Wrapper = styled.div`
   display: flex;
@@ -197,4 +198,10 @@ export const SubmitButton = styled.button`
     letter-spacing: -0.5px;
     margin-top: 78px;
   }
+`;
+
+export const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
 `;

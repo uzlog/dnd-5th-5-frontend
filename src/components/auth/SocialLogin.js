@@ -19,6 +19,7 @@ import {
   ErrorMessage,
   SubmitButton,
   LoginBtnWrapper,
+  StyledLink,
 } from './style';
 import googleIcon from '@assets/img/auth/google.svg';
 import kakaoIcon from '@assets/img/auth/kakao.svg';
@@ -181,8 +182,19 @@ const SocialLogin = ({ state, closeModal, apiCall }) => {
               </LoginBtnWrapper>
             </ButtonWrapper>
             <StyledInfoParagraph>
-              로그인은 개인 정보 보호 정책 및 서비스 약관에 동의하는 것을 의미하며, <br /> 서비스 이용을 위해 이메일과
-              프로필 이미지를 수집합니다.
+              로그인은{' '}
+              <StyledLink
+                to={{ pathname: 'https://www.notion.so/dnd-5/1844e5d193ad432bae6a52ad73ded882' }}
+                target="_blank">
+                개인 정보 처리 방침
+              </StyledLink>{' '}
+              및{' '}
+              <StyledLink
+                to={{ pathname: 'https://www.notion.so/dnd-5/f0e99468bd894f9195f1f8d451002d8b' }}
+                target="_blank">
+                서비스 약관
+              </StyledLink>
+              에 동의하는 것을 의미하며, <br /> 서비스 이용을 위해 이메일과 프로필 이미지를 수집합니다.
             </StyledInfoParagraph>
           </Wrapper>
         </>
