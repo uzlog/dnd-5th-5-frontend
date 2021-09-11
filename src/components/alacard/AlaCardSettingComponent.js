@@ -53,7 +53,7 @@ const TitleWrapper = styled.div`
 
 const Title = styled.div`
   font-size: min(2.6vw, 3.7vh, 3.8rem);
-  font-weight: bold;
+  font-family: 'spoqaHanSansBold';
   line-height: 1.6;
   color: white;
   @media screen and (max-width: 1023px) {
@@ -81,14 +81,21 @@ const ContentsInnerWrapper = styled.div`
   letter-spacing: -0.08rem;
   font-size: min(4vw, 5.6vh, 5.76rem);
   font-weight: 300;
+  img {
+    vertical-align: middle;
+  }
   @media screen and (max-width: 1023px) {
     min-width: 31.2rem;
-    font-size: 2.4rem;
+    font-size: 36px;
     padding: 2.4rem 2.4rem 2.4rem 2.4rem;
+    img {
+      width: 100px;
+    }
   }
 `;
 
 const InnerContents = styled.div`
+  font-family: 'spoqaHanSansLight';
   display: table-cell;
   vertical-align: middle;
   text-align: left;
@@ -159,6 +166,7 @@ const LockWrapper = styled.div`
 
 const StyledSpan = styled.span`
   display: flex;
+  font-family: 'spoqaHanSansBold';
   align-items: center;
   cursor: ${(props) => props.cursor};
   font-size: min(2vw, 2.8vh, 28.8px);
@@ -304,6 +312,7 @@ const StyledButton = styled.button`
   cursor: pointer;
   display: flex;
   align-items: center;
+  font-family: 'spoqaHanSansRegular';
   justify-content: center;
   max-width: 236.8px;
   width: 16.4vw;

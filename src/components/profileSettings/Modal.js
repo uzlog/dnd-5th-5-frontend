@@ -22,7 +22,7 @@ const Emoji = styled.p`
 
 const Announce = styled.div`
   font-size: 18px;
-  font-weight: bold;
+  font-family: 'spoqaHanSansBold';
   margin-bottom: 15px;
   @media screen and (min-width: 1023px) {
     font-size: 29px;

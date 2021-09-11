@@ -222,11 +222,11 @@ const SelectComponent = ({ history }) => {
           {owner}과<br />
           관련된 키워드를 모두 골라봥!😼
           {idList.length ? (
-            <p>
-              <b>{idList.length}개</b>의 키워드를 골랐어!
+            <p style={{ fontFamily: 'spoqaHanSansRegular' }}>
+              <b style={{ fontFamily: 'spoqaHanSansBold' }}>{idList.length}개</b>의 키워드를 골랐어!
             </p>
           ) : (
-            <p>아직 고른 키워드가 없어!</p>
+            <p style={{ fontFamily: 'spoqaHanSansRegular' }}>아직 고른 키워드가 없어!</p>
           )}
         </KeywordIntro>
 
@@ -244,13 +244,13 @@ const SelectComponent = ({ history }) => {
                       }}>
                       <HintOfItem
                         style={{
-                          fontWeitght: item.clicked ? 'regular' : 'medium',
+                          fontFamily: item.clicked ? 'spoqaHanSansBold' : 'spoqaHanSansRegular',
                         }}>
                         {item.hint}
                       </HintOfItem>
                       <WordNameOfItem
                         style={{
-                          fontWeitght: item.clicked ? 'regular' : 'bold',
+                          fontFamily: item.clicked ? 'spoqaHanSansBold' : 'spoqaHanSansRegular',
                         }}>
                         {item.wordName}
                       </WordNameOfItem>

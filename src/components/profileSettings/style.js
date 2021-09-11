@@ -100,6 +100,7 @@ export const EachTitle = styled.div`
   font-size: 18px;
   width: 312px;
   height: 26px;
+  font-family: 'spoqaHanSansBold';
   color: #ffffff;
   margin-top: 20px;
   margin-bottom: 5px;
@@ -144,14 +145,14 @@ export const IsOpen = styled.span`
       justify-content: center;
       align-items: center;
       margin-right: 10px;
-      font-size: 12px;
+      font-size: 10px;
     }
   }
   @media screen and (min-width: 1023px) {
     span {
       display: flex;
       p {
-        font-size: 16px;
+        font-size: 14px;
       }
     }
   }
@@ -167,6 +168,7 @@ export const InputBoxWrapper = styled.div`
 export const InputBox = styled.input`
   background-color: #2a2a2a;
   width: 258px;
+  font-family: 'spoqaHanSansRegular';
   border: 0;
   border-radius: 10px;
   color: white;
@@ -223,6 +225,7 @@ export const CancelButton = styled.button`
   align-items: center;
   justify-content: center;
   font-size: 16px;
+  font-family: 'spoqaHanSansRegular';
   padding: 11px 14px 11px 14px;
   border-radius: 62px;
   border: solid 1px white;
@@ -241,6 +244,7 @@ export const SubmitButton = styled.button`
   align-items: center;
   justify-content: center;
   width: 148px;
+  font-family: 'spoqaHanSansRegular';
   height: 48px;
   font-size: 16px;
   padding: 11px 14px 11px 14px;

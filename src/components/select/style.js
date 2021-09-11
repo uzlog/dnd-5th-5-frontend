@@ -35,12 +35,13 @@ export const MainWrapper = styled.div`
 `;
 export const KeywordIntro = styled.div`
   color: white;
+  font-family: 'spoqaHanSansBold';
   margin-left: 24px;
   margin-top: 2.1vh;
   font-size: 18px;
   line-height: 1.6;
   @media screen and (min-width: 1023px) {
-    font-size: min(2.9rem, 3.5vh);
+    font-size: 28.8px;
     margin-left: 2vw;
   }
   p {
@@ -94,6 +95,7 @@ export const EachSelectViewItem = styled.div`
   }
 `;
 export const HintOfItem = styled.div`
+  opacity: 0.5;
   font-size: 10px;
   color: #ffffff;
   @media screen and (min-width: 1023px) {
