@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { ModalWrapper, ModalOverlay, ModalContents } from './style';
+import check from '@assets/img/profileSettings/check.svg';
+import uncheck from '@assets/img/profileSettings/uncheck.svg';
 
 const ContentWrapper = styled.div`
   margin: auto;
@@ -41,8 +43,10 @@ const Confirm = styled.div`
   font-size: 12px;
   cursor: pointer;
   display: flex;
+  align-items: center;
   height: 16px;
   align-items: center;
+  transform: 0.3s;
   @media screen and (min-width: 1023px) {
     font-size: 19px;
   }
@@ -117,13 +121,7 @@ const Modal = ({ setDeleteModal, onDeleteHandler }) => {
             *모든 데이터 복구가 불가능합니다.
           </Alert>
           <Confirm onClick={() => setDeleteConfirm(!deleteConfirm)}>
-            <input
-              style={{ cursor: 'pointer' }}
-              type="checkbox"
-              onChange={() => {
-                setDeleteConfirm(!deleteConfirm);
-              }}
-              checked={deleteConfirm}></input>
+            <img src={deleteConfirm ? check : uncheck} />
             &nbsp; 안내사항을 모두 확인하였으며, 이에 동의합니다.
           </Confirm>
           <ButtonWrapper>

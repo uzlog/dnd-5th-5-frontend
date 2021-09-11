@@ -13,6 +13,7 @@ export const MainWrapper = styled.div`
   margin: 0 auto;
   max-width: 500px;
   padding: 0 2vw;
+  height: 92vh;
   width: 40vw;
   background-color: #121212;
   overflow: scroll;
@@ -25,7 +26,7 @@ export const MainWrapper = styled.div`
     margin: 0 auto;
     padding: 0 26px;
     width: 308px;
-    height: max-content;
+    height: 92vh;
     background-color: #121212;
   }
 `;
@@ -138,18 +139,19 @@ export const IsOpen = styled.span`
   span {
     display: flex;
     p {
+      width: 50px;
       display: flex;
       justify-content: center;
       align-items: center;
       margin-right: 10px;
-      font-size: 16px;
+      font-size: 12px;
     }
   }
-  @media screen and (mix-width: 1023px) {
+  @media screen and (min-width: 1023px) {
     span {
       display: flex;
       p {
-        font-size: 12px;
+        font-size: 16px;
       }
     }
   }

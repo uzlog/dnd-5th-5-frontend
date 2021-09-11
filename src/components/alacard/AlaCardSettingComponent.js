@@ -8,7 +8,6 @@ import unlockBtn from '@assets/img/alacard-setting/unlockBtn.svg';
 import helpBtn from '@assets/img/alacard-setting/helpBtn.svg';
 import bgSelected from '@assets/img/alacard-setting/bgSelected.svg';
 import { useTitle } from '@hooks/useMeta';
-import Footer from '@components/common/Footer';
 
 const fadeIn = keyframes`
         from {
@@ -22,8 +21,8 @@ const fadeIn = keyframes`
 
 const Wrapper = styled.div`
   max-width: 576px;
-  height: 92vh;
   width: 40vw;
+  height: 92vh;
   background-color: #121212;
   overflow-y: auto;
   -ms-overflow-style: none; /* IE and Edge */
@@ -68,19 +67,22 @@ const ContentsWrapper = styled.div`
   width: 40vw;
   min-height: 56vh;
   @media screen and (max-width: 1023px) {
+    min-width: 36rem;
   }
 `;
 
 const ContentsInnerWrapper = styled.div`
   display: table;
+  max-width: 50rem;
   min-height: 56vh;
+  width: 34.7vw;
   padding: min(3.75vh, 3.84rem) min(2.6vw, 3.84rem);
   line-height: 1.6;
   letter-spacing: -0.08rem;
   font-size: min(4vw, 5.6vh, 5.76rem);
   font-weight: 300;
   @media screen and (max-width: 1023px) {
-    width: 312px;
+    min-width: 31.2rem;
     font-size: 2.4rem;
     padding: 2.4rem 2.4rem 2.4rem 2.4rem;
   }
@@ -126,6 +128,21 @@ const CardLockWrapper = styled.div`
 `;
 
 const LockWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  p {
+    width: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+    font-size: 12px;
+    @media screen and (min-width: 1023px) {
+      font-size: 16px;
+    }
+  }
   img {
     max-width: 28.8px;
     width: min(2vw, 2.8vh, 28.8px);
@@ -141,6 +158,8 @@ const LockWrapper = styled.div`
 `;
 
 const StyledSpan = styled.span`
+  display: flex;
+  align-items: center;
   cursor: ${(props) => props.cursor};
   font-size: min(2vw, 2.8vh, 28.8px);
   font-weight: ${(props) => (props.notClicked ? '300' : 'bold')};
@@ -305,12 +324,12 @@ const StyledButton = styled.button`
 `;
 const CheckedBg = styled.img`
   position: relative;
-  bottom: 100%;
-  left: 25%;
-  max-width: 50% !important;
+  bottom: 105%;
+  left: 20%;
+  max-width: 60% !important;
   @media screen and (max-width: 1023px) {
-    bottom: 100%;
-    left: 25%;
+    bottom: 105%;
+    left: 23%;
   }
 `;
 
@@ -551,14 +570,19 @@ const AlaCardSettingComponent = ({ history, state, apiCall }) => {
         </div>
         <SettingWrapper>
           <CardLockWrapper>
+            <StyledSpan>카드 공개 여부</StyledSpan>
             <LockWrapper>
-              <StyledSpan>카드 공개 여부</StyledSpan>
-              <img src={!toggle ? lockBtn : unlockBtn} alt="잠금 버튼" />
+              {!toggle ? <p>공개</p> : <p>비공개</p>}
+              <ToggleButton onClick={onClickToggle} className={!toggle ? 'left' : ''}>
+                <ToggleInner className={!toggle ? 'left' : ''} />
+              </ToggleButton>
             </LockWrapper>
-            <ToggleButton onClick={onClickToggle} className={!toggle ? 'left' : ''}>
-              <ToggleInner className={!toggle ? 'left' : ''} />
-            </ToggleButton>
           </CardLockWrapper>
+          {showToast && (
+            <ToastWrapper>
+              <Toast>저장되었습니다!</Toast>
+            </ToastWrapper>
+          )}
           <BgHeader>
             <StyledSpan>배경 선택</StyledSpan>
             {!sessionCardInfo.isCompleted && <img src={helpBtn} onClick={openHelp} alt="도움말" />}
@@ -624,7 +648,7 @@ const AlaCardSettingComponent = ({ history, state, apiCall }) => {
             </StyledButton>
 
             <StyledButton
-              style={isChanged ? null : { background: '#2a2a2a', border: '0', cursor: 'normal' }}
+              style={isChanged ? null : { background: '#2a2a2a', border: '0', cursor: 'none' }}
               disabled={!isChanged}
               onClick={submitCardInfo}>
               저장할래😋
@@ -632,17 +656,11 @@ const AlaCardSettingComponent = ({ history, state, apiCall }) => {
           </ButtonWrapper>
         </SettingWrapper>
         {
-          <HelpMessage style={showHelp ? { display: 'flex' } : { opacity: 0, visibility: 'unset' }}>
+          <HelpMessage style={showHelp ? { display: 'flex' } : { opacity: 0, display: 'none', visibility: 'unset' }}>
             알라카드가 완성된 후 자유롭게 꾸밀 수 있어요.
           </HelpMessage>
         }
-        {viewSize > 1023 ? <></> : <Footer />}
       </Wrapper>
-      {showToast && (
-        <ToastWrapper>
-          <Toast>저장되었습니다!</Toast>
-        </ToastWrapper>
-      )}
     </div>
   );
 };
