@@ -56,6 +56,9 @@ const initialState = {
   timestamp: '',
   error: '',
 
+  // 닉네임 변경 response
+  updateMyInfoError: '',
+
   // 닉네임 중복 체크 responser
   duplicatedStatus: 0,
   duplicatedMessage: '',
@@ -99,6 +102,7 @@ const member = handleActions(
     [UPDATE_MY_INFO_FAILURE]: (state, { payload: error }) => ({
       ...state,
       error,
+      updateMyInfoError: error,
     }),
     [CHECK_NICKNAME_DUPLICATED_SUCCESS]: (state, { payload: { status, message, data, timestamp } }) => ({
       ...state,

@@ -15,13 +15,11 @@ const SocialLoginContainer = ({ history, closeModal }) => {
     socialLoginStatus,
     authMessage,
     token,
-    authError,
 
     memberNickname,
-    memberStatus,
     memberMessage,
     memberData,
-    memberError,
+    updateMyInfoError,
     getMemberLoading,
 
     duplicatedData,
@@ -30,18 +28,16 @@ const SocialLoginContainer = ({ history, closeModal }) => {
     socialLoginStatus: auth.status,
     authMessage: auth.message,
     token: auth.token,
-    authError: auth.error,
 
     // 유저 정보
     memberNickname: member.nickname,
-    memberStatus: member.status,
     memberMessage: member.message,
     memberData: member.data,
-    memberError: member.error,
+    updateMyInfoError: member.error,
     getMemberLoading: loading['member/GET_MY_INFO'],
     duplicatedData: member.duplicatedData,
   }));
-  const state = { authMessage, memberNickname, getMemberLoading, duplicatedData, memberData };
+  const state = { authMessage, memberNickname, updateMyInfoError, getMemberLoading, duplicatedData, memberData };
 
   const onSubmitGoogle = useCallback((payload) => dispatch(googleOauth(payload)), [dispatch]);
   const onSubmitKakao = useCallback((payload) => dispatch(kakaoOauth(payload)), [dispatch]);
