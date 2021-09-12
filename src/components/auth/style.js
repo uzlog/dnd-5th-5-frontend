@@ -47,6 +47,7 @@ export const Header = styled.div`
 export const StyledParagraph = styled.span`
   text-align: center;
   margin-top: 52px;
+  line-height: 1.6;
   font-size: ${(props) => (props.nickname ? '16px' : '18px')};
   @media screen and (max-width: 1023px) {
     margin-top: 27px;
@@ -72,9 +73,10 @@ export const LoginBtnWrapper = styled.div`
   align-items: center;
   justify-content: center;
   width: 58px;
-  height: 64px;
+  height: 58px;
   background-color: ${(props) => props.color};
   border-radius: 50%;
+  box-shadow: -1px 2px 25px 10px rgba(0, 0, 0, 0.05);
 `;
 
 export const LoginBtn = styled.img`

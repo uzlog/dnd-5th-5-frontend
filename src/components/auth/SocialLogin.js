@@ -190,13 +190,13 @@ const SocialLogin = ({ state, closeModal, apiCall }) => {
               </LoginBtnWrapper>
             </ButtonWrapper>
             <StyledInfoParagraph>
-              로그인은{' '}
+              로그인은
               <StyledLink
                 to={{ pathname: 'https://www.notion.so/dnd-5/1844e5d193ad432bae6a52ad73ded882' }}
                 target="_blank">
                 개인 정보 처리 방침
-              </StyledLink>{' '}
-              및{' '}
+              </StyledLink>
+              및
               <StyledLink
                 to={{ pathname: 'https://www.notion.so/dnd-5/f0e99468bd894f9195f1f8d451002d8b' }}
                 target="_blank">
