@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import GoogleLogin from 'react-google-login';
-import NaverLogin from 'react-login-by-naver';
 import * as dotenv from 'dotenv';
 import {
   Wrapper,
@@ -33,7 +32,15 @@ const SocialLogin = ({ state, closeModal, apiCall }) => {
   const [error, setError] = useState('');
   const [regError, setRegError] = useState(false);
   const googleId = process.env.REACT_APP_GOOGLE_KEY;
-  const { authMessage, memberNickname, updateMyInfoError, getMemberLoading, duplicatedData, memberData } = state;
+  const {
+    authMessage,
+    memberNickname,
+    updateMyInfoError,
+    getMemberLoading,
+    duplicatedData,
+    duplicatedTimestamp,
+    memberData,
+  } = state;
   const { onSubmitGoogle, onSubmitKakao, onChangeField, onSubmitUpdateMyInfo, onSubmitCheckNicknameDuplicated } =
     apiCall;
   const onSuccessGoogle = (result) => {
@@ -107,7 +114,7 @@ const SocialLogin = ({ state, closeModal, apiCall }) => {
     } else if (duplicatedData === true) {
       setError('앗, 누군가 이미 사용중인 별명이네요,\n 다른 별명을 사용해보세요.');
     }
-  }, [duplicatedData, onSubmitUpdateMyInfo]);
+  }, [duplicatedData, duplicatedTimestamp]);
 
   useEffect(() => {
     if (updateMyInfoError.status === 500) {

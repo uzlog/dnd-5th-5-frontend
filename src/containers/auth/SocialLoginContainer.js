@@ -23,6 +23,7 @@ const SocialLoginContainer = ({ history, closeModal }) => {
     getMemberLoading,
 
     duplicatedData,
+    duplicatedTimestamp,
   } = useSelector(({ auth, member, loading }) => ({
     // 로그인 정보
     socialLoginStatus: auth.status,
@@ -35,9 +36,19 @@ const SocialLoginContainer = ({ history, closeModal }) => {
     memberData: member.data,
     updateMyInfoError: member.error,
     getMemberLoading: loading['member/GET_MY_INFO'],
+
     duplicatedData: member.duplicatedData,
+    duplicatedTimestamp: member.duplicatedTimestamp,
   }));
-  const state = { authMessage, memberNickname, updateMyInfoError, getMemberLoading, duplicatedData, memberData };
+  const state = {
+    authMessage,
+    memberNickname,
+    updateMyInfoError,
+    getMemberLoading,
+    duplicatedData,
+    duplicatedTimestamp,
+    memberData,
+  };
 
   const onSubmitGoogle = useCallback((payload) => dispatch(googleOauth(payload)), [dispatch]);
   const onSubmitKakao = useCallback((payload) => dispatch(kakaoOauth(payload)), [dispatch]);
