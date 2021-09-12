@@ -60,7 +60,7 @@ export const AvatarImg = styled.img`
   /* height: 6.25vh; */
   height: 64px;
   border-radius: 50%;
-  border: 3px solid #d2d6dc;
+  border: 1px solid #d2d6dc;
   @media screen and (max-width: 1023px) {
     width: 40px;
     height: 40px;

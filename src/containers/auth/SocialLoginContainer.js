@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom';
 import Cookies from 'universal-cookie';
 import { googleOauth, kakaoOauth } from '@modules/auth';
 import { changeField, getMyInfo, updateMyInfo, checkNicknameDuplicated } from '@modules/member';
+import { updateModalStatus } from '@modules/modal';
 import SocialLogin from '@components/auth/SocialLogin';
 import client from '@lib/api/client';
 
@@ -72,6 +73,7 @@ const SocialLoginContainer = ({ history, closeModal }) => {
   useEffect(() => {
     if (memberData && authMessage === 'login') {
       sessionStorage.setItem('nickname', memberData.nickname);
+      dispatch(updateModalStatus({ key: 'showLoginModal', value: false }));
       history.push(`/${memberData.nickname}`);
     }
   }, [memberData]);

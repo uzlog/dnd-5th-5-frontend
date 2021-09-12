@@ -179,6 +179,10 @@ const FriendContents = styled(Link)`
   width: 31.9vw;
   max-height: 114px;
   height: 11.1vh;
+  img {
+    border: 1px solid #d2d6dc;
+    border-radius: 50%;
+  }
   @media screen and (max-width: 1023px) {
     height: 71px;
     width: 288px;

@@ -345,7 +345,7 @@ const Toast = styled.div`
   align-items: center;
   justify-content: center;
   margin: 0 auto;
-  bottom: 14.5%;
+  top: 78%;
   border-radius: 5px;
   background-color: #000000;
   line-height: 1.6;
@@ -515,7 +515,7 @@ const MyPageComponent = ({ history, state, apiCall }) => {
     // 토스트 메세지
     setTimeout(() => {
       setShowToast(false);
-    }, 1000);
+    }, 1500);
   };
 
   const sendFollow = () => {
