@@ -13,6 +13,7 @@ import unclick_notion from '@assets/img/desktop/unclick_notion.svg';
 const Wrapper = styled.footer`
   width: 308px;
   margin: 0 auto;
+  margin-top: 50px;
   background-color: #121212;
 `;
 
@@ -72,7 +73,7 @@ const Footer = () => {
     <Wrapper>
       <InnerWrapper>
         <LogoImg src={logo} />
-        <p>만든이 : caption, jjm, bongbnong, mr. sorry, jenny, july</p>
+        <p>만든이 : Captin, Jjm, Bongbong, Mr. Sorry, Eonji, July</p>
         <p>이메일 : alameme629@gmail.com</p>
         <LinkedContents>
           <SnsWrapper>

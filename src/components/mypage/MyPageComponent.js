@@ -127,6 +127,8 @@ const FriendButton = styled.img`
 `;
 
 const MoreButtonWrapper = styled.div`
+  padding: 0 2.5vw;
+  position: absolute;
   height: 10vh;
   display: flex;
   align-items: center;
@@ -173,10 +175,10 @@ const ContentFlexWrapper = styled.div`
 
 const ContentsWrapper = styled.div`
   display: table;
-  padding-bottom: 10vh;
   width: 34.7vw;
   max-width: 500px;
-  height: 80vh;
+  height: 87vh;
+  padding-bottom: 5vh;
   white-space: pre-line;
   line-height: 1.6;
   letter-spacing: -0.8px;
@@ -195,21 +197,26 @@ const ContentsWrapper = styled.div`
 
 const InnerContents = styled.div`
   padding-top: ${(props) => props.paddingTop};
+  font-family: 'spoqaHanSansLight';
   display: table-cell;
   vertical-align: middle;
   height: ${(props) => props.height || ''};
   text-align: left;
+  height: 90vh;
+  padding-bottom: 10vh;
   img {
     vertical-align: sub;
     display: inline;
     object-fit: cover;
     height: 4.5rem;
   }
+  strong {
+    font-family: 'spoqaHanSansBold';
+  }
   @media screen and (min-width: 1023px) {
     img {
       display: inline;
       object-fit: cover;
-      height: min(calc((6vh + 4.5vw) / 2), 65px);
     }
   }
 `;
@@ -230,6 +237,7 @@ const ButtonWrapper = styled.div`
 `;
 
 const StyledButton = styled.button`
+  font-family: 'spoqaHanSansRegular';
   position: sticky;
   bottom: 4%;
   left: 31%;
@@ -332,7 +340,7 @@ const ToastWrapper = styled.div`
 `;
 
 const Toast = styled.div`
-  position: absolute;
+  position: sticky;
   display: flex;
   align-items: center;
   justify-content: center;

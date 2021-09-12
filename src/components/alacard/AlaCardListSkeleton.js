@@ -12,9 +12,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  & > div {
-    padding-right: 3.84rem;
-  }
+
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
   &::-webkit-scrollbar {
@@ -23,9 +21,6 @@ const Wrapper = styled.div`
   @media screen and (max-width: 1023px) {
     margin: 0 auto;
     width: 36rem;
-    & > div {
-      padding-right: 2.4rem;
-    }
   }
 `;
 

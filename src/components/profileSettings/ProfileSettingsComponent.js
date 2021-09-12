@@ -6,6 +6,8 @@ import client from '@lib/api/client';
 import HeaderContainer from '@containers/common/HeaderContainer';
 import { useTitle } from '@hooks/useMeta';
 import {
+  Wrapper,
+  InnerWrapper,
   MainWrapper,
   ProfileImg,
   EmailWrapper,
@@ -29,13 +31,13 @@ import {
   Toast,
 } from './style';
 import Modal from './Modal';
-import google from '@assets/img/profileSettings/google.svg';
-import naver from '@assets/img/profileSettings/naver.svg';
+import googleIcon from '@assets/img/auth/google.svg';
+import kakaoIcon from '@assets/img/auth/kakao.svg';
 import Footer from '@components/common/Footer';
 import useResponsive from '../../hooks/useResponsive';
 
 const cookies = new Cookies();
-const ProfileSettingsComponent = ({ state }) => {
+const ProfileSettingsComponent = ({ state, history }) => {
   const { memberData, onUpdateMyInfo } = state;
   const [myInfo, setMyInfo] = useState(memberData);
   const [isNicknameExists, setIsNicknameExists] = useState(false);
@@ -118,13 +120,21 @@ const ProfileSettingsComponent = ({ state }) => {
       myInfo.statusMessage.length < 30 &&
       regExp.test(myInfo.nickname)
     ) {
-      await onUpdateMyInfo(myInfo);
-      setNickname(myInfo.nickname);
-      sessionStorage.setItem('nickname', myInfo.nickname);
-      setShowToast(true);
-      setTimeout(() => {
-        setShowToast(false);
-      }, 1000);
+      const response = await onUpdateMyInfo(myInfo);
+      if (response.status === 200) {
+        setNickname(myInfo.nickname);
+        sessionStorage.setItem('nickname', myInfo.nickname);
+        setShowToast(true);
+        setMyInfo({
+          ...myInfo,
+          changed: false,
+        });
+        setTimeout(() => {
+          setShowToast(false);
+        }, 1000);
+      } else {
+        console.log('error');
+      }
     }
   };
 
@@ -148,97 +158,99 @@ const ProfileSettingsComponent = ({ state }) => {
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>
       <HeaderContainer />
-      <MainWrapper>
-        <ProfileImg
-          type="file"
-          accept="image/x-png, image/jpeg, image/jpg"
-          onChange={onChangeFile}
-          style={{
-            backgroundImage: `url(${myInfo.imgUrl})`,
-            backgroundRepeat: 'no-repeat',
-            backgroundPosition: 'center',
-            backgroundSize: 'cover',
-          }}
-        />
-        <HideBox></HideBox>
-        <ContentWrapper>
-          <EmailWrapper>
-            <EachTitle>계정</EachTitle>
-            <br />
-            <EmailContentWrapper>
-              <EmailImg src={myInfo.email.slice(-9, -4) === 'naver' ? naver : google} />
-              <span> {myInfo.email}</span>
-            </EmailContentWrapper>
-          </EmailWrapper>
-          <InputBoxWrapper>
-            <EachTitle>별명</EachTitle>
-            <InputBox placeholder={myInfo.nickname} value={myInfo.nickname} onChange={onChangeNickname} />
-            {isNicknameExists ? (
-              <AlertMessage>앗, 누군가 이미 사용중인 별명이네요. 다른 별명을 사용해보세요.</AlertMessage>
-            ) : (
-              <></>
-            )}
-            {isNicknameBreakeRoles ? (
-              <AlertMessage>앗, 숫자/영문/_만 사용하여 3-20자 이내로 사용해보세요.</AlertMessage>
-            ) : (
-              <></>
-            )}
-          </InputBoxWrapper>
-          <InputBoxWrapper>
+      <Wrapper>
+        <MainWrapper>
+          <ProfileImg
+            type="file"
+            accept="image/x-png, image/jpeg, image/jpg"
+            onChange={onChangeFile}
+            style={{
+              backgroundImage: `url(${myInfo.imgUrl})`,
+              backgroundRepeat: 'no-repeat',
+              backgroundPosition: 'center',
+              backgroundSize: 'cover',
+            }}
+          />
+          <HideBox></HideBox>
+          <ContentWrapper>
+            <EmailWrapper>
+              <EachTitle>계정</EachTitle>
+              <br />
+              <EmailContentWrapper>
+                <EmailImg src={myInfo.provider === 'KAKAO' ? kakaoIcon : googleIcon} />
+                <span> {myInfo.email}</span>
+              </EmailContentWrapper>
+            </EmailWrapper>
+            <InputBoxWrapper>
+              <EachTitle>별명</EachTitle>
+              <InputBox placeholder={myInfo.nickname} value={myInfo.nickname} onChange={onChangeNickname} />
+              {isNicknameExists ? (
+                <AlertMessage>앗, 누군가 이미 사용중인 별명이네요. 다른 별명을 사용해보세요.</AlertMessage>
+              ) : (
+                <></>
+              )}
+              {isNicknameBreakeRoles ? (
+                <AlertMessage>앗, 숫자/영문/_만 사용하여 3-20자 이내로 사용해보세요.</AlertMessage>
+              ) : (
+                <></>
+              )}
+            </InputBoxWrapper>
+            <InputBoxWrapper>
+              <EachTitle>
+                자기소개
+                <StatusMessageCount style={myInfo.statusMessage.length > 30 ? { color: 'red' } : null}>
+                  {myInfo.statusMessage.length}/30 byte
+                </StatusMessageCount>
+              </EachTitle>
+              <InputBox
+                placeholder={myInfo.statusMessage}
+                value={myInfo.statusMessage}
+                onChange={onChangeStatusMessage}
+              />
+              {statusMessageOverCount ? (
+                <AlertMessage>앗, 자기소개가 길어요. 짧고 강렬하게 부탁드려요 :)</AlertMessage>
+              ) : (
+                <></>
+              )}
+            </InputBoxWrapper>
             <EachTitle>
-              자기소개
-              <StatusMessageCount style={myInfo.statusMessage.length > 30 ? { color: 'red' } : null}>
-                {myInfo.statusMessage.length}/30 byte
-              </StatusMessageCount>
+              <IsOpen>
+                <span>계정 공개 여부</span>
+                <span>
+                  {myInfo.isOpen ? <p>공개</p> : <p>비공개</p>}
+                  <ToggleButton onClick={onClickIsOpen} className={myInfo.isOpen ? 'left' : ''}>
+                    <ToggleInner className={myInfo.isOpen ? 'left' : ''} />
+                  </ToggleButton>
+                </span>
+              </IsOpen>
             </EachTitle>
-            <InputBox
-              placeholder={myInfo.statusMessage}
-              value={myInfo.statusMessage}
-              onChange={onChangeStatusMessage}
-            />
-            {statusMessageOverCount ? (
-              <AlertMessage>앗, 자기소개가 길어요. 짧고 강렬하게 부탁드려요 :)</AlertMessage>
-            ) : (
-              <></>
-            )}
-          </InputBoxWrapper>
-          <EachTitle>
-            <IsOpen>
-              <span>계정 공개 여부</span>
-              <span>
-                {myInfo.isOpen ? <p>공개</p> : <p>비공개</p>}
-                <ToggleButton onClick={onClickIsOpen} className={myInfo.isOpen ? 'left' : ''}>
-                  <ToggleInner className={myInfo.isOpen ? 'left' : ''} />
-                </ToggleButton>
+            <DeleteButton>
+              <span onClick={onlogoutHandler}>로그아웃</span>
+            </DeleteButton>
+            <DeleteButton>
+              <span
+                onClick={() => {
+                  setDeleteModal(!deleteModal);
+                }}>
+                회원탈퇴
               </span>
-            </IsOpen>
-          </EachTitle>
-          <DeleteButton>
-            <span onClick={onlogoutHandler}>로그아웃</span>
-          </DeleteButton>
-          <DeleteButton>
-            <span
-              onClick={() => {
-                setDeleteModal(!deleteModal);
-              }}>
-              회원탈퇴
-            </span>
-          </DeleteButton>
-          {deleteModal ? <Modal setDeleteModal={setDeleteModal} onDeleteHandler={onDeleteHandler} /> : <></>}
-          <ToastWrapper>{showToast && <Toast>변경이 완료됐습니다!</Toast>}</ToastWrapper>
+            </DeleteButton>
+            {deleteModal ? <Modal setDeleteModal={setDeleteModal} onDeleteHandler={onDeleteHandler} /> : <></>}
+            <ToastWrapper>{showToast && <Toast>변경이 완료됐습니다!</Toast>}</ToastWrapper>
 
-          <ButtonWrapper>
-            <CancelButton onClick={onlogoutHandler}>취소</CancelButton>
-            <SubmitButton
-              onClick={onUpdataSubmitHandler}
-              style={myInfo.changed ? { cursor: 'pointer' } : { background: '#2a2a2a' }}
-              disabled={myInfo.changed ? false : true}>
-              저장할래😋
-            </SubmitButton>
-          </ButtonWrapper>
-        </ContentWrapper>
-        {viewSize > 1023 ? <></> : <Footer />}
-      </MainWrapper>
+            <ButtonWrapper>
+              <CancelButton onClick={() => history.push(`/${myInfo.nickname}`)}>취소</CancelButton>
+              <SubmitButton
+                onClick={onUpdataSubmitHandler}
+                style={myInfo.changed ? { cursor: 'pointer' } : { background: '#2a2a2a' }}
+                disabled={myInfo.changed ? false : true}>
+                저장할래😋
+              </SubmitButton>
+            </ButtonWrapper>
+          </ContentWrapper>
+          {viewSize > 1023 ? <></> : <Footer />}
+        </MainWrapper>
+      </Wrapper>
     </div>
   );
 };

@@ -45,6 +45,7 @@ const MoreButtonWrapper = styled.div`
 
 const MoreButtonInnerWrapper = styled.div`
   display: flex;
+  position: absolute;
   justify-content: flex-end;
   width: 34.7vw;
   max-width: 500px;
@@ -80,12 +81,12 @@ const ContentsWrapper = styled.div`
   padding-bottom: 10vh;
   width: 34.7vw;
   max-width: 500px;
-  height: 80vh;
+  height: 60vh;
   @media screen and (max-width: 1023px) {
     width: 36rem;
     padding-left: 2.4rem;
     padding-right: 2.4rem;
-    height: 85vh;
+    height: 60vh;
   }
 `;
 

@@ -48,6 +48,7 @@ const StyledButton = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: 0.3s;
   &:hover {
     background-color: #b9ff46;
     img {
@@ -108,7 +109,7 @@ const LeftSide = () => {
           </ButtonWrapper>
         </QuestionWrapper>
         <FooterContents>
-          <p>만든이 : caption, jjm, bongbong, mr. sorry, jenny, july</p>
+          <p>만든이 : Captin, Jjm, Bongbong, Mr. Sorry, Eonji, July</p>
           <p>이메일 : alameme629@gmail.com</p>
           <LinkWrapper>
             <HoverLink
