@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { ModalWrapper, ModalOverlay, ModalContents } from './Style';
 import SocialLoginContainer from '@containers/auth/SocialLoginContainer';
-// import logo from '@assets/img/logo/alaLogo.svg';
 import logo from '@assets/img/ala.png';
 
 const Wrapper = styled.div`
@@ -13,10 +12,8 @@ const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   img {
-    max-width: 100px;
-    width: 6.9vw;
-    max-height: 90px;
-    height: 8.7vh;
+    width: 124px;
+    height: 112px;
     margin-top: min(19vh, 200px);
     margin-bottom: min(4.2vh, 44px);
   }
