@@ -67,19 +67,37 @@ export const AvatarImg = styled.img`
   }
 `;
 
+export const AlarmContentsLink = styled(Link)`
+  text-decoration: none;
+  max-width: 460px;
+  width: 31.9vw;
+  display: flex;
+  border-bottom: 1px solid #e2e8f0;
+  height: 100px;
+  & > div:nth-child(2) {
+    display: flex;
+    flex-direction: column;
+    margin-left: min(1.7vw, 25.6px);
+  }
+  @media screen and (max-width: 1023px) {
+    height: 60px;
+    width: 290px;
+  }
+`;
+
 export const AlarmInnerContentsWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   max-width: 330px;
   width: 24vw;
-
+  height: 80px;
   & > :nth-child(3) {
     margin-top: 5px;
   }
   @media screen and (max-width: 1023px) {
-    height: 88px;
-    width: 207px;
+    height: 60px;
+    width: 230px;
   }
 `;
 
@@ -165,4 +183,81 @@ export const AlarmAvatar = styled.div`
   max-height: 64px;
   background-color: #d2d6dc;
   border-radius: 50%;
+  @media screen and (max-width: 1023px) {
+    width: 42px;
+    height: 42px;
+  }
+`;
+
+export const Header = styled.div`
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  line-height: 1.6;
+  margin: 0 auto;
+  max-width: 460px;
+  width: 31.9vw;
+  font-size: min(3.1vh, 5.5vw, 32px);
+  img {
+    cursor: pointer;
+    max-width: 38.4px;
+    max-height: 38.4px;
+    width: 2.6vw;
+    height: 3.75vh;
+  }
+  @media screen and (max-width: 1023px) {
+    font-size: 20px;
+    width: 290px;
+    img {
+      cursor: pointer;
+      width: 24px;
+      height: 24px;
+    }
+  }
+`;
+
+export const Layout = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: min(2.2vw, 3.1vh, 32px);
+  @media screen and (max-width: 1023px) {
+    margin-top: 20px;
+  }
+`;
+
+export const EmptyWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 70vh;
+  line-height: 1.6;
+  font-weight: normal;
+  color: #000;
+  font-size: min(calc((1.7vw + 2.5vh) / 2), 25.6px);
+  @media screen and (max-width: 1023px) {
+    font-size: 16px;
+  }
+`;
+
+export const AlarmContents = styled.div`
+  margin-bottom: 20px;
+  display: flex;
+  max-width: 460.8px;
+  width: 32vw;
+  max-height: 188px;
+  &:first-child {
+    margin-top: 57.6px;
+  }
+  & > div:nth-child(2) {
+    display: flex;
+    flex-direction: column;
+    margin-left: min(1.7vw, 25.6px);
+  }
+
+  @media screen and (max-width: 1023px) {
+    width: 288px;
+    height: 80px;
+  }
 `;
