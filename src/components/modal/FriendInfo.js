@@ -32,7 +32,7 @@ const FriendInfo = ({ data }) => {
           <AvatarImg src={data.addInfo.imgUrl} alt="프로필 사진" />
           <AlarmInnerContentsWrapper>
             <AlarmTitle>친구요청 | {getTime(data.createdAt)}</AlarmTitle>
-            <AlarmMessage>
+            <AlarmMessage marginBottom="10px">
               <span>{data.addInfo.nickname}</span>
               {data.string.split('.')[0] + '.'}
             </AlarmMessage>
