@@ -10,8 +10,9 @@ import {
   AlarmMessage,
   ButtonWrapper,
   StyledButton,
-  StyledLink,
   AlarmContentsLink,
+  FriendContentsWrapper,
+  FriendInnerContentsWrapper,
 } from './style';
 
 const FriendInfo = ({ data }) => {
@@ -38,7 +39,24 @@ const FriendInfo = ({ data }) => {
           </AlarmInnerContentsWrapper>
         </AlarmContentsLink>
       ) : (
-        <div>zz</div>
+        <FriendContentsWrapper>
+          <AvatarImg src={data.addInfo.imgUrl} alt="프로필 사진" />
+          <FriendInnerContentsWrapper>
+            <AlarmTitle>친구요청 | {getTime(data.createdAt)}</AlarmTitle>
+            <AlarmMessage marginBottom="10px">
+              <span>{data.addInfo.nickname}</span>
+              {data.string.split('.')[0] + '.'}
+            </AlarmMessage>
+            <ButtonWrapper>
+              <StyledButton bg="#121212" color="white" onClick={() => onClickAcceptFollow(data.addInfo.nickname)}>
+                수락
+              </StyledButton>
+              <StyledButton bg="#fc3e57" color="white" onClick={() => onClickDeclineFollow(data.addInfo.nickname)}>
+                거절
+              </StyledButton>
+            </ButtonWrapper>
+          </FriendInnerContentsWrapper>
+        </FriendContentsWrapper>
       )}
       {/* <AvatarImg src={data.addInfo.imgUrl} alt="프로필 사진" />
       // <AlarmInnerContentsWrapper>

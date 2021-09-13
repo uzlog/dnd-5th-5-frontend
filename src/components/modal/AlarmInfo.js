@@ -9,7 +9,7 @@ const AlarmInfo = ({ data }) => {
       <AlarmAvatar />
       <AlarmInnerContentsWrapper>
         <AlarmTitle>공지사항 | {getTime(data.createdAt)}</AlarmTitle>
-        <AlarmMessage>{data.string}</AlarmMessage>
+        <AlarmMessage marginBottom="10px">{data.string}</AlarmMessage>
       </AlarmInnerContentsWrapper>
     </AlarmContentsLink>
   );

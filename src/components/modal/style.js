@@ -73,31 +73,54 @@ export const AlarmContentsLink = styled(Link)`
   width: 31.9vw;
   display: flex;
   border-bottom: 1px solid #e2e8f0;
-  height: 100px;
+  height: 100%;
   & > div:nth-child(2) {
-    display: flex;
-    flex-direction: column;
     margin-left: min(1.7vw, 25.6px);
   }
   @media screen and (max-width: 1023px) {
-    height: 60px;
-    width: 290px;
+    width: 288px;
+    height: 100%;
   }
 `;
 
 export const AlarmInnerContentsWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   max-width: 330px;
   width: 24vw;
-  height: 80px;
   & > :nth-child(3) {
     margin-top: 5px;
   }
   @media screen and (max-width: 1023px) {
-    height: 60px;
-    width: 230px;
+    width: 232px;
+  }
+`;
+
+export const FriendContentsWrapper = styled.div`
+  max-width: 460px;
+  width: 31.9vw;
+  display: flex;
+  border-bottom: 1px solid #e2e8f0;
+  height: 100%;
+  & > div:nth-child(2) {
+    margin-left: min(1.7vw, 25.6px);
+  }
+  @media screen and (max-width: 1023px) {
+    width: 288px;
+  }
+`;
+
+export const FriendInnerContentsWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  max-width: 330px;
+  width: 24vw;
+  & > :nth-child(3) {
+    margin-top: 5px;
+  }
+  @media screen and (max-width: 1023px) {
+    width: 232px;
   }
 `;
 
@@ -115,10 +138,14 @@ export const AlarmTitle = styled.span`
 export const AlarmMessage = styled.span`
   color: #121212;
   font-size: min(1.5vw, 19.2px);
+  margin-top: 20px;
+  margin-bottom: ${(props) => props.marginBottom};
+  line-height: 1.6;
   & > span {
     font-weight: bold;
   }
   @media screen and (max-width: 1023px) {
+    margin-top: 10px;
     font-size: 12px;
   }
 `;
@@ -126,6 +153,7 @@ export const AlarmMessage = styled.span`
 export const ButtonWrapper = styled.div`
   display: flex;
   align-items: center;
+  margin: 10px 0px;
 `;
 
 export const StyledButton = styled.button`
@@ -141,10 +169,9 @@ export const StyledButton = styled.button`
   background-color: ${(props) => props.bg};
   color: ${(props) => props.color};
   font-size: 19.2px;
-  /* font-weight: bold; */
   @media screen and (max-width: 1023px) {
-    width: 55px;
-    height: 29px;
+    width: 50px;
+    height: 27px;
     font-size: 12px;
     border-radius: 3px;
     margin-right: 8px;
@@ -158,7 +185,6 @@ export const StyledLink = styled(Link)`
   outline: none;
   border: none;
   font-size: 19.2px;
-  /* font-weight: bold; */
   max-width: 170px;
   width: 100%;
   border-radius: 4.8px;
@@ -258,6 +284,8 @@ export const AlarmContents = styled.div`
 
   @media screen and (max-width: 1023px) {
     width: 288px;
-    height: 80px;
+    &:first-child {
+      margin-top: 36px;
+    }
   }
 `;

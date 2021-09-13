@@ -43,7 +43,9 @@ const AlarmModal = ({ state, apiCall }) => {
                     )}
                     {data.category === 'NOTICE_ALARM' && (
                       <>
-                        <AlarmInfo data={data} />
+                        <AlarmContents>
+                          <AlarmInfo data={data} />
+                        </AlarmContents>
                       </>
                     )}
                   </>
