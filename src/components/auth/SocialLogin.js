@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import GoogleLogin from 'react-google-login';
-import NaverLogin from 'react-login-by-naver';
 import * as dotenv from 'dotenv';
 import {
   Wrapper,
@@ -33,7 +32,15 @@ const SocialLogin = ({ state, closeModal, apiCall }) => {
   const [error, setError] = useState('');
   const [regError, setRegError] = useState(false);
   const googleId = process.env.REACT_APP_GOOGLE_KEY;
-  const { authMessage, memberNickname, getMemberLoading, duplicatedData, memberData } = state;
+  const {
+    authMessage,
+    memberNickname,
+    updateMyInfoError,
+    getMemberLoading,
+    duplicatedData,
+    duplicatedTimestamp,
+    memberData,
+  } = state;
   const { onSubmitGoogle, onSubmitKakao, onChangeField, onSubmitUpdateMyInfo, onSubmitCheckNicknameDuplicated } =
     apiCall;
   const onSuccessGoogle = (result) => {
@@ -80,9 +87,11 @@ const SocialLogin = ({ state, closeModal, apiCall }) => {
       setRegError(true);
     } else {
       // 닉네임 조건에 부합함
+      // 1. 디폴트 닉네임 사용
       if (memberData.nickname === memberNickname) {
         onSubmitUpdateMyInfo(userInfo);
       } else {
+        // 닉네임 중복 검사
         setRegError(false);
         onSubmitCheckNicknameDuplicated(userInfo);
       }
@@ -98,12 +107,20 @@ const SocialLogin = ({ state, closeModal, apiCall }) => {
 
   useEffect(() => {
     const userInfo = { nickname: memberNickname };
+    console.log('duplicated');
     if (duplicatedData === false) {
+      console.log('submit');
       onSubmitUpdateMyInfo(userInfo);
     } else if (duplicatedData === true) {
       setError('앗, 누군가 이미 사용중인 별명이네요,\n 다른 별명을 사용해보세요.');
     }
-  }, [duplicatedData]);
+  }, [duplicatedData, duplicatedTimestamp]);
+
+  useEffect(() => {
+    if (updateMyInfoError.status === 500) {
+      setError('사용했던 닉네임이네요, \n 다른 별명을 사용해보세요.');
+    }
+  }, [updateMyInfoError]);
 
   return (
     <>
@@ -137,16 +154,14 @@ const SocialLogin = ({ state, closeModal, apiCall }) => {
               )}
               <StyledSpan>{memberNickname.length}/20</StyledSpan>
             </SmallWrapper>
-            {duplicatedData && (
-              <ErrorMessage>
-                {error.split('\n').map((e) => (
-                  <>
-                    {e}
-                    <br />
-                  </>
-                ))}
-              </ErrorMessage>
-            )}
+            <ErrorMessage>
+              {error.split('\n').map((e) => (
+                <>
+                  {e}
+                  <br />
+                </>
+              ))}
+            </ErrorMessage>
             <SubmitButton type="submit" onClick={onSubmitNickname}>
               이렇게 불러줘 😁
             </SubmitButton>
@@ -182,13 +197,13 @@ const SocialLogin = ({ state, closeModal, apiCall }) => {
               </LoginBtnWrapper>
             </ButtonWrapper>
             <StyledInfoParagraph>
-              로그인은{' '}
+              로그인은
               <StyledLink
                 to={{ pathname: 'https://www.notion.so/dnd-5/1844e5d193ad432bae6a52ad73ded882' }}
                 target="_blank">
                 개인 정보 처리 방침
-              </StyledLink>{' '}
-              및{' '}
+              </StyledLink>
+              및
               <StyledLink
                 to={{ pathname: 'https://www.notion.so/dnd-5/f0e99468bd894f9195f1f8d451002d8b' }}
                 target="_blank">

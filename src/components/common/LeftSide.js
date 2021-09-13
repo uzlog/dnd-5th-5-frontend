@@ -92,7 +92,8 @@ const LeftSide = () => {
         onMouseOver={() => setIsQestionHover(true)}
         onMouseOut={() => setIsQestionHover(false)}
         url={isQestionHover ? click_question : unclick_question}
-        href="">
+        href="https://www.notion.so/dnd-5/ala-c94a469e2f1d4ff9b37ff8b223b955b9"
+        target="_blank">
         <div>
           <span></span>
         </div>

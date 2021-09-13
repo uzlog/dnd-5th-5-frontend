@@ -1,18 +1,17 @@
 import React from 'react';
-import { AlarmAvatar, AlarmInnerContentsWrapper, AlarmTitle, AlarmMessage, StyledLink } from './style';
+import getTime from '@hooks/useGetTime';
+import { AlarmContentsLink, AlarmAvatar, AlarmInnerContentsWrapper, AlarmTitle, AlarmMessage } from './style';
 
 const AlarmInfo = ({ data }) => {
+  console.log(data.addInfo.redirectUrl);
   return (
-    <>
+    <AlarmContentsLink to={{ pathname: data.addInfo.redirectUrl }} target="_blank">
       <AlarmAvatar />
       <AlarmInnerContentsWrapper>
-        <AlarmTitle>공지사항</AlarmTitle>
-        <AlarmMessage>{data.string}</AlarmMessage>
-        <StyledLink pathname={data.addInfo.redirectUrl} target="_blank">
-          확인하러 GO!!
-        </StyledLink>
+        <AlarmTitle>공지사항 | {getTime(data.createdAt)}</AlarmTitle>
+        <AlarmMessage marginBottom="10px">{data.string}</AlarmMessage>
       </AlarmInnerContentsWrapper>
-    </>
+    </AlarmContentsLink>
   );
 };
 
