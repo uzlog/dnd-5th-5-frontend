@@ -1,14 +1,5 @@
 import React from 'react';
-import {
-  ModalWrapper,
-  ModalOverlay,
-  ModalContents,
-  Header,
-  Layout,
-  EmptyWrapper,
-  AlarmContents,
-  AlarmContentsLink,
-} from './style';
+import { ModalWrapper, ModalOverlay, ModalContents, Header, Layout, EmptyWrapper, AlarmContents } from './style';
 import closeBtn from '@assets/img/modal/closeBtn.svg';
 import FriendInfo from './FriendInfo';
 import AlarmInfo from './AlarmInfo';
@@ -19,7 +10,7 @@ const AlarmModal = ({ state, apiCall }) => {
   const closeAlarmModal = () => {
     onClickModalStatus({ key: 'showAlarmModal', value: false });
   };
-  console.log(getAlarmDataList);
+
   return (
     <ModalWrapper>
       <ModalOverlay onClick={() => closeAlarmModal()} />
