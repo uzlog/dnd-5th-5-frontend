@@ -191,14 +191,14 @@ export const SubmitButton = styled.button`
   width: 325px;
   height: 54px;
   font-size: 16px;
-  margin-top: 50px;
+  margin-top: 30px;
   @media screen and (max-width: 1023px) {
     width: 220px;
     height: 54px;
     font-size: 16px;
     line-height: 1.6;
     letter-spacing: -0.5px;
-    margin-top: 78px;
+    margin-top: 48px;
   }
 `;
 
