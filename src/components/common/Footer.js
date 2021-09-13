@@ -73,7 +73,7 @@ const Footer = () => {
     <Wrapper>
       <InnerWrapper>
         <LogoImg src={logo} />
-        <p>만든이 : Captin, Jjm, Bongbong, Mr. Sorry, Eonji, July</p>
+        <p>만든이 : Captain, Jjm, Bongbong, Mr. Sorry, Eonji, July</p>
         <p>이메일 : alameme629@gmail.com</p>
         <LinkedContents>
           <SnsWrapper>

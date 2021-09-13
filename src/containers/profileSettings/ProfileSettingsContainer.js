@@ -16,12 +16,8 @@ const PorifileSettingsContainer = () => {
       dispatch(getMyInfo());
     }
   }, []);
-
   const onUpdateMyInfo = useCallback((payload) => dispatch(updateMyInfo(payload)), [dispatch]);
-  console.log(getMemberLoading, memberData);
-
   const state = { memberData, onUpdateMyInfo };
-
   return <>{getMemberLoading ? <ProfileSettingsComponent state={state} /> : <div>loading</div>}</>;
 };
 

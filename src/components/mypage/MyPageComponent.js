@@ -127,7 +127,8 @@ const FriendButton = styled.img`
 `;
 
 const MoreButtonWrapper = styled.div`
-  padding: 0 2.5vw;
+  width: 40vw;
+  max-width: 576px;
   position: absolute;
   height: 10vh;
   display: flex;
@@ -151,7 +152,7 @@ const MoreButtonInnerWrapper = styled.div`
   justify-content: flex-end;
   width: 34.7vw;
   max-width: 500px;
-
+  margin: 0 auto;
   @media screen and (max-width: 1023px) {
     width: 311px;
   }
@@ -205,18 +206,20 @@ const InnerContents = styled.div`
   height: 90vh;
   padding-bottom: 10vh;
   img {
-    vertical-align: sub;
+    vertical-align: 0em;
+    width: 80px;
     display: inline;
-    object-fit: cover;
-    height: 4.5rem;
   }
   strong {
     font-family: 'spoqaHanSansBold';
   }
   @media screen and (min-width: 1023px) {
     img {
+      vertical-align: -0.1em;
+      max-width: 150px;
+      width: 9vw;
+      min-width: 120px;
       display: inline;
-      object-fit: cover;
     }
   }
 `;

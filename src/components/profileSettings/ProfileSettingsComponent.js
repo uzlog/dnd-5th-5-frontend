@@ -132,8 +132,6 @@ const ProfileSettingsComponent = ({ state, history }) => {
         setTimeout(() => {
           setShowToast(false);
         }, 1000);
-      } else {
-        console.log('error');
       }
     }
   };
@@ -177,8 +175,14 @@ const ProfileSettingsComponent = ({ state, history }) => {
               <EachTitle>계정</EachTitle>
               <br />
               <EmailContentWrapper>
-                <EmailImg src={myInfo.provider === 'KAKAO' ? kakaoIcon : googleIcon} />
-                <span> {myInfo.email}</span>
+                <div
+                  style={myInfo.provider === 'KAKAO' ? { backgroundColor: '#fee500' } : { backgroundColor: 'white' }}>
+                  <EmailImg
+                    src={myInfo.provider === 'KAKAO' ? kakaoIcon : googleIcon}
+                    style={myInfo.provider === 'KAKAO' ? { backgroundColor: '#fee500' } : { backgroundColor: 'white' }}
+                  />
+                </div>
+                <span>{myInfo.email}</span>
               </EmailContentWrapper>
             </EmailWrapper>
             <InputBoxWrapper>
