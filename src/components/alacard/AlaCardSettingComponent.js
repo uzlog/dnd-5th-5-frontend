@@ -3,11 +3,10 @@ import useResponsive from '../../hooks/useResponsive';
 import { withRouter } from 'react-router';
 import styled, { keyframes } from 'styled-components';
 import HeaderContainer from '@containers/common/HeaderContainer';
-import lockBtn from '@assets/img/alacard-setting/lockBtn.svg';
-import unlockBtn from '@assets/img/alacard-setting/unlockBtn.svg';
 import helpBtn from '@assets/img/alacard-setting/helpBtn.svg';
 import bgSelected from '@assets/img/alacard-setting/bgSelected.svg';
 import { useTitle } from '@hooks/useMeta';
+import Footer from '@components/common/Footer';
 
 const fadeIn = keyframes`
         from {
@@ -22,7 +21,7 @@ const fadeIn = keyframes`
 const Wrapper = styled.div`
   max-width: 576px;
   width: 40vw;
-  height: 92vh;
+  height: 100vh;
   background-color: #121212;
   overflow-y: auto;
   -ms-overflow-style: none; /* IE and Edge */
@@ -41,11 +40,12 @@ const TitleWrapper = styled.div`
   max-width: 500px;
   width: 35vw;
   margin: 0 auto;
+  padding: 0 auto;
   font-size: min(calc((2.6vw + 3.75vh) / 2), 38.4px);
   margin-top: min(3.44vh, 35.2px);
   margin-bottom: min(3.6vh, 36.8px);
   @media screen and (max-width: 1023px) {
-    width: 308px;
+    width: 312px;
     font-size: 2.4rem;
     margin-bottom: 23px;
   }
@@ -56,6 +56,8 @@ const Title = styled.div`
   font-family: 'spoqaHanSansBold';
   line-height: 1.6;
   color: white;
+  padding: 0;
+
   @media screen and (max-width: 1023px) {
     font-size: 2.4rem;
   }
@@ -99,6 +101,10 @@ const InnerContents = styled.div`
   display: table-cell;
   vertical-align: middle;
   text-align: left;
+  word-break: keep-all;
+  strong {
+    font-family: 'spoqaHanSansBold';
+  }
 `;
 
 const SettingWrapper = styled.div`
@@ -181,13 +187,14 @@ const StyledSpan = styled.span`
 const ToggleButton = styled.div`
   cursor: pointer;
   max-width: 76.8px;
-  width: 5.3vw;
+  width: 5vw;
   max-height: 41.6px;
   height: 4vh;
   background-color: black;
   border-radius: 160px;
   display: flex;
   align-items: center;
+  margin: 1px;
   &.left {
     background-color: white;
   }
@@ -204,8 +211,8 @@ const ToggleInner = styled.div`
   height: min(2.6vw, 3.75vh, 38.4px);
   background: white;
   border-radius: 160px;
-  margin-left: 0%;
   transition: all 0.7s;
+  margin: 1%;
   &.left {
     background-color: black;
     margin-left: calc(100% - min(2.6vw, 3.75vh, 38.4px));
@@ -657,7 +664,7 @@ const AlaCardSettingComponent = ({ history, state, apiCall }) => {
             </StyledButton>
 
             <StyledButton
-              style={isChanged ? null : { background: '#2a2a2a', border: '0', cursor: 'none' }}
+              style={isChanged ? null : { background: '#2a2a2a', border: '0', cursor: 'default' }}
               disabled={!isChanged}
               onClick={submitCardInfo}>
               저장할래😋
@@ -669,6 +676,7 @@ const AlaCardSettingComponent = ({ history, state, apiCall }) => {
             알라카드가 완성된 후 자유롭게 꾸밀 수 있어요.
           </HelpMessage>
         }
+        {viewSize > 1023 ? <></> : <Footer />}
       </Wrapper>
     </div>
   );

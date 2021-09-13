@@ -9,13 +9,35 @@ const fadeIn = keyframes`
   }
 `;
 
+export const Wrapper = styled.div`
+  max-width: 57.6rem;
+  width: 40vw;
+  height: 92vh;
+  overflow-y: auto;
+  background-color: #121212;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  &::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
+  }
+  @media screen and (max-width: 1023px) {
+    margin: 0 auto;
+    width: 36rem;
+    & > div {
+      padding-right: 2.4rem;
+    }
+  }
+`;
 export const MainWrapper = styled.div`
   margin: 0 auto;
   max-width: 500px;
+  width: 35vw;
   padding: 0 2vw;
-  height: 92vh;
-  width: 40vw;
   background-color: #121212;
+  height: 92vh;
   overflow: scroll;
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
@@ -32,6 +54,7 @@ export const MainWrapper = styled.div`
 `;
 
 export const ProfileImg = styled.input`
+  cursor: pointer;
   display: flex;
   margin: 0 auto;
   margin-top: 10px;
@@ -55,7 +78,7 @@ export const HideBox = styled.div`
 export const ToggleButton = styled.div`
   cursor: pointer;
   max-width: 76.8px;
-  width: 5.3vw;
+  width: 5vw;
   max-height: 41.6px;
   height: 4vh;
   background-color: black;
@@ -78,7 +101,7 @@ export const ToggleInner = styled.div`
   height: min(2.6vw, 3.75vh, 38.4px);
   background: white;
   border-radius: 160px;
-  margin-left: 0%;
+  margin: 1px;
   transition: all 0.7s;
   &.left {
     background-color: black;
@@ -124,10 +147,13 @@ export const EmailWrapper = styled.div`
 `;
 
 export const EmailImg = styled.img`
+  background-color: white;
+  border-radius: 4px;
   width: 20px;
   height: 20px;
   margin-right: 8px;
   @media screen and (min-width: 1023px) {
+    border-radius: 5px;
     width: 3.5vh;
     height: 3.5vh;
   }
@@ -140,11 +166,12 @@ export const IsOpen = styled.span`
   span {
     display: flex;
     p {
+      font-family: 'spoqaHanSansRegular';
       width: 50px;
       display: flex;
       justify-content: center;
       align-items: center;
-      margin-right: 10px;
+      margin-right: 6px;
       font-size: 10px;
     }
   }
@@ -160,6 +187,30 @@ export const IsOpen = styled.span`
 
 export const EmailContentWrapper = styled.div`
   display: flex;
+  align-items: center;
+  img {
+    width: 15px;
+    margin: 0 auto;
+    height: 15px;
+    @media screen and (min-width: 1023px) {
+      border-radius: 5px;
+      width: 25px;
+      height: 25px;
+    }
+  }
+  div {
+    display: flex;
+    align-items: center;
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+    border-radius: 5px;
+    @media screen and (min-width: 1023px) {
+      border-radius: 7px;
+      width: 30px;
+      height: 30px;
+    }
+  }
 `;
 export const InputBoxWrapper = styled.div`
   flex-direction: row;
@@ -217,6 +268,7 @@ export const DeleteButton = styled.div`
 `;
 
 export const CancelButton = styled.button`
+  cursor: pointer;
   color: white;
   background-color: #121212;
   width: 148px;
@@ -238,6 +290,7 @@ export const CancelButton = styled.button`
   }
 `;
 export const SubmitButton = styled.button`
+  cursor: default;
   color: black;
   background-color: white;
   display: flex;
@@ -264,9 +317,9 @@ export const ButtonWrapper = styled.span`
   display: flex;
   justify-content: space-between;
   margin-top: 10px;
-  padding-bottom: 50px;
+  margin-bottom: 20px;
   @media screen and (min-width: 1023px) {
-    margin-top: 120px;
+    margin-top: 50px;
   }
 `;
 

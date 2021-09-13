@@ -11,15 +11,12 @@ import Footer from '@components/common/Footer';
 const Wrapper = styled.div`
   max-width: 57.6rem;
   width: 40vw;
-  height: 92vh;
+  height: 100vh;
   overflow-y: auto;
   background-color: #121212;
   display: flex;
   flex-direction: column;
   align-items: center;
-  & > div {
-    padding-right: 3.84rem;
-  }
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
   &::-webkit-scrollbar {
@@ -28,37 +25,35 @@ const Wrapper = styled.div`
   @media screen and (max-width: 1023px) {
     margin: 0 auto;
     width: 36rem;
-    & > div {
-      padding-right: 2.4rem;
-    }
   }
 `;
 
 const TitleWrapper = styled.div`
   max-width: 500px;
   width: 35vw;
-  display: flex;
-  align-items: center;
-  font-size: 38.4px;
+  margin: 0 auto;
+  padding: 0 auto;
+  font-size: min(calc((2.6vw + 3.75vh) / 2), 38.4px);
   margin-top: min(3.44vh, 35.2px);
   margin-bottom: min(3.6vh, 36.8px);
   @media screen and (max-width: 1023px) {
-    width: 308px;
+    width: 312px;
     font-size: 2.4rem;
     margin-bottom: 23px;
   }
 `;
 
 const Title = styled.div`
-  font-size: min(calc((2.6vw + 3.7vh) / 2), 3.8rem);
-  font-weight: bold;
+  font-size: min(2.6vw, 3.7vh, 3.8rem);
+  font-family: 'spoqaHanSansBold';
   line-height: 1.6;
   color: white;
+  padding: 0;
+
   @media screen and (max-width: 1023px) {
     font-size: 2.4rem;
   }
 `;
-
 const ContentFlexWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -71,7 +66,6 @@ const ContentsWrapper = styled.div`
   line-height: 1.6;
   letter-spacing: -0.08rem;
   font-size: 3.84rem;
-  font-weight: 300;
   margin: 0 auto;
   @media screen and (max-width: 1023px) {
     font-size: 2.4rem;
@@ -84,6 +78,7 @@ const StyledLink = styled(Link)`
 `;
 
 const InnerContents = styled.div`
+  font-family: 'spoqaHanSansLight';
   display: table-cell;
   vertical-align: middle;
   text-align: left;
@@ -92,6 +87,9 @@ const InnerContents = styled.div`
     display: inline;
     width: min(30%, 15vh);
     vertical-align: -15%;
+  }
+  strong {
+    font-family: 'spoqaHanSansBold';
   }
   @media screen and (min-width: 1023px) {
     img {

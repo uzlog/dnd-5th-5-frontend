@@ -10,6 +10,7 @@ import click_notion from '@assets/img/desktop/click_notion.svg';
 import unclick_question from '@assets/img/desktop/unclick_question.svg';
 import unclick_insta from '@assets/img/desktop/unclick_insta.svg';
 import unclick_notion from '@assets/img/desktop/unclick_notion.svg';
+import { Link } from 'react-router-dom';
 
 const Wrapper = styled.div`
   margin-top: 3vh;
@@ -31,23 +32,28 @@ const ButtonWrapper = styled.a`
   margin: 0 0 0 auto;
   text-decoration: none;
   width: 100px;
-  height: 132px;
   margin-bottom: 60px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  div {
+    margin-left: 40px;
+    margin-bottom: 20px;
+  }
 `;
 
-const StyledButton = styled.div`
+const StyledButton = styled.button`
   width: 100px;
-  height: 67px;
+  height: 60px;
   background-color: #121212;
   cursor: pointer;
   border-radius: 50px;
+  border: 0;
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: 0.3s;
   &:hover {
     background-color: #b9ff46;
     img {
@@ -58,8 +64,6 @@ const StyledButton = styled.div`
 
 const AlaImage = styled.img`
   position: absolute;
-  margin-left: 27px;
-  bottom: 255px;
   width: 45px;
 `;
 
@@ -97,18 +101,20 @@ const LeftSide = () => {
       <span>
         <QuestionWrapper>
           <img style={{ float: 'right' }} src={deco} alt="소개" />
-          <ButtonWrapper href="https://pm8nnftoca1.typeform.com/to/YKRgB84m" target="_blank">
-            <div style={{ display: 'flex' }}>
+          <ButtonWrapper>
+            <div>
               <AlaImage src={sendAla} alt="알라" />
             </div>
             <StyledButton>
-              <img src={sendBtn} alt="전송 버튼" />
+              <Link to={{ pathname: 'https://pm8nnftoca1.typeform.com/to/YKRgB84m' }} target="_blank">
+                <img src={sendBtn} alt="전송 버튼" />
+              </Link>
             </StyledButton>
             <StyledSpan>요기로 문의 고고!</StyledSpan>
           </ButtonWrapper>
         </QuestionWrapper>
         <FooterContents>
-          <p>만든이 : caption, jjm, bongbong, mr. sorry, jenny, july</p>
+          <p>만든이 : Captain, Jjm, Bongbong, Mr. Sorry, Eonji, July</p>
           <p>이메일 : alameme629@gmail.com</p>
           <LinkWrapper>
             <HoverLink
@@ -129,10 +135,12 @@ const LeftSide = () => {
                 <span></span>
               </div>
             </HoverLink>
-            <FooterLink href="https://www.notion.so/dnd-5/1844e5d193ad432bae6a52ad73ded882">
-              개인정보 이용 정책
-            </FooterLink>
-            <FooterLink href="https://www.notion.so/dnd-5/f0e99468bd894f9195f1f8d451002d8b">서비스 이용약관</FooterLink>
+            <Link to={{ pathname: 'https://www.notion.so/dnd-5/1844e5d193ad432bae6a52ad73ded882' }} target="_blank">
+              <FooterLink>개인정보 이용 정책</FooterLink>
+            </Link>
+            <Link to={{ pathname: 'https://www.notion.so/dnd-5/f0e99468bd894f9195f1f8d451002d8b' }} target="_blank">
+              <FooterLink>서비스 이용약관</FooterLink>
+            </Link>
           </LinkWrapper>
         </FooterContents>
       </span>

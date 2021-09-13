@@ -195,7 +195,7 @@ export const HeaderWrapper = styled.div`
   background-color: #121212;
   max-width: 576px;
   width: 40vw;
-  margin-top: 20px;
+  padding-top: 20px;
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
   &::-webkit-scrollbar {
