@@ -1,15 +1,20 @@
 import styled from 'styled-components';
 
-export const HoverLink = styled.a`
-  display: inline-flex;
+export const HoverLink = styled.div`
+  display: flex;
+  justify-content: center;
   align-items: center;
   font-size: 16px;
-  color: #ffffff;
   text-decoration: none;
   width: max-content;
+  a {
+    display: flex;
+    align-items: center;
+  }
   p {
     margin-left: 10px;
     display: inline;
+    color: white;
     opacity: 0.5;
     transition: 0.3s;
   }

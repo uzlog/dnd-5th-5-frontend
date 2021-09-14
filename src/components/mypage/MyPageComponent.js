@@ -205,8 +205,8 @@ const InnerContents = styled.div`
   vertical-align: middle;
   height: ${(props) => props.height || ''};
   text-align: left;
-  height: 90vh;
-  padding-bottom: 10vh;
+  height: 85vh;
+  padding-bottom: 15vh;
   img {
     vertical-align: 0em;
     width: 80px;

@@ -31,8 +31,8 @@ import {
   Toast,
 } from './style';
 import Modal from './Modal';
-import googleIcon from '@assets/img/auth/google.svg';
-import kakaoIcon from '@assets/img/auth/kakao.svg';
+import googleIcon from '@assets/img/profileSettings/google.svg';
+import kakaoIcon from '@assets/img/profileSettings/kakao.svg';
 import Footer from '@components/common/Footer';
 import useResponsive from '../../hooks/useResponsive';
 
@@ -121,17 +121,19 @@ const ProfileSettingsComponent = ({ state, history }) => {
       regExp.test(myInfo.nickname)
     ) {
       const response = await onUpdateMyInfo(myInfo);
+      console.log(response);
       if (response.status === 200) {
         setNickname(myInfo.nickname);
-        sessionStorage.setItem('nickname', myInfo.nickname);
-        setShowToast(true);
         setMyInfo({
           ...myInfo,
           changed: false,
         });
+        sessionStorage.setItem('nickname', myInfo.nickname);
+        setShowToast(true);
         setTimeout(() => {
           setShowToast(false);
         }, 1000);
+        console.log('asdf');
       }
     }
   };
@@ -175,13 +177,7 @@ const ProfileSettingsComponent = ({ state, history }) => {
               <EachTitle>계정</EachTitle>
               <br />
               <EmailContentWrapper>
-                <div
-                  style={myInfo.provider === 'KAKAO' ? { backgroundColor: '#fee500' } : { backgroundColor: 'white' }}>
-                  <EmailImg
-                    src={myInfo.provider === 'KAKAO' ? kakaoIcon : googleIcon}
-                    style={myInfo.provider === 'KAKAO' ? { backgroundColor: '#fee500' } : { backgroundColor: 'white' }}
-                  />
-                </div>
+                <EmailImg src={myInfo.provider === 'KAKAO' ? kakaoIcon : kakaoIcon} />
                 <span>{myInfo.email}</span>
               </EmailContentWrapper>
             </EmailWrapper>

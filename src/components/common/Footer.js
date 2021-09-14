@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { HoverLink, FooterLink } from './style';
 import logo from '@assets/img/nav/logo.svg';
 import click_question from '@assets/img/desktop/click_question.svg';
@@ -89,29 +89,33 @@ const Footer = () => {
             <HoverLink
               onMouseOver={() => setIsNotionHover(true)}
               onMouseOut={() => setIsNotionHover(false)}
-              url={isNotionHover ? click_notion : unclick_notion}
-              href="">
-              <div>
-                <span></span>
-              </div>
+              url={isNotionHover ? click_notion : unclick_notion}>
+              <Link to={{ pathname: 'https://dnd-5.notion.site/ALA-28bcdf46474b4f029464ec61831ae0c6' }} target="_blank">
+                <div>
+                  <span></span>
+                </div>
+              </Link>
             </HoverLink>
           </SnsWrapper>
           <HoverLink
             onMouseOver={() => setIsQestionHover(true)}
             onMouseOut={() => setIsQestionHover(false)}
-            url={isQestionHover ? click_question : unclick_question}
-            href="">
-            <div>
-              <span></span>
-            </div>
+            url={isQestionHover ? click_question : unclick_question}>
+            <Link to={{ pathname: 'https://dnd-5.notion.site/ala-8ec976aea5f842abb925b611e16d9545' }} target="_blank">
+              <div>
+                <span></span>
+              </div>
+            </Link>
           </HoverLink>
         </LinkedContents>
         <HR />
         <FooterLinkWrapper>
-          <FooterLink href="https://www.notion.so/dnd-5/1844e5d193ad432bae6a52ad73ded882">
-            개인정보 이용 정책
-          </FooterLink>
-          <FooterLink href="https://www.notion.so/dnd-5/f0e99468bd894f9195f1f8d451002d8b">서비스 이용약관</FooterLink>
+          <Link to={{ pathname: 'https://www.notion.so/dnd-5/1844e5d193ad432bae6a52ad73ded882' }} target="_blank">
+            <FooterLink>개인정보 이용 정책</FooterLink>
+          </Link>
+          <Link to={{ pathname: 'https://www.notion.so/dnd-5/f0e99468bd894f9195f1f8d451002d8b' }} target="_blank">
+            <FooterLink>서비스 이용약관</FooterLink>
+          </Link>{' '}
         </FooterLinkWrapper>
       </InnerWrapper>
     </Wrapper>

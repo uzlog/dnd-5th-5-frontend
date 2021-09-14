@@ -154,8 +154,8 @@ export const EmailImg = styled.img`
   margin-right: 8px;
   @media screen and (min-width: 1023px) {
     border-radius: 5px;
-    width: 3.5vh;
-    height: 3.5vh;
+    width: 30px;
+    height: 30px;
   }
 `;
 export const IsOpen = styled.span`
@@ -188,29 +188,6 @@ export const IsOpen = styled.span`
 export const EmailContentWrapper = styled.div`
   display: flex;
   align-items: center;
-  img {
-    width: 15px;
-    margin: 0 auto;
-    height: 15px;
-    @media screen and (min-width: 1023px) {
-      border-radius: 5px;
-      width: 25px;
-      height: 25px;
-    }
-  }
-  div {
-    display: flex;
-    align-items: center;
-    width: 20px;
-    height: 20px;
-    margin-right: 8px;
-    border-radius: 5px;
-    @media screen and (min-width: 1023px) {
-      border-radius: 7px;
-      width: 30px;
-      height: 30px;
-    }
-  }
 `;
 export const InputBoxWrapper = styled.div`
   flex-direction: row;
@@ -385,7 +362,7 @@ export const ToastWrapper = styled.div`
 `;
 
 export const Toast = styled.div`
-  position: absolute;
+  position: fixed;
   display: flex;
   align-items: center;
   justify-content: center;
