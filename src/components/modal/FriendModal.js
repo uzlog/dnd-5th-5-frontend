@@ -78,7 +78,7 @@ const LinkWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-left: min(2.5vw, 30px);
+  padding-left: min(2vw, 30px);
   @media screen and (max-width: 1023px) {
     padding-left: 18px;
   }
@@ -86,6 +86,7 @@ const LinkWrapper = styled.div`
 
 const LinkArea = styled.div`
   display: flex;
+  align-items: center;
   justify-content: space-between;
   background-color: #edf2f7;
   border-radius: 30px;
@@ -96,16 +97,11 @@ const LinkArea = styled.div`
   width: 32vw;
   height: 5.6vh;
   span {
-    max-width: 365px;
-    width: 24vw;
     font-size: min(2.1vh, 1.5vw, 22.4px);
   }
   img {
     cursor: pointer;
-    max-width: 91.5px;
-    max-height: 57.6px;
-    width: 6.35vw;
-    height: 5.6vh;
+    height: 100%;
   }
   @media screen and (max-width: 1023px) {
     margin-top: ${(props) => props.hasFriend || '0px'};
