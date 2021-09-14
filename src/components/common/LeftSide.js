@@ -116,7 +116,7 @@ const LeftSide = () => {
         </QuestionWrapper>
         <FooterContents>
           <p>만든이 : Captain, Jjm, Bongbong, Mr. Sorry, Eonji, July</p>
-          <p>이메일 : alameme629@gmail.com</p>
+          <p>이메일 : the.ala.official@gmail.com</p>
           <LinkWrapper>
             <HoverLink
               onMouseOver={() => setIsInstaHover(true)}

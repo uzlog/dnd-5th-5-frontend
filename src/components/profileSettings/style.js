@@ -12,7 +12,7 @@ const fadeIn = keyframes`
 export const Wrapper = styled.div`
   max-width: 57.6rem;
   width: 40vw;
-  height: 92vh;
+  height: 90vh;
   overflow-y: auto;
   background-color: #121212;
   display: flex;
@@ -26,6 +26,7 @@ export const Wrapper = styled.div`
   @media screen and (max-width: 1023px) {
     margin: 0 auto;
     width: 36rem;
+    height: 100vh;
     & > div {
       padding-right: 2.4rem;
     }
@@ -37,7 +38,6 @@ export const MainWrapper = styled.div`
   width: 35vw;
   padding: 0 2vw;
   background-color: #121212;
-  height: 92vh;
   overflow: scroll;
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
@@ -48,7 +48,6 @@ export const MainWrapper = styled.div`
     margin: 0 auto;
     padding: 0 26px;
     width: 308px;
-    height: 92vh;
     background-color: #121212;
   }
 `;
@@ -293,7 +292,7 @@ export const ButtonWrapper = styled.span`
   border: 0;
   display: flex;
   justify-content: space-between;
-  margin-top: 10px;
+  margin-top: 20px;
   margin-bottom: 20px;
   @media screen and (min-width: 1023px) {
     margin-top: 50px;
@@ -354,26 +353,19 @@ export const ModalContents = styled.div`
   }
 `;
 
-export const ToastWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding-bottom: 10px;
-`;
+export const ToastWrapper = styled.div``;
 
 export const Toast = styled.div`
   position: fixed;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto;
   border-radius: 5px;
   background-color: #000000;
   color: white;
   max-width: 460px;
+  text-align: center;
   width: 31.9vw;
   max-height: 57.6px;
   height: 5.6vh;
+  bottom: 15vh;
   font-size: min(1.3vw, 1.8vh, 19.2px);
   animation: ${fadeIn} 5s;
   -moz-animation: ${fadeIn} 5s; /* Firefox */
@@ -383,6 +375,5 @@ export const Toast = styled.div`
     width: 302px;
     height: 36px;
     font-size: 12px;
-    text-align: center;
   }
 `;
