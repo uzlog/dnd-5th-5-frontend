@@ -31,8 +31,8 @@ import {
   Toast,
 } from './style';
 import Modal from './Modal';
-import googleIcon from '@assets/img/auth/google.svg';
-import kakaoIcon from '@assets/img/auth/kakao.svg';
+import googleIcon from '@assets/img/profileSettings/google.svg';
+import kakaoIcon from '@assets/img/profileSettings/kakao.svg';
 import Footer from '@components/common/Footer';
 import useResponsive from '../../hooks/useResponsive';
 
@@ -117,22 +117,21 @@ const ProfileSettingsComponent = ({ state, history }) => {
     // 모든 조건을 만족할 때 업데이트 실행
     if (
       (existsResponse.data.data === false || myInfo.nickname === nickname) &&
-      myInfo.statusMessage.length < 30 &&
+      myInfo.statusMessage.length < 31 &&
       regExp.test(myInfo.nickname)
     ) {
-      const response = await onUpdateMyInfo(myInfo);
-      if (response.status === 200) {
-        setNickname(myInfo.nickname);
-        sessionStorage.setItem('nickname', myInfo.nickname);
-        setShowToast(true);
-        setMyInfo({
-          ...myInfo,
-          changed: false,
-        });
-        setTimeout(() => {
-          setShowToast(false);
-        }, 1000);
-      }
+      await onUpdateMyInfo(myInfo);
+      setNickname(myInfo.nickname);
+      setMyInfo({
+        ...myInfo,
+        changed: false,
+      });
+      sessionStorage.setItem('nickname', myInfo.nickname);
+      setShowToast(true);
+      setTimeout(() => {
+        setShowToast(false);
+        window.location.replace(`../${myInfo.nickname}/settings`);
+      }, 1000);
     }
   };
 
@@ -175,13 +174,7 @@ const ProfileSettingsComponent = ({ state, history }) => {
               <EachTitle>계정</EachTitle>
               <br />
               <EmailContentWrapper>
-                <div
-                  style={myInfo.provider === 'KAKAO' ? { backgroundColor: '#fee500' } : { backgroundColor: 'white' }}>
-                  <EmailImg
-                    src={myInfo.provider === 'KAKAO' ? kakaoIcon : googleIcon}
-                    style={myInfo.provider === 'KAKAO' ? { backgroundColor: '#fee500' } : { backgroundColor: 'white' }}
-                  />
-                </div>
+                <EmailImg src={myInfo.provider === 'KAKAO' ? kakaoIcon : googleIcon} />
                 <span>{myInfo.email}</span>
               </EmailContentWrapper>
             </EmailWrapper>
@@ -239,8 +232,12 @@ const ProfileSettingsComponent = ({ state, history }) => {
                 회원탈퇴
               </span>
             </DeleteButton>
+            {showToast && (
+              <ToastWrapper>
+                <Toast>변경이 완료됐습니다!</Toast>
+              </ToastWrapper>
+            )}
             {deleteModal ? <Modal setDeleteModal={setDeleteModal} onDeleteHandler={onDeleteHandler} /> : <></>}
-            <ToastWrapper>{showToast && <Toast>변경이 완료됐습니다!</Toast>}</ToastWrapper>
 
             <ButtonWrapper>
               <CancelButton onClick={() => history.push(`/${myInfo.nickname}`)}>취소</CancelButton>

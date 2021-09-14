@@ -91,13 +91,13 @@ const LeftSide = () => {
       <HoverLink
         onMouseOver={() => setIsQestionHover(true)}
         onMouseOut={() => setIsQestionHover(false)}
-        url={isQestionHover ? click_question : unclick_question}
-        href="https://www.notion.so/dnd-5/ala-c94a469e2f1d4ff9b37ff8b223b955b9"
-        target="_blank">
-        <div>
-          <span></span>
-        </div>
-        <p>사용방법</p>
+        url={isQestionHover ? click_question : unclick_question}>
+        <Link to={{ pathname: 'https://dnd-5.notion.site/ala-8ec976aea5f842abb925b611e16d9545' }} target="_blank">
+          <div>
+            <span></span>
+          </div>
+          <p>사용방법</p>
+        </Link>
       </HoverLink>
       <span>
         <QuestionWrapper>
@@ -116,7 +116,7 @@ const LeftSide = () => {
         </QuestionWrapper>
         <FooterContents>
           <p>만든이 : Captain, Jjm, Bongbong, Mr. Sorry, Eonji, July</p>
-          <p>이메일 : alameme629@gmail.com</p>
+          <p>이메일 : the.ala.official@gmail.com</p>
           <LinkWrapper>
             <HoverLink
               onMouseOver={() => setIsInstaHover(true)}
@@ -130,11 +130,12 @@ const LeftSide = () => {
             <HoverLink
               onMouseOver={() => setIsNotionHover(true)}
               onMouseOut={() => setIsNotionHover(false)}
-              url={isNotionHover ? click_notion : unclick_notion}
-              href="">
-              <div>
-                <span></span>
-              </div>
+              url={isNotionHover ? click_notion : unclick_notion}>
+              <Link to={{ pathname: 'https://dnd-5.notion.site/ALA-28bcdf46474b4f029464ec61831ae0c6' }} target="_blank">
+                <div>
+                  <span></span>
+                </div>
+              </Link>
             </HoverLink>
             <Link to={{ pathname: 'https://www.notion.so/dnd-5/1844e5d193ad432bae6a52ad73ded882' }} target="_blank">
               <FooterLink>개인정보 이용 정책</FooterLink>

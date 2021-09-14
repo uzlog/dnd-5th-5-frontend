@@ -139,6 +139,7 @@ const MoreButtonWrapper = styled.div`
     height: 38.4px;
   }
   @media screen and (max-width: 1023px) {
+    width: 360px;
     min-height: 6.4rem;
     img {
       width: 2.4rem;
@@ -154,7 +155,8 @@ const MoreButtonInnerWrapper = styled.div`
   max-width: 500px;
   margin: 0 auto;
   @media screen and (max-width: 1023px) {
-    width: 311px;
+    width: 308px;
+    margin: 0 auto;
   }
 `;
 
@@ -203,8 +205,8 @@ const InnerContents = styled.div`
   vertical-align: middle;
   height: ${(props) => props.height || ''};
   text-align: left;
-  height: 90vh;
-  padding-bottom: 10vh;
+  height: 85vh;
+  padding-bottom: 15vh;
   img {
     vertical-align: 0em;
     width: 80px;
@@ -343,7 +345,7 @@ const ToastWrapper = styled.div`
 `;
 
 const Toast = styled.div`
-  position: sticky;
+  position: absolute;
   display: flex;
   align-items: center;
   justify-content: center;

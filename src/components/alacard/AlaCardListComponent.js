@@ -11,7 +11,7 @@ import Footer from '@components/common/Footer';
 const Wrapper = styled.div`
   max-width: 57.6rem;
   width: 40vw;
-  height: 100vh;
+  height: 92vh;
   overflow-y: auto;
   background-color: #121212;
   display: flex;
@@ -25,6 +25,7 @@ const Wrapper = styled.div`
   @media screen and (max-width: 1023px) {
     margin: 0 auto;
     width: 36rem;
+    height: 95vh;
   }
 `;
 
@@ -85,7 +86,7 @@ const InnerContents = styled.div`
   word-break: keep-all;
   img {
     display: inline;
-    width: min(30%, 15vh);
+    width: min(25%, 15vh);
     vertical-align: -15%;
   }
   strong {

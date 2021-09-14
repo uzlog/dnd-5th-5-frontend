@@ -21,7 +21,7 @@ const fadeIn = keyframes`
 const Wrapper = styled.div`
   max-width: 576px;
   width: 40vw;
-  height: 100vh;
+  height: 90vh;
   background-color: #121212;
   overflow-y: auto;
   -ms-overflow-style: none; /* IE and Edge */
@@ -32,7 +32,7 @@ const Wrapper = styled.div`
   @media screen and (max-width: 1023px) {
     margin: 0 auto;
     width: 360px;
-    height: 92vh;
+    height: 95vh;
   }
 `;
 
@@ -84,6 +84,7 @@ const ContentsInnerWrapper = styled.div`
   font-size: min(4vw, 5.6vh, 5.76rem);
   font-weight: 300;
   img {
+    width: min(25%, 15vh)
     vertical-align: middle;
   }
   @media screen and (max-width: 1023px) {
@@ -91,7 +92,7 @@ const ContentsInnerWrapper = styled.div`
     font-size: 36px;
     padding: 2.4rem 2.4rem 2.4rem 2.4rem;
     img {
-      width: 100px;
+      width: 75px;
     }
   }
 `;
