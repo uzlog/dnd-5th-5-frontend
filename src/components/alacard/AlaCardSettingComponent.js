@@ -32,7 +32,6 @@ const Wrapper = styled.div`
   @media screen and (max-width: 1023px) {
     margin: 0 auto;
     width: 360px;
-    height: 95vh;
   }
 `;
 
@@ -84,7 +83,7 @@ const ContentsInnerWrapper = styled.div`
   font-size: min(4vw, 5.6vh, 5.76rem);
   font-weight: 300;
   img {
-    width: min(25%, 15vh)
+    width: min(25%, 15vh);
     vertical-align: middle;
   }
   @media screen and (max-width: 1023px) {

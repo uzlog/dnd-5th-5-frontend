@@ -20,11 +20,11 @@ export const HoverLink = styled.div`
   }
   div {
     opacity: 1;
-    min-width: 40px;
-    min-height: 40px;
-    display: inline-flex;
+    display: flex;
     justify-content: center;
     align-items: center;
+    min-width: 40px;
+    min-height: 40px;
     border-radius: 20px;
     span {
       background-image: url(${(props) => props.url});
@@ -32,6 +32,7 @@ export const HoverLink = styled.div`
       height: 32px;
       background-size: cover;
       transition: 0.3s;
+      -webkit-transition-duration: 0s;
     }
     :hover {
       span {
