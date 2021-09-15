@@ -588,9 +588,9 @@ const AlaCardSettingComponent = ({ history, state, apiCall }) => {
           <CardLockWrapper>
             <StyledSpan>카드 공개 여부</StyledSpan>
             <LockWrapper>
-              {!toggle ? <p>공개</p> : <p>비공개</p>}
-              <ToggleButton onClick={onClickToggle} className={!toggle ? 'left' : ''}>
-                <ToggleInner className={!toggle ? 'left' : ''} />
+              {!toggle ? <p>비공개</p> : <p>공개</p>}
+              <ToggleButton onClick={onClickToggle} className={toggle ? 'left' : ''}>
+                <ToggleInner className={toggle ? 'left' : ''} />
               </ToggleButton>
             </LockWrapper>
           </CardLockWrapper>
