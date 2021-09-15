@@ -53,20 +53,15 @@ export const MainWrapper = styled.div`
 
 export const ProfileImg = styled.input`
   cursor: pointer;
+  position: static;
   display: flex;
   margin: 0 auto;
-  margin-top: 10px;
   font-size: 0;
-  width: 120px;
-  height: 120px;
-  border-radius: 70px;
-  z-index: 10;
-  @media screen and (min-width: 1023px) {
-    width: 192px;
-    min-height: 192px;
-    border-radius: 96px;
-    margin-top: 45px;
-  }
+  width: 192px;
+  height: 192px;
+  margin-top: 45px;
+  overflow: hidden;
+  border-radius: 50%;
 `;
 export const HideBox = styled.div`
   min-height: 20px;
@@ -237,7 +232,6 @@ export const DeleteButton = styled.div`
   @media screen and (min-width: 1023px) {
     margin-top: 38px;
     margin-bottom: 80px;
-
     font-size: 22px;
   }
 `;

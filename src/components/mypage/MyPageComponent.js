@@ -54,8 +54,10 @@ const Wrapper = styled.div`
 const FriendWrapper = styled.div`
   background-color: #121212;
   height: 10vh;
+  max-width: 576px;
+  width: 40vw;
   z-index: 1;
-  position: absolute;
+  position: sticky;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -68,8 +70,14 @@ const FriendWrapper = styled.div`
       height: 40px;
     }
   }
+  span {
+    max-width: 500px;
+    width: 35vw;
+    margin: 0 auto;
+  }
   @media screen and (max-width: 1023px) {
-    padding: 12px 24px;
+    max-width: 360px;
+    width: 360px;
   }
 `;
 
@@ -182,7 +190,6 @@ const ContentsWrapper = styled.div`
   display: table;
   width: 34.7vw;
   max-width: 500px;
-  height: 87vh;
   padding-bottom: 5vh;
   white-space: pre-line;
   line-height: 1.6;
@@ -196,7 +203,6 @@ const ContentsWrapper = styled.div`
     font-size: 3.6rem;
     padding-left: 2.4rem;
     padding-right: 2.4rem;
-    height: 85vh;
   }
 `;
 
@@ -205,11 +211,12 @@ const InnerContents = styled.div`
   font-family: 'spoqaHanSansLight';
   display: table-cell;
   vertical-align: middle;
+  font-size: 35px;
   word-break: keep-all;
   height: ${(props) => props.height || ''};
   text-align: left;
-  height: 85vh;
-  padding-bottom: 15vh;
+  height: 80vh;
+  padding-bottom: 12vh;
   img {
     vertical-align: 0em;
     width: 80px;
@@ -219,6 +226,8 @@ const InnerContents = styled.div`
     font-family: 'spoqaHanSansBold';
   }
   @media screen and (min-width: 1023px) {
+    font-size: 45px;
+
     img {
       vertical-align: -0.1em;
       max-width: 150px;
@@ -341,6 +350,10 @@ const CloseBtnWrapper = styled.div`
   margin: 24px;
   img {
     cursor: pointer;
+  }
+  @media screen and (min-width: 1023px) {
+    max-width: 500px;
+    width: 35vw;
   }
 `;
 

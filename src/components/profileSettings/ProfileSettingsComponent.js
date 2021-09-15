@@ -159,7 +159,7 @@ const ProfileSettingsComponent = ({ state, history }) => {
         <MainWrapper>
           <ProfileImg
             type="file"
-            accept="image/x-png, image/jpeg, image/jpg"
+            accept="image/png, image/jpeg, image/jpg"
             onChange={onChangeFile}
             style={{
               backgroundImage: `url(${myInfo.imgUrl})`,
