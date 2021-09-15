@@ -131,22 +131,38 @@ html {
 @font-face {
   font-family: 'spoqaHanSansBold';
   src: url('https://dvs20mlvw89o1.cloudfront.net/SpoqaHanSans_subset+2/SpoqaHanSans_subset/Spoqa+Han+Sans+Bold.woff2')
-    format('woff2');
+      format('woff2'),
+    url('https://dvs20mlvw89o1.cloudfront.net/SpoqaHanSans_subset+2/SpoqaHanSans_subset/Spoqa+Han+Sans+Bold.woff')
+      format('woff'),
+    url('https://dvs20mlvw89o1.cloudfront.net/SpoqaHanSans_subset+2/SpoqaHanSans_subset/Spoqa+Han+Sans+Bold.ttf')
+      format('ttf');
 }
 @font-face {
   font-family: 'spoqaHanSansLight';
   src: url('https://dvs20mlvw89o1.cloudfront.net/SpoqaHanSans_subset+2/SpoqaHanSans_subset/Spoqa+Han+Sans+Light.woff2')
-    format('woff2');
+      format('woff2'),
+    url('https://dvs20mlvw89o1.cloudfront.net/SpoqaHanSans_subset+2/SpoqaHanSans_subset/Spoqa+Han+Sans+Light.woff')
+      format('woff'),
+    url('https://dvs20mlvw89o1.cloudfront.net/SpoqaHanSans_subset+2/SpoqaHanSans_subset/Spoqa+Han+Sans+Light.ttf')
+      format('ttf');
 }
 @font-face {
   font-family: 'spoqaHanSansRegular';
   src: url('https://dvs20mlvw89o1.cloudfront.net/SpoqaHanSans_subset+2/SpoqaHanSans_subset/Spoqa+Han+Sans+Regular.woff2')
-    format('woff2');
+      format('woff2'),
+    url('https://dvs20mlvw89o1.cloudfront.net/SpoqaHanSans_subset+2/SpoqaHanSans_subset/Spoqa+Han+Sans+Regular.woff')
+      format('woff'),
+    url('https://dvs20mlvw89o1.cloudfront.net/SpoqaHanSans_subset+2/SpoqaHanSans_subset/Spoqa+Han+Sans+Regular.ttf')
+      format('ttf');
 }
 @font-face {
   font-family: 'spoqaHanSansThin';
   src: url('https://dvs20mlvw89o1.cloudfront.net/SpoqaHanSans_subset+2/SpoqaHanSans_subset/Spoqa+Han+Sans+Thin.woff2')
-    format('woff2');
+      format('woff2'),
+    url('https://dvs20mlvw89o1.cloudfront.net/SpoqaHanSans_subset+2/SpoqaHanSans_subset/Spoqa+Han+Sans+Thin.woff')
+      format('woff'),
+    url('https://dvs20mlvw89o1.cloudfront.net/SpoqaHanSans_subset+2/SpoqaHanSans_subset/Spoqa+Han+Sans+Thin.ttf')
+      format('ttf');
 }
 body {
   margin: 0;
