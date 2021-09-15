@@ -121,11 +121,12 @@ const LeftSide = () => {
             <HoverLink
               onMouseOver={() => setIsInstaHover(true)}
               onMouseOut={() => setIsInstaHover(false)}
-              url={isInstaHover ? click_insta : unclick_insta}
-              href="">
-              <div>
-                <span></span>
-              </div>
+              url={isInstaHover ? click_insta : unclick_insta}>
+              <Link to={{ pathname: 'https://www.instagram.com/the.ala.official/' }} target="_blank">
+                <div>
+                  <span></span>
+                </div>
+              </Link>
             </HoverLink>
             <HoverLink
               onMouseOver={() => setIsNotionHover(true)}

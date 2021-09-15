@@ -580,57 +580,62 @@ const MyPageComponent = ({ history, state, apiCall }) => {
                 let cardStyle;
                 let fontStyle;
                 // 카드가 완성된 경우
-                if (card.isCompleted) {
-                  if (!card.sentence.includes('strong')) {
-                    card.selectedWordList.forEach((word) => {
-                      card.sentence = card.sentence.replaceAll(word.wordName, '<strong>' + word.wordName + '</strong>');
-                    });
+                if (card.alaCardSettingDto.isOpen) {
+                  if (card.isCompleted) {
+                    if (!card.sentence.includes('strong')) {
+                      card.selectedWordList.forEach((word) => {
+                        card.sentence = card.sentence.replaceAll(
+                          word.wordName,
+                          '<strong>' + word.wordName + '</strong>',
+                        );
+                      });
+                    }
+                    cardStyle = {
+                      backgroundImage: 'url(' + backgroundImgUrl + ')',
+                      backgroundSize: 'cover',
+                      width: viewSize > '1023' ? '39.9vw' : '36rem',
+                      maxWidth: viewSize > '1023' ? '576px' : '359px',
+                    };
+                    fontStyle = {
+                      color: fontColor,
+                    };
+                  } else {
+                    card.sentence = card.sentence.replaceAll(
+                      '???',
+                      '<img src="' + secretWord + '" alt="비밀 단어"></img>',
+                    );
+                    cardStyle = {
+                      backgroundColor: '#171717',
+                      width: viewSize > '1023' ? '39.9vw' : '36rem',
+                      maxWidth: viewSize > '1023' ? '576px' : '359px',
+                    };
+                    fontStyle = {
+                      color: '#b9ff46',
+                    };
                   }
-                  cardStyle = {
-                    backgroundImage: 'url(' + backgroundImgUrl + ')',
-                    backgroundSize: 'cover',
-                    width: viewSize > '1023' ? '39.9vw' : '36rem',
-                    maxWidth: viewSize > '1023' ? '576px' : '359px',
-                  };
-                  fontStyle = {
-                    color: fontColor,
-                  };
-                } else {
-                  card.sentence = card.sentence.replaceAll(
-                    '???',
-                    '<img src="' + secretWord + '" alt="비밀 단어"></img>',
-                  );
-                  cardStyle = {
-                    backgroundColor: '#171717',
-                    width: viewSize > '1023' ? '39.9vw' : '36rem',
-                    maxWidth: viewSize > '1023' ? '576px' : '359px',
-                  };
-                  fontStyle = {
-                    color: '#b9ff46',
-                  };
-                }
 
-                if (!card.sentence.includes('!')) {
-                  card.sentence += '!';
+                  if (!card.sentence.includes('!')) {
+                    card.sentence += '!';
+                  }
+                  return (
+                    <>
+                      <div key={idx} style={cardStyle}>
+                        <MoreButtonWrapper>
+                          <MoreButtonInnerWrapper>
+                            <MoreButton onClick={openModal}>
+                              <img src={maximizeBtn} idx={idx} sentence={card.sentence} alt="확대 버튼" />
+                            </MoreButton>
+                          </MoreButtonInnerWrapper>
+                        </MoreButtonWrapper>
+                        <ContentFlexWrapper>
+                          <ContentsWrapper>
+                            <InnerContents style={fontStyle} dangerouslySetInnerHTML={{ __html: card.sentence }} />
+                          </ContentsWrapper>
+                        </ContentFlexWrapper>
+                      </div>
+                    </>
+                  );
                 }
-                return (
-                  <>
-                    <div key={idx} style={cardStyle}>
-                      <MoreButtonWrapper>
-                        <MoreButtonInnerWrapper>
-                          <MoreButton onClick={openModal}>
-                            <img src={maximizeBtn} idx={idx} sentence={card.sentence} alt="확대 버튼" />
-                          </MoreButton>
-                        </MoreButtonInnerWrapper>
-                      </MoreButtonWrapper>
-                      <ContentFlexWrapper>
-                        <ContentsWrapper>
-                          <InnerContents style={fontStyle} dangerouslySetInnerHTML={{ __html: card.sentence }} />
-                        </ContentsWrapper>
-                      </ContentFlexWrapper>
-                    </div>
-                  </>
-                );
               })}
             </StyledSlider>
             <ButtonWrapper>
@@ -648,51 +653,56 @@ const MyPageComponent = ({ history, state, apiCall }) => {
                 let cardStyle;
                 let fontStyle;
                 // 카드가 완성된 경우
-                if (card.isCompleted) {
-                  if (!card.sentence.includes('strong')) {
-                    card.selectedWordList.forEach((word) => {
-                      card.sentence = card.sentence.replaceAll(word.wordName, '<strong>' + word.wordName + '</strong>');
-                    });
+                if (card.alaCardSettingDto.isOpen) {
+                  if (card.isCompleted) {
+                    if (!card.sentence.includes('strong')) {
+                      card.selectedWordList.forEach((word) => {
+                        card.sentence = card.sentence.replaceAll(
+                          word.wordName,
+                          '<strong>' + word.wordName + '</strong>',
+                        );
+                      });
+                    }
+                    cardStyle = {
+                      backgroundImage: 'url(' + backgroundImgUrl + ')',
+                      backgroundSize: 'cover',
+                      backgroundColor: '#171717',
+                      width: viewSize > '1023' ? '39.9vw' : '36rem',
+                      maxWidth: viewSize > '1023' ? '576px' : '359px',
+                    };
+                    fontStyle = {
+                      color: fontColor,
+                    };
+                  } else {
+                    card.sentence = card.sentence.replaceAll(
+                      '???',
+                      '<img src="' + secretWord + '" alt="비밀 단어"></img>',
+                    );
+                    cardStyle = {
+                      backgroundColor: '#171717',
+                      width: viewSize > '1023' ? '39.9vw' : '36rem',
+                      maxWidth: viewSize > '1023' ? '576px' : '359px',
+                    };
+                    fontStyle = {
+                      color: '#b9ff46',
+                    };
                   }
-                  cardStyle = {
-                    backgroundImage: 'url(' + backgroundImgUrl + ')',
-                    backgroundSize: 'cover',
-                    backgroundColor: '#171717',
-                    width: viewSize > '1023' ? '39.9vw' : '36rem',
-                    maxWidth: viewSize > '1023' ? '576px' : '359px',
-                  };
-                  fontStyle = {
-                    color: fontColor,
-                  };
-                } else {
-                  card.sentence = card.sentence.replaceAll(
-                    '???',
-                    '<img src="' + secretWord + '" alt="비밀 단어"></img>',
-                  );
-                  cardStyle = {
-                    backgroundColor: '#171717',
-                    width: viewSize > '1023' ? '39.9vw' : '36rem',
-                    maxWidth: viewSize > '1023' ? '576px' : '359px',
-                  };
-                  fontStyle = {
-                    color: '#b9ff46',
-                  };
-                }
 
-                if (!card.sentence.includes('!')) {
-                  card.sentence += '!';
+                  if (!card.sentence.includes('!')) {
+                    card.sentence += '!';
+                  }
+                  return (
+                    <>
+                      <div key={idx} style={cardStyle}>
+                        <ContentFlexWrapper>
+                          <ContentsWrapper>
+                            <InnerContents style={fontStyle} dangerouslySetInnerHTML={{ __html: card.sentence }} />
+                          </ContentsWrapper>
+                        </ContentFlexWrapper>
+                      </div>
+                    </>
+                  );
                 }
-                return (
-                  <>
-                    <div key={idx} style={cardStyle}>
-                      <ContentFlexWrapper>
-                        <ContentsWrapper>
-                          <InnerContents style={fontStyle} dangerouslySetInnerHTML={{ __html: card.sentence }} />
-                        </ContentsWrapper>
-                      </ContentFlexWrapper>
-                    </div>
-                  </>
-                );
               })}
             </StyledSlider>
             <ButtonWrapper>
@@ -710,50 +720,55 @@ const MyPageComponent = ({ history, state, apiCall }) => {
                 let cardStyle;
                 let fontStyle;
                 // 카드가 완성된 경우
-                if (card.isCompleted) {
-                  if (!card.sentence.includes('strong')) {
-                    card.selectedWordList.forEach((word) => {
-                      card.sentence = card.sentence.replaceAll(word.wordName, '<strong>' + word.wordName + '</strong>');
-                    });
+                if (card.alaCardSettingDto.isOpen) {
+                  if (card.isCompleted) {
+                    if (!card.sentence.includes('strong')) {
+                      card.selectedWordList.forEach((word) => {
+                        card.sentence = card.sentence.replaceAll(
+                          word.wordName,
+                          '<strong>' + word.wordName + '</strong>',
+                        );
+                      });
+                    }
+                    cardStyle = {
+                      backgroundImage: 'url(' + backgroundImgUrl + ')',
+                      backgroundSize: 'cover',
+                      width: viewSize > '1023' ? '39.9vw' : '36rem',
+                      maxWidth: viewSize > '1023' ? '576px' : '359px',
+                    };
+                    fontStyle = {
+                      color: fontColor,
+                    };
+                  } else {
+                    card.sentence = card.sentence.replaceAll(
+                      '???',
+                      '<img src="' + secretWord + '" alt="비밀 단어"></img>',
+                    );
+                    cardStyle = {
+                      backgroundColor: '#171717',
+                      width: viewSize > '1023' ? '39.9vw' : '36rem',
+                      maxWidth: viewSize > '1023' ? '576px' : '359px',
+                    };
+                    fontStyle = {
+                      color: '#b9ff46',
+                    };
                   }
-                  cardStyle = {
-                    backgroundImage: 'url(' + backgroundImgUrl + ')',
-                    backgroundSize: 'cover',
-                    width: viewSize > '1023' ? '39.9vw' : '36rem',
-                    maxWidth: viewSize > '1023' ? '576px' : '359px',
-                  };
-                  fontStyle = {
-                    color: fontColor,
-                  };
-                } else {
-                  card.sentence = card.sentence.replaceAll(
-                    '???',
-                    '<img src="' + secretWord + '" alt="비밀 단어"></img>',
-                  );
-                  cardStyle = {
-                    backgroundColor: '#171717',
-                    width: viewSize > '1023' ? '39.9vw' : '36rem',
-                    maxWidth: viewSize > '1023' ? '576px' : '359px',
-                  };
-                  fontStyle = {
-                    color: '#b9ff46',
-                  };
-                }
 
-                if (!card.sentence.includes('!')) {
-                  card.sentence += '!';
+                  if (!card.sentence.includes('!')) {
+                    card.sentence += '!';
+                  }
+                  return (
+                    <>
+                      <div key={idx} style={cardStyle}>
+                        <ContentFlexWrapper>
+                          <ContentsWrapper>
+                            <InnerContents style={fontStyle} dangerouslySetInnerHTML={{ __html: card.sentence }} />
+                          </ContentsWrapper>
+                        </ContentFlexWrapper>
+                      </div>
+                    </>
+                  );
                 }
-                return (
-                  <>
-                    <div key={idx} style={cardStyle}>
-                      <ContentFlexWrapper>
-                        <ContentsWrapper>
-                          <InnerContents style={fontStyle} dangerouslySetInnerHTML={{ __html: card.sentence }} />
-                        </ContentsWrapper>
-                      </ContentFlexWrapper>
-                    </div>
-                  </>
-                );
               })}
             </StyledSlider>
             <ButtonWrapper>
