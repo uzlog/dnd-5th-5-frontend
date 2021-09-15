@@ -54,6 +54,8 @@ const Wrapper = styled.div`
 const FriendWrapper = styled.div`
   background-color: #121212;
   height: 10vh;
+  z-index: 1;
+  position: absolute;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -188,7 +190,7 @@ const ContentsWrapper = styled.div`
   font-size: min(calc((5.6vh + 4vw) / 2), 57.6px);
   font-weight: 300;
   @media screen and (max-width: 1023px) {
-    width: 36rem;
+    width: 308px;
     line-height: 1.6;
     letter-spacing: -0.5px;
     font-size: 3.6rem;
