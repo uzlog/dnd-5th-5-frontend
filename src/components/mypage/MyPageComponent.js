@@ -205,6 +205,7 @@ const InnerContents = styled.div`
   font-family: 'spoqaHanSansLight';
   display: table-cell;
   vertical-align: middle;
+  word-break: keep-all;
   height: ${(props) => props.height || ''};
   text-align: left;
   height: 85vh;
@@ -333,9 +334,11 @@ const StyledLink = styled(Link)`
 `;
 
 const CloseBtnWrapper = styled.div`
+  position: absolute;
   display: flex;
   justify-content: flex-end;
-  margin: 24px 24px 0px 0px;
+  width: 308px;
+  margin: 24px;
   img {
     cursor: pointer;
   }
