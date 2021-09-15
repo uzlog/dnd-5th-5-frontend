@@ -21,7 +21,7 @@ import {
   StyledLink,
 } from './style';
 import googleIcon from '@assets/img/auth/google.svg';
-import kakaoIcon from '@assets/img/auth/kakao.png';
+import kakaoIcon from '@assets/img/auth/kakao.svg';
 import closeBtn from '@assets/img/auth/closeBtn.svg';
 import { withRouter } from 'react-router-dom';
 
