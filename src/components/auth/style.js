@@ -84,7 +84,6 @@ export const LoginBtn = styled.img`
   width: 30px;
   height: 30px;
   background: ${(props) => props.color};
-  border-radius: 50%;
 `;
 
 export const StyledInfoParagraph = styled.p`
