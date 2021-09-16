@@ -346,14 +346,22 @@ const CloseBtnWrapper = styled.div`
   position: absolute;
   display: flex;
   justify-content: flex-end;
-  width: 308px;
-  margin: 24px;
+  padding-top: 24px;
+  span {
+    margin: 24px;
+    display: flex;
+    justify-content: right;
+    width: 308px;
+  }
   img {
     cursor: pointer;
   }
-  @media screen and (min-width: 1023px) {
-    max-width: 500px;
-    width: 35vw;
+  @media screen and (min-width: 1024px) {
+    span {
+      margin: 24px 2.5vw;
+      max-width: 500px;
+      width: 35vw;
+    }
   }
 `;
 
@@ -490,6 +498,7 @@ const MyPageComponent = ({ history, state, apiCall }) => {
         width: viewSize > 1023 ? '40vw' : '360px',
         height: '100vh',
         color: fontColor,
+        overflow: 'hidden',
         display: 'table',
         lineHeight: '1.6',
         letterSpacing: '-0.5px',
@@ -503,6 +512,7 @@ const MyPageComponent = ({ history, state, apiCall }) => {
       setBigAlaCardStyle({
         width: viewSize > 1023 ? '40vw' : '360px',
         height: '100vh',
+        overflow: 'hidden',
         backgroundColor: '#171717',
         color: '#b9ff46',
         lineHeight: '1.6',
@@ -817,13 +827,15 @@ const MyPageComponent = ({ history, state, apiCall }) => {
             <ModalOverlay onClick={() => closeModal()} />
             <ModalContents style={bigAlaCardStyle}>
               <CloseBtnWrapper>
-                <img
-                  src={bigCardCloseBtn}
-                  width={viewSize > 1023 ? '38.4px' : '24px'}
-                  height={viewSize > 1023 ? '38.4px' : '24px'}
-                  alt="닫기 버튼"
-                  onClick={closeModal}
-                />
+                <span>
+                  <img
+                    src={bigCardCloseBtn}
+                    width={viewSize > 1023 ? '38.4px' : '24px'}
+                    height={viewSize > 1023 ? '38.4px' : '24px'}
+                    alt="닫기 버튼"
+                    onClick={closeModal}
+                  />
+                </span>
               </CloseBtnWrapper>
               <ContentFlexWrapper>
                 <ContentsWrapper>
