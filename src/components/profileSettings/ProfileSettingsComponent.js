@@ -157,17 +157,21 @@ const ProfileSettingsComponent = ({ state, history }) => {
       <HeaderContainer />
       <Wrapper>
         <MainWrapper>
-          <ProfileImg
-            type="file"
-            accept="image/png, image/jpeg, image/jpg"
-            onChange={onChangeFile}
-            style={{
-              backgroundImage: `url(${myInfo.imgUrl})`,
-              backgroundRepeat: 'no-repeat',
-              backgroundPosition: 'center',
-              backgroundSize: 'cover',
-            }}
-          />
+          <div>
+            <label for="imgInput"></label>
+            <ProfileImg
+              id="imgInput"
+              type="file"
+              accept="image/png, image/jpeg, image/jpg"
+              onChange={onChangeFile}
+              style={{
+                backgroundImage: `url(${myInfo.imgUrl})`,
+                backgroundRepeat: 'no-repeat',
+                backgroundPosition: 'center',
+                backgroundSize: 'cover',
+              }}
+            />
+          </div>
           <HideBox></HideBox>
           <ContentWrapper>
             <EmailWrapper>

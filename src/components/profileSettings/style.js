@@ -53,15 +53,21 @@ export const MainWrapper = styled.div`
 
 export const ProfileImg = styled.input`
   cursor: pointer;
-  position: static;
   display: flex;
   margin: 0 auto;
   font-size: 0;
-  width: 192px;
-  height: 192px;
+  width: 0px;
+  height: 0px;
+  padding-top: 190px;
+  padding-left: 190px;
   margin-top: 45px;
+  bottom: 110px;
   overflow: hidden;
   border-radius: 50%;
+  @media screen and (max-width: 1023px) {
+    padding-top: 120px;
+    padding-left: 120px;
+  }
 `;
 export const HideBox = styled.div`
   min-height: 20px;
@@ -81,7 +87,7 @@ export const ToggleButton = styled.div`
   &.left {
     background-color: white;
   }
-  @media screen and (max-width: 1023px) {
+  @media screen and (max-width: 1223px) {
     width: 48px;
     height: 26px;
   }
