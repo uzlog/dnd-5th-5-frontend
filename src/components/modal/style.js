@@ -56,8 +56,6 @@ export const ModalContents = styled.div`
 
 export const AvatarImg = styled.img`
   width: 64px;
-  /* max-height: 64px; */
-  /* height: 6.25vh; */
   height: 64px;
   border-radius: 50%;
   border: 1px solid #d2d6dc;
@@ -264,6 +262,7 @@ export const EmptyWrapper = styled.div`
   font-size: min(calc((1.7vw + 2.5vh) / 2), 25.6px);
   @media screen and (max-width: 1023px) {
     font-size: 16px;
+    height: 50vh;
   }
 `;
 
