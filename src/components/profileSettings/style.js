@@ -139,16 +139,30 @@ export const EmailWrapper = styled.div`
   }
 `;
 
-export const EmailImg = styled.img`
-  background-color: white;
+export const EmailImgWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 4px;
+  background-color: ${(props) => props.bg};
   width: 20px;
   height: 20px;
   margin-right: 8px;
+
   @media screen and (min-width: 1023px) {
     border-radius: 5px;
-    width: 30px;
-    height: 30px;
+    width: 32px;
+    height: 32px;
+  }
+`;
+
+export const EmailImg = styled.img`
+  background-color: ${(props) => props.bg};
+  width: 15px;
+  height: 15px;
+  @media screen and (min-width: 1023px) {
+    width: 23px;
+    height: 23px;
   }
 `;
 export const IsOpen = styled.span`
@@ -182,6 +196,7 @@ export const EmailContentWrapper = styled.div`
   display: flex;
   align-items: center;
 `;
+
 export const InputBoxWrapper = styled.div`
   flex-direction: row;
 `;
