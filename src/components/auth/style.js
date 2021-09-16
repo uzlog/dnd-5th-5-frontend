@@ -9,27 +9,34 @@ export const Wrapper = styled.div`
 `;
 
 export const ExitButtonWrapper = styled.div`
+  width: 770px;
   display: flex;
   flex-direction: row-reverse;
-  margin-right: 15px;
-  margin-top: 15px;
+  margin: 0 auto;
+  margin-top: 20px;
+  @media screen and (max-width: 1023px) {
+    width: 330px;
+  }
 `;
 
 export const ExitButton = styled.button`
-  width: 24px;
-  height: 24px;
+  width: 27px;
+  height: 27px;
   background: transparent;
   border: none;
   outline: none;
   cursor: pointer;
   font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   img {
     width: 24px;
     height: 24px;
   }
 `;
+
 export const Header = styled.div`
-  background: 'blue';
   height: 56px;
   font-size: ${(props) => (props.nickname ? '36px' : '40px')};
   font-family: 'spoqaHanSansBold';
@@ -81,8 +88,8 @@ export const LoginBtnWrapper = styled.div`
 
 export const LoginBtn = styled.img`
   cursor: pointer;
-  width: 30px;
-  height: 30px;
+  width: 25px;
+  height: 25px;
   background: ${(props) => props.color};
 `;
 
