@@ -350,10 +350,12 @@ const CloseBtnWrapper = styled.div`
   span {
     margin: 24px;
     display: flex;
-    justify-content: right;
+    text-align: right;
+    justify-content: flex-end;
     width: 308px;
   }
   img {
+    display: inline;
     cursor: pointer;
   }
   @media screen and (min-width: 1024px) {

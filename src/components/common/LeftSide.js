@@ -107,7 +107,7 @@ const LeftSide = () => {
               <AlaImage src={sendAla} alt="알라" />
             </div>
             <StyledButton>
-              <Link to={{ pathname: 'https://pm8nnftoca1.typeform.com/to/YKRgB84m' }} target="_blank">
+              <Link to={{ pathname: 'https://forms.gle/spUhPiV8tdQ7iWwP9' }} target="_blank">
                 <img src={sendBtn} alt="전송 버튼" />
               </Link>
             </StyledButton>
