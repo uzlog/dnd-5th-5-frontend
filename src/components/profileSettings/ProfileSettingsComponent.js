@@ -13,6 +13,7 @@ import {
   EmailWrapper,
   EachTitle,
   EmailImg,
+  EmailImgWrapper,
   EmailContentWrapper,
   InputBoxWrapper,
   InputBox,
@@ -44,6 +45,7 @@ const ProfileSettingsComponent = ({ state, history }) => {
   const [isNicknameBreakeRoles, setIsNicknameBreakeRoles] = useState(false);
   const [statusMessageOverCount, setStatusMessageOverCount] = useState(false);
   const [nickname, setNickname] = useState(sessionStorage.getItem('nickname'));
+  const [isKakao] = useState(myInfo.provider === 'KAKAO');
   const [deleteModal, setDeleteModal] = useState(false);
   const [showToast, setShowToast] = useState(false);
   const viewSize = useResponsive();
@@ -178,7 +180,9 @@ const ProfileSettingsComponent = ({ state, history }) => {
               <EachTitle>계정</EachTitle>
               <br />
               <EmailContentWrapper>
-                <EmailImg src={myInfo.provider === 'KAKAO' ? kakaoIcon : googleIcon} />
+                <EmailImgWrapper bg={isKakao ? '#fee500' : 'white'}>
+                  <EmailImg src={isKakao ? kakaoIcon : googleIcon} />
+                </EmailImgWrapper>
                 <span>{myInfo.email}</span>
               </EmailContentWrapper>
             </EmailWrapper>
